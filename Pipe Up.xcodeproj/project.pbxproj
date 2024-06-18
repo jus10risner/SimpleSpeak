@@ -11,6 +11,10 @@
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
+		9ED40D402C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */; };
+		9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D412C21D80D008C7E49 /* DataController.swift */; };
+		9ED40D442C21D857008C7E49 /* Phrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* Phrase+helper.swift */; };
+		9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D452C21DA11008C7E49 /* AppearanceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E4B46B32A0987B30076367F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E4B46B62A0987B30076367F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9ED40D3F2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PipeUpDataModel.xcdatamodel; sourceTree = "<group>"; };
+		9ED40D412C21D80D008C7E49 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		9ED40D432C21D857008C7E49 /* Phrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Phrase+helper.swift"; sourceTree = "<group>"; };
+		9ED40D452C21DA11008C7E49 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 			children = (
 				9E4B46AF2A0987B20076367F /* PipeUpApp.swift */,
 				9E4B46B12A0987B20076367F /* ContentView.swift */,
+				9ED40D432C21D857008C7E49 /* Phrase+helper.swift */,
+				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
+				9ED40D412C21D80D008C7E49 /* DataController.swift */,
+				9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
 				9E4B46B52A0987B30076367F /* Preview Content */,
 			);
@@ -137,8 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED40D402C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld in Sources */,
+				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
+				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */,
+				9ED40D442C21D857008C7E49 /* Phrase+helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +361,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9ED40D3F2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodel */,
+			);
+			currentVersion = 9ED40D3F2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodel */;
+			name = PipeUpDataModel.xcdatamodeld;
+			path = "/Users/jrisner/Developer/Personal Projects/Pipe Up/Pipe Up/PipeUpDataModel.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9E4B46A42A0987B20076367F /* Project object */;
 }

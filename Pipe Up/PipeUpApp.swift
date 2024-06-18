@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct QuickSpeakApp: App {
+    @Environment(\.scenePhase) var scenePhase
+    let dataController = DataController.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+        }
+        .onChange(of: scenePhase) { _ in
+            dataController.save()
         }
     }
 }
