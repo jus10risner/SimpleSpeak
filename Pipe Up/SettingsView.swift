@@ -18,7 +18,7 @@ struct SettingsView: View {
             List {
                 Section {
                     Toggle(isOn: $vm.useDuringCalls, label: {
-                        Label("Use During Calls", systemImage: "phone.badge.waveform.fill")
+                        Label("Use During Calls", systemImage: "phone.fill")
                     })
                 } footer: {
                     Text("This speaks your typed phrases aloud to the other party on a phone call.")
