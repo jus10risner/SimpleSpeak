@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var vm = ViewModel()
     @State private var selectedTab = 1
     
     var body: some View {
         TabView(selection: $selectedTab)  {
             CommunicationView()
-                .tabItem { Label("Communicate", systemImage: "person.wave.2") }
+                .tabItem { Label("Speak", systemImage: "person.wave.2") }
                 .tag(1)
             
             SavedPhrasesView()
@@ -24,6 +25,8 @@ struct ContentView: View {
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(3)
         }
+        .tint(Color.cyan)
+        .environmentObject(vm)
     }
 }
 
