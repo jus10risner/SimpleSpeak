@@ -16,6 +16,7 @@ struct QuickSpeakApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .task { AppearanceController.shared.setAppearance() }
         }
         .onChange(of: scenePhase) { _ in
             dataController.save()

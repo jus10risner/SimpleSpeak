@@ -8,11 +8,11 @@
 import SwiftUI
 
 class AppearanceController {
+    @ObservedObject var vm = ViewModel()
     static let shared = AppearanceController()
-    var appAppearance: AppearanceOptions = .automatic
     
     var appearance: UIUserInterfaceStyle {
-        switch appAppearance {
+        switch vm.appAppearance {
         case .automatic:
             return .unspecified
         case .light:

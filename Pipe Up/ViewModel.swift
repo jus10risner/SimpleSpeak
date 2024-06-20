@@ -11,6 +11,7 @@ import SwiftUI
 class ViewModel: ObservableObject {
     @AppStorage("useDuringCalls") var useDuringCalls = true
     @AppStorage("usePersonalVoice") var usePersonalVoice = false
+    @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic
     
     @Published var voiceToUse = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
     

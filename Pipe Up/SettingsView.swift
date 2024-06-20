@@ -47,6 +47,20 @@ struct SettingsView: View {
                         Text("Have the app speak with your voice, using Apple's Personal Voice feature.")
                     }
                 }
+                
+                Section {
+                    Picker(selection: $vm.appAppearance, content: {
+                        ForEach(AppearanceOptions.allCases, id: \.self) {
+                            Text($0.rawValue.capitalized)
+                        }
+                    }, label: {
+                        Label("App Theme", systemImage: "circle.lefthalf.filled")
+                    })
+                    .pickerStyle(.navigationLink)
+                    .onChange(of: vm.appAppearance) { _ in
+                        AppearanceController.shared.setAppearance()
+                    }
+                }
             }
             .navigationTitle("Settings")
         }
@@ -73,4 +87,5 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .environmentObject(ViewModel())
 }
