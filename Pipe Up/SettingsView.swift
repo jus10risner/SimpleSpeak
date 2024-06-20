@@ -9,53 +9,64 @@ import AVFoundation
 import SwiftUI
 
 struct SettingsView: View {
-    let languageCode = AVSpeechSynthesisVoice.currentLanguageCode()
-    @State private var voiceToUse = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
-    @State private var usePersonalVoice = false
+    @EnvironmentObject var vm: ViewModel
+    @State private var selectedPersonalVoiceIdentifier: String?
+    @State private var selectedPersonalVoice: AVSpeechSynthesisVoice?
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    if #available(iOS 17, *) {
-                        Toggle(isOn: $usePersonalVoice, label: {
-                            Label("Personal Voice", systemImage: "waveform")
+                    Toggle(isOn: $vm.useDuringCalls, label: {
+                        Label("Use During Calls", systemImage: "phone.badge.waveform.fill")
+                    })
+                } footer: {
+                    Text("This speaks your typed phrases aloud to the other party on a phone call.")
+                }
+                
+                if #available(iOS 17, *) {
+                    Section {
+                        Toggle(isOn: $vm.usePersonalVoice, label: {
+                            Label("Use Personal Voice", systemImage: "waveform")
                         })
-                        .onChange(of: usePersonalVoice) { _ in
-                            assignVoice()
+                        
+                        // TODO: Handle the case where multiple Personal Voices exist
+//                        if personalVoices.count > 1 {
+//                            let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
+//                            
+//                            Picker("Select a Personal Voice", selection: $selectedPersonalVoice) {
+//                                ForEach(personalVoices, id: \.self) {
+//                                    Text($0.name)
+//                                }
+//                            }
+//                        }
+                        .onChange(of: vm.usePersonalVoice) { _ in
+                            requestPersonalVoiceAuthorization()
                         }
+                    } footer: {
+                        Text("Have the app speak with your voice, using Apple's Personal Voice feature.")
                     }
+                }
+            }
+            .navigationTitle("Settings")
+        }
+        .onAppear {
+            if #available(iOS 17.0, *) {
+                if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .authorized {
+                    vm.usePersonalVoice = false
                 }
             }
         }
     }
     
-    // Set the voice to use for text-to-speech
-    func assignVoice() {
-        if #available(iOS 17, *) {
-            AVSpeechSynthesizer.requestPersonalVoiceAuthorization { status in
-                // check `status` to see if you're authorized and then refetch your voices
-                if status == .authorized {
-                    print("I'm authorized to use Personal Voice!")
-                    // Set in case none of the voices are Personal Voice
-                    voiceToUse = AVSpeechSynthesisVoice(language: languageCode)
-                    
-                    for voice in AVSpeechSynthesisVoice.speechVoices() {
-                        if voice.voiceTraits == .isPersonalVoice {
-                            print("Personal Voice: \(voice.name)")
-                            voiceToUse = AVSpeechSynthesisVoice(identifier: voice.identifier)
-                        }
-                    }
-                } else {
-                    print("Personal Voice not authorized")
-                    voiceToUse = AVSpeechSynthesisVoice(language: languageCode)
-                }
-                
-                print(status)
+    @available(iOS 17, *)
+    func requestPersonalVoiceAuthorization() {
+        AVSpeechSynthesizer.requestPersonalVoiceAuthorization { status in
+            if status == .authorized {
+                print("I'm authorized to use Personal Voice!")
+            } else {
+                print("Personal Voice not authorized")
             }
-        } else {
-            print("This device is not compatible with Personal Voice")
-            voiceToUse = AVSpeechSynthesisVoice(language: languageCode)
         }
     }
 }
