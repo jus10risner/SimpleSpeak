@@ -13,7 +13,7 @@ struct CommunicationView: View {
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<Phrase>
     
-    let synthesizer = AVSpeechSynthesizer()
+//    let synthesizer = AVSpeechSynthesizer()
     
     @State private var text = ""
     @State private var recentPhrases: [String] = []
