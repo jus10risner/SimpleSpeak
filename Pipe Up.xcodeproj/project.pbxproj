@@ -10,7 +10,6 @@
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E195FDB2C2611A300B37618 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FDA2C2611A300B37618 /* WebView.swift */; };
 		9E195FDD2C29D23900B37618 /* RecentPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */; };
-		9E195FDF2C29D98F00B37618 /* RemoveBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FDE2C29D98F00B37618 /* RemoveBackgroundColor.swift */; };
 		9E195FE12C2CB92300B37618 /* AddSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */; };
 		9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* PipeUpApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
@@ -30,7 +29,6 @@
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9E195FDA2C2611A300B37618 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentPhrase+helper.swift"; sourceTree = "<group>"; };
-		9E195FDE2C29D98F00B37618 /* RemoveBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBackgroundColor.swift; sourceTree = "<group>"; };
 		9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavedPhraseView.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* Pipe Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pipe Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* PipeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeUpApp.swift; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9E195FDA2C2611A300B37618 /* WebView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
-				9E195FDE2C29D98F00B37618 /* RemoveBackgroundColor.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
 				9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
@@ -190,7 +187,6 @@
 				9E195FE12C2CB92300B37618 /* AddSavedPhraseView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */,
 				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,
-				9E195FDF2C29D98F00B37618 /* RemoveBackgroundColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
