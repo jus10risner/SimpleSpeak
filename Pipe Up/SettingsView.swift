@@ -78,14 +78,20 @@ struct SettingsView: View {
 //                }
                 
                 Section {
-                    Picker(selection: $vm.appAppearance, content: {
-                        ForEach(AppearanceOptions.allCases, id: \.self) {
-                            Text($0.rawValue.capitalized)
+                    NavigationLink {
+                        Form {
+                            Picker("Theme Selection", selection: $vm.appAppearance) {
+                                ForEach(AppearanceOptions.allCases, id: \.self) {
+                                    Text($0.rawValue.capitalized)
+                                }
+                            }
+                            .labelsHidden()
+                            .pickerStyle(.inline)
                         }
-                    }, label: {
+                        .navigationBarTitleDisplayMode(.inline)
+                    } label: {
                         Label("App Theme", systemImage: "circle.lefthalf.filled")
-                    })
-                    .pickerStyle(.navigationLink)
+                    }
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
                     }
