@@ -10,16 +10,18 @@ import SwiftUI
 struct SavedPhrasesView: View {
     @EnvironmentObject var vm: ViewModel
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<Phrase>
+    @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<SavedPhrase>
+    
+    @State private var showingTextEntry = false
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(savedPhrases) { phrase in
                     Button {
-                        vm.speak(phrase.content)
+                        vm.speak(phrase.text)
                     } label: {
-                        Text(phrase.content)
+                        Text(phrase.text)
                             .foregroundStyle(Color.primary)
                     }
                     .swipeActions(edge: .trailing) {
@@ -36,10 +38,26 @@ struct SavedPhrasesView: View {
             }
             .listRowSpacing(5)
             .navigationTitle("Saved Phrases")
+            .scrollContentBackground(.hidden)
+            .background(Color(.systemGroupedBackground))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingTextEntry = true
+                    } label: {
+                        Label("Add New Phrase", systemImage: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $showingTextEntry, content: {
+                AddSavedPhraseView()
+                    .presentationDetents([.medium])
+            })
         }
     }
 }
 
 #Preview {
     SavedPhrasesView()
+        .environmentObject(ViewModel())
 }
