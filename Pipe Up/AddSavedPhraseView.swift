@@ -8,8 +8,37 @@
 import SwiftUI
 
 struct AddSavedPhraseView: View {
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var context
+    @State private var text = ""
+    @FocusState var isInputActive: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("Type your phrase here...", text: $text, axis: .vertical)
+                        .lineLimit(5)
+                        .focused($isInputActive)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add Phrase") {
+                        let newSavedPhrase = SavedPhrase(context: context)
+                        newSavedPhrase.text = text
+                        
+                        try? context.save()
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
+        }
     }
 }
 
