@@ -24,8 +24,9 @@ struct ContentView: View {
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(3)
+            
         }
-        .tint(Color.cyan)
+        .tint(Color.accentColor)
         .environmentObject(vm)
     }
 }
