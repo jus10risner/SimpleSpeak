@@ -20,7 +20,7 @@ struct CommunicationView: View {
     var body: some View {
         NavigationStack {
             recentPhrasesList
-                .modifier(RemoveBackgroundColor())
+                .scrollContentBackground(.hidden)
                 .background(Color(.systemGroupedBackground))
                 .navigationTitle("Recent Phrases")
                 .listRowSpacing(5)
