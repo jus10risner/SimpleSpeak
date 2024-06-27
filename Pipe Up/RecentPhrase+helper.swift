@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+extension RecentPhrase {
+    var text: String {
+        get { text_ ?? "" }
+        set { text_ = newValue }
+    }
+    
+    var timeStamp: Date {
+        get { timeStamp_ ?? Date() }
+        set { timeStamp_ = newValue }
+    }
+}
