@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
+		9E195FDB2C2611A300B37618 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FDA2C2611A300B37618 /* WebView.swift */; };
+		9E195FDD2C29D23900B37618 /* RecentPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */; };
+		9E195FDF2C29D98F00B37618 /* RemoveBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FDE2C29D98F00B37618 /* RemoveBackgroundColor.swift */; };
+		9E195FE12C2CB92300B37618 /* AddSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */; };
 		9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* PipeUpApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
@@ -17,11 +22,16 @@
 		9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8802C24BB050012D3CC /* ViewModel.swift */; };
 		9ED40D402C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */; };
 		9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D412C21D80D008C7E49 /* DataController.swift */; };
-		9ED40D442C21D857008C7E49 /* Phrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* Phrase+helper.swift */; };
+		9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */; };
 		9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D452C21DA11008C7E49 /* AppearanceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		9E195FDA2C2611A300B37618 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecentPhrase+helper.swift"; sourceTree = "<group>"; };
+		9E195FDE2C29D98F00B37618 /* RemoveBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBackgroundColor.swift; sourceTree = "<group>"; };
+		9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavedPhraseView.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* Pipe Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pipe Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* PipeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeUpApp.swift; sourceTree = "<group>"; };
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,7 +43,7 @@
 		9EAEE8802C24BB050012D3CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		9ED40D3F2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PipeUpDataModel.xcdatamodel; sourceTree = "<group>"; };
 		9ED40D412C21D80D008C7E49 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		9ED40D432C21D857008C7E49 /* Phrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Phrase+helper.swift"; sourceTree = "<group>"; };
+		9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedPhrase+helper.swift"; sourceTree = "<group>"; };
 		9ED40D452C21DA11008C7E49 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,10 +81,15 @@
 				9E4B46B12A0987B20076367F /* ContentView.swift */,
 				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
 				9EAEE87A2C2319900012D3CC /* SavedPhrasesView.swift */,
+				9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */,
 				9EAEE8782C2319380012D3CC /* SettingsView.swift */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
-				9ED40D432C21D857008C7E49 /* Phrase+helper.swift */,
+				9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */,
+				9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */,
+				9E195FD82C260AAC00B37618 /* SafariView.swift */,
+				9E195FDA2C2611A300B37618 /* WebView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
+				9E195FDE2C29D98F00B37618 /* RemoveBackgroundColor.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
 				9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
@@ -162,15 +177,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
+				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
+				9E195FDD2C29D23900B37618 /* RecentPhrase+helper.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
 				9ED40D402C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld in Sources */,
 				9EAEE87B2C2319900012D3CC /* SavedPhrasesView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
 				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
+				9E195FDB2C2611A300B37618 /* WebView.swift in Sources */,
+				9E195FE12C2CB92300B37618 /* AddSavedPhraseView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */,
-				9ED40D442C21D857008C7E49 /* Phrase+helper.swift in Sources */,
+				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,
+				9E195FDF2C29D98F00B37618 /* RemoveBackgroundColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
