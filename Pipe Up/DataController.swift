@@ -21,8 +21,8 @@ class DataController: ObservableObject {
         let viewContext = controller.container.viewContext
         
         // Create example phrase.
-        let phrase = Phrase(context: viewContext)
-        phrase.content = "Hello, my name is John"
+        let phrase = SavedPhrase(context: viewContext)
+        phrase.text = "Hello, my name is John"
 
         return controller
     }()
