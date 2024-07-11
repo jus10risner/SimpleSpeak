@@ -39,7 +39,7 @@ struct AddSavedPhraseView: View {
                 Section {
                     Picker("Category", selection: $selectedCategory) {
                         Text("General").tag(nil as PhraseCategory?)
-                        Divider()
+                        
                         ForEach(categories, id: \.self) {
                             Text($0.title).tag(Optional($0))
                         }
