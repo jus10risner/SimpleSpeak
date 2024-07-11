@@ -50,19 +50,19 @@ struct SavedPhrasesView: View {
     }
     
     // List of categories, with navigation links to their respective phrases
+    // ZStacks and clear colors were added, due to jumpy navigation behavior on iOS 16
     private var categoryList: some View {
         List {
-            if categories.count == 0 {
-                SavedPhrasesListView(category: nil)
-            } else {
+            ZStack {
+                Color.clear
+                NavigationLink("General") {
+                    SavedPhrasesListView(category: nil)
+                }
+            }
+            
+            ForEach(categories) { category in
                 ZStack {
                     Color.clear
-                    NavigationLink("General") {
-                        SavedPhrasesListView(category: nil)
-                    }
-                }
-                
-                ForEach(categories) { category in
                     NavigationLink {
                         SavedPhrasesListView(category: category)
                     } label: {
@@ -71,6 +71,7 @@ struct SavedPhrasesView: View {
                 }
             }
         }
+        .listRowSpacing(vm.listRowSpacing)
     }
 }
 
