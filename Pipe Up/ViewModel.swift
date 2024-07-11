@@ -9,9 +9,11 @@ import AVFoundation
 import SwiftUI
 
 class ViewModel: NSObject, ObservableObject {
-    let synthesizer = AVSpeechSynthesizer()
     @Published var voiceToUse = AVSpeechSynthesisVoice(language: Locale.preferredLanguages[0])
     @Published var isSpeaking = false
+    
+    let cornerRadius: CGFloat = 15
+    let synthesizer = AVSpeechSynthesizer()
     
     @AppStorage("useDuringCalls") var useDuringCalls = true {
         willSet { objectWillChange.send() }
