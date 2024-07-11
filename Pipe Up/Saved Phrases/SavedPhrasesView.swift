@@ -19,7 +19,7 @@ struct SavedPhrasesView: View {
         NavigationStack {
             categoryList
                 .navigationTitle("Saved Phrases")
-                .listRowSpacing(5)
+                .listRowSpacing(vm.listRowSpacing)
                 .scrollContentBackground(.hidden)
                 .background(Color(.systemGroupedBackground))
                 .scrollDismissesKeyboard(.interactively)

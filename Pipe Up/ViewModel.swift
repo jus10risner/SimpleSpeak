@@ -13,6 +13,7 @@ class ViewModel: NSObject, ObservableObject {
     @Published var isSpeaking = false
     
     let cornerRadius: CGFloat = 15
+    let listRowSpacing: CGFloat = 5
     let synthesizer = AVSpeechSynthesizer()
     
     @AppStorage("useDuringCalls") var useDuringCalls = true {

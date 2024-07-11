@@ -59,7 +59,7 @@ struct RecentPhrasesListView: View {
             }
             .navigationTitle("Recent Phrases")
             .navigationBarTitleDisplayMode(.inline)
-            .listRowSpacing(5)
+            .listRowSpacing(vm.listRowSpacing)
             .overlay {
                 if recentPhrases.isEmpty {
                     ZStack {

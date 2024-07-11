@@ -38,6 +38,7 @@ struct SavedPhrasesListView: View {
                 }
             }
         }
+        .listRowSpacing(vm.listRowSpacing)
         .navigationTitle(category?.title ?? "General")
         .navigationBarTitleDisplayMode(.inline)
     }
