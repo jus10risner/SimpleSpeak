@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import CoreData
 import SwiftUI
 
 class ViewModel: NSObject, ObservableObject {
@@ -52,6 +53,18 @@ class ViewModel: NSObject, ObservableObject {
     // Stop speaking
     func stopSpeaking() {
         self.synthesizer.stopSpeaking(at: .immediate)
+    }
+    
+    // Removes the phrase at the given offsets
+    func deletePhrase<T: NSManagedObject>(at offsets: IndexSet, from fetchedResults: FetchedResults<T>) {
+        let context = DataController.shared.container.viewContext
+        
+        for index in offsets {
+            let phrase = fetchedResults[index]
+            context.delete(phrase)
+            
+            try? context.save()
+        }
     }
     
     // Request to use Personal Voice, if iOS 17 is available

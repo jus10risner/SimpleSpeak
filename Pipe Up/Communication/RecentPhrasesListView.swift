@@ -5,6 +5,7 @@
 //  Created by Justin Risner on 7/1/24.
 //
 
+import CoreData
 import SwiftUI
 
 struct RecentPhrasesListView: View {
@@ -47,16 +48,8 @@ struct RecentPhrasesListView: View {
                     .padding(.vertical, 5)
                 }
                 .onDelete { indexSet in
-                    removePhrases(at: indexSet)
-                    try? context.save()
+                    vm.deletePhrase(at: indexSet, from: recentPhrases)
                 }
-//                .swipeActions(edge: .leading) {
-//                    Button {
-//                        // TODO: Add to saved phrases
-//                    } label: {
-//                        Label("Save Phrase", systemImage: "bookmark.fill")
-//                    }
-//                }
             }
             .navigationTitle("Recent Phrases")
             .navigationBarTitleDisplayMode(.inline)
@@ -131,4 +124,5 @@ struct RecentPhrasesListView: View {
 
 #Preview {
     RecentPhrasesListView()
+        .environmentObject(ViewModel())
 }
