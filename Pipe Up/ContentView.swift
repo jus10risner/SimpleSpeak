@@ -26,7 +26,7 @@ struct ContentView: View {
                 .tag(3)
             
         }
-        .tint(Color.mint)
+        .tint(Color(.defaultAccent))
         .environmentObject(vm)
     }
 }
