@@ -10,11 +10,12 @@ import SwiftUI
 struct RecentPhrasesListView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-    @Environment(\.editMode) var editMode
     @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<SavedPhrase>
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \RecentPhrase.timeStamp_, ascending: false)]) var recentPhrases: FetchedResults<RecentPhrase>
+    
+    @State private var editMode: EditMode = EditMode.inactive
     
     var body: some View {
         NavigationStack {
@@ -87,7 +88,7 @@ struct RecentPhrasesListView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    if editMode?.wrappedValue == .active {
+                    if editMode == .active {
                         Button("Clear All") {
                             for item in recentPhrases {
                                 context.delete(item)
@@ -107,17 +108,24 @@ struct RecentPhrasesListView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    EditButton()
+                    editButton
                 }
             }
         }
     }
     
-    func removePhrases(at offsets: IndexSet) {
-        for index in offsets {
-            let phrase = recentPhrases[index]
-            context.delete(phrase)
+    // Button that toggles EditMode
+    private var editButton: some View {
+        Button {
+            if editMode == .inactive {
+                editMode = .active
+            } else {
+                editMode = .inactive
+            }
+        } label: {
+            Text("Edit")
         }
+        .environment(\.editMode, $editMode)
     }
 }
 
