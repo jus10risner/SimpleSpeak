@@ -12,6 +12,8 @@ struct CommunicationView: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     
+    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
+    
     @State private var isShowingRecentsList = false
     @State private var selectedCategory: PhraseCategory?
     
@@ -20,7 +22,9 @@ struct CommunicationView: View {
             VStack(spacing: 0) {
                 TextInputView()
                 
-                CategorySelectorView(selectedCategory: $selectedCategory)
+                if categories.count > 0 {
+                    CategorySelectorView(selectedCategory: $selectedCategory)
+                }
                 
                 PhraseCardView(selectedCategory: $selectedCategory)
             }
