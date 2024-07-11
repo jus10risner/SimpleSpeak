@@ -18,11 +18,9 @@ struct CommunicationView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                Group {
-                    TextInputView()
-                    
-                    CategorySelectorView(selectedCategory: $selectedCategory)
-                }
+                TextInputView()
+                
+                CategorySelectorView(selectedCategory: $selectedCategory)
                 
                 PhraseCardView(selectedCategory: $selectedCategory)
             }
