@@ -48,6 +48,11 @@ class ViewModel: NSObject, ObservableObject {
         synthesizer.speak(utterance)
     }
     
+    // Stop speaking
+    func stopSpeaking() {
+        self.synthesizer.stopSpeaking(at: .immediate)
+    }
+    
     // Request to use Personal Voice, if iOS 17 is available
     @available(iOS 17, *)
     func requestPersonalVoiceAuthorization() {
