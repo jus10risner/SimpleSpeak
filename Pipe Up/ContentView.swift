@@ -26,7 +26,7 @@ struct ContentView: View {
                 .tag(3)
             
         }
-        .tint(Color(.defaultAccent))
+        .tint(Color("AccentColor"))
         .environmentObject(vm)
     }
 }

@@ -112,8 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
-				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
 				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
+				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
 				9EBF2E822C2DC9C000AB5A95 /* TextInputView.swift */,
 				9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */,
 			);
