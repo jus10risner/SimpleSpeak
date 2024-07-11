@@ -15,6 +15,8 @@
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
 		9E6B9B952C32E9800075758B /* RecentPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */; };
+		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
+		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
 		9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8762C2313980012D3CC /* CommunicationView.swift */; };
 		9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8782C2319380012D3CC /* SettingsView.swift */; };
 		9EAEE87B2C2319900012D3CC /* SavedPhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE87A2C2319900012D3CC /* SavedPhrasesView.swift */; };
@@ -37,6 +39,8 @@
 		9E4B46B32A0987B30076367F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E4B46B62A0987B30076367F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPhrasesListView.swift; sourceTree = "<group>"; };
+		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
+		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
 		9EAEE8762C2313980012D3CC /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
 		9EAEE8782C2319380012D3CC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9EAEE87A2C2319900012D3CC /* SavedPhrasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesView.swift; sourceTree = "<group>"; };
@@ -81,16 +85,11 @@
 			children = (
 				9E4B46AF2A0987B20076367F /* PipeUpApp.swift */,
 				9E4B46B12A0987B20076367F /* ContentView.swift */,
-				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
-				9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */,
-				9EBF2E822C2DC9C000AB5A95 /* TextInputView.swift */,
-				9EAEE87A2C2319900012D3CC /* SavedPhrasesView.swift */,
-				9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */,
+				9EAE515D2C401F5400C6ADE1 /* Communication */,
+				9EAE515E2C401F6E00C6ADE1 /* Saved Phrases */,
 				9EAEE8782C2319380012D3CC /* SettingsView.swift */,
+				9EAE515F2C401F9300C6ADE1 /* Class Helpers */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
-				9EBF2E842C2F020500AB5A95 /* PhraseCategory+helper.swift */,
-				9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */,
-				9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
@@ -107,6 +106,37 @@
 				9E4B46B62A0987B30076367F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9EAE515D2C401F5400C6ADE1 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
+				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
+				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
+				9EBF2E822C2DC9C000AB5A95 /* TextInputView.swift */,
+				9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
+		9EAE515E2C401F6E00C6ADE1 /* Saved Phrases */ = {
+			isa = PBXGroup;
+			children = (
+				9EAEE87A2C2319900012D3CC /* SavedPhrasesView.swift */,
+				9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */,
+			);
+			path = "Saved Phrases";
+			sourceTree = "<group>";
+		};
+		9EAE515F2C401F9300C6ADE1 /* Class Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9EBF2E842C2F020500AB5A95 /* PhraseCategory+helper.swift */,
+				9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */,
+				9E195FDC2C29D23900B37618 /* RecentPhrase+helper.swift */,
+			);
+			path = "Class Helpers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +209,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */,
+				9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */,
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
 				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
