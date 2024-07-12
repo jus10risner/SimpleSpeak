@@ -48,15 +48,6 @@ struct AddSavedPhraseView: View {
                     Button("Add New Category") {
                         isAddingCategory = true
                     }
-                } footer: {
-                    // TODO: Remove this button, when everything is in place and working
-                    Button("Clear Categories") {
-                        for category in categories {
-                            context.delete(category)
-                            try? context.save()
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
                 }
             }
             .navigationTitle("Add New Phrase")

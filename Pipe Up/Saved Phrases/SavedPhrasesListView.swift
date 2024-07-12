@@ -37,10 +37,21 @@ struct SavedPhrasesListView: View {
                     .tint(Color.red)
                 }
             }
+            .onDelete(perform: { indexSet in
+                vm.deletePhrase(at: indexSet, from: savedPhrases)
+            })
+            
+            // TODO: Remove this, when finished testing
+            #if DEBUG
+            Button("Clear Phrases") {
+                for item in savedPhrases {
+                    context.delete(item)
+                    try? context.save()
+                }
+            }
+            #endif
         }
         .listRowSpacing(vm.listRowSpacing)
-        .navigationTitle(category?.title ?? "General")
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     // Returns the phrases in the selected category
