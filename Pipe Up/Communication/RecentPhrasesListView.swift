@@ -16,11 +16,12 @@ struct RecentPhrasesListView: View {
     @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<SavedPhrase>
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \RecentPhrase.timeStamp_, ascending: false)]) var recentPhrases: FetchedResults<RecentPhrase>
     
-    @State private var editMode: EditMode = EditMode.inactive
+    @State private var isEditing = false
+    @State private var selection = Set<RecentPhrase>()
     
     var body: some View {
         NavigationStack {
-            List {
+            List(selection: $selection) {
                 ForEach(recentPhrases, id: \.self) { phrase in
                     Button {
                         vm.speak(phrase.text)
@@ -46,9 +47,18 @@ struct RecentPhrasesListView: View {
                         }
                     }
                     .padding(.vertical, 5)
-                }
-                .onDelete { indexSet in
-                    vm.deletePhrase(at: indexSet, from: recentPhrases)
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            withAnimation(.easeInOut) {
+                                context.delete(phrase)
+                                try? context.save()
+                            }
+                        } label: {
+                            Label("Delete Phrase", systemImage: "trash")
+                                .labelStyle(.iconOnly)
+                        }
+                        .tint(Color.red)
+                    }
                 }
             }
             .navigationTitle("Recent Phrases")
@@ -81,44 +91,53 @@ struct RecentPhrasesListView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    if editMode == .active {
-                        Button("Clear All") {
-                            for item in recentPhrases {
-                                context.delete(item)
-                                try? context.save()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title2)
+                            .symbolRenderingMode(.hierarchical)
+                            .accessibilityLabel("Dismiss")
+                    }
+                }
+                
+                if !recentPhrases.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(isEditing ? "Done" : "Edit") {
+                            withAnimation {
+                                isEditing.toggle()
                             }
-                        }
-                    } else {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title2)
-                                .symbolRenderingMode(.hierarchical)
-                                .accessibilityLabel("Dismiss")
                         }
                     }
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
-                    editButton
+                if isEditing {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        if selection.isEmpty {
+                            Button("Clear All") {
+                                for item in recentPhrases {
+                                    context.delete(item)
+                                    try? context.save()
+                                }
+                            }
+                        } else {
+                            Button("Delete", role: .destructive) {
+                                withAnimation {
+                                    for item in selection {
+                                        context.delete(item)
+                                        try? context.save()
+                                    }
+                                }
+                                
+                                selection = Set()
+                            }
+                            .foregroundStyle(Color.red)
+                        }
+                    }
                 }
             }
+            .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
         }
-    }
-    
-    // Button that toggles EditMode
-    private var editButton: some View {
-        Button {
-            if editMode == .inactive {
-                editMode = .active
-            } else {
-                editMode = .inactive
-            }
-        } label: {
-            Text("Edit")
-        }
-        .environment(\.editMode, $editMode)
     }
 }
 
