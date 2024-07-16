@@ -14,11 +14,11 @@ struct AddSavedPhraseView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
     @State private var phraseText = ""
+    @State private var phraseLabel = ""
     @State private var isAddingCategory = false
     @State private var categoryTitle = ""
     @State private var selectedCategory: PhraseCategory?
     @State private var showingDuplicateCategoryAlert = false
-    
     
     @FocusState var isInputActive: Bool
     
@@ -34,10 +34,15 @@ struct AddSavedPhraseView: View {
                                 isInputActive = true
                             }
                         }
+                    
+                    TextField("Label (optional)", text: $phraseLabel)
+                } footer: {
+                    Text("Labels can help you identify longer phrases quickly.")
                 }
                 
                 Section {
                     Picker("Category", selection: $selectedCategory) {
+                        // Includes the "General" option (i.e. nil) in the Picker list
                         Text("General").tag(nil as PhraseCategory?)
                         
                         ForEach(categories, id: \.self) {
@@ -90,6 +95,9 @@ struct AddSavedPhraseView: View {
             newSavedPhrase.category = selectedCategory
         }
         newSavedPhrase.text = phraseText
+        if !phraseLabel.isEmpty {
+            newSavedPhrase.label = phraseLabel
+        }
         
         try? context.save()
     }

@@ -11,19 +11,38 @@ struct SavedPhrasesListView: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     
-    @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<SavedPhrase>
+    @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
     let category: PhraseCategory?
     
+    // Custom init, so I can pass in the optional "category" property as a predicate
+    init(category: PhraseCategory?) {
+        self.category = category
+        let predicate = NSPredicate(format: "category == %@", category ?? NSNull())
+        
+        self._savedPhrases = FetchRequest(entity: SavedPhrase.entity(), sortDescriptors: [
+            NSSortDescriptor(
+                keyPath: \SavedPhrase.displayOrder,
+                ascending: true),
+            NSSortDescriptor(
+                keyPath:\SavedPhrase.text_,
+                ascending: true )
+        ], predicate: predicate)
+    }
+    
     var body: some View {
         List {
-            ForEach(filteredPhrases) { phrase in
+            ForEach(savedPhrases) { phrase in
                 Button {
                     vm.speak(phrase.text)
                 } label: {
-                    Text(phrase.text)
-                        .foregroundStyle(Color.primary)
+                    if let label = phrase.label {
+                        Text("\(label)(\(phrase.displayOrder))")
+                    } else {
+                        Text("\(phrase.text)(\(phrase.displayOrder))")
+                    }
                 }
+                .foregroundStyle(Color.primary)
                 .swipeActions(edge: .trailing) {
                     Button {
                         withAnimation(.easeInOut) {
@@ -37,6 +56,9 @@ struct SavedPhrasesListView: View {
                     .tint(Color.red)
                 }
             }
+            .onMove(perform: { indices, newOffset in
+                move(from: indices, to: newOffset)
+            })
             .onDelete(perform: { indexSet in
                 vm.deletePhrase(at: indexSet, from: savedPhrases)
             })
@@ -54,9 +76,21 @@ struct SavedPhrasesListView: View {
         .listRowSpacing(vm.listRowSpacing)
     }
     
-    // Returns the phrases in the selected category
-    private var filteredPhrases: [SavedPhrase] {
-        return savedPhrases.filter({ $0.category == category })
+    // Persists the order of vehicles, after moving
+    func move(from source: IndexSet, to destination: Int) {
+        // Make an array of vehicles from fetched results
+        var modifiedVehicleList: [SavedPhrase] = savedPhrases.map { $0 }
+
+        // change the order of the vehicles in the array
+        modifiedVehicleList.move(fromOffsets: source, toOffset: destination )
+
+        // update the displayOrder attribute in modifiedVehicleList to
+        // persist the new order.
+        for index in (0..<modifiedVehicleList.count) {
+            modifiedVehicleList[index].displayOrder = Int64(index)
+        }
+        
+        try? context.save()
     }
 }
 

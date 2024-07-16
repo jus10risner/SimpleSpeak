@@ -9,6 +9,8 @@
         <attribute name="timeStamp_" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="SavedPhrase" representedClassName="SavedPhrase" syncable="YES" codeGenerationType="class">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="label_" optional="YES" attributeType="String"/>
         <attribute name="text_" optional="YES" attributeType="String"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PhraseCategory" inverseName="phrases" inverseEntity="PhraseCategory"/>
     </entity>

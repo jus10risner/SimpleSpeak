@@ -22,12 +22,16 @@ struct PhraseCardView: View {
                     Button {
                         vm.speak(phrase.text)
                     } label: {
-                        HStack(spacing: 10) {
-                            Text(phrase.text)
-                                .foregroundStyle(Color.primary)
-                                .frame(maxWidth: .infinity)
-                                .multilineTextAlignment(.leading)
+                        Group {
+                            if let label = phrase.label {
+                                Text(label)
+                            } else {
+                                Text(phrase.text)
+                            }
                         }
+                        .foregroundStyle(Color.primary)
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.center)
                         .padding(20)
                         .frame(height: 100)
                         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
@@ -40,7 +44,7 @@ struct PhraseCardView: View {
     
     // Returns the phrases in the selected category
     private var filteredPhrases: [SavedPhrase] {
-        return savedPhrases.filter({ $0.category == selectedCategory })
+        return savedPhrases.filter({ $0.category == selectedCategory }).sorted(by: { $0.displayOrder < $1.displayOrder })
     }
 }
 
