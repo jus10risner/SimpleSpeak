@@ -12,6 +12,11 @@ struct QuickSpeakApp: App {
     @Environment(\.scenePhase) var scenePhase
     let dataController = DataController.shared
     
+    init() {
+        // Tints alert buttons throughout the app
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color(.defaultAccent))
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
