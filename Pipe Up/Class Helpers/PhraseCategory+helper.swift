@@ -13,11 +13,12 @@ extension PhraseCategory {
         set { title_ = newValue }
     }
     
-    var sortedPhrases: [SavedPhrase] {
-        let set = phrases as? Set<SavedPhrase> ?? []
-        
-        return set.sorted {
-            $0.text > $1.text
-        }
-    }
+//    var sortedPhrases: [SavedPhrase] {
+//        let set = phrases as? Set<SavedPhrase> ?? []
+//        
+//        return set.sorted {
+////            $0.text > $1.text
+//            $0.displayOrder > $1.displayOrder
+//        }
+//    }
 }
