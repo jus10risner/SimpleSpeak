@@ -12,4 +12,9 @@ extension SavedPhrase {
         get { text_ ?? "" }
         set { text_ = newValue }
     }
+    
+    var label: String? {
+        get { label_ }
+        set { label_ = newValue }
+    }
 }
