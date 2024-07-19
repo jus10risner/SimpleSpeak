@@ -49,11 +49,9 @@ struct RecentPhrasesListView: View {
                     }
                     .padding(.vertical, 5)
                     .swipeActions(edge: .trailing) {
-                        Button {
-                            withAnimation(.easeInOut) {
-                                context.delete(phrase)
-                                try? context.save()
-                            }
+                        Button(role: .destructive) {
+                            context.delete(phrase)
+                            try? context.save()
                         } label: {
                             Label("Delete Phrase", systemImage: "trash")
                                 .labelStyle(.iconOnly)
@@ -61,6 +59,9 @@ struct RecentPhrasesListView: View {
                         .tint(Color.red)
                     }
                 }
+//                .onDelete(perform: { indexSet in
+//                    vm.deletePhrase(at: indexSet, from: recentPhrases)
+//                })
             }
             .navigationTitle("Recent Phrases")
             .navigationBarTitleDisplayMode(.inline)
@@ -112,7 +113,7 @@ struct RecentPhrasesListView: View {
                     }
                 }
                 
-                if isEditing {
+                if isEditing == true {
                     ToolbarItemGroup(placement: .bottomBar) {
                         if selection.isEmpty {
                             Button("Clear All") {
@@ -132,7 +133,7 @@ struct RecentPhrasesListView: View {
                                 
                                 selection = Set()
                             }
-                            .foregroundStyle(Color.red)
+                            .tint(Color.red)
                         }
                     }
                 }
