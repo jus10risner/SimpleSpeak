@@ -28,6 +28,7 @@
 		9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D412C21D80D008C7E49 /* DataController.swift */; };
 		9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */; };
 		9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D452C21DA11008C7E49 /* AppearanceController.swift */; };
+		9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689DF2C4AAAC500568B6D /* AppInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		9ED40D412C21D80D008C7E49 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedPhrase+helper.swift"; sourceTree = "<group>"; };
 		9ED40D452C21DA11008C7E49 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
+		9EF689DF2C4AAAC500568B6D /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
+				9EF689DF2C4AAAC500568B6D /* AppInfo.swift */,
 				9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
 				9E4B46B52A0987B30076367F /* Preview Content */,
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */,
+				9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */,
 				9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */,
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
 				9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */,
