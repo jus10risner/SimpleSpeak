@@ -32,7 +32,7 @@ struct SavedPhrasesListView: View {
     
     var body: some View {
         List {
-            ForEach(savedPhrases) { phrase in
+            ForEach(savedPhrases, id: \.id) { phrase in
                 Button {
                     vm.speak(phrase.text)
                 } label: {

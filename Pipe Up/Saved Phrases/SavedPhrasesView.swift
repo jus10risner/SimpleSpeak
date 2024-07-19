@@ -66,7 +66,7 @@ struct SavedPhrasesView: View {
                         }
                     }
                     
-                    ForEach(categories) { category in
+                    ForEach(categories, id: \.id) { category in
                         ZStack {
                             Color.clear
                             NavigationLink(category.title) {

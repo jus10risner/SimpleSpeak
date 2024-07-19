@@ -18,7 +18,7 @@ struct PhraseCardView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 5) {
-                ForEach(filteredPhrases, id: \.self) { phrase in
+                ForEach(filteredPhrases, id: \.id) { phrase in
                     Button {
                         vm.speak(phrase.text)
                     } label: {

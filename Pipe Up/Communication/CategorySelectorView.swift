@@ -16,11 +16,11 @@ struct CategorySelectorView: View {
     let rows = [ GridItem(.adaptive(minimum: 150), spacing: 5) ]
     
     var body: some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows, spacing: 5) {
                 categoryButton(category: nil, text: "General")
                 
-                ForEach(categories, id: \.self) { category in
+                ForEach(categories, id: \.id) { category in
                     categoryButton(category: category, text: category.title)
                 }
             }

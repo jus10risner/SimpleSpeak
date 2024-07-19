@@ -45,7 +45,7 @@ struct AddSavedPhraseView: View {
                         // Includes the "General" option (i.e. nil) in the Picker list
                         Text("General").tag(nil as PhraseCategory?)
                         
-                        ForEach(categories, id: \.self) {
+                        ForEach(categories, id: \.id) {
                             Text($0.title).tag(Optional($0))
                         }
                     }
@@ -91,9 +91,7 @@ struct AddSavedPhraseView: View {
     // Adds a new phrase and assigns a category, using the currently-selected category
     func addPhrase() {
         let newSavedPhrase = SavedPhrase(context: context)
-        if let selectedCategory {
-            newSavedPhrase.category = selectedCategory
-        }
+        newSavedPhrase.id = UUID()
         newSavedPhrase.text = phraseText
         if !phraseLabel.isEmpty {
             newSavedPhrase.label = phraseLabel
@@ -108,6 +106,7 @@ struct AddSavedPhraseView: View {
             showingDuplicateCategoryAlert = true
         } else {
             let newCategory = PhraseCategory(context: context)
+            newCategory.id = UUID()
             newCategory.title = categoryTitle
         
             try? context.save()
