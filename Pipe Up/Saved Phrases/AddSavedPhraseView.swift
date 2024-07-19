@@ -12,6 +12,9 @@ struct AddSavedPhraseView: View {
     @Environment(\.managedObjectContext) var context
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var allPhrases: FetchedResults<SavedPhrase>
+    
+    let category: PhraseCategory?
     
     @State private var phraseText = ""
     @State private var phraseLabel = ""
@@ -57,6 +60,11 @@ struct AddSavedPhraseView: View {
             }
             .navigationTitle("Add New Phrase")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if let category {
+                    selectedCategory = category
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Phrase") {
@@ -96,6 +104,10 @@ struct AddSavedPhraseView: View {
         if !phraseLabel.isEmpty {
             newSavedPhrase.label = phraseLabel
         }
+        if let selectedCategory {
+            newSavedPhrase.category = selectedCategory
+        }
+        newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
         
         try? context.save()
     }
@@ -117,5 +129,5 @@ struct AddSavedPhraseView: View {
 }
 
 #Preview {
-    AddSavedPhraseView()
+    AddSavedPhraseView(category: nil)
 }
