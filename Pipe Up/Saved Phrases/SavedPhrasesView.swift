@@ -28,7 +28,7 @@ struct SavedPhrasesView: View {
                         Button {
                             showingAddPhrase = true
                         } label: {
-                            Label("Add New Phrase", systemImage: "plus")
+                            Label("Add New Phrase", systemImage: "plus.circle.fill")
                         }
                     }
                     
@@ -44,7 +44,7 @@ struct SavedPhrasesView: View {
 //                    }
                 }
                 .sheet(isPresented: $showingAddPhrase) {
-                    AddSavedPhraseView()
+                    AddSavedPhraseView(category: nil)
                 }
         }
     }
