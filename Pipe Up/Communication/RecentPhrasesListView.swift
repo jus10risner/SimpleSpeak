@@ -13,7 +13,7 @@ struct RecentPhrasesListView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
-    @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<SavedPhrase>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var savedPhrases: FetchedResults<SavedPhrase>
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \RecentPhrase.timeStamp_, ascending: false)]) var recentPhrases: FetchedResults<RecentPhrase>
     
     @State private var isEditing = false
@@ -37,6 +37,7 @@ struct RecentPhrasesListView: View {
                                 if !savedPhrases.contains(where: { phrase.text == $0.text }) {
                                     let newPhrase = SavedPhrase(context: context)
                                     newPhrase.text = phrase.text
+                                    newPhrase.displayOrder = (savedPhrases.last?.displayOrder ?? 0) + 1
                                     
                                     try? context.save()
                                 }
