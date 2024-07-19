@@ -19,14 +19,19 @@ struct CommunicationView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                TextInputView()
-                
-                if categories.count > 0 {
-                    CategorySelectorView(selectedCategory: $selectedCategory)
+            ScrollView {
+                VStack(spacing: 0) {
+                    TextInputView()
+                    
+                    if categories.count > 0 {
+                        CategorySelectorView(selectedCategory: $selectedCategory)
+                    }
+                    
+                    PhraseCardView(selectedCategory: $selectedCategory)
+                    
+                    Divider()
+                        .frame(width: 0)
                 }
-                
-                PhraseCardView(selectedCategory: $selectedCategory)
             }
             .scrollDismissesKeyboard(.interactively)
             .navigationBarTitleDisplayMode(.inline)
