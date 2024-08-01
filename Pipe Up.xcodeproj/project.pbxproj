@@ -14,6 +14,8 @@
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
+		9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F1F2C5BDDF700E6CAC5 /* TextScanner.swift */; };
+		9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */; };
 		9E6B9B952C32E9800075758B /* RecentPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
@@ -29,6 +31,8 @@
 		9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */; };
 		9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D452C21DA11008C7E49 /* AppearanceController.swift */; };
 		9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689DF2C4AAAC500568B6D /* AppInfo.swift */; };
+		9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E12C4AB99700568B6D /* DraftPhrase.swift */; };
+		9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,8 @@
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E4B46B32A0987B30076367F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E4B46B62A0987B30076367F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9E503F1F2C5BDDF700E6CAC5 /* TextScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScanner.swift; sourceTree = "<group>"; };
+		9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScannerView.swift; sourceTree = "<group>"; };
 		9E6B9B942C32E9800075758B /* RecentPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPhrasesListView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
@@ -55,6 +61,8 @@
 		9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedPhrase+helper.swift"; sourceTree = "<group>"; };
 		9ED40D452C21DA11008C7E49 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 		9EF689DF2C4AAAC500568B6D /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
+		9EF689E12C4AB99700568B6D /* DraftPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhrase.swift; sourceTree = "<group>"; };
+		9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhraseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +101,7 @@
 				9EAE515E2C401F6E00C6ADE1 /* Saved Phrases */,
 				9EAEE8782C2319380012D3CC /* SettingsView.swift */,
 				9EAE515F2C401F9300C6ADE1 /* Class Helpers */,
+				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
@@ -113,6 +122,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		9E503F232C5BDE6100E6CAC5 /* Text Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				9E503F1F2C5BDDF700E6CAC5 /* TextScanner.swift */,
+				9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */,
+			);
+			path = "Text Scanner";
+			sourceTree = "<group>";
+		};
 		9EAE515D2C401F5400C6ADE1 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +149,8 @@
 				9EAEE87A2C2319900012D3CC /* SavedPhrasesView.swift */,
 				9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */,
 				9E195FE02C2CB92300B37618 /* AddSavedPhraseView.swift */,
+				9EF689E12C4AB99700568B6D /* DraftPhrase.swift */,
+				9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */,
 			);
 			path = "Saved Phrases";
 			sourceTree = "<group>";
@@ -215,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */,
 				9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */,
 				9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */,
 				9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */,
@@ -224,10 +245,13 @@
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9E195FDD2C29D23900B37618 /* RecentPhrase+helper.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
+				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
+				9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */,
 				9ED40D402C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld in Sources */,
 				9EAEE87B2C2319900012D3CC /* SavedPhrasesView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
+				9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */,
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
 				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
@@ -368,6 +392,7 @@
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan text, for reading aloud in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -399,6 +424,7 @@
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The camera is used to scan text, for reading aloud in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
