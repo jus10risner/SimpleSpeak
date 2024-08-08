@@ -2,97 +2,56 @@
 //  AddSavedPhraseView.swift
 //  Pipe Up
 //
-//  Created by Justin Risner on 6/26/24.
+//  Created by Justin Risner on 8/5/24.
 //
 
 import SwiftUI
 
 struct AddSavedPhraseView: View {
-    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
+    @StateObject var draftPhrase = DraftPhrase()
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var allPhrases: FetchedResults<SavedPhrase>
     
     let category: PhraseCategory?
     
-    @State private var phraseText = ""
-    @State private var phraseLabel = ""
-    @State private var isAddingCategory = false
-    @State private var categoryTitle = ""
     @State private var selectedCategory: PhraseCategory?
+    @State private var categoryTitle = ""
     @State private var showingDuplicateCategoryAlert = false
     
-    @FocusState var isInputActive: Bool
+    init(category: PhraseCategory?) {
+        self.category = category
+        
+        _draftPhrase = StateObject(wrappedValue: DraftPhrase())
+    }
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField("Type your phrase here...", text: $phraseText, axis: .vertical)
-                        .lineLimit(5)
-                        .focused($isInputActive)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                                isInputActive = true
-                            }
-                        }
-                    
-                    TextField("Label (optional)", text: $phraseLabel)
-                } footer: {
-                    Text("Labels can help you identify longer phrases quickly.")
+            DraftPhraseView(draftPhrase: draftPhrase)
+                .navigationTitle("Add New Phrase")
+                .navigationBarTitleDisplayMode(.inline)
+                .onAppear {
+                    if let category {
+                        selectedCategory = category
+                    }
                 }
-                
-                Section {
-                    Picker("Category", selection: $selectedCategory) {
-                        // Includes the "General" option (i.e. nil) in the Picker list
-                        Text("General").tag(nil as PhraseCategory?)
-                        
-                        ForEach(categories, id: \.id) {
-                            Text($0.title).tag(Optional($0))
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Save") {
+                            addPhrase()
+                            
+                            dismiss()
                         }
+                        .disabled(draftPhrase.canBeSaved ? false : true)
                     }
                     
-                    Button("Add New Category") {
-                        isAddingCategory = true
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Cancel") {
+                            dismiss()
+                        }
                     }
                 }
-            }
-            .navigationTitle("Add New Phrase")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                if let category {
-                    selectedCategory = category
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add Phrase") {
-                        addPhrase()
-                        dismiss()
-                    }
-                    .disabled(phraseText == "" ? true : false)
-                }
-                
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
-            .alert("Add Category", isPresented: $isAddingCategory) {
-                TextField("Category Title", text: $categoryTitle)
-                Button("Save") {
-                    addCategory()
-                    categoryTitle = ""
-                }
-                Button("Cancel", role: .cancel) { categoryTitle = "" }
-            }
-            .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text("This category title already exists. Please select a different title.")
-            }
         }
     }
     
@@ -100,9 +59,9 @@ struct AddSavedPhraseView: View {
     func addPhrase() {
         let newSavedPhrase = SavedPhrase(context: context)
         newSavedPhrase.id = UUID()
-        newSavedPhrase.text = phraseText
-        if !phraseLabel.isEmpty {
-            newSavedPhrase.label = phraseLabel
+        newSavedPhrase.text = draftPhrase.text
+        if !draftPhrase.label.isEmpty {
+            newSavedPhrase.label = draftPhrase.label
         }
         if let selectedCategory {
             newSavedPhrase.category = selectedCategory
@@ -110,21 +69,6 @@ struct AddSavedPhraseView: View {
         newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
         
         try? context.save()
-    }
-    
-    // Adds a new category
-    func addCategory() {
-        if categories.contains(where: { $0.title == categoryTitle }) {
-            showingDuplicateCategoryAlert = true
-        } else {
-            let newCategory = PhraseCategory(context: context)
-            newCategory.id = UUID()
-            newCategory.title = categoryTitle
-        
-            try? context.save()
-            
-            selectedCategory = newCategory
-        }
     }
 }
 
