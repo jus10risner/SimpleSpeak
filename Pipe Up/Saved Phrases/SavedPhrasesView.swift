@@ -18,7 +18,7 @@ struct SavedPhrasesView: View {
     var body: some View {
         NavigationStack {
             categoryList
-                .navigationTitle("Saved Phrases")
+                .navigationTitle("Phrases")
                 .listRowSpacing(vm.listRowSpacing)
                 .scrollContentBackground(.hidden)
                 .background(Color(.systemGroupedBackground))
@@ -52,11 +52,19 @@ struct SavedPhrasesView: View {
     // List of categories, with navigation links to their respective phrases
     // ZStacks and clear colors were added, due to jumpy navigation behavior on iOS 16
     private var categoryList: some View {
-        if categories.count == 0 {
-            AnyView(SavedPhrasesListView(category: nil))
-        } else {
-            AnyView(
+//        if categories.count == 0 {
+//            AnyView(SavedPhrasesListView(category: nil))
+//        } else {
+//            AnyView(
                 List {
+                    ZStack {
+                        Color.clear
+                        NavigationLink("Recent Phrases") {
+                            // TODO: Add recent phrases list
+                            RecentPhrasesListView()
+                        }
+                    }
+                    
                     ZStack {
                         Color.clear
                         NavigationLink("General") {
@@ -89,8 +97,8 @@ struct SavedPhrasesView: View {
                     #endif
                 }
                 .listRowSpacing(vm.listRowSpacing)
-            )
-        }
+//            )
+//        }
     }
 }
 
