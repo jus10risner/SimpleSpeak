@@ -36,14 +36,14 @@ struct SavedPhrasesListView: View {
     var body: some View {
         List {
             ForEach(savedPhrases, id: \.id) { phrase in
-                Button {
-                    vm.speak(phrase.text)
+//                Button {
+//                    vm.speak(phrase.text)
+                NavigationLink {
+                    EditSavedPhraseView(category: category, savedPhrase: phrase)
                 } label: {
-                    if let label = phrase.label {
-//                        Text("\(label)(\(phrase.displayOrder))")
-                        Text(label)
+                    if phrase.label != "" {
+                        Text(phrase.label)
                     } else {
-//                        Text("\(phrase.text)(\(phrase.displayOrder))")
                         Text(phrase.text)
                     }
                 }

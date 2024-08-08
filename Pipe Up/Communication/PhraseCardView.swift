@@ -23,12 +23,13 @@ struct PhraseCardView: View {
                         vm.speak(phrase.text)
                     } label: {
                         Group {
-                            if let label = phrase.label {
-                                Text(label)
+                            if phrase.label != "" {
+                                Text(phrase.label)
                             } else {
                                 Text(phrase.text)
                             }
                         }
+                        .minimumScaleFactor(0.5)
                         .foregroundStyle(Color.primary)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
