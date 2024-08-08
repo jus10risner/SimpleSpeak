@@ -55,6 +55,16 @@ class ViewModel: NSObject, ObservableObject {
         self.synthesizer.stopSpeaking(at: .immediate)
     }
     
+    // Pause speaking
+    func pauseSpeaking() {
+        self.synthesizer.pauseSpeaking(at: .immediate)
+    }
+    
+    // Continue speaking
+    func continueSpeaking() {
+        self.synthesizer.continueSpeaking()
+    }
+    
     // Removes the phrase at the given offsets
     func deletePhrase<T: NSManagedObject>(at offsets: IndexSet, from fetchedResults: FetchedResults<T>) {
         let context = DataController.shared.container.viewContext
@@ -133,8 +143,14 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         print("started")
         self.isSpeaking = true
     }
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {}
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {}
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+        print("paused")
+        self.isSpeaking = false
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+        print("continued")
+        self.isSpeaking = true
+    }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {}
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {}
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
