@@ -13,8 +13,18 @@ extension SavedPhrase {
         set { text_ = newValue }
     }
     
-    var label: String? {
-        get { label_ }
+    var label: String {
+        get { label_ ?? "" }
         set { label_ = newValue }
+    }
+    
+    func updatePhrase(draftPhrase: DraftPhrase) {
+        let context = DataController.shared.container.viewContext
+        
+        self.text = draftPhrase.text
+        self.label = draftPhrase.label
+        self.category = draftPhrase.category
+        
+        try? context.save()
     }
 }

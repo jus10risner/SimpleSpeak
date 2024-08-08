@@ -12,12 +12,14 @@ class DraftPhrase: ObservableObject {
     
     @Published var label: String = ""
     @Published var text: String = ""
+    @Published var category: PhraseCategory?
     
     
     init(savedPhrase: SavedPhrase) {
         id = savedPhrase.id
-        label = savedPhrase.label ?? ""
+        label = savedPhrase.label
         text = savedPhrase.text
+        category = savedPhrase.category
     }
     
     init() {
