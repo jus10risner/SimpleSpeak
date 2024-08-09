@@ -14,8 +14,9 @@ struct CommunicationView: View {
     
     @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
     
-    @State private var isShowingRecentsList = false
+//    @State private var isShowingRecentsList = false
     @State private var selectedCategory: PhraseCategory?
+    @State private var showingRecents = false
     
     var body: some View {
         NavigationStack {
@@ -23,35 +24,63 @@ struct CommunicationView: View {
                 VStack(spacing: 0) {
                     TextInputView()
                     
-                    if categories.count > 0 {
-                        CategorySelectorView(selectedCategory: $selectedCategory)
-                    }
+//                    if categories.count > 0 {
+                        CategorySelectorView(selectedCategory: $selectedCategory, showingRecents: $showingRecents)
+//                    }
                     
-                    PhraseCardView(selectedCategory: $selectedCategory)
+                    PhraseCardView(selectedCategory: $selectedCategory, showingRecents: $showingRecents)
                     
                     Divider()
                         .frame(width: 0)
                 }
             }
             .scrollDismissesKeyboard(.interactively)
-            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground))
             .onAppear { vm.assignVoice() }
             .onChange(of: vm.usePersonalVoice) { _ in vm.assignVoice() }
             .toolbar {
-                ToolbarItemGroup(placement: .topBarLeading) {
-                    Button {
-                        isShowingRecentsList = true
-                    } label: {
-                        Label("Recently Used Phrases", systemImage: "clock.arrow.circlepath")
-                            .labelStyle(.iconOnly)
+//                ToolbarItemGroup(placement: .topBarLeading) {
+//                    Button {
+//                        isShowingRecentsList = true
+//                    } label: {
+//                        Label("Recently Used Phrases", systemImage: "clock.arrow.circlepath")
+//                            .labelStyle(.iconOnly)
+//                    }
+//                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    if vm.isSpeaking {
+                        pauseSpeakingButton
+                    } else {
+                        continueSpeakingButton
                     }
                 }
             }
-            .sheet(isPresented: $isShowingRecentsList) {
-                RecentPhrasesListView()
-            }
+//            .sheet(isPresented: $isShowingRecentsList) {
+//                RecentPhrasesListView()
+//            }
+        }
+    }
+    
+    private var pauseSpeakingButton: some View {
+        Button {
+            vm.pauseSpeaking()
+        } label: {
+            Label("Pause Speech", systemImage: "pause.circle.fill")
+                .labelStyle(.iconOnly)
+                .font(.title2)
+        }
+    }
+    
+    private var continueSpeakingButton: some View {
+        Button {
+            vm.continueSpeaking()
+        } label: {
+            Label("Continue Speech", systemImage: "play.circle.fill")
+                .labelStyle(.iconOnly)
+                .font(.title2)
         }
     }
 }
