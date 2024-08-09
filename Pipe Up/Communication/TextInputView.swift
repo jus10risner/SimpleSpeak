@@ -42,7 +42,7 @@ struct TextInputView: View {
                     }
                 }
             
-            HStack {
+//            HStack(alignment: .top) {
                 if isInputActive == true {
                     Button {
                         isInputActive = false
@@ -61,38 +61,64 @@ struct TextInputView: View {
                     }
                 }
                 
-                Spacer()
+//                Spacer()
                 
-                if vm.isSpeaking {
-                    stopSpeakingButton
-                } else {
-                    startSpeakingButton
-                }
-            }
-            .padding(.horizontal)
+//                if vm.isSpeaking {
+//                    pauseSpeakingButton
+//                } else {
+//                    continueSpeakingButton
+//                }
+                
+//                if vm.isSpeaking {
+//                    stopSpeakingButton
+//                } else {
+//                    startSpeakingButton
+//                }
+//            }
+//            .padding(.horizontal)
         }
         .padding()
     }
     
-    private var startSpeakingButton: some View {
-        Button {
-            submitAndAddRecent()
-        } label: {
-            Label("Speak Text", systemImage: "play.circle.fill")
-                .labelStyle(.iconOnly)
-                .font(.largeTitle)
-        }
-    }
-    
-    private var stopSpeakingButton: some View {
-        Button {
-            vm.stopSpeaking()
-        } label: {
-            Label("Speak Text", systemImage: "stop.circle.fill")
-                .labelStyle(.iconOnly)
-                .font(.largeTitle)
-        }
-    }
+//    private var startSpeakingButton: some View {
+//        Button {
+//            submitAndAddRecent()
+//        } label: {
+//            Label("Speak Text", systemImage: "play.circle.fill")
+//                .labelStyle(.iconOnly)
+//                .font(.largeTitle)
+//        }
+//    }
+//    
+//    private var stopSpeakingButton: some View {
+//        Button {
+//            vm.stopSpeaking()
+//        } label: {
+//            Label("Speak Text", systemImage: "stop.circle.fill")
+//                .labelStyle(.iconOnly)
+//                .font(.largeTitle)
+//        }
+//    }
+//    
+//    private var pauseSpeakingButton: some View {
+//        Button {
+//            vm.pauseSpeaking()
+//        } label: {
+//            Label("Pause Speech", systemImage: "pause.circle.fill")
+//                .labelStyle(.iconOnly)
+//                .font(.largeTitle)
+//        }
+//    }
+//    
+//    private var continueSpeakingButton: some View {
+//        Button {
+//            vm.continueSpeaking()
+//        } label: {
+//            Label("Continue Speech", systemImage: "play.circle.fill")
+//                .labelStyle(.iconOnly)
+//                .font(.largeTitle)
+//        }
+//    }
     
     func submitAndAddRecent() {
         isInputActive = true
@@ -102,6 +128,7 @@ struct TextInputView: View {
                 vm.speak(text)
                 
                 let newRecentPhrase = RecentPhrase(context: context)
+                newRecentPhrase.id = UUID()
                 newRecentPhrase.text = text
                 newRecentPhrase.timeStamp = Date()
                 try? context.save()
