@@ -36,6 +36,7 @@ struct RecentPhrasesListView: View {
                                 // Save phrase to Saved Phrases
                                 if !savedPhrases.contains(where: { phrase.text == $0.text }) {
                                     let newPhrase = SavedPhrase(context: context)
+                                    newPhrase.id = UUID()
                                     newPhrase.text = phrase.text
                                     newPhrase.displayOrder = (savedPhrases.last?.displayOrder ?? 0) + 1
                                     
@@ -63,45 +64,25 @@ struct RecentPhrasesListView: View {
 //                    vm.deletePhrase(at: indexSet, from: recentPhrases)
 //                })
             }
-            .navigationTitle("Recent Phrases")
+            .navigationTitle("Recents")
             .navigationBarTitleDisplayMode(.inline)
             .listRowSpacing(vm.listRowSpacing)
             .overlay {
                 if recentPhrases.isEmpty {
-                    ZStack {
-                        Color(.systemGroupedBackground)
-                            .ignoresSafeArea()
-                        
-                        VStack(spacing: 10) {
-                            Image(systemName: "clock.arrow.circlepath")
-                                .font(.system(size: 40))
-                                .foregroundStyle(Color.secondary)
-                            
-                            VStack {
-                                Text("No Recent Phrases")
-                                    .font(.headline)
-                                
-//                                Text("Each phrase you type for the app to speak will appear here.")
-//                                    .font(.caption)
-//                                    .foregroundStyle(Color.secondary)
-//                                    .multilineTextAlignment(.center)
-                            }
-                        }
-                        .padding(.horizontal, 100)
-                    }
+                    emptyRecentsView
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2)
-                            .symbolRenderingMode(.hierarchical)
-                            .accessibilityLabel("Dismiss")
-                    }
-                }
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Button {
+//                        dismiss()
+//                    } label: {
+//                        Image(systemName: "xmark.circle.fill")
+//                            .font(.title2)
+//                            .symbolRenderingMode(.hierarchical)
+//                            .accessibilityLabel("Dismiss")
+//                    }
+//                }
                 
                 if !recentPhrases.isEmpty {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -139,6 +120,30 @@ struct RecentPhrasesListView: View {
                 }
             }
             .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
+        }
+    }
+    
+    private var emptyRecentsView: some View {
+        ZStack {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 10) {
+                Image(systemName: "clock.arrow.circlepath")
+                    .font(.system(size: 40))
+                    .foregroundStyle(Color.secondary)
+                
+                VStack {
+                    Text("No Recent Phrases")
+                        .font(.headline)
+                    
+//                    Text("Each phrase you type for the app to speak will appear here.")
+//                        .font(.caption)
+//                        .foregroundStyle(Color.secondary)
+//                        .multilineTextAlignment(.center)
+                }
+            }
+            .padding(.horizontal, 100)
         }
     }
 }
