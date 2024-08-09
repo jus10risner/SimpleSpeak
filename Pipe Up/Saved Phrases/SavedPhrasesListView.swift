@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SavedPhrasesListView: View {
     @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
@@ -17,6 +18,7 @@ struct SavedPhrasesListView: View {
     let category: PhraseCategory?
     
     @State private var showingAddPhrase = false
+    @State private var showingDeleteAlert = false
     
     // Custom init, so I can pass in the optional "category" property as a predicate
     init(category: PhraseCategory?) {
@@ -62,9 +64,9 @@ struct SavedPhrasesListView: View {
             .onMove(perform: { indices, newOffset in
                 move(from: indices, to: newOffset)
             })
-//            .onDelete(perform: { indexSet in
-//                vm.deletePhrase(at: indexSet, from: savedPhrases)
-//            })
+            .onDelete(perform: { indexSet in
+                vm.deletePhrase(at: indexSet, from: savedPhrases)
+            })
             
             // TODO: Remove this, when finished testing
             #if DEBUG
@@ -78,18 +80,57 @@ struct SavedPhrasesListView: View {
         }
         .listRowSpacing(vm.listRowSpacing)
         .toolbar {
-            if categories.count != 0 {
-                ToolbarItem(placement: .topBarTrailing) {
+//            if categories.count != 0 {
+                ToolbarItemGroup(placement: .topBarTrailing) {
                     Button {
                         showingAddPhrase = true
                     } label: {
                         Label("Add New Phrase", systemImage: "plus")
                     }
+                    
+                    if category != nil {
+                        categoryMenu
+                    }
+                    
+//                    EditButton()
                 }
-            }
+//            }
         }
         .sheet(isPresented: $showingAddPhrase) {
             AddSavedPhraseView(category: category)
+        }
+        .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                if let category {
+                    context.delete(category)
+                }
+                try? context.save()
+                
+                dismiss()
+            }
+            
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Delete this category and all associated phrases?\nThis cannot be undone.")
+        }
+    }
+    
+    private var categoryMenu: some View {
+        Menu {
+            Button {
+                // TODO: Add EditCategoryView
+            } label: {
+                Label("Edit Category", systemImage: "pencil")
+            }
+            
+            Button(role: .destructive) {
+                // TODO: Add deleteCategory() method
+                showingDeleteAlert = true
+            } label: {
+                Label("Delete Category", systemImage: "trash")
+            }
+        } label: {
+            Label("Edit Category", systemImage: "ellipsis.circle")
         }
     }
     
