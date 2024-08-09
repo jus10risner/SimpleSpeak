@@ -15,10 +15,6 @@ struct EditSavedPhraseView: View {
     let category: PhraseCategory?
     let savedPhrase: SavedPhrase
     
-    @State private var selectedCategory: PhraseCategory?
-    @State private var categoryTitle = ""
-    @State private var showingDuplicateCategoryAlert = false
-    
     init(category: PhraseCategory?, savedPhrase: SavedPhrase) {
         self.category = category
         self.savedPhrase = savedPhrase
@@ -33,7 +29,7 @@ struct EditSavedPhraseView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear {
                     if let category {
-                        selectedCategory = category
+                        draftPhrase.category = category
                     }
                 }
                 .toolbar {
