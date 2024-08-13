@@ -3,12 +3,7 @@
     <entity name="PhraseCategory" representedClassName="PhraseCategory" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title_" optional="YES" attributeType="String"/>
-        <relationship name="phrases" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedPhrase" inverseName="category" inverseEntity="SavedPhrase"/>
-    </entity>
-    <entity name="RecentPhrase" representedClassName="RecentPhrase" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="text_" optional="YES" attributeType="String"/>
-        <attribute name="timeStamp_" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="phrases" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavedPhrase" inverseName="category" inverseEntity="SavedPhrase"/>
     </entity>
     <entity name="SavedPhrase" representedClassName="SavedPhrase" syncable="YES" codeGenerationType="class">
         <attribute name="displayOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
