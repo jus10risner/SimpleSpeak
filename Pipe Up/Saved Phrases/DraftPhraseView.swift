@@ -33,10 +33,7 @@ struct DraftPhraseView: View {
             
             Section("Category") {
                 Picker("Category", selection: $draftPhrase.category) {
-                    // Includes the "General" option (i.e. nil) in the Picker list
-                    Text("General").tag(nil as PhraseCategory?)
-                    
-                    ForEach(categories, id: \.id) {
+                    ForEach(categories) {
                         Text($0.title).tag(Optional($0))
                     }
                 }
