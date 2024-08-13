@@ -85,21 +85,6 @@ struct SettingsView: View {
                     } label: {
                         Label("App Theme", systemImage: "circle.lefthalf.filled")
                     }
-                    
-//                    NavigationLink {
-//                        Form {
-//                            Picker("Theme Selection", selection: $vm.appAppearance) {
-//                                ForEach(AppearanceOptions.allCases, id: \.self) {
-//                                    Text($0.rawValue.capitalized)
-//                                }
-//                            }
-//                            .labelsHidden()
-//                            .pickerStyle(.inline)
-//                        }
-//                        .navigationBarTitleDisplayMode(.inline)
-//                    } label: {
-//                        Label("App Theme", systemImage: "circle.lefthalf.filled")
-//                    }
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
                     }
