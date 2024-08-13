@@ -11,6 +11,8 @@ struct TextInputView: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var allPhrases: FetchedResults<SavedPhrase>
+    
     @State private var text = ""
     @FocusState var isInputActive: Bool
     
@@ -42,7 +44,6 @@ struct TextInputView: View {
                     }
                 }
             
-//            HStack(alignment: .top) {
                 if isInputActive == true {
                     Button {
                         isInputActive = false
@@ -60,22 +61,6 @@ struct TextInputView: View {
                             .font(.title)
                     }
                 }
-                
-//                Spacer()
-                
-//                if vm.isSpeaking {
-//                    pauseSpeakingButton
-//                } else {
-//                    continueSpeakingButton
-//                }
-                
-//                if vm.isSpeaking {
-//                    stopSpeakingButton
-//                } else {
-//                    startSpeakingButton
-//                }
-//            }
-//            .padding(.horizontal)
         }
         .padding()
     }
@@ -127,10 +112,10 @@ struct TextInputView: View {
             withAnimation(.easeInOut) {
                 vm.speak(text)
                 
-                let newRecentPhrase = RecentPhrase(context: context)
-                newRecentPhrase.id = UUID()
-                newRecentPhrase.text = text
-                newRecentPhrase.timeStamp = Date()
+                let newSavedPhrase = SavedPhrase(context: context)
+                newSavedPhrase.id = UUID()
+                newSavedPhrase.text = text
+                newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
                 try? context.save()
                 
                 text = ""

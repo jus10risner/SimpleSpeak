@@ -37,7 +37,7 @@ struct SavedPhrasesListView: View {
     
     var body: some View {
         List {
-            ForEach(savedPhrases, id: \.id) { phrase in
+            ForEach(savedPhrases) { phrase in
                 NavigationLink {
                     EditSavedPhraseView(category: category, savedPhrase: phrase)
                 } label: {
@@ -76,23 +76,21 @@ struct SavedPhrasesListView: View {
             }
             #endif
         }
+        .navigationTitle(category?.title ?? "Recents")
+        .navigationBarTitleDisplayMode(.inline)
         .listRowSpacing(vm.listRowSpacing)
         .toolbar {
-//            if categories.count != 0 {
-                ToolbarItemGroup(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                if category != nil {
                     Button {
                         showingAddPhrase = true
                     } label: {
                         Label("Add New Phrase", systemImage: "plus")
                     }
                     
-                    if category != nil {
-                        categoryMenu
-                    }
-                    
-//                    EditButton()
+                    categoryMenu
                 }
-//            }
+            }
         }
         .sheet(isPresented: $showingAddPhrase) {
             AddSavedPhraseView(category: category)

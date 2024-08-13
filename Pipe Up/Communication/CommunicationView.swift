@@ -14,9 +14,7 @@ struct CommunicationView: View {
     
     @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
     
-//    @State private var isShowingRecentsList = false
     @State private var selectedCategory: PhraseCategory?
-    @State private var showingRecents = false
     
     var body: some View {
         NavigationStack {
@@ -25,10 +23,10 @@ struct CommunicationView: View {
                     TextInputView()
                     
 //                    if categories.count > 0 {
-                        CategorySelectorView(selectedCategory: $selectedCategory, showingRecents: $showingRecents)
+                        CategorySelectorView(selectedCategory: $selectedCategory)
 //                    }
                     
-                    PhraseCardView(selectedCategory: $selectedCategory, showingRecents: $showingRecents)
+                    PhraseCardView(selectedCategory: $selectedCategory)
                     
                     Divider()
                         .frame(width: 0)
@@ -41,15 +39,6 @@ struct CommunicationView: View {
             .onAppear { vm.assignVoice() }
             .onChange(of: vm.usePersonalVoice) { _ in vm.assignVoice() }
             .toolbar {
-//                ToolbarItemGroup(placement: .topBarLeading) {
-//                    Button {
-//                        isShowingRecentsList = true
-//                    } label: {
-//                        Label("Recently Used Phrases", systemImage: "clock.arrow.circlepath")
-//                            .labelStyle(.iconOnly)
-//                    }
-//                }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     if vm.isSpeaking {
                         pauseSpeakingButton
@@ -58,9 +47,6 @@ struct CommunicationView: View {
                     }
                 }
             }
-//            .sheet(isPresented: $isShowingRecentsList) {
-//                RecentPhrasesListView()
-//            }
         }
     }
     
@@ -86,6 +72,10 @@ struct CommunicationView: View {
 }
 
 #Preview {
-    CommunicationView()
+    let controller = DataController(inMemory: true)
+    let context = controller.container.viewContext
+    
+    return CommunicationView()
+        .environment(\.managedObjectContext, context)
         .environmentObject(ViewModel())
 }
