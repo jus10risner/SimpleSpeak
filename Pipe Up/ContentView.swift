@@ -17,8 +17,8 @@ struct ContentView: View {
                 .tabItem { Label("Speak", systemImage: "person.wave.2") }
                 .tag(1)
             
-            SavedPhrasesView()
-                .tabItem { Label("Saved Phrases", systemImage: "bookmark") }
+            CategoriesListView()
+                .tabItem { Label("Phrases", systemImage: "bookmark") }
                 .tag(2)
             
             SettingsView()
@@ -32,5 +32,10 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let controller = DataController(inMemory: true)
+    let context = controller.container.viewContext
+    
+    return ContentView()
+        .environment(\.managedObjectContext, context)
+        .environmentObject(ViewModel())
 }
