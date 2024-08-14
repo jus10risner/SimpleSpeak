@@ -32,7 +32,7 @@ struct DraftPhraseView: View {
                 
                 TextField("Label (optional)", text: $draftPhrase.label)
             } footer: {
-                Text("Labels can help you identify longer phrases quickly.")
+                Text("Use a label to quickly identify a longer phrase.")
             }
             
             Section("Category") {
