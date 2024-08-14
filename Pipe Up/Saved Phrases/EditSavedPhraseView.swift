@@ -24,7 +24,7 @@ struct EditSavedPhraseView: View {
     
     var body: some View {
         NavigationStack {
-            DraftPhraseView(draftPhrase: draftPhrase)
+            DraftPhraseView(draftPhrase: draftPhrase, isEditing: true)
                 .navigationTitle("Edit Phrase")
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear {

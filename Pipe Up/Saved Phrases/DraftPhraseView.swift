@@ -11,6 +11,8 @@ struct DraftPhraseView: View {
     @Environment(\.managedObjectContext) var context
     @ObservedObject var draftPhrase: DraftPhrase
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
+    
+    let isEditing: Bool
 
     @FocusState var isInputActive: Bool
     
@@ -21,8 +23,10 @@ struct DraftPhraseView: View {
                     .lineLimit(5)
                     .focused($isInputActive)
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            isInputActive = true
+                        if isEditing == false {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                                isInputActive = true
+                            }
                         }
                     }
                 
@@ -45,5 +49,5 @@ struct DraftPhraseView: View {
 }
 
 #Preview {
-    DraftPhraseView(draftPhrase: DraftPhrase())
+    DraftPhraseView(draftPhrase: DraftPhrase(), isEditing: false)
 }
