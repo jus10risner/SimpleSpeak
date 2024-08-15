@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CategorySelectorView: View {
     @EnvironmentObject var vm: ViewModel
-    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
     
     @Binding var selectedCategory: PhraseCategory?
     
-    let rows = [ GridItem(.adaptive(minimum: 150), spacing: 5) ]
+    let rows = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -32,6 +32,14 @@ struct CategorySelectorView: View {
             .padding(.horizontal)
         }
         .frame(height: 75)
+        .onAppear {
+            // Selects the first category that contains phrases, if the currently-selected category (or Recents) is empty
+            if recentPhrases.isEmpty {
+                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
+            } else if selectedCategory?.phrases?.count == 0 {
+                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
+            }
+        }
     }
     
     // Category selection button
