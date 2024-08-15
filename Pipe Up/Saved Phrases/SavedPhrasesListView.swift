@@ -65,16 +65,6 @@ struct SavedPhrasesListView: View {
             .onDelete(perform: { indexSet in
                 vm.deletePhrase(at: indexSet, from: savedPhrases)
             })
-            
-            // TODO: Remove this, when finished testing
-            #if DEBUG
-            Button("Clear Phrases") {
-                for item in savedPhrases {
-                    context.delete(item)
-                    try? context.save()
-                }
-            }
-            #endif
         }
         .navigationTitle(category?.title ?? "Recents")
         .navigationBarTitleDisplayMode(.inline)

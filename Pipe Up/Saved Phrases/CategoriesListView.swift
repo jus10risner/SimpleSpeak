@@ -23,8 +23,6 @@ struct CategoriesListView: View {
             categoryList
                 .navigationTitle("Phrases")
                 .listRowSpacing(vm.listRowSpacing)
-//                .scrollContentBackground(.hidden)
-//                .background(Color(.systemGroupedBackground))
                 .scrollDismissesKeyboard(.interactively)
                 .onAppear {
                     if categories.count == 0 {
@@ -77,17 +75,6 @@ struct CategoriesListView: View {
                     }
                 }
             }
-            
-            // TODO: Remove this, when finished testing
-            #if DEBUG
-            Button("Clear Categories") {
-                for category in categories {
-                    context.delete(category)
-                    try? context.save()
-                }
-            }
-            .frame(maxWidth: .infinity)
-            #endif
         }
         .listRowSpacing(vm.listRowSpacing)
     }
