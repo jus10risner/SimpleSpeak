@@ -19,6 +19,8 @@ struct SavedPhrasesListView: View {
     
     @State private var showingAddPhrase = false
     @State private var showingDeleteAlert = false
+    @State private var showingEditCategory = false
+    @State private var categoryTitle = ""
     
     // Custom init, so I can pass in the optional "category" property as a predicate
     init(category: PhraseCategory?) {
@@ -101,6 +103,15 @@ struct SavedPhrasesListView: View {
         .sheet(isPresented: $showingAddPhrase) {
             AddSavedPhraseView(category: category)
         }
+        .alert("Edit Category Name", isPresented: $showingEditCategory) {
+            TextField("Category Title", text: $categoryTitle )
+                
+            Button("Save") {
+                category?.updateCategory(title: categoryTitle)
+            }
+            .disabled(categoryTitle == "" ? true : false)
+            Button("Cancel", role: .cancel) { }
+        }
         .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
                 if let category {
@@ -121,6 +132,7 @@ struct SavedPhrasesListView: View {
         Menu {
             Button {
                 // TODO: Add EditCategoryView
+                showingEditCategory = true
             } label: {
                 Label("Edit Category", systemImage: "pencil")
             }
