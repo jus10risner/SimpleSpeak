@@ -9,10 +9,14 @@ import SwiftUI
 
 struct DraftPhraseView: View {
     @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var draftPhrase: DraftPhrase
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
     let isEditing: Bool
+    let savedPhrase: SavedPhrase?
+    
+    @State private var showingDeleteAlert = false
 
     @FocusState var isInputActive: Bool
     
@@ -44,10 +48,30 @@ struct DraftPhraseView: View {
                 .labelsHidden()
                 .pickerStyle(.inline)
             }
+            
+            if isEditing {
+                Button("Delete Phrase", role: .destructive) {
+                    showingDeleteAlert = true
+                }
+            }
+        }
+        .alert("Delete Phrase", isPresented: $showingDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                if let savedPhrase {
+                    context.delete(savedPhrase)
+                    try? context.save()
+                    
+                    dismiss()
+                }
+            }
+            
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Permanently delete this phrase? This cannot be undone.")
         }
     }
 }
 
 #Preview {
-    DraftPhraseView(draftPhrase: DraftPhrase(), isEditing: false)
+    DraftPhraseView(draftPhrase: DraftPhrase(), isEditing: false, savedPhrase: nil)
 }
