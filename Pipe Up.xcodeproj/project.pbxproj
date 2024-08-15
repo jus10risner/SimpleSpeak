@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
+		9E1C3C7C2C6E46C60018A43C /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C3C7B2C6E46C60018A43C /* EmptyListView.swift */; };
 		9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* PipeUpApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		9E1C3C7B2C6E46C60018A43C /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* Pipe Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pipe Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* PipeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeUpApp.swift; sourceTree = "<group>"; };
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */,
 				9EF689E12C4AB99700568B6D /* DraftPhrase.swift */,
 				9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */,
+				9E1C3C7B2C6E46C60018A43C /* EmptyListView.swift */,
 			);
 			path = "Saved Phrases";
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
 				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
+				9E1C3C7C2C6E46C60018A43C /* EmptyListView.swift in Sources */,
 				9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */,
 				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,

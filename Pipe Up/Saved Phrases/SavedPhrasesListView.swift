@@ -88,7 +88,23 @@ struct SavedPhrasesListView: View {
                         Label("Add New Phrase", systemImage: "plus")
                     }
                     
-                    categoryMenu
+                    if category?.title != "Saved" {
+                        categoryMenu
+                    }
+                }
+            }
+        }
+        .onAppear {
+            if let category {
+                categoryTitle = category.title
+            }
+        }
+        .overlay {
+            if savedPhrases.count == 0 {
+                if category != nil {
+                    EmptyListView(systemImage: "bookmark", headline: "No Phrases", subheadline: "Tap the plus button to add a phrase.")
+                } else {
+                    EmptyListView(systemImage: "clock.arrow.circlepath", headline: "No Recents", subheadline: nil)
                 }
             }
         }
