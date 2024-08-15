@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct EmptyListView: View {
+    let systemImage: String
+    let headline: String
+    let subheadline: String?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 10) {
+            Image(systemName: systemImage)
+                .font(.largeTitle)
+                .foregroundStyle(.secondary)
+            
+            VStack(spacing: 5) {
+                Text(headline)
+                    .font(.title2.bold())
+                
+                if let subheadline {
+                    Text(subheadline)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    EmptyListView()
+    EmptyListView(systemImage: "bookmark", headline: "No Phrases", subheadline: "Tap plus to add a phrase.")
 }
