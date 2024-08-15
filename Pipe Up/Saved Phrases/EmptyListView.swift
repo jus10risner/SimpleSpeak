@@ -13,20 +13,25 @@ struct EmptyListView: View {
     let subheadline: String?
     
     var body: some View {
-        VStack(spacing: 10) {
-            Image(systemName: systemImage)
-                .font(.largeTitle)
-                .foregroundStyle(.secondary)
+        ZStack {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
             
-            VStack(spacing: 5) {
-                Text(headline)
-                    .font(.title2.bold())
+            VStack(spacing: 10) {
+                Image(systemName: systemImage)
+                    .font(.largeTitle)
+                    .foregroundStyle(.secondary)
                 
-                if let subheadline {
-                    Text(subheadline)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
+                VStack(spacing: 5) {
+                    Text(headline)
+                        .font(.title2.bold())
+                    
+                    if let subheadline {
+                        Text(subheadline)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
                 }
             }
         }
