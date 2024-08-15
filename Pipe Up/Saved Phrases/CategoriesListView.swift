@@ -60,7 +60,7 @@ struct CategoriesListView: View {
         List {
             ZStack {
                 Color.clear
-                NavigationLink("Recent Phrases") {
+                NavigationLink("Recents") {
                     SavedPhrasesListView(category: nil)
                 }
             }
