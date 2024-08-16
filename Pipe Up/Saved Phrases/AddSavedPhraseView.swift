@@ -13,12 +13,17 @@ struct AddSavedPhraseView: View {
     @StateObject var draftPhrase = DraftPhrase()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var allPhrases: FetchedResults<SavedPhrase>
+    @FetchRequest var categoryPhrases: FetchedResults<SavedPhrase>
     
     let category: PhraseCategory?
     
+    @State private var showingDuplicateAlert = false
+    
     init(category: PhraseCategory?) {
         self.category = category
+        let predicate = NSPredicate(format: "category == %@", category ?? NSNull())
         
+        self._categoryPhrases = FetchRequest(entity: SavedPhrase.entity(), sortDescriptors: [], predicate: predicate)
         _draftPhrase = StateObject(wrappedValue: DraftPhrase())
     }
     
@@ -28,16 +33,17 @@ struct AddSavedPhraseView: View {
                 .navigationTitle("Add New Phrase")
                 .navigationBarTitleDisplayMode(.inline)
                 .onAppear {
-                    if let category {
-                        draftPhrase.category = category
-                    }
+                    draftPhrase.category = category
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Save") {
-                            addPhrase()
-                            
-                            dismiss()
+                            if categoryPhrases.contains(where: { $0.text == draftPhrase.text }) {
+                                showingDuplicateAlert = true
+                            } else {
+                                addPhrase()
+                                dismiss()
+                            }
                         }
                         .disabled(draftPhrase.canBeSaved ? false : true)
                     }
@@ -47,6 +53,11 @@ struct AddSavedPhraseView: View {
                             dismiss()
                         }
                     }
+                }
+                .alert("Duplicate Phrase", isPresented: $showingDuplicateAlert) {
+                    Button("OK", role: .cancel) {  }
+                } message: {
+                    Text("This phrase already exists in the selected category. Please select a different category, or enter a new phrase.")
                 }
         }
     }
