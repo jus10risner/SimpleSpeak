@@ -112,11 +112,14 @@ struct TextInputView: View {
             withAnimation(.easeInOut) {
                 vm.speak(text)
                 
-                let newSavedPhrase = SavedPhrase(context: context)
-                newSavedPhrase.id = UUID()
-                newSavedPhrase.text = text
-                newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
-                try? context.save()
+                // If phrase doesn't already exist in Recents, add it
+                if !allPhrases.contains(where: { $0.category == nil && $0.text == text }) {
+                    let newSavedPhrase = SavedPhrase(context: context)
+                    newSavedPhrase.id = UUID()
+                    newSavedPhrase.text = text
+                    newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
+                    try? context.save()
+                }
                 
                 text = ""
             }
