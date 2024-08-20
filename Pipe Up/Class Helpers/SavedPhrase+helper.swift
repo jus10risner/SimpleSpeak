@@ -18,7 +18,7 @@ extension SavedPhrase {
         set { label_ = newValue }
     }
     
-    func updatePhrase(draftPhrase: DraftPhrase) {
+    func update(draftPhrase: DraftPhrase) {
         let context = DataController.shared.container.viewContext
         
         self.text = draftPhrase.text

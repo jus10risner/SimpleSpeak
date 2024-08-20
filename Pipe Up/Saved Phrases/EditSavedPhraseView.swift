@@ -37,7 +37,7 @@ struct EditSavedPhraseView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Save") {
-                            savedPhrase.updatePhrase(draftPhrase: draftPhrase)
+                            savedPhrase.update(draftPhrase: draftPhrase)
                             
                             dismiss()
                         }
