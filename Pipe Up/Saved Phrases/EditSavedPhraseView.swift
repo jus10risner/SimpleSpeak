@@ -10,12 +10,10 @@ import SwiftUI
 struct EditSavedPhraseView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-    @StateObject var draftPhrase = DraftPhrase()
-    
+    @StateObject var draftPhrase: DraftPhrase
+
     let category: PhraseCategory?
     let savedPhrase: SavedPhrase
-    
-    @State private var hasChanges = false
     
     init(category: PhraseCategory?, savedPhrase: SavedPhrase) {
         self.category = category
@@ -29,30 +27,7 @@ struct EditSavedPhraseView: View {
             DraftPhraseView(draftPhrase: draftPhrase, isEditing: true, savedPhrase: savedPhrase)
                 .navigationTitle("Edit Phrase")
                 .navigationBarTitleDisplayMode(.inline)
-                .onAppear {
-                    if let category {
-                        draftPhrase.category = category
-                    }
-                }
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Save") {
-                            savedPhrase.update(draftPhrase: draftPhrase)
-                            
-                            dismiss()
-                        }
-                        .disabled(hasChanges && draftPhrase.canBeSaved ? false : true)
-                    }
-                }
-                .onChange(of: draftPhraseData) { _ in
-                    hasChanges = true
-                }
         }
-    }
-    
-    // Used to detect changes in draftPhrase's published properties; used to determine whether the Save button is enabled
-    private var draftPhraseData: [String?] {
-        return [draftPhrase.text, draftPhrase.label, draftPhrase.category?.description]
     }
 }
 
