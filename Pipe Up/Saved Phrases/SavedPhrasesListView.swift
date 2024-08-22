@@ -110,7 +110,9 @@ struct SavedPhrasesListView: View {
                 category?.updateCategory(title: categoryTitle)
             }
             .disabled(categoryTitle == "" ? true : false)
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) { 
+                categoryTitle = category?.title ?? ""
+            }
         }
         .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
