@@ -11,7 +11,8 @@ import SwiftUI
 
 class ViewModel: NSObject, ObservableObject {
     @Published var voiceToUse = AVSpeechSynthesisVoice(language: Locale.preferredLanguages[0])
-    @Published var isSpeaking = false
+    @Published var synthesizerState: SynthesizerState = .inactive
+//    @Published var isSpeaking = false
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
@@ -51,7 +52,7 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     // Stop speaking
-    func stopSpeaking() {
+    func cancelSpeaking() {
         self.synthesizer.stopSpeaking(at: .immediate)
     }
     
@@ -137,24 +138,35 @@ class ViewModel: NSObject, ObservableObject {
     }
 }
 
+enum SynthesizerState: String {
+    case speaking, paused, inactive
+}
+
 // Tracks when speech begins and ends, for displaying an indicator
 extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         print("started")
-        self.isSpeaking = true
+        self.synthesizerState = .speaking
+//        self.isSpeaking = true
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
         print("paused")
-        self.isSpeaking = false
+        self.synthesizerState = .paused
+//        self.isSpeaking = false
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
         print("continued")
-        self.isSpeaking = true
+        self.synthesizerState = .speaking
+//        self.isSpeaking = true
     }
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {}
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        print("cancelled")
+        self.synthesizerState = .inactive
+    }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {}
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         print("finished")
-        self.isSpeaking = false
+        self.synthesizerState = .inactive
+//        self.isSpeaking = false
     }
 }
