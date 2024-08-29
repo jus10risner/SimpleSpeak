@@ -17,7 +17,6 @@
 		9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */; };
 		9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */; };
 		9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */; };
-		9E5F82042C777B20006490BD /* TextFieldTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F82032C777B20006490BD /* TextFieldTestView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
@@ -48,7 +47,6 @@
 		9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScannerView.swift; sourceTree = "<group>"; };
 		9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavedPhraseView.swift; sourceTree = "<group>"; };
 		9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSavedPhraseView.swift; sourceTree = "<group>"; };
-		9E5F82032C777B20006490BD /* TextFieldTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTestView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
 				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
 				9EBF2E822C2DC9C000AB5A95 /* TextInputView.swift */,
-				9E5F82032C777B20006490BD /* TextFieldTestView.swift */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
-				9E5F82042C777B20006490BD /* TextFieldTestView.swift in Sources */,
 				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
 				9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */,
