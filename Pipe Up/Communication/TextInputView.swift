@@ -14,101 +14,134 @@ struct TextInputView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var allPhrases: FetchedResults<SavedPhrase>
     
     @State private var text = ""
+    @State private var mostRecentTypedPhrase = ""
+    @State private var showingTextFieldButtons = false
+    
     @FocusState var isInputActive: Bool
     
     var body: some View {
-        VStack(spacing: 10) {
-            TextField("Type here...", text: $text, axis: .vertical)
-                .lineLimit(5)
-                .font(.title3)
-                .padding(15)
-                .overlay {
-                    RoundedRectangle(cornerRadius: vm.cornerRadius)
-                        .stroke(Color.secondary, lineWidth: 0.5)
-                }
-                .focused($isInputActive)
-                .submitLabel(.send)
-                .onChange(of: text) { newValue in
-                    // This serves as a replacement for onSubmit, when a vertical axis is used on TextField
-                    guard let newValueLastChar = newValue.last else { return }
-                    if newValueLastChar == "\n" {
-                        text.removeLast()
-                        submitAndAddRecent()
-                        
-                    }
-                }
-                .onSubmit {
-                    // This serves to keep TextField focused if a hardware keyboard is used
-                    withAnimation(.easeInOut) {
-                        submitAndAddRecent()
-                    }
-                }
+        VStack(spacing: 0) {
+            if showingTextFieldButtons {
+                textFieldButtons
+            }
             
-                if isInputActive == true {
-                    Button {
-                        isInputActive = false
-                    } label: {
-                        Label("Dismiss Keyboard", systemImage: "keyboard.chevron.compact.down")
-                            .labelStyle(.iconOnly)
-                            .font(.title)
-                    }
-                } else {
-                    Button {
-                        isInputActive = true
-                    } label: {
-                        Label("Show Keyboard", systemImage: "keyboard")
-                            .labelStyle(.iconOnly)
-                            .font(.title)
-                    }
-                }
+            textField
         }
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
         .padding()
+        .onChange(of: isInputActive) { bool in
+            withAnimation(.snappy) {
+                showingTextFieldButtons = bool
+            }
+        }
     }
     
-//    private var startSpeakingButton: some View {
-//        Button {
-//            submitAndAddRecent()
-//        } label: {
-//            Label("Speak Text", systemImage: "play.circle.fill")
-//                .labelStyle(.iconOnly)
-//                .font(.largeTitle)
-//        }
-//    }
-//    
-//    private var stopSpeakingButton: some View {
-//        Button {
-//            vm.stopSpeaking()
-//        } label: {
-//            Label("Speak Text", systemImage: "stop.circle.fill")
-//                .labelStyle(.iconOnly)
-//                .font(.largeTitle)
-//        }
-//    }
-//    
-//    private var pauseSpeakingButton: some View {
-//        Button {
-//            vm.pauseSpeaking()
-//        } label: {
-//            Label("Pause Speech", systemImage: "pause.circle.fill")
-//                .labelStyle(.iconOnly)
-//                .font(.largeTitle)
-//        }
-//    }
-//    
-//    private var continueSpeakingButton: some View {
-//        Button {
-//            vm.continueSpeaking()
-//        } label: {
-//            Label("Continue Speech", systemImage: "play.circle.fill")
-//                .labelStyle(.iconOnly)
-//                .font(.largeTitle)
-//        }
-//    }
+    // MARK: - Views
+    
+    private var textField: some View {
+        TextField("Tap to type...", text: $text, axis: .vertical)
+            .padding()
+            .lineLimit(5)
+            .font(.title3)
+            .focused($isInputActive)
+            .submitLabel(.send)
+            .onChange(of: text) { newValue in
+                // This serves as a replacement for onSubmit, when a vertical axis is used on TextField
+                guard let newValueLastChar = newValue.last else { return }
+                if newValueLastChar == "\n" {
+                    text.removeLast()
+                    submitAndAddRecent()
+                    
+                }
+            }
+            .onSubmit {
+                // This serves to keep TextField focused if a hardware keyboard is used
+                withAnimation(.easeInOut) {
+                    submitAndAddRecent()
+                }
+            }
+    }
+    
+    private var textFieldButtons: some View {
+        HStack {
+            repeatPhraseButton
+                .opacity(mostRecentTypedPhrase == "" ? 0 : 1)
+            
+            Spacer()
+            
+//            if vm.synthesizerState == .speaking {
+//                pauseSpeakingButton
+//            } else if vm.synthesizerState == .paused {
+//                cancelSpeakingButton
+//
+//                continueSpeakingButton
+//            }
+            
+//            clearTextButton
+//                .opacity(text == "" ? 0 : 1)
+//                .animation(.easeInOut, value: text)
+            
+            dismissTextFieldButton
+        }
+        .padding(10)
+    }
+    
+    
+    // MARK: - Buttons
+    
+    private var dismissTextFieldButton: some View {
+        Button {
+            withAnimation {
+                text = ""
+                mostRecentTypedPhrase = ""
+                vm.cancelSpeaking()
+                isInputActive = false
+            }
+        } label: {
+            Label("Dismiss Keyboard", systemImage: "xmark.circle.fill")
+                .labelStyle(.iconOnly)
+                .font(.title)
+                .foregroundStyle(Color.secondary)
+                .symbolRenderingMode(.hierarchical)
+        }
+        .buttonStyle(.plain)
+    }
+    
+    private var clearTextButton: some View {
+        Button {
+            text = ""
+        } label: {
+            Label("Clear Text", systemImage: "trash.circle.fill")
+                .labelStyle(.iconOnly)
+                .font(.title)
+                .foregroundStyle(Color.secondary)
+                .symbolRenderingMode(.hierarchical)
+        }
+        .buttonStyle(.plain)
+    }
+    
+    private var repeatPhraseButton: some View {
+        Button {
+            vm.speak(mostRecentTypedPhrase)
+        } label: {
+            Label("Speak Last Typed Phrase", systemImage: "repeat.circle.fill")
+                .labelStyle(.iconOnly)
+                .font(.title)
+                .foregroundStyle(Color.secondary)
+                .symbolRenderingMode(.hierarchical)
+        }
+        .buttonStyle(.plain)
+    }
+    
+    
+    // MARK: - Methods
     
     func submitAndAddRecent() {
         isInputActive = true
         
         if text != "" {
+            mostRecentTypedPhrase = text
+            
             withAnimation(.easeInOut) {
                 vm.speak(text)
                 
