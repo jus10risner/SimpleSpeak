@@ -50,7 +50,7 @@ struct CategorySelectorView: View {
             Text(text)
                 .foregroundStyle(Color.primary)
                 .padding(15)
-                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 15))
+                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
         .overlay {
             if selectedCategory == category {
