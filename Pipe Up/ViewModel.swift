@@ -30,7 +30,10 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("selectedLanguage")  var selectedLanguage = Locale.preferredLanguages[0] {
         willSet { objectWillChange.send() }
     }
-    @AppStorage("selectedVoiceIdentifier")  var selectedPersonalVoiceIdentifier: String? {
+    @AppStorage("selectedPersonalVoiceIdentifier")  var selectedPersonalVoiceIdentifier: String? {
+        willSet { objectWillChange.send() }
+    }
+    @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
         willSet { objectWillChange.send() }
     }
     

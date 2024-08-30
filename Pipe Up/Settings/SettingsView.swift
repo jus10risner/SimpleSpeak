@@ -12,6 +12,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     @State private var showingPersonalVoiceAlert = false
+//    @State private var personalVoices: [AVSpeechSynthesisVoice] = []
 //    @State private var showingPersonalVoiceSetupSheet = false
     
     var body: some View {
@@ -25,57 +26,66 @@ struct SettingsView: View {
                     Text("Determines whether your typed phrases are spoken aloud to the other party on a phone call.")
                 }
                 
-                if #available(iOS 17, *) {
-                    // TODO: Re-enable check that only shows Peronal Voice info if the device supports it
-//                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .unsupported {
-                        // TODO: Re-enable check that only shows this section if Personal Voices exist
-                        if AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.voiceTraits == .isPersonalVoice }) {
-                            let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
-                            
-                            Section {
-                                Toggle(isOn: $vm.usePersonalVoice, label: {
-                                    Label("Use Personal Voice", systemImage: "waveform.and.person.filled")
-                                })
-                                
-                                // TODO: Handle the case where multiple Personal Voices exist
-        //                        if vm.usePersonalVoice == true && personalVoices.count > 1 {
-                                if vm.usePersonalVoice == true {
-                                    Picker(selection: $vm.selectedPersonalVoiceIdentifier) {
-                                        ForEach(personalVoices, id: \.self) { voice in
-                                            Button {
-                                                vm.selectedPersonalVoiceIdentifier = voice.identifier
-                                            } label: {
-                                                Text(voice.name)
-                                            }
-                                        }
-                                    } label: {
-                                        Label("Selected Voice", systemImage: "waveform")
-                                    }
-                                }
-    //                            }
-                            } footer: {
-                                Text("Have the app speak with your voice, using Apple's Personal Voice feature.")
-                            }
-                        } 
-//                    else {
-//                            Button("About Personal Voice") {
-//                                // TODO: Create view that explains how to set up Personal Voice
-//                                showingPersonalVoiceSetupSheet = true
+//                if #available(iOS 17, *) {
+//                    // TODO: Re-enable check that only shows Personal Voice info if the device supports it
+////                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .unsupported {
+//                        // TODO: Re-enable check that only shows this section if Personal Voices exist
+//                        if AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.voiceTraits == .isPersonalVoice }) {
+////                            let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
+//                            
+//                            Section {
+//                                Toggle(isOn: $vm.usePersonalVoice, label: {
+//                                    Label("Use Personal Voice", systemImage: "waveform.and.person.filled")
+//                                })
+//                                
+//                                // TODO: Handle the case where multiple Personal Voices exist
+//        //                        if vm.usePersonalVoice == true && personalVoices.count > 1 {
+//                                if vm.usePersonalVoice == true {
+//                                    Picker(selection: $vm.selectedPersonalVoiceIdentifier) {
+//                                        ForEach(personalVoices, id: \.self) { voice in
+//                                            Button {
+//                                                vm.selectedPersonalVoiceIdentifier = voice.identifier
+//                                            } label: {
+//                                                Text(voice.name)
+//                                            }
+//                                        }
+//                                    } label: {
+//                                        Label("Selected Voice", systemImage: "waveform")
+//                                    }
+//                                }
+//    //                            }
+//                            } footer: {
+//                                Text("Have the app speak with your voice, using Apple's Personal Voice feature.")
 //                            }
-//                        }
-//                    }
-                }
+//                        } 
+////                    else {
+////                            Button("About Personal Voice") {
+////                                // TODO: Create view that explains how to set up Personal Voice
+////                                showingPersonalVoiceSetupSheet = true
+////                            }
+////                        }
+////                    }
+//                }
                 
                 // TODO: Re-enable conditional
 //                if Locale.preferredLanguages.count > 1 && vm.usePersonalVoice == false {
-                    Section {
-                        Picker(selection: $vm.selectedLanguage) {
-                            languagePicker
-                        } label: {
-                            Label("Speech Language", systemImage: "quote.bubble.fill")
-                        }
-                    }
+//                    Section {
+//                        Picker(selection: $vm.selectedLanguage) {
+//                            languagePicker
+//                        } label: {
+//                            Label("Speech Language", systemImage: "quote.bubble.fill")
+//                        }
+//                    }
 //                }
+                
+                Section {
+                    VoicePickerView()
+                    
+                    // TODO: Use conditional logic, to show this only on supported devices that have the feature enabled
+                    Toggle(isOn: $vm.usePersonalVoice, label: {
+                        Label("Use Personal Voice", systemImage: "waveform.and.person.filled")
+                    })
+                }
                 
                 Section {
                     Picker(selection: $vm.appAppearance) {
@@ -92,6 +102,11 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
+//        .task {
+//            if #available(iOS 17.0, *) {
+//                await fetchPersonalVoices()
+//            }
+//        }
         .onAppear {
             if #available(iOS 17.0, *) {
                 if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .authorized {
@@ -140,6 +155,15 @@ struct SettingsView: View {
             Text("It looks like you previously denied access to your Personal Voice. To manually grant access, please go to Settings -> Accessibility -> Personal Voice")
         }
     }
+    
+//    @available(iOS 17.0, *)
+//    func fetchPersonalVoices() async {
+//        AVSpeechSynthesizer.requestPersonalVoiceAuthorization() { status in
+//            if status == .authorized {
+//                personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits.contains(.isPersonalVoice) }
+//            }
+//        }
+//    }
     
     // Allows user to select from their preferred languages, as defined in Settings -> General -> Language & Region
     var languagePicker: some View {
