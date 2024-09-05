@@ -39,6 +39,7 @@ struct PhraseCardView: View {
                 }
             }
             .padding()
+            .id(UUID())
 //        }
     }
     
