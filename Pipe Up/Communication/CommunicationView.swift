@@ -15,59 +15,80 @@ struct CommunicationView: View {
     @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
     
     @State private var selectedCategory: PhraseCategory?
+    @State private var showingTextField = false
+     
+    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String?
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    TextInputView()
-                    
 //                    if categories.count > 0 {
                         CategorySelectorView(selectedCategory: $selectedCategory)
 //                    }
                     
                     PhraseCardView(selectedCategory: $selectedCategory)
-                    
-                    Divider()
-                        .frame(width: 0)
                 }
             }
-            .scrollDismissesKeyboard(.interactively)
-//            .navigationBarTitleDisplayMode(.inline)
+            .animation(.default, value: selectedCategory)
+            .overlay {
+                hoveringButtons
+                    .animation(.default, value: vm.synthesizerState)
+            }
+//            .scrollDismissesKeyboard(.interactively)
+            .navigationTitle("Speak")
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground))
-            .onAppear { vm.assignVoice() }
-            .onChange(of: vm.usePersonalVoice) { _ in vm.assignVoice() }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    if vm.isSpeaking {
-                        pauseSpeakingButton
+            .onAppear {
+                if let lastSelectedCategory {
+                    selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
+                }
+                
+                vm.assignVoice()
+            }
+//            .onChange(of: vm.usePersonalVoice) { _ in vm.assignVoice() }
+            .onChange(of: selectedCategory) { category in
+                lastSelectedCategory = category?.title
+            }
+        }
+        .overlay {
+            if showingTextField {
+                TextInputView(showingTextField: $showingTextField)
+                    .transition(.opacity.animation(.easeInOut))
+            }
+        }
+    }
+    
+    private var hoveringButtons: some View {
+        VStack {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Group {
+                    if vm.synthesizerState == .speaking {
+                        HoveringButton(text: "Pause Speech", symbolName: "pause.fill") {
+                            vm.pauseSpeaking()
+                        }
+                    } else if vm.synthesizerState == .paused {
+                        HoveringButton(text: "Cancel Speech", symbolName: "stop.fill") {
+                            vm.cancelSpeaking()
+                        }
+                        
+                        HoveringButton(text: "Continue Speech", symbolName: "play.fill") {
+                            vm.continueSpeaking()
+                        }
                     } else {
-                        continueSpeakingButton
+                        HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
+                            showingTextField = true
+                        }
                     }
                 }
             }
+            .padding()
         }
-    }
-    
-    private var pauseSpeakingButton: some View {
-        Button {
-            vm.pauseSpeaking()
-        } label: {
-            Label("Pause Speech", systemImage: "pause.circle.fill")
-                .labelStyle(.iconOnly)
-                .font(.title2)
-        }
-    }
-    
-    private var continueSpeakingButton: some View {
-        Button {
-            vm.continueSpeaking()
-        } label: {
-            Label("Continue Speech", systemImage: "play.circle.fill")
-                .labelStyle(.iconOnly)
-                .font(.title2)
-        }
+        .ignoresSafeArea(.keyboard)
     }
 }
 
