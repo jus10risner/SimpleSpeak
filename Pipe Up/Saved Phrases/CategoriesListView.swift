@@ -18,6 +18,8 @@ struct CategoriesListView: View {
     @State private var categoryTitle = ""
     @State private var showingDuplicateCategoryAlert = false
     
+    @State private var exportURL: URL?
+    
     var body: some View {
         NavigationStack {
             categoryList
@@ -35,6 +37,21 @@ struct CategoriesListView: View {
                             isAddingCategory = true
                         } label: {
                             Label("Add New Category", systemImage: "plus.circle.fill")
+                        }
+                    }
+                    
+                    ToolbarItemGroup(placement: .topBarLeading) {
+                        Button("Export") {
+                            Task {
+                                let url = exportCategoriesToFolder(categories: Array(categories))
+                                DispatchQueue.main.async {
+                                    exportURL = url
+                                }
+                            }
+                        }
+                        
+                        if let exportURL {
+                            ShareLink(item: exportURL)
                         }
                     }
                 }
@@ -98,6 +115,37 @@ struct CategoriesListView: View {
             newCategory.title = categoryTitle
         
             try? context.save()
+        }
+    }
+    
+    func exportCategoriesToFolder(categories: [PhraseCategory]) -> URL? {
+        let fileManager = FileManager.default
+        let tempDirectoryURL = fileManager.temporaryDirectory
+        let categoriesFolderURL = tempDirectoryURL.appendingPathComponent("Pipe Up Data")
+        
+        do {
+            // Create the categories folder
+            try fileManager.createDirectory(at: categoriesFolderURL, withIntermediateDirectories: true, attributes: nil)
+            
+            for category in categories {
+                let categoryFolderURL = categoriesFolderURL.appendingPathComponent(category.title)
+                try fileManager.createDirectory(at: categoryFolderURL, withIntermediateDirectories: true, attributes: nil)
+                
+                for phrase in category.phrasesArray {
+                    let phraseFolderURL = categoryFolderURL.appendingPathComponent(phrase.label)
+                    try fileManager.createDirectory(at: phraseFolderURL, withIntermediateDirectories: true, attributes: nil)
+                    
+                    // Save the phrase text with a custom extension
+                    let textFileURL = phraseFolderURL.appendingPathComponent("phrase.pipeupapp")
+                    try phrase.text.write(to: textFileURL, atomically: true, encoding: .utf8)
+                }
+            }
+            
+            // Return the URL of the exported folder
+            return categoriesFolderURL
+        } catch {
+            print("An error occurred while exporting: \(error)")
+            return nil
         }
     }
 }
