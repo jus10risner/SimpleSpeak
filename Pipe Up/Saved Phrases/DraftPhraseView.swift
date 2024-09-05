@@ -58,12 +58,12 @@ struct DraftPhraseView: View {
                 }
             }
         }
-        .onAppear {
-            phrases.nsPredicate = NSPredicate(format: "category == %@", draftPhrase.category ?? NSNull())
-        }
-        .onChange(of: draftPhrase.category) { newCategory in
-            phrases.nsPredicate = NSPredicate(format: "category == %@", newCategory ?? NSNull())
-        }
+//        .onAppear {
+//            phrases.nsPredicate = NSPredicate(format: "category == %@", draftPhrase.category ?? NSNull())
+//        }
+//        .onChange(of: draftPhrase.category) { newCategory in
+//            phrases.nsPredicate = NSPredicate(format: "category == %@", newCategory ?? NSNull())
+//        }
         .onChange(of: draftPhraseData) { _ in
             hasChanges = true
         }
@@ -127,7 +127,7 @@ struct DraftPhraseView: View {
     func addPhrase() {
         let newSavedPhrase = SavedPhrase(context: context)
         newSavedPhrase.id = UUID()
-        newSavedPhrase.text = draftPhrase.text
+        newSavedPhrase.text = draftPhrase.text.trimmingCharacters(in: .whitespacesAndNewlines)
         if !draftPhrase.label.isEmpty {
             newSavedPhrase.label = draftPhrase.label
         }
