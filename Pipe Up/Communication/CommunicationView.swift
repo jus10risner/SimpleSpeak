@@ -33,7 +33,6 @@ struct CommunicationView: View {
             .animation(.default, value: selectedCategory)
             .overlay {
                 hoveringButtons
-                    .animation(.default, value: vm.synthesizerState)
             }
 //            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Speak")
@@ -88,6 +87,7 @@ struct CommunicationView: View {
             }
             .padding()
         }
+        .animation(.default, value: vm.synthesizerState)
         .ignoresSafeArea(.keyboard)
     }
 }
