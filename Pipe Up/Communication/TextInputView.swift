@@ -23,8 +23,8 @@ struct TextInputView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             Color.clear
-                .ignoresSafeArea()
                 .background(.ultraThinMaterial)
+                .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 textFieldButtons

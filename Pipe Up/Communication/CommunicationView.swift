@@ -37,7 +37,7 @@ struct CommunicationView: View {
 //            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Speak")
             .scrollContentBackground(.hidden)
-            .background(Color(.systemGroupedBackground))
+            .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .onAppear {
                 if let lastSelectedCategory {
                     selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
