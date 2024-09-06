@@ -15,7 +15,6 @@ struct EmptyListView: View {
     var body: some View {
         ZStack {
             Color(.systemGroupedBackground)
-                .ignoresSafeArea()
             
             VStack(spacing: 10) {
                 Image(systemName: systemImage)
@@ -35,6 +34,7 @@ struct EmptyListView: View {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
 
