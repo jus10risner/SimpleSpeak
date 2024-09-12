@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesListView: View {
     @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)], animation: .easeInOut) var categories: FetchedResults<PhraseCategory>
@@ -23,7 +24,8 @@ struct CategoriesListView: View {
     var body: some View {
         NavigationStack {
             categoryList
-                .navigationTitle("Phrases")
+                .navigationTitle("Categories")
+                .navigationBarTitleDisplayMode(.inline)
                 .listRowSpacing(vm.listRowSpacing)
                 .scrollDismissesKeyboard(.interactively)
                 .onAppear {
@@ -34,29 +36,39 @@ struct CategoriesListView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            isAddingCategory = true
+                            dismiss()
                         } label: {
-                            Label("Add New Category", systemImage: "plus.circle.fill")
+                            Label("Dismiss", systemImage: "xmark.circle.fill")
+                                .symbolRenderingMode(.hierarchical)
+                                .font(.title2)
+                                .foregroundStyle(Color.secondary)
                         }
+                        .buttonStyle(.plain)
+                        
+//                        Button {
+//                            isAddingCategory = true
+//                        } label: {
+//                            Label("Add New Category", systemImage: "plus.circle.fill")
+//                        }
                     }
                     
-                    ToolbarItemGroup(placement: .topBarLeading) {
-                        Button("Export") {
-                            Task {
-                                let url = exportCategoriesToFolder(categories: Array(categories))
-                                DispatchQueue.main.async {
-                                    exportURL = url
-                                }
-                            }
-                        }
-                        
-                        if let exportURL {
-                            ShareLink(item: exportURL)
-                        }
-                    }
+//                    ToolbarItemGroup(placement: .topBarLeading) {
+//                        Button("Export") {
+//                            Task {
+//                                let url = exportCategoriesToFolder(categories: Array(categories))
+//                                DispatchQueue.main.async {
+//                                    exportURL = url
+//                                }
+//                            }
+//                        }
+//                        
+//                        if let exportURL {
+//                            ShareLink(item: exportURL)
+//                        }
+//                    }
                 }
                 .alert("Add Category", isPresented: $isAddingCategory) {
-                    TextField("Category Title", text: $categoryTitle)
+                    TextField("Category Name", text: $categoryTitle)
                     Button("Save") {
                         addCategory()
                         categoryTitle = ""
@@ -92,6 +104,14 @@ struct CategoriesListView: View {
                     }
                 }
             }
+            
+            Button("Add Category") {
+                isAddingCategory = true
+            }
+            .padding()
+            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .listRowBackground(Color.clear)
+            .frame(maxWidth: .infinity)
         }
         .listRowSpacing(vm.listRowSpacing)
     }
@@ -107,7 +127,7 @@ struct CategoriesListView: View {
     
     // Adds a new category
     func addCategory() {
-        if categories.contains(where: { $0.title == categoryTitle }) {
+        if categories.contains(where: { $0.title == categoryTitle || categoryTitle == "Recents" }) {
             showingDuplicateCategoryAlert = true
         } else {
             let newCategory = PhraseCategory(context: context)
