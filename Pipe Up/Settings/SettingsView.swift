@@ -23,7 +23,8 @@ struct SettingsView: View {
                         Label("Use During Calls", systemImage: "phone.fill")
                     })
                 } footer: {
-                    Text("Determines whether your typed phrases are spoken aloud to the other party on a phone call.")
+//                    Text("Determines whether your typed phrases are spoken aloud to the other party on a phone call.")
+                    Text("Allows this app to send your spoken audio to other parties on a phone call or FaceTime.")
                 }
                 
                 if #available(iOS 17, *) {
@@ -32,8 +33,8 @@ struct SettingsView: View {
                         
                         //                    let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
                         
-                        if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized && AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.voiceTraits == .isPersonalVoice })
-                        {
+//                        if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized && AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.voiceTraits == .isPersonalVoice })
+//                        {
                             Section {
                                 Toggle(isOn: $vm.usePersonalVoice, label: {
                                     Label("Use Personal Voice", systemImage: "waveform.and.person.filled")
@@ -56,7 +57,7 @@ struct SettingsView: View {
                             } footer: {
                                 Text("Have the app speak with your voice, using Apple's Personal Voice feature.")
                             }
-                        }
+//                        }
                     }
                     
 //                    // TODO: Re-enable check that only shows this section if Personal Voices exist
@@ -129,53 +130,68 @@ struct SettingsView: View {
                     }
                 }
             }
+            .tint(Color(.defaultAccent))
             .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Dismiss", systemImage: "xmark.circle.fill")
+                            .symbolRenderingMode(.hierarchical)
+                            .font(.title2)
+                            .foregroundStyle(Color.secondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
         }
         .task {
             if #available(iOS 17.0, *) {
                 await fetchPersonalVoices()
             }
         }
-//        .onAppear {
-//            if #available(iOS 17.0, *) {
-//                if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .authorized {
-//                    vm.usePersonalVoice = false
+        .onAppear {
+            if #available(iOS 17.0, *) {
+                if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .authorized {
+                    vm.usePersonalVoice = false
+                }
+            }
+        }
+//        .onChange(of: vm.usePersonalVoice) { toggle in
+//            if #available(iOS 17, *) {
+//                if toggle == false {
+//                    vm.selectedVoiceIdentifier = nil
+//                } else {
+//                    vm.selectedVoiceIdentifier = personalVoices[0].identifier
 //                }
 //            }
+//            
+//            vm.assignVoice()
 //        }
+//        .onChange(of: vm.selectedLanguage) { _ in vm.assignVoice() }
+        .onChange(of: vm.selectedVoiceIdentifier) { _ in
+            vm.assignVoice()
+        }
         .onChange(of: vm.usePersonalVoice) { toggle in
             if #available(iOS 17, *) {
                 if toggle == false {
                     vm.selectedVoiceIdentifier = nil
                 } else {
-                    vm.selectedVoiceIdentifier = personalVoices[0].identifier
+                    switch AVSpeechSynthesizer.personalVoiceAuthorizationStatus {
+                    case .notDetermined:
+                        vm.requestPersonalVoiceAuthorization()
+                    case .denied:
+                        showingPersonalVoiceAlert = true
+                    default:
+                        vm.selectedVoiceIdentifier = personalVoices[0].identifier
+                    }
                 }
+                
+                vm.assignVoice()
             }
-            
-            vm.assignVoice()
         }
-//        .onChange(of: vm.selectedLanguage) { _ in vm.assignVoice() }
-        .onChange(of: vm.selectedVoiceIdentifier) { _ in
-            vm.assignVoice()
-        }
-//        .onChange(of: vm.usePersonalVoice) { toggle in
-//            if #available(iOS 17, *) {
-//                if toggle == false {
-//                    vm.selectedPersonalVoiceIdentifier = nil
-//                } else {
-//                    switch AVSpeechSynthesizer.personalVoiceAuthorizationStatus {
-//                    case .notDetermined:
-//                        vm.requestPersonalVoiceAuthorization()
-//                    case .denied:
-//                        showingPersonalVoiceAlert = true
-//                    default:
-//                        return
-//                    }
-//                }
-//                
-//                vm.assignVoice()
-//            }
-//        }
 //        .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
 //            NavigationStack {
 ////                    SafariView(url: URL(string: "https://support.apple.com/en-us/104993")!)
@@ -193,7 +209,7 @@ struct SettingsView: View {
 //            }
 //        })
         .alert("Personal Voice Not Authorized", isPresented: $showingPersonalVoiceAlert) {
-            Button("OK", role: .cancel) { }
+            Button("OK") { vm.usePersonalVoice = false }
         } message: {
             Text("It looks like you previously denied access to your Personal Voice. To manually grant access, please go to Settings -> Accessibility -> Personal Voice")
         }
