@@ -12,7 +12,6 @@ import SwiftUI
 class ViewModel: NSObject, ObservableObject {
     @Published var voiceToUse = AVSpeechSynthesisVoice(language: Locale.preferredLanguages[0])
     @Published var synthesizerState: SynthesizerState = .inactive
-//    @Published var isSpeaking = false
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
@@ -148,17 +147,14 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         print("started")
         self.synthesizerState = .speaking
-//        self.isSpeaking = true
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
         print("paused")
         self.synthesizerState = .paused
-//        self.isSpeaking = false
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
         print("continued")
         self.synthesizerState = .speaking
-//        self.isSpeaking = true
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         print("cancelled")
@@ -168,6 +164,5 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         print("finished")
         self.synthesizerState = .inactive
-//        self.isSpeaking = false
     }
 }
