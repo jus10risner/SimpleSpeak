@@ -80,11 +80,21 @@ struct SavedPhrasesListView: View {
                         Label("Add New Phrase", systemImage: "plus")
                     }
                     
-                    if category?.title != "Saved" {
-                        categoryMenu
-                    }
+//                    if category?.title != "Saved" {
+//                        categoryMenu
+//                    }
                 }
             }
+            
+            if category?.title != "Saved" && category != nil {
+                ToolbarTitleMenu {
+                    categoryMenu
+                }
+            }
+            
+//            ToolbarTitleMenu {
+//                categoryMenu
+//            }
         }
         .onAppear {
             if let category {
@@ -131,7 +141,7 @@ struct SavedPhrasesListView: View {
     }
     
     private var categoryMenu: some View {
-        Menu {
+        Group {
             Button {
                 // TODO: Add EditCategoryView
                 showingEditCategory = true
@@ -145,8 +155,6 @@ struct SavedPhrasesListView: View {
             } label: {
                 Label("Delete Category", systemImage: "trash")
             }
-        } label: {
-            Label("Edit Category", systemImage: "ellipsis.circle")
         }
     }
     
