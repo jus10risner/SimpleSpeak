@@ -18,7 +18,7 @@ struct CategorySelectorView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: rows, spacing: 5) {
+            LazyHGrid(rows: rows, spacing: 10) {
                 if !recentPhrases.isEmpty {
                     categoryButton(category: nil, text: "Recents")
                 }
@@ -31,7 +31,9 @@ struct CategorySelectorView: View {
             }
             .padding(.horizontal)
         }
-        .frame(height: 75)
+//        .frame(height: 50)
+        .padding(.vertical, 10)
+        .fixedSize(horizontal: false, vertical: true)
         .onAppear {
             // Selects the first category that contains phrases, if the currently-selected category (or Recents) is empty
             if recentPhrases.isEmpty {
@@ -48,16 +50,18 @@ struct CategorySelectorView: View {
             selectedCategory = category
         } label: {
             Text(text)
-                .foregroundStyle(Color.primary)
-                .padding(15)
-                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                .font(.title.bold())
+                .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
+//                .underline(selectedCategory == category ? true : false, pattern: .solid, color: Color(.defaultAccent))
+//                .padding()
+//                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
-        .overlay {
-            if selectedCategory == category {
-                RoundedRectangle(cornerRadius: vm.cornerRadius)
-                    .stroke(Color.secondary, lineWidth: 0.5)
-            }
-        }
+//        .overlay {
+//            if selectedCategory == category {
+//                RoundedRectangle(cornerRadius: vm.cornerRadius)
+//                    .stroke(Color.secondary, lineWidth: 0.5)
+//            }
+//        }
     }
 }
 
