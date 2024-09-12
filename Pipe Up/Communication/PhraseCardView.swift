@@ -20,6 +20,10 @@ struct PhraseCardView: View {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(filteredPhrases) { phrase in
                     Button {
+                        if vm.synthesizerState == .speaking {
+                            vm.cancelSpeaking()
+                        }
+                        
                         vm.speak(phrase.text)
                     } label: {
                         Group {
@@ -29,12 +33,29 @@ struct PhraseCardView: View {
                                 Text(phrase.text)
                             }
                         }
-                        .foregroundStyle(Color.primary)
+                        .font(.title3.bold())
+                        .minimumScaleFactor(0.9)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
-                        .padding(20)
+                        .padding()
                         .frame(height: 100)
                         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                    }
+                    .buttonStyle(.plain)
+                }
+                
+                if selectedCategory != nil {
+                    Button {
+                        // TODO: Set up Add Phrase
+                    } label: {
+                        Label("Add Phrase", systemImage: "plus")
+//                            .font(.largeTitle)
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .frame(height: 100)
+                            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                     }
                 }
             }
@@ -45,7 +66,11 @@ struct PhraseCardView: View {
     
     // Returns the phrases in the selected category
     private var filteredPhrases: [SavedPhrase] {
-        return savedPhrases.filter({ $0.category == selectedCategory }).sorted(by: { $0.displayOrder < $1.displayOrder })
+        if selectedCategory != nil {
+            return savedPhrases.filter({ $0.category == selectedCategory }).sorted(by: { $0.displayOrder < $1.displayOrder })
+        } else {
+            return savedPhrases.filter({ $0.category == selectedCategory }).sorted(by: { $0.displayOrder > $1.displayOrder })
+        }
     }
 }
 

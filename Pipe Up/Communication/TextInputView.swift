@@ -25,13 +25,14 @@ struct TextInputView: View {
             Color.clear
                 .background(.ultraThinMaterial)
                 .ignoresSafeArea()
+                .environment(\.colorScheme, .dark)
             
             VStack(spacing: 0) {
                 textFieldButtons
                 
                 textField
             }
-            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background(Color(.systemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .padding()
         }
         .onAppear {
@@ -116,90 +117,16 @@ struct TextInputView: View {
     }
     
     
-    // MARK: - Buttons
-    /**
-//    private var dismissTextFieldButton: some View {
-//        Button {
-//            mostRecentTypedPhrase = ""
-//            vm.cancelSpeaking()
-//            isInputActive = false
-//
-//            withAnimation {
-//                text = ""
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                    showingTextField = false
-//                }
-//            }
-//        } label: {
-//            Label("Dismiss Keyboard", systemImage: "xmark.circle.fill")
-//        }
-//        .textInputButtonStyle()
-//        .foregroundStyle(Color.secondary)
-//    }
-    
-//    private var clearTextButton: some View {
-//        Button {
-//            withAnimation {
-//                text = ""
-//            }
-//        } label: {
-//            Label("Clear Text", systemImage: "trash.circle.fill")
-//        }
-//        .textInputButtonStyle()
-//        .foregroundStyle(Color.secondary)
-//    }
-    
-//    private var repeatPhraseButton: some View {
-//        Button {
-//            vm.speak(mostRecentTypedPhrase)
-//        } label: {
-//            Label("Repeat Last Typed Phrase", systemImage: "repeat.circle.fill")
-//        }
-//        .textInputButtonStyle()
-//        .foregroundStyle(Color.secondary)
-//    }
-    
-//    private var cancelSpeakingButton: some View {
-//        Button {
-//            vm.cancelSpeaking()
-//        } label: {
-//            Label("Cancel Speech", systemImage: "stop.circle.fill")
-//        }
-//        .textInputButtonStyle()
-//    }
-    
-//    private var pauseSpeakingButton: some View {
-//        Button {
-//            vm.pauseSpeaking()
-//        } label: {
-//            Label("Pause Speech", systemImage: "pause.circle.fill")
-//        }
-//        .textInputButtonStyle()
-//    }
-    
-//    private var continueSpeakingButton: some View {
-//        Button {
-//            vm.continueSpeaking()
-//        } label: {
-//            Label("Continue Speech", systemImage: "play.circle.fill")
-//        }
-//        .textInputButtonStyle()
-//    }
-     */
-    
-    
     // MARK: - Methods
     
     func dismissKeyboard() {
         mostRecentTypedPhrase = ""
-        vm.cancelSpeaking()
         isInputActive = false
         
         withAnimation {
             text = ""
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                 showingTextField = false
             }
         }
@@ -217,6 +144,7 @@ struct TextInputView: View {
                 newSavedPhrase.id = UUID()
                 newSavedPhrase.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
                 newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
+                
                 try? context.save()
             }
             

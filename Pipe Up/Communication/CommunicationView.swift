@@ -10,24 +10,31 @@ import SwiftUI
 
 struct CommunicationView: View {
     @Environment(\.managedObjectContext) var context
-    @EnvironmentObject var vm: ViewModel
+    @StateObject var vm = ViewModel()
     
     @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
     
     @State private var selectedCategory: PhraseCategory?
     @State private var showingTextField = false
+    @State private var showingSettings = false
+    @State private var showingSavedPhrases = false
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String?
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
-//                    if categories.count > 0 {
-                        CategorySelectorView(selectedCategory: $selectedCategory)
+            VStack(spacing: 0) {
+                CategorySelectorView(selectedCategory: $selectedCategory)
+                
+                ScrollView {
+//                    VStack(spacing: 0) {
+//                        if categories.count > 0 {
+//                            CategorySelectorView(selectedCategory: $selectedCategory)
+//                        }
+                        
+                        PhraseCardView(selectedCategory: $selectedCategory)
+    //                    PhraseListView(selectedCategory: $selectedCategory)
 //                    }
-                    
-                    PhraseCardView(selectedCategory: $selectedCategory)
                 }
             }
             .animation(.default, value: selectedCategory)
@@ -35,9 +42,11 @@ struct CommunicationView: View {
                 hoveringButtons
             }
 //            .scrollDismissesKeyboard(.interactively)
-            .navigationTitle("Speak")
+//            .navigationTitle("Speak")
+            .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
+//            .background(Color(.customBackground).ignoresSafeArea())
             .onAppear {
                 if let lastSelectedCategory {
                     selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
@@ -49,6 +58,29 @@ struct CommunicationView: View {
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Label("Settings", systemImage: "gearshape.fill")
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showingSavedPhrases = true
+                    } label: {
+                        Label("Saved Phrases", systemImage: "bookmark.fill")
+                    }
+                }
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsView()
+            }
+            .sheet(isPresented: $showingSavedPhrases) {
+                CategoriesListView()
+            }
         }
         .overlay {
             if showingTextField {
@@ -56,38 +88,18 @@ struct CommunicationView: View {
                     .transition(.opacity.animation(.easeInOut))
             }
         }
+        .environmentObject(vm)
     }
     
     private var hoveringButtons: some View {
         VStack {
             Spacer()
             
-            HStack {
-                Spacer()
-                
-                Group {
-                    if vm.synthesizerState == .speaking {
-                        HoveringButton(text: "Pause Speech", symbolName: "pause.fill") {
-                            vm.pauseSpeaking()
-                        }
-                    } else if vm.synthesizerState == .paused {
-                        HoveringButton(text: "Cancel Speech", symbolName: "stop.fill") {
-                            vm.cancelSpeaking()
-                        }
-                        
-                        HoveringButton(text: "Continue Speech", symbolName: "play.fill") {
-                            vm.continueSpeaking()
-                        }
-                    } else {
-                        HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
-                            showingTextField = true
-                        }
-                    }
-                }
-            }
-            .padding()
+            HoveringButtonsView(showingTextField: $showingTextField)
+                .frame(maxWidth: .infinity)
+                .background(LinearGradient(colors: [Color(.systemGroupedBackground), Color(.systemGroupedBackground).opacity(0.8), Color(.systemGroupedBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
-        .animation(.default, value: vm.synthesizerState)
+//        .animation(.default, value: vm.synthesizerState)
         .ignoresSafeArea(.keyboard)
     }
 }
