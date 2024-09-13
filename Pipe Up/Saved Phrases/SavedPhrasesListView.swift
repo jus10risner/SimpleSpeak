@@ -86,7 +86,7 @@ struct SavedPhrasesListView: View {
                 }
             }
             
-            if category?.title != "Saved" && category != nil {
+            if category?.title != "Favorites" && category != nil {
                 ToolbarTitleMenu {
                     categoryMenu
                 }

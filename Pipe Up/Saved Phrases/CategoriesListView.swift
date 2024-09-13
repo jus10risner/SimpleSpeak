@@ -116,11 +116,11 @@ struct CategoriesListView: View {
         .listRowSpacing(vm.listRowSpacing)
     }
     
-    // Adds a default "Saved" category
+    // Adds a default "Favorites" category
     func addSavedCategory() {
         let newCategory = PhraseCategory(context: context)
         newCategory.id = UUID()
-        newCategory.title = "Saved"
+        newCategory.title = "Favorites"
     
         try? context.save()
     }
