@@ -12,7 +12,7 @@ struct CategoriesListView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)], animation: .easeInOut) var categories: FetchedResults<PhraseCategory>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)], animation: .easeInOut) var categories: FetchedResults<PhraseCategory>
     
     @State private var showingAddPhrase = false
     @State private var isAddingCategory = false
@@ -30,7 +30,7 @@ struct CategoriesListView: View {
                 .scrollDismissesKeyboard(.interactively)
                 .onAppear {
                     if categories.count == 0 {
-                        addSavedCategory()
+                        addFavoritesCategory()
                     }
                 }
                 .toolbar {
@@ -117,10 +117,11 @@ struct CategoriesListView: View {
     }
     
     // Adds a default "Favorites" category
-    func addSavedCategory() {
+    func addFavoritesCategory() {
         let newCategory = PhraseCategory(context: context)
         newCategory.id = UUID()
         newCategory.title = "Favorites"
+        newCategory.displayOrder = 0
     
         try? context.save()
     }
@@ -133,6 +134,7 @@ struct CategoriesListView: View {
             let newCategory = PhraseCategory(context: context)
             newCategory.id = UUID()
             newCategory.title = categoryTitle
+            newCategory.displayOrder = (categories.last?.displayOrder ?? 0) + 1
         
             try? context.save()
         }
