@@ -12,7 +12,7 @@ struct SavedPhrasesListView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
-    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
+//    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
     let category: PhraseCategory?
