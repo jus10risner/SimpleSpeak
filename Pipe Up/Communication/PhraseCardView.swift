@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PhraseCardView: View {
     @EnvironmentObject var vm: ViewModel
-    @FetchRequest(sortDescriptors: []) var savedPhrases: FetchedResults<SavedPhrase>
+    @FetchRequest(sortDescriptors: [], animation: .easeInOut) var savedPhrases: FetchedResults<SavedPhrase>
     
     @Binding var selectedCategory: PhraseCategory?
     
@@ -60,7 +60,7 @@ struct PhraseCardView: View {
                 }
             }
             .padding()
-            .id(UUID())
+//            .id(UUID())
 //        }
     }
     
