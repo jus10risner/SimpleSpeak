@@ -158,18 +158,18 @@ struct SavedPhrasesListView: View {
         }
     }
     
-    // Persists the order of vehicles, after moving
+    // Persists the order of phrases, after moving
     func move(from source: IndexSet, to destination: Int) {
-        // Make an array of vehicles from fetched results
-        var modifiedVehicleList: [SavedPhrase] = savedPhrases.map { $0 }
+        // Make an array of phrases from fetched results
+        var modifiedPhraseList: [SavedPhrase] = savedPhrases.map { $0 }
 
-        // change the order of the vehicles in the array
-        modifiedVehicleList.move(fromOffsets: source, toOffset: destination )
+        // change the order of the phrases in the array
+        modifiedPhraseList.move(fromOffsets: source, toOffset: destination )
 
-        // update the displayOrder attribute in modifiedVehicleList to
+        // update the displayOrder attribute in modifiedPhraseList to
         // persist the new order.
-        for index in (0..<modifiedVehicleList.count) {
-            modifiedVehicleList[index].displayOrder = Int64(index)
+        for index in (0..<modifiedPhraseList.count) {
+            modifiedPhraseList[index].displayOrder = Int64(index)
         }
         
         try? context.save()
