@@ -11,41 +11,48 @@ struct HoveringButtonsView: View {
     @EnvironmentObject var vm: ViewModel
     @Binding var showingTextField: Bool
     
-//    @State private var offset = 0.0
-    
     var body: some View {
-        Group {
-            switch vm.synthesizerState {
-            case .speaking:
-                HoveringButton(text: "Pause Speech", symbolName: "pause.fill") {
-                    vm.pauseSpeaking()
-                }
-            case .paused:
-                VStack {
-                    HoveringButton(text: "Cancel Speech", symbolName: "stop.fill") {
-                        vm.cancelSpeaking()
-                    }
-//                    .offset(y: offset)
-//                    .onAppear {
-//                        withAnimation {
-//                            offset = -60
-//                        }
-//                    }
-                    
-                    HoveringButton(text: "Continue Speech", symbolName: "play.fill") {
-                        vm.continueSpeaking()
-                    }
-                }
-            case .inactive:
-                HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
-                    withAnimation {
-                        showingTextField = true
-                    }
-                }
+        ZStack {
+            Button(role: .destructive) {
+                vm.cancelSpeaking()
+            } label: {
+                Label("Cancel Speech", systemImage: "stop.circle.fill")
+                    .labelStyle(.iconOnly)
+                    .symbolRenderingMode(.multicolor)
+                    .font(.title)
             }
+            .offset(x: vm.synthesizerState == .paused ? -50 : 0)
+            .transition(.move(edge: .trailing))
+            
+            ZStack {
+                Circle()
+                    .frame(width: 50, height: 50)
+                    .foregroundStyle(Color(.defaultAccent))
+                    .shadow(radius: 5)
+                
+                Group {
+                    switch vm.synthesizerState {
+                    case .speaking:
+                        HoveringButton(text: "Pause Speech", symbolName: "pause.fill") {
+                            vm.pauseSpeaking()
+                        }
+                    case .paused:
+                        HoveringButton(text: "Continue Speech", symbolName: "play.fill") {
+                            vm.continueSpeaking()
+                        }
+                    case .inactive:
+                        HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
+                            withAnimation {
+                                showingTextField = true
+                            }
+                        }
+                    }
+                }
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+            }
+            .mask(Circle())
         }
-//        .animation(.default, value: vm.synthesizerState)
-//        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+        .animation(.default, value: vm.synthesizerState)
     }
 }
 

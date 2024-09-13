@@ -13,18 +13,18 @@ struct HoveringButton: View {
     var action: () -> ()
     
     var body: some View {
-        Circle()
-            .frame(width: 50, height: 50)
-            .foregroundStyle(Color(.defaultAccent))
-            .shadow(radius: 5)
-            .overlay {
+//        Circle()
+//            .frame(width: 50, height: 50)
+//            .foregroundStyle(Color(.defaultAccent))
+//            .shadow(radius: 5)
+//            .overlay {
                 Button(action: action, label: {
                     Label(text, systemImage: symbolName)
                         .labelStyle(.iconOnly)
                         .foregroundStyle(Color.white)
                         .padding()
                 })
-            }
+//            }
     }
 }
 
