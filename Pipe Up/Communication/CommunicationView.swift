@@ -60,20 +60,36 @@ struct CommunicationView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showingSettings = true
+                    Menu {
+                        Button {
+                            showingSavedPhrases = true
+                        } label: {
+                            Label("Manage Phrases", systemImage: "bookmark")
+                        }
+                        
+                        Button {
+                            showingSettings = true
+                        } label: {
+                            Label("Settings", systemImage: "gearshape")
+                        }
                     } label: {
-                        Label("Settings", systemImage: "gearshape.fill")
+                        Image(systemName: "ellipsis.circle")
                     }
+                    
+//                    Button {
+//                        showingSettings = true
+//                    } label: {
+//                        Label("Settings", systemImage: "gearshape.fill")
+//                    }
                 }
                 
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        showingSavedPhrases = true
-                    } label: {
-                        Label("Saved Phrases", systemImage: "bookmark.fill")
-                    }
-                }
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Button {
+//                        showingSavedPhrases = true
+//                    } label: {
+//                        Label("Saved Phrases", systemImage: "bookmark.fill")
+//                    }
+//                }
             }
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
