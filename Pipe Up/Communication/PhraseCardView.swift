@@ -17,7 +17,7 @@ struct PhraseCardView: View {
     let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
     var body: some View {
-//        ScrollView {
+        ScrollView {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(filteredPhrases) { phrase in
                     Button {
@@ -63,7 +63,7 @@ struct PhraseCardView: View {
             }
             .padding()
 //            .id(UUID())
-//        }
+        }
     }
     
     // Returns the phrases in the selected category
