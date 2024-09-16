@@ -21,7 +21,7 @@ struct PhraseCardView: View {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(filteredPhrases) { phrase in
                     Button {
-                        if vm.synthesizerState == .speaking {
+                        if vm.synthesizerState != .inactive {
                             vm.cancelSpeaking()
                         }
                         
@@ -34,7 +34,7 @@ struct PhraseCardView: View {
                                 Text(phrase.text)
                             }
                         }
-                        .font(.title3.bold())
+                        .font(.headline)
                         .minimumScaleFactor(0.9)
                         .frame(maxWidth: .infinity)
                         .multilineTextAlignment(.center)
