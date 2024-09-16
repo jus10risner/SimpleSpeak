@@ -76,21 +76,7 @@ struct CommunicationView: View {
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
-                    
-//                    Button {
-//                        showingSettings = true
-//                    } label: {
-//                        Label("Settings", systemImage: "gearshape.fill")
-//                    }
                 }
-                
-//                ToolbarItem(placement: .topBarLeading) {
-//                    Button {
-//                        showingSavedPhrases = true
-//                    } label: {
-//                        Label("Saved Phrases", systemImage: "bookmark.fill")
-//                    }
-//                }
             }
             .sheet(isPresented: $showingAddPhrase, content: {
                 AddSavedPhraseView(category: selectedCategory)
