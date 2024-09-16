@@ -24,7 +24,7 @@ struct CategoriesListView: View {
     var body: some View {
         NavigationStack {
             categoryList
-                .navigationTitle("Categories")
+                .navigationTitle("Manage Phrases")
                 .navigationBarTitleDisplayMode(.inline)
                 .listRowSpacing(vm.listRowSpacing)
                 .scrollDismissesKeyboard(.interactively)
@@ -87,31 +87,33 @@ struct CategoriesListView: View {
     // ZStacks and clear colors were added, due to jumpy navigation behavior on iOS 16
     private var categoryList: some View {
         List {
-            ZStack {
-                Color.clear
-                NavigationLink("Recents") {
-                    SavedPhrasesListView(category: nil)
-                }
-            }
-            
-            ForEach(categories) { category in
+            Section("Categories") {
                 ZStack {
                     Color.clear
-                    NavigationLink(category.title) {
-                        SavedPhrasesListView(category: category)
-                            .navigationTitle(category.title)
-                            .navigationBarTitleDisplayMode(.inline)
+                    NavigationLink("Recents") {
+                        SavedPhrasesListView(category: nil)
                     }
                 }
+                
+                ForEach(categories) { category in
+                    ZStack {
+                        Color.clear
+                        NavigationLink(category.title) {
+                            SavedPhrasesListView(category: category)
+                                .navigationTitle(category.title)
+                                .navigationBarTitleDisplayMode(.inline)
+                        }
+                    }
+                }
+                
+                Button("Add Category") {
+                    isAddingCategory = true
+                }
+                .padding()
+                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                .listRowBackground(Color.clear)
+                .frame(maxWidth: .infinity)
             }
-            
-            Button("Add Category") {
-                isAddingCategory = true
-            }
-            .padding()
-            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-            .listRowBackground(Color.clear)
-            .frame(maxWidth: .infinity)
         }
         .listRowSpacing(vm.listRowSpacing)
     }
