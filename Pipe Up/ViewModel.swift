@@ -12,6 +12,7 @@ import SwiftUI
 class ViewModel: NSObject, ObservableObject {
     @Published var voiceToUse = AVSpeechSynthesisVoice(language: Locale.preferredLanguages[0])
     @Published var synthesizerState: SynthesizerState = .inactive
+    @Published var phraseIsRepeatable: Bool = false
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
@@ -146,6 +147,7 @@ enum SynthesizerState: String {
 extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         print("started")
+        self.phraseIsRepeatable = false
         self.synthesizerState = .speaking
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
@@ -163,6 +165,7 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {}
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         print("finished")
+        self.phraseIsRepeatable = true
         self.synthesizerState = .inactive
     }
 }
