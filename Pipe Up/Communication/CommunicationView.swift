@@ -18,6 +18,7 @@ struct CommunicationView: View {
     @State private var showingTextField = false
     @State private var showingSettings = false
     @State private var showingSavedPhrases = false
+    @State private var showingAddPhrase = false
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String?
     
@@ -32,7 +33,7 @@ struct CommunicationView: View {
 //                            CategorySelectorView(selectedCategory: $selectedCategory)
 //                        }
                         
-                        PhraseCardView(selectedCategory: $selectedCategory)
+                        PhraseCardView(selectedCategory: $selectedCategory, showingAddPhrase: $showingAddPhrase)
     //                    PhraseListView(selectedCategory: $selectedCategory)
 //                    }
                 }
@@ -91,6 +92,9 @@ struct CommunicationView: View {
 //                    }
 //                }
             }
+            .sheet(isPresented: $showingAddPhrase, content: {
+                AddSavedPhraseView(category: selectedCategory)
+            })
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
             }

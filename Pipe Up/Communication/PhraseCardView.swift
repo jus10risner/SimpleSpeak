@@ -12,6 +12,7 @@ struct PhraseCardView: View {
     @FetchRequest(sortDescriptors: [], animation: .easeInOut) var savedPhrases: FetchedResults<SavedPhrase>
     
     @Binding var selectedCategory: PhraseCategory?
+    @Binding var showingAddPhrase: Bool
     
     let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
@@ -47,6 +48,7 @@ struct PhraseCardView: View {
                 if selectedCategory != nil {
                     Button {
                         // TODO: Set up Add Phrase
+                        showingAddPhrase = true
                     } label: {
                         Label("Add Phrase", systemImage: "plus")
 //                            .font(.largeTitle)
@@ -75,6 +77,6 @@ struct PhraseCardView: View {
 }
 
 #Preview {
-    PhraseCardView(selectedCategory: .constant(nil))
+    PhraseCardView(selectedCategory: .constant(nil), showingAddPhrase: .constant(false))
         .environmentObject(ViewModel())
 }
