@@ -48,11 +48,13 @@ struct HoveringButtonsView: View {
                         }
                     }
                 }
-                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .top)))
+                .zIndex(1) // This is necessary for the removal animation (button disappears instantly otherwise)
+                .transition(.offset(y: 50).combined(with: .move(edge: .bottom)))
             }
             .mask(Circle())
+            .shadow(radius: 5)
         }
-        .animation(.default, value: vm.synthesizerState)
+        .animation(.bouncy, value: vm.synthesizerState)
     }
 }
 
