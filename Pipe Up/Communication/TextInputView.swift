@@ -36,6 +36,7 @@ struct TextInputView: View {
             .padding()
         }
         .onAppear {
+            vm.phraseIsRepeatable = false
             isInputActive = true
         }
     }
@@ -65,11 +66,10 @@ struct TextInputView: View {
     
     private var textFieldButtons: some View {
         HStack {
-            if mostRecentTypedPhrase != "" && vm.synthesizerState == .inactive {
-                TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", action: {
+            if vm.phraseIsRepeatable {
+                TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", color: .secondary) {
                     vm.speak(mostRecentTypedPhrase)
-                })
-                .foregroundStyle(Color.secondary)
+                }
                 .transition(.opacity.animation(.default))
             }
             
@@ -79,19 +79,17 @@ struct TextInputView: View {
                 .transition(.opacity.animation(.default))
             
             if text != "" {
-                TextInputButton(text: "Clear Text", symbolName: "trash.circle.fill") {
+                TextInputButton(text: "Clear Text", symbolName: "trash.circle.fill", color: .secondary) {
                     withAnimation {
                         text = ""
                     }
                 }
-                .foregroundStyle(Color.secondary)
                 .transition(.opacity.animation(.default))
             }
             
-            TextInputButton(text: "Dismiss Keyboard", symbolName: "xmark.circle.fill") {
+            TextInputButton(text: "Dismiss Keyboard", symbolName: "xmark.circle.fill", color: .secondary) {
                 dismissKeyboard()
             }
-            .foregroundStyle(Color.secondary)
         }
         .padding([.top, .horizontal])
         .padding(.bottom, 0)
@@ -121,6 +119,7 @@ struct TextInputView: View {
     
     func dismissKeyboard() {
         mostRecentTypedPhrase = ""
+        vm.phraseIsRepeatable = false
         isInputActive = false
         
         withAnimation {
