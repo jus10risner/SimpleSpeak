@@ -10,6 +10,7 @@ import SwiftUI
 struct TextInputButton: View {
     var text: String
     var symbolName: String
+    var color: Color?
     var action: () -> ()
     
     var body: some View {
@@ -19,7 +20,9 @@ struct TextInputButton: View {
             Label(text, systemImage: symbolName)
                 .labelStyle(.iconOnly)
                 .font(.title)
+                .foregroundStyle(color ?? Color(.defaultAccent))
                 .symbolRenderingMode(.hierarchical)
+                .fixedSize()
         }
     }
 }
