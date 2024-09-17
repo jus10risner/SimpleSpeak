@@ -12,31 +12,35 @@ struct CommunicationView: View {
     @Environment(\.managedObjectContext) var context
     @StateObject var vm = ViewModel()
     
-    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
     @State private var selectedCategory: PhraseCategory?
     @State private var showingTextField = false
     @State private var showingSettings = false
     @State private var showingSavedPhrases = false
     @State private var showingAddPhrase = false
+    
+//    @State private var selectedTab = "Recents"
      
-    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String?
+    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 CategorySelectorView(selectedCategory: $selectedCategory)
                 
-                ScrollView {
-//                    VStack(spacing: 0) {
-//                        if categories.count > 0 {
-//                            CategorySelectorView(selectedCategory: $selectedCategory)
-//                        }
-                        
-                        PhraseCardView(selectedCategory: $selectedCategory, showingAddPhrase: $showingAddPhrase)
-    //                    PhraseListView(selectedCategory: $selectedCategory)
-//                    }
+//                PhraseCardView(selectedCategory: $selectedCategory, showingAddPhrase: $showingAddPhrase)
+                TabView(selection: $lastSelectedCategory) {
+                    PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
+                        .tag("Recents")
+//
+                    // Swiping between tabs should change the currently-selected category, to match the phrases that are visible
+                    ForEach(categories) { category in
+                        PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase)
+                            .tag(category.title)
+                    }
                 }
+                .tabViewStyle(.page(indexDisplayMode: .never))
             }
             .animation(.default, value: selectedCategory)
             .overlay {
@@ -48,16 +52,18 @@ struct CommunicationView: View {
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
 //            .background(Color(.customBackground).ignoresSafeArea())
-            .onAppear {
-                if let lastSelectedCategory {
+            .task { await assignCategory() }
+            .onAppear { vm.assignVoice() }
+            .onChange(of: lastSelectedCategory) { _ in
+                withAnimation {
                     selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
                 }
-                
-                vm.assignVoice()
             }
 //            .onChange(of: vm.usePersonalVoice) { _ in vm.assignVoice() }
             .onChange(of: selectedCategory) { category in
-                lastSelectedCategory = category?.title
+                withAnimation {
+                    lastSelectedCategory = category?.title ?? "Recents"
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -95,6 +101,10 @@ struct CommunicationView: View {
             }
         }
         .environmentObject(vm)
+    }
+    
+    func assignCategory() async {
+        selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
     }
     
     private var hoveringButtons: some View {
