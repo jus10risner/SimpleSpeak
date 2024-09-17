@@ -18,21 +18,33 @@ struct CategorySelectorView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: rows, spacing: 10) {
-                if !recentPhrases.isEmpty {
-                    categoryButton(category: nil, text: "Recents")
+            ScrollViewReader { value in
+                LazyHGrid(rows: rows, spacing: 5) {
+                    if !recentPhrases.isEmpty {
+                        categoryButton(category: nil, text: "Recents")
+                            .id(0)
+                    }
+                    
+                    ForEach(categories) { category in
+                        if category.phrases?.count != 0 {
+                            categoryButton(category: category, text: category.title)
+                        }
+                    }
                 }
-                
-                ForEach(categories) { category in
-                    if category.phrases?.count != 0 {
-                        categoryButton(category: category, text: category.title)
+                .padding(.horizontal)
+                .onChange(of: selectedCategory) { category in
+                    withAnimation {
+                        if category == nil {
+                            value.scrollTo(0, anchor: .center)
+                        } else {
+                            value.scrollTo(category?.id, anchor: .center)
+                        }
                     }
                 }
             }
-            .padding(.horizontal)
         }
-//        .frame(height: 50)
-        .padding(.vertical, 10)
+//        .frame(height: 30)
+//        .padding(.bottom, 5)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear {
             // Selects the first category that contains phrases, if the currently-selected category (or Recents) is empty
@@ -49,19 +61,35 @@ struct CategorySelectorView: View {
         Button {
             selectedCategory = category
         } label: {
-            Text(text)
-                .font(.title.bold())
-                .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
-//                .underline(selectedCategory == category ? true : false, pattern: .solid, color: Color(.defaultAccent))
-//                .padding()
-//                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-        }
-//        .overlay {
-//            if selectedCategory == category {
-//                RoundedRectangle(cornerRadius: vm.cornerRadius)
-//                    .stroke(Color.secondary, lineWidth: 0.5)
+//            VStack(spacing: 0) {
+//                Text(text)
+//                    .font(.title2.bold())
+//                    .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
+//                    .animation(nil, value: selectedCategory)
+//                
+//                if selectedCategory == category {
+//                    Color(.defaultAccent)
+//                        .frame(height: 2)
+//                        .animation(.easeInOut, value: selectedCategory)
+//                        .matchedGeometryEffect(id: "underline", in: animation)
+//                }
 //            }
-//        }
+            
+            Text(text)
+                .font(.headline)
+                .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
+                .padding()
+                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                
+        }
+        .overlay {
+            if selectedCategory == category {
+                RoundedRectangle(cornerRadius: vm.cornerRadius)
+                    .stroke(Color(.defaultAccent), lineWidth: 2)
+            }
+        }
+        .padding(.vertical, 5)
+        
     }
 }
 
