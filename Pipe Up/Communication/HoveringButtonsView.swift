@@ -26,9 +26,9 @@ struct HoveringButtonsView: View {
             
             ZStack {
                 Circle()
-                    .frame(width: 50, height: 50)
+                    .frame(width: 60, height: 60)
                     .foregroundStyle(Color(.defaultAccent))
-                    .shadow(radius: 5)
+//                    .shadow(radius: 5)
                 
                 Group {
                     switch vm.synthesizerState {
@@ -54,7 +54,7 @@ struct HoveringButtonsView: View {
             .mask(Circle())
             .shadow(radius: 5)
         }
-        .animation(.bouncy, value: vm.synthesizerState)
+        .animation(.bouncy(extraBounce: -0.1), value: vm.synthesizerState)
     }
 }
 
