@@ -11,7 +11,7 @@ struct PhraseCardView: View {
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [], animation: .easeInOut) var savedPhrases: FetchedResults<SavedPhrase>
     
-    @Binding var selectedCategory: PhraseCategory?
+    let category: PhraseCategory?
     @Binding var showingAddPhrase: Bool
     
     let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
@@ -45,16 +45,15 @@ struct PhraseCardView: View {
                     .buttonStyle(.plain)
                 }
                 
-                if selectedCategory != nil {
+                if category != nil {
                     Button {
-                        // TODO: Set up Add Phrase
                         showingAddPhrase = true
                     } label: {
                         Label("Add Phrase", systemImage: "plus")
-//                            .font(.largeTitle)
-                            .bold()
+                            .labelStyle(.iconOnly)
+                            .font(.title2.bold())
                             .frame(maxWidth: .infinity)
-                            .multilineTextAlignment(.center)
+//                            .multilineTextAlignment(.center)
                             .padding()
                             .frame(height: 100)
                             .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
@@ -68,15 +67,15 @@ struct PhraseCardView: View {
     
     // Returns the phrases in the selected category
     private var filteredPhrases: [SavedPhrase] {
-        if selectedCategory != nil {
-            return savedPhrases.filter({ $0.category == selectedCategory }).sorted(by: { $0.displayOrder < $1.displayOrder })
+        if category != nil {
+            return savedPhrases.filter({ $0.category == category }).sorted(by: { $0.displayOrder < $1.displayOrder })
         } else {
-            return savedPhrases.filter({ $0.category == selectedCategory }).sorted(by: { $0.displayOrder > $1.displayOrder })
+            return savedPhrases.filter({ $0.category == category }).sorted(by: { $0.displayOrder > $1.displayOrder })
         }
     }
 }
 
 #Preview {
-    PhraseCardView(selectedCategory: .constant(nil), showingAddPhrase: .constant(false))
+    PhraseCardView(category: nil, showingAddPhrase: .constant(false))
         .environmentObject(ViewModel())
 }
