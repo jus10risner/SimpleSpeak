@@ -115,8 +115,18 @@ struct CommunicationView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: [Color(.systemGroupedBackground), Color(.systemGroupedBackground).opacity(0.8), Color(.systemGroupedBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
+        .padding(.bottom, hasHomeButton ? 10 : 0)
 //        .animation(.default, value: vm.synthesizerState)
         .ignoresSafeArea(.keyboard)
+    }
+    
+    // Checks safe area insets, to determine if bottom padding is needed
+    private var hasHomeButton: Bool {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        guard let window = windowScene?.windows.first else { return false }
+        
+        return window.safeAreaInsets.bottom == 0
     }
 }
 
