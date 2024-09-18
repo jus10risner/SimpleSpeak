@@ -101,7 +101,13 @@ struct DraftPhraseView: View {
     }
     
     private var canSave: Bool {
-        if phrases.contains(where: { $0.category == draftPhrase.category && ($0.text == draftPhrase.text || ($0.label != "" && $0.label == draftPhrase.label)) && $0.id != draftPhrase.id }) {
+        let containsMatchingPhrase = phrases.contains { phrase in
+            phrase.category == draftPhrase.category &&
+            (phrase.text == draftPhrase.text || (!phrase.label.isEmpty && phrase.label == draftPhrase.label)) &&
+            phrase.id != draftPhrase.id
+        }
+        
+        if containsMatchingPhrase {
             return false
         } else {
             return true
