@@ -76,10 +76,8 @@ struct SavedPhrasesListView: View {
                     } label: {
                         Label("Add New Phrase", systemImage: "plus")
                     }
-                    
-//                    if category?.title != "Saved" {
-//                        categoryMenu
-//                    }
+                } else {
+                    recentsMenu
                 }
             }
             
@@ -88,14 +86,15 @@ struct SavedPhrasesListView: View {
                     categoryMenu
                 }
             }
-            
-//            ToolbarTitleMenu {
-//                categoryMenu
-//            }
         }
         .onAppear {
             if let category {
                 categoryTitle = category.title
+            }
+        }
+        .onChange(of: vm.numberOfRecents) { _ in
+            withAnimation {
+                updateRecentsList()
             }
         }
         .overlay {
@@ -137,6 +136,21 @@ struct SavedPhrasesListView: View {
         }
     }
     
+    private var recentsMenu: some View {
+        let numberToKeep = [10, 50, 100]
+        
+        return Menu {
+            Text("How many recent phrases would you like to keep?")
+            Picker("Phrases to Keep", selection: $vm.numberOfRecents) {
+                ForEach(numberToKeep, id: \.self) {
+                    Text($0.description)
+                }
+            }
+        } label: {
+            Label("Recents Menu", systemImage: "ellipsis.circle")
+        }
+    }
+    
     private var categoryMenu: some View {
         Group {
             Button {
@@ -153,6 +167,19 @@ struct SavedPhrasesListView: View {
                 Label("Delete Category", systemImage: "trash")
             }
         }
+    }
+    
+    func updateRecentsList() {
+        let recentsList = savedPhrases.filter { $0.category == nil }
+        guard recentsList.count > vm.numberOfRecents else { return }
+        
+        for index in recentsList.indices {
+            if index > vm.numberOfRecents - 1 {
+                context.delete(recentsList[index])
+            }
+        }
+        
+        try? context.save()
     }
     
     // Persists the order of phrases, after moving
