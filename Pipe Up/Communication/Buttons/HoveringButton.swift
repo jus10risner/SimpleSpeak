@@ -21,6 +21,7 @@ struct HoveringButton: View {
                 Button(action: action, label: {
                     Label(text, systemImage: symbolName)
                         .labelStyle(.iconOnly)
+                        .font(.title3)
                         .foregroundStyle(Color.white)
                         .padding()
                 })
