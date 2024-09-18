@@ -66,17 +66,16 @@ struct TextInputView: View {
     
     private var textFieldButtons: some View {
         HStack {
-//            if vm.phraseIsRepeatable {
-//                TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", color: .secondary) {
-//                    vm.speak(mostRecentTypedPhrase)
-//                }
-//                .transition(.opacity.animation(.default))
-//            }
+            if vm.phraseIsRepeatable {
+                TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", color: .secondary) {
+                    vm.speak(mostRecentTypedPhrase)
+                }
+                .transition(.opacity.animation(.default))
+            }
             
             Spacer()
             
-//            speechControlButtons
-            controlButtons
+            speechControlButtons
                 .transition(.opacity.animation(.default))
             
             if text != "" {
@@ -97,7 +96,7 @@ struct TextInputView: View {
         .drawingGroup()
     }
     
-    private var controlButtons: some View {
+    private var speechControlButtons: some View {
         Group {
             switch vm.synthesizerState {
             case .speaking:
@@ -113,33 +112,10 @@ struct TextInputView: View {
                     vm.continueSpeaking()
                 }
             case .inactive:
-                if vm.phraseIsRepeatable {
-                    TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", color: .secondary) {
-                        vm.speak(mostRecentTypedPhrase)
-                    }
-//                    .transition(.opacity.animation(.default))
-                }
+                EmptyView()
             }
         }
     }
-    
-//    private var speechControlButtons: some View {
-//        Group {
-//            if vm.synthesizerState == .speaking {
-//                TextInputButton(text: "Pause Speech", symbolName: "pause.circle.fill") {
-//                    vm.pauseSpeaking()
-//                }
-//            } else if vm.synthesizerState == .paused {
-//                TextInputButton(text: "Cancel Speech", symbolName: "stop.circle.fill") {
-//                    vm.cancelSpeaking()
-//                }
-//                
-//                TextInputButton(text: "Continue Speech", symbolName: "play.circle.fill") {
-//                    vm.continueSpeaking()
-//                }
-//            }
-//        }
-//    }
     
     
     // MARK: - Methods
