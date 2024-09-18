@@ -30,10 +30,7 @@ struct SavedPhrasesListView: View {
         self._savedPhrases = FetchRequest(entity: SavedPhrase.entity(), sortDescriptors: [
             NSSortDescriptor(
                 keyPath: \SavedPhrase.displayOrder,
-                ascending: true),
-            NSSortDescriptor(
-                keyPath:\SavedPhrase.text_,
-                ascending: true )
+                ascending: category == nil ? false : true)
         ], predicate: predicate)
     }
     
