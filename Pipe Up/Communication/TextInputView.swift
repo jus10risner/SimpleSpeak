@@ -159,13 +159,14 @@ struct TextInputView: View {
     }
     
     func submitAndAddRecent() {
+        let textToSpeak = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         isInputActive = true
         
-        if text != "" {
+        if textToSpeak != "" {
             vm.speak(text)
             
             // If phrase doesn't already exist in Recents, add it
-            if !allPhrases.contains(where: { $0.category == nil && $0.text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) }) {
+            if !allPhrases.contains(where: { $0.category == nil && $0.text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == textToSpeak }) {
                 let newSavedPhrase = SavedPhrase(context: context)
                 newSavedPhrase.id = UUID()
                 newSavedPhrase.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
