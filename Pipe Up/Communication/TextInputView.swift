@@ -160,13 +160,15 @@ struct TextInputView: View {
     
     func submitAndAddRecent() {
         let textToSpeak = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        let recentPhrases = allPhrases.sorted(by: { $0.displayOrder > $1.displayOrder }).filter { $0.category == nil }
+        
         isInputActive = true
         
         if textToSpeak != "" {
             vm.speak(text)
             
             // If phrase doesn't already exist in Recents, add it
-            if !allPhrases.contains(where: { $0.category == nil && $0.text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == textToSpeak }) {
+            if !recentPhrases.contains(where: { $0.text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == textToSpeak }) {
                 let newSavedPhrase = SavedPhrase(context: context)
                 newSavedPhrase.id = UUID()
                 newSavedPhrase.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
