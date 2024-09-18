@@ -172,6 +172,10 @@ struct TextInputView: View {
                 newSavedPhrase.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
                 newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
                 
+                if recentPhrases.count >= vm.numberOfRecents {
+                    context.delete(recentPhrases.last ?? recentPhrases[vm.numberOfRecents])
+                }
+                
                 try? context.save()
             }
             

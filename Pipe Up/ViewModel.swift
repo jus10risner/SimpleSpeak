@@ -39,6 +39,9 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
         willSet { objectWillChange.send() }
     }
+    @AppStorage("numberOfRecents") var numberOfRecents: Int = 10 {
+        willSet { objectWillChange.send() }
+    }
     
     override init() {
         super.init()
