@@ -19,8 +19,6 @@ struct CommunicationView: View {
     @State private var showingSettings = false
     @State private var showingSavedPhrases = false
     @State private var showingAddPhrase = false
-    
-//    @State private var selectedTab = "Recents"
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
@@ -29,12 +27,10 @@ struct CommunicationView: View {
             VStack(spacing: 0) {
                 CategorySelectorView(selectedCategory: $selectedCategory)
                 
-//                PhraseCardView(selectedCategory: $selectedCategory, showingAddPhrase: $showingAddPhrase)
                 TabView(selection: $lastSelectedCategory) {
                     PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
                         .tag("Recents")
-//
-                    // Swiping between tabs should change the currently-selected category, to match the phrases that are visible
+                    
                     ForEach(categories) { category in
                         PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase)
                             .tag(category.title)
@@ -47,11 +43,9 @@ struct CommunicationView: View {
                 hoveringButtons
             }
 //            .scrollDismissesKeyboard(.interactively)
-//            .navigationTitle("Speak")
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
-//            .background(Color(.customBackground).ignoresSafeArea())
             .task { await assignCategory() }
             .onAppear { vm.assignVoice() }
             .onChange(of: lastSelectedCategory) { _ in
@@ -59,7 +53,6 @@ struct CommunicationView: View {
                     selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
                 }
             }
-//            .onChange(of: vm.usePersonalVoice) { _ in vm.assignVoice() }
             .onChange(of: selectedCategory) { category in
                 withAnimation {
                     lastSelectedCategory = category?.title ?? "Recents"
@@ -116,7 +109,6 @@ struct CommunicationView: View {
                 .background(LinearGradient(colors: [Color(.systemGroupedBackground), Color(.systemGroupedBackground).opacity(0.8), Color(.systemGroupedBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
         .padding(.bottom, hasHomeButton ? 10 : 0)
-//        .animation(.default, value: vm.synthesizerState)
         .ignoresSafeArea(.keyboard)
     }
     
