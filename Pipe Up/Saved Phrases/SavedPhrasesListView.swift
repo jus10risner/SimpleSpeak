@@ -99,27 +99,32 @@ struct SavedPhrasesListView: View {
         }
         .overlay {
             if savedPhrases.count == 0 {
-                if category != nil {
-                    EmptyListView(systemImage: "bookmark", headline: "No Phrases", subheadline: "Tap the plus button to add a phrase.")
+                if let category {
+                    EmptyListView(category: category, headline: "No Phrases", subheadline: "Tap the plus button to add a phrase.")
                 } else {
-                    EmptyListView(systemImage: "clock.arrow.circlepath", headline: "No Recents", subheadline: nil)
+                    EmptyListView(category: nil, headline: "No Recents", subheadline: nil)
                 }
             }
         }
         .sheet(isPresented: $showingAddPhrase) {
             AddSavedPhraseView(category: category)
         }
-        .alert("Edit Category Name", isPresented: $showingEditCategory) {
-            TextField("Category Title", text: $categoryTitle )
-                
-            Button("Save") {
-                category?.updateCategory(title: categoryTitle)
+        .sheet(isPresented: $showingEditCategory, content: {
+            if let category {
+                EditCategoryView(selectedCategory: category)
             }
-            .disabled(categoryTitle == "" ? true : false)
-            Button("Cancel", role: .cancel) { 
-                categoryTitle = category?.title ?? ""
-            }
-        }
+        })
+//        .alert("Edit Category Name", isPresented: $showingEditCategory) {
+//            TextField("Category Title", text: $categoryTitle )
+//                
+//            Button("Save") {
+//                category?.updateCategory(title: categoryTitle)
+//            }
+//            .disabled(categoryTitle == "" ? true : false)
+//            Button("Cancel", role: .cancel) { 
+//                categoryTitle = category?.title ?? ""
+//            }
+//        }
         .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
                 if let category {
