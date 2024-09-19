@@ -70,7 +70,7 @@ struct DraftPhraseView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    if canSave {
+                    if canSavePhrase {
                         savePhrase()
                     } else {
                         showingDuplicateAlert = true
@@ -100,7 +100,7 @@ struct DraftPhraseView: View {
         }
     }
     
-    private var canSave: Bool {
+    private var canSavePhrase: Bool {
         let containsMatchingPhrase = phrases.contains { phrase in
             phrase.category == draftPhrase.category &&
             (phrase.text == draftPhrase.text || (!phrase.label.isEmpty && phrase.label == draftPhrase.label)) &&
