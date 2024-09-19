@@ -19,7 +19,7 @@ struct CategoriesListView: View {
     @State private var categoryTitle = ""
     @State private var showingDuplicateCategoryAlert = false
     
-    @State private var exportURL: URL?
+//    @State private var exportURL: URL?
     
     var body: some View {
         NavigationStack {
@@ -67,14 +67,17 @@ struct CategoriesListView: View {
 //                        }
 //                    }
                 }
-                .alert("Add Category", isPresented: $isAddingCategory) {
-                    TextField("Category Name", text: $categoryTitle)
-                    Button("Save") {
-                        addCategory()
-                        categoryTitle = ""
-                    }
-                    Button("Cancel", role: .cancel) { categoryTitle = "" }
-                }
+//                .alert("Add Category", isPresented: $isAddingCategory) {
+//                    TextField("Category Name", text: $categoryTitle)
+//                    Button("Save") {
+//                        addCategory()
+//                        categoryTitle = ""
+//                    }
+//                    Button("Cancel", role: .cancel) { categoryTitle = "" }
+//                }
+                .sheet(isPresented: $isAddingCategory, content: {
+                    AddCategoryView()
+                })
                 .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
                     Button("OK", role: .cancel) { }
                 } message: {
@@ -90,18 +93,24 @@ struct CategoriesListView: View {
             Section("Categories") {
                 ZStack {
                     Color.clear
-                    NavigationLink("Recents") {
+                    NavigationLink {
                         SavedPhrasesListView(category: nil)
+                    } label: {
+                        Label("Recents", systemImage: "clock.arrow.circlepath")
+                            .foregroundStyle(Color.primary)
                     }
                 }
                 
                 ForEach(categories) { category in
                     ZStack {
                         Color.clear
-                        NavigationLink(category.title) {
+                        NavigationLink {
                             SavedPhrasesListView(category: category)
                                 .navigationTitle(category.title)
                                 .navigationBarTitleDisplayMode(.inline)
+                        } label: {
+                            Label(category.title, systemImage: category.symbolName)
+                                .foregroundStyle(Color.primary)
                         }
                     }
                 }
@@ -123,55 +132,56 @@ struct CategoriesListView: View {
         let newCategory = PhraseCategory(context: context)
         newCategory.id = UUID()
         newCategory.title = "Favorites"
+        newCategory.symbolName = "star.fill"
         newCategory.displayOrder = 0
     
         try? context.save()
     }
     
-    // Adds a new category
-    func addCategory() {
-        if categories.contains(where: { $0.title == categoryTitle || categoryTitle == "Recents" }) {
-            showingDuplicateCategoryAlert = true
-        } else {
-            let newCategory = PhraseCategory(context: context)
-            newCategory.id = UUID()
-            newCategory.title = categoryTitle
-            newCategory.displayOrder = (categories.last?.displayOrder ?? 0) + 1
-        
-            try? context.save()
-        }
-    }
+//    // Adds a new category
+//    func addCategory() {
+//        if categories.contains(where: { $0.title == categoryTitle || categoryTitle == "Recents" }) {
+//            showingDuplicateCategoryAlert = true
+//        } else {
+//            let newCategory = PhraseCategory(context: context)
+//            newCategory.id = UUID()
+//            newCategory.title = categoryTitle
+//            newCategory.displayOrder = (categories.last?.displayOrder ?? 0) + 1
+//        
+//            try? context.save()
+//        }
+//    }
     
-    func exportCategoriesToFolder(categories: [PhraseCategory]) -> URL? {
-        let fileManager = FileManager.default
-        let tempDirectoryURL = fileManager.temporaryDirectory
-        let categoriesFolderURL = tempDirectoryURL.appendingPathComponent("Pipe Up Data")
-        
-        do {
-            // Create the categories folder
-            try fileManager.createDirectory(at: categoriesFolderURL, withIntermediateDirectories: true, attributes: nil)
-            
-            for category in categories {
-                let categoryFolderURL = categoriesFolderURL.appendingPathComponent(category.title)
-                try fileManager.createDirectory(at: categoryFolderURL, withIntermediateDirectories: true, attributes: nil)
-                
-                for phrase in category.phrasesArray {
-                    let phraseFolderURL = categoryFolderURL.appendingPathComponent(phrase.label)
-                    try fileManager.createDirectory(at: phraseFolderURL, withIntermediateDirectories: true, attributes: nil)
-                    
-                    // Save the phrase text with a custom extension
-                    let textFileURL = phraseFolderURL.appendingPathComponent("phrase.pipeupapp")
-                    try phrase.text.write(to: textFileURL, atomically: true, encoding: .utf8)
-                }
-            }
-            
-            // Return the URL of the exported folder
-            return categoriesFolderURL
-        } catch {
-            print("An error occurred while exporting: \(error)")
-            return nil
-        }
-    }
+//    func exportCategoriesToFolder(categories: [PhraseCategory]) -> URL? {
+//        let fileManager = FileManager.default
+//        let tempDirectoryURL = fileManager.temporaryDirectory
+//        let categoriesFolderURL = tempDirectoryURL.appendingPathComponent("Pipe Up Data")
+//        
+//        do {
+//            // Create the categories folder
+//            try fileManager.createDirectory(at: categoriesFolderURL, withIntermediateDirectories: true, attributes: nil)
+//            
+//            for category in categories {
+//                let categoryFolderURL = categoriesFolderURL.appendingPathComponent(category.title)
+//                try fileManager.createDirectory(at: categoryFolderURL, withIntermediateDirectories: true, attributes: nil)
+//                
+//                for phrase in category.phrasesArray {
+//                    let phraseFolderURL = categoryFolderURL.appendingPathComponent(phrase.label)
+//                    try fileManager.createDirectory(at: phraseFolderURL, withIntermediateDirectories: true, attributes: nil)
+//                    
+//                    // Save the phrase text with a custom extension
+//                    let textFileURL = phraseFolderURL.appendingPathComponent("phrase.pipeupapp")
+//                    try phrase.text.write(to: textFileURL, atomically: true, encoding: .utf8)
+//                }
+//            }
+//            
+//            // Return the URL of the exported folder
+//            return categoriesFolderURL
+//        } catch {
+//            print("An error occurred while exporting: \(error)")
+//            return nil
+//        }
+//    }
 }
 
 #Preview {
