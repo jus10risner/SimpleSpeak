@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A335" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="PhraseCategory" representedClassName="PhraseCategory" syncable="YES" codeGenerationType="class">
         <attribute name="displayOrder" optional="YES" attributeType="Integer 64" defaultValueString="0"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="symbolName_" optional="YES" attributeType="String"/>
         <attribute name="title_" optional="YES" attributeType="String"/>
         <relationship name="phrases" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavedPhrase" inverseName="category" inverseEntity="SavedPhrase"/>
     </entity>
