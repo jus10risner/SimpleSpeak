@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EmptyListView: View {
-    let systemImage: String
+//    let systemImage: String
+    let category: PhraseCategory?
     let headline: String
     let subheadline: String?
     
@@ -17,7 +18,7 @@ struct EmptyListView: View {
             Color(.systemGroupedBackground)
             
             VStack(spacing: 10) {
-                Image(systemName: systemImage)
+                Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
                 
@@ -39,5 +40,5 @@ struct EmptyListView: View {
 }
 
 #Preview {
-    EmptyListView(systemImage: "bookmark", headline: "No Phrases", subheadline: "Tap plus to add a phrase.")
+    EmptyListView(category: nil, headline: "No Phrases", subheadline: "Tap plus to add a phrase.")
 }
