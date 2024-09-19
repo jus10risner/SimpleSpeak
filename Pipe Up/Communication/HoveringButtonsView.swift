@@ -21,7 +21,7 @@ struct HoveringButtonsView: View {
                     .symbolRenderingMode(.multicolor)
                     .font(.title)
             }
-            .offset(x: vm.synthesizerState == .paused ? -50 : 0)
+            .offset(x: vm.synthesizerState == .paused ? -60 : 0)
             .transition(.move(edge: .trailing))
             
             ZStack {
