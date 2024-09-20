@@ -36,9 +36,9 @@ struct CategorySelectorView: View {
                 .onChange(of: selectedCategory) { category in
                     withAnimation {
                         if category == nil {
-                            value.scrollTo(0, anchor: .center)
+                            value.scrollTo(0, anchor: .leading)
                         } else {
-                            value.scrollTo(category?.id, anchor: .center)
+                            value.scrollTo(category?.id, anchor: .leading)
                         }
                     }
                 }
