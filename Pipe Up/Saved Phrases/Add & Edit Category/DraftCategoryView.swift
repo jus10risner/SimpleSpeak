@@ -34,9 +34,15 @@ struct DraftCategoryView: View {
                     }
                 }
             
-            Section {
-                symbolGrid
+            Section("Select a symbol to represent this category.") {
+                // This prevents the app from crashing when rotating the phone from portrait to landscape orientation. The app gets stuck in a recursive layout loop, unable to rearrange the symbols, without this
+                ViewThatFits {
+                    symbolGrid
+                    
+                    symbolGrid
+                }
             }
+            .textCase(nil)
         }
         .scrollDismissesKeyboard(.interactively)
         .onChange(of: draftCategoryData) { _ in
@@ -81,7 +87,7 @@ struct DraftCategoryView: View {
     }
     
     private var symbolGrid: some View {
-        let columns = [GridItem(.adaptive(minimum: 50), spacing: 5)]
+        let columns = [GridItem(.adaptive(minimum: 50))]
         
         return LazyVGrid(columns: columns, spacing: 20) {
             ForEach(SelectableSymbols.allCases, id: \.self) { symbol in
