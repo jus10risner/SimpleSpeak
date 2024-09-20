@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct EmptyListView: View {
-//    let systemImage: String
     let category: PhraseCategory?
-    let headline: String
-    let subheadline: String?
     
     var body: some View {
         ZStack {
@@ -23,15 +20,13 @@ struct EmptyListView: View {
                     .foregroundStyle(.secondary)
                 
                 VStack(spacing: 5) {
-                    Text(headline)
+                    Text(category == nil ? "No Recents" : "No Phrases")
                         .font(.title2.bold())
                     
-                    if let subheadline {
-                        Text(subheadline)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                    }
+                    Text(category == nil ? "" : "Tap the plus button to add a phrase.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
                 }
             }
         }
@@ -40,5 +35,5 @@ struct EmptyListView: View {
 }
 
 #Preview {
-    EmptyListView(category: nil, headline: "No Phrases", subheadline: "Tap plus to add a phrase.")
+    EmptyListView(category: nil)
 }

@@ -61,7 +61,11 @@ struct PhraseCardView: View {
                 }
             }
             .padding()
-//            .id(UUID())
+        }
+        .overlay {
+            if category?.phrases?.count == 0 {
+                EmptyListView(category: category)
+            }
         }
     }
     

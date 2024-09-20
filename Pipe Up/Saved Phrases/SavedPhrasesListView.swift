@@ -12,7 +12,6 @@ struct SavedPhrasesListView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
-//    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
     let category: PhraseCategory?
@@ -93,11 +92,7 @@ struct SavedPhrasesListView: View {
         }
         .overlay {
             if savedPhrases.count == 0 {
-                if let category {
-                    EmptyListView(category: category, headline: "No Phrases", subheadline: "Tap the plus button to add a phrase.")
-                } else {
-                    EmptyListView(category: nil, headline: "No Recents", subheadline: nil)
-                }
+                EmptyListView(category: category)
             }
         }
         .sheet(isPresented: $showingAddPhrase) {
@@ -107,18 +102,7 @@ struct SavedPhrasesListView: View {
             if let category {
                 EditCategoryView(selectedCategory: category)
             }
-        })
-//        .alert("Edit Category Name", isPresented: $showingEditCategory) {
-//            TextField("Category Title", text: $categoryTitle )
-//                
-//            Button("Save") {
-//                category?.updateCategory(title: categoryTitle)
-//            }
-//            .disabled(categoryTitle == "" ? true : false)
-//            Button("Cancel", role: .cancel) { 
-//                categoryTitle = category?.title ?? ""
-//            }
-//        }
+        }
         .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
                 if let category {
