@@ -19,6 +19,8 @@ struct DraftCategoryView: View {
     @State private var showingDeleteAlert = false
     @State private var showingDuplicateAlert = false
     @State private var hasChanges = false
+    
+    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
 
     @FocusState var isInputActive: Bool
     
@@ -103,6 +105,7 @@ struct DraftCategoryView: View {
     func saveCategory() {
         if isEditing {
             selectedCategory?.update(draftCategory: draftCategory)
+            lastSelectedCategory = draftCategory.title
         } else {
             addCategory()
         }
@@ -133,42 +136,43 @@ struct DraftCategoryView: View {
 private enum SelectableSymbols: String, CaseIterable {
     case
     bookmark = "bookmark.fill",
-    book = "book.fill",
     books = "books.vertical.fill",
+    utensils = "fork.knife",
     lanyard = "lanyardcard.fill",
+    columnBuilding = "building.columns.fill",
+    buildings = "building.2.fill",
     person = "figure.arms.open",
     twoPeople = "figure.2.arms.open",
     parentsAndChild = "figure.2.and.child.holdinghands",
     parentAndChild = "figure.and.child.holdinghands",
-    sun = "sun.max.fill",
-    zzz,
-    moon = "moon.fill",
-    hear = "heart.fill",
-    star = "star.fill",
-    messageBubble = "bubble.right.fill",
+    smileyFace = "face.smiling.inverse",
+    handWave = "hand.wave.fill",
+    exclamationBubble = "exclamationmark.bubble.fill",
+    questionBubble = "questionmark.bubble.fill",
     phone = "phone.fill",
+    bankNote = "banknote.fill",
     creditCard = "creditcard.fill",
-    puzzlePiece = "puzzlepiece.fill",
+    cart = "cart.fill",
+    dumbbell = "dumbbell.fill",
     house = "house.fill",
     bed = "bed.double.fill",
-    desktopcomputer,
-    airplane,
     car = "car.fill",
-    train = "train.side.front.car",
-    bandage = "bandage.fill",
-    cross = "cross.fill",
-    dog = "dog.fill",
-    cat = "cat.fill",
-    lizard = "lizard.fill",
-    bird = "bird.fill",
-    fish = "fish.fill",
+    airplane,
+    tram = "tram.fill",
+    stethoscope = "stethoscope",
+    pills = "pills.fill",
     pawPrint = "pawprint.fill",
     leaf = "leaf.fill",
-    handWave = "hand.wave.fill",
     gameController = "gamecontroller.fill",
     cake = "birthday.cake.fill",
-    utensils = "fork.knife",
     gift = "gift.fill",
-    bankNote = "banknote.fill",
-    number
+    palette = "paintpalette.fill",
+    number,
+    sun = "sun.max.fill",
+    moon = "moon.fill",
+    square = "square.fill",
+    circle = "circle.fill",
+    triangle = "triangle.fill",
+    diamond = "diamond.fill",
+    heart = "heart.fill"
 }
