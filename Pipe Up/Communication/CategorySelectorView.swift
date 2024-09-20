@@ -85,7 +85,8 @@ struct CategorySelectorView: View {
                 
         }
         .accessibilityLabel(text)
-        .padding(.vertical, 5)
+        .frame(height: 44)
+        .padding(.vertical)
 //        .overlay {
 //            if selectedCategory == category {
 //                RoundedRectangle(cornerRadius: vm.cornerRadius)
