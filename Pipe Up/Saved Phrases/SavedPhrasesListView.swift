@@ -20,7 +20,6 @@ struct SavedPhrasesListView: View {
     @State private var showingAddPhrase = false
     @State private var showingDeleteAlert = false
     @State private var showingEditCategory = false
-    @State private var categoryTitle = ""
     
     // Custom init, so I can pass in the optional "category" property as a predicate
     init(category: PhraseCategory?) {
@@ -87,11 +86,6 @@ struct SavedPhrasesListView: View {
                 }
             }
         }
-        .onAppear {
-            if let category {
-                categoryTitle = category.title
-            }
-        }
         .onChange(of: vm.numberOfRecents) { _ in
             withAnimation {
                 updateRecentsList()
@@ -109,7 +103,7 @@ struct SavedPhrasesListView: View {
         .sheet(isPresented: $showingAddPhrase) {
             AddSavedPhraseView(category: category)
         }
-        .sheet(isPresented: $showingEditCategory, content: {
+        .sheet(isPresented: $showingEditCategory) {
             if let category {
                 EditCategoryView(selectedCategory: category)
             }
