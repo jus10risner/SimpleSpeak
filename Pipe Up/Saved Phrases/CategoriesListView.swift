@@ -24,7 +24,7 @@ struct CategoriesListView: View {
     var body: some View {
         NavigationStack {
             categoryList
-                .navigationTitle("Manage Phrases")
+//                .navigationTitle("Manage Phrases")
                 .navigationBarTitleDisplayMode(.inline)
                 .listRowSpacing(vm.listRowSpacing)
                 .scrollDismissesKeyboard(.interactively)
@@ -34,6 +34,11 @@ struct CategoriesListView: View {
                     }
                 }
                 .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Text("Manage Phrases")
+                            .font(.title3.bold())
+                    }
+                    
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             dismiss()

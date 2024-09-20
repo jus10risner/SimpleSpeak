@@ -131,9 +131,14 @@ struct SettingsView: View {
                 }
             }
             .tint(Color(.defaultAccent))
-            .navigationTitle("Settings")
+//            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Settings")
+                        .font(.title3.bold())
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
