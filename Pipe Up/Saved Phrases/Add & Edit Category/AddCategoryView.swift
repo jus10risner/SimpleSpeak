@@ -16,95 +16,13 @@ struct AddCategoryView: View {
         _draftCategory = StateObject(wrappedValue: DraftCategory())
     }
     
-//    @FetchRequest(sortDescriptors: []) var categories: FetchedResults<PhraseCategory>
-    
-//    @State private var selectedSymbol: SelectableSymbols = .bookmark
-//    @State private var categoryTitle = ""
-//    @State private var showingDuplicateCategoryAlert = false
-//    
-//    @FocusState var isInputActive: Bool
-    
     var body: some View {
         NavigationStack {
             DraftCategoryView(draftCategory: draftCategory, isEditing: false, selectedCategory: nil)
                 .navigationTitle("Add Category")
                 .navigationBarTitleDisplayMode(.inline)
-//                .onAppear {
-//                    draftPhrase.category = category
-//                }
-//                .toolbar {
-//                    ToolbarItem(placement: .topBarLeading) {
-//                        Button("Cancel") {
-//                            dismiss()
-//                        }
-//                    }
-//                }
-            
-//            Form {
-//                TextField("Category Name", text: $categoryTitle)
-//                    .focused($isInputActive)
-//                    .onAppear {
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-//                            isInputActive = true
-//                        }
-//                    }
-//                
-//                symbolGrid
-//            }
-//            .navigationTitle("Add Category")
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Button("Save") {
-//                        addCategory()
-//                        dismiss()
-//                    }
-//                    .disabled(categoryTitle.isEmpty ? true : false)
-//                }
-//                
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button("Cancel") {
-//                        dismiss()
-//                    }
-//                }
-//            }
-//            .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
-//                Button("OK", role: .cancel) { }
-//            } message: {
-//                Text("This category title already exists. Please select a different title.")
-//            }
         }
     }
-    
-//    private var symbolGrid: some View {
-//        let columns = [GridItem(.adaptive(minimum: 50), spacing: 5)]
-//        
-//        return LazyVGrid(columns: columns, spacing: 20) {
-//            ForEach(SelectableSymbols.allCases, id: \.self) { symbol in
-//                Image(systemName: symbol.rawValue)
-//                    .font(.title2)
-//                    .foregroundStyle(selectedSymbol == symbol ? Color(.defaultAccent) : Color.secondary)
-//                    .onTapGesture {
-//                        selectedSymbol = symbol
-//                    }
-//            }
-//        }
-//    }
-//    
-//    // Adds a new category
-//    func addCategory() {
-//        if categories.contains(where: { $0.title == categoryTitle || categoryTitle == "Recents" }) {
-//            showingDuplicateCategoryAlert = true
-//        } else {
-//            let newCategory = PhraseCategory(context: context)
-//            newCategory.id = UUID()
-//            newCategory.title = categoryTitle
-//            newCategory.symbolName = selectedSymbol.rawValue
-//            newCategory.displayOrder = (categories.last?.displayOrder ?? 0) + 1
-//        
-//            try? context.save()
-//        }
-//    }
 }
 
 #Preview {
