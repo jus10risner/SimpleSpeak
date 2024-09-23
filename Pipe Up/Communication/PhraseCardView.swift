@@ -63,7 +63,7 @@ struct PhraseCardView: View {
             .padding()
         }
         .overlay {
-            if category?.phrases?.count == 0 {
+            if filteredPhrases.count == 0 {
                 EmptyListView(category: category)
             }
         }
@@ -71,7 +71,7 @@ struct PhraseCardView: View {
     
     // Returns the phrases in the selected category
     private var filteredPhrases: [SavedPhrase] {
-        if category != nil {
+        if let category {
             return savedPhrases.filter({ $0.category == category }).sorted(by: { $0.displayOrder < $1.displayOrder })
         } else {
             return savedPhrases.filter({ $0.category == category }).sorted(by: { $0.displayOrder > $1.displayOrder })
