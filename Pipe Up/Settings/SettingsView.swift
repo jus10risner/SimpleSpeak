@@ -136,7 +136,8 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("Settings")
-                        .font(.title3.bold())
+                        .font(.title2)
+                        .fontWeight(.heavy)
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {

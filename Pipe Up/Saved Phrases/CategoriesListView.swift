@@ -36,7 +36,8 @@ struct CategoriesListView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Text("Manage Phrases")
-                            .font(.title3.bold())
+                            .font(.title2)
+                            .fontWeight(.heavy)
                     }
                     
                     ToolbarItem(placement: .topBarTrailing) {
