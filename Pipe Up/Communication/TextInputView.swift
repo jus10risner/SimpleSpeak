@@ -22,17 +22,23 @@ struct TextInputView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Color.clear
-                .background(.ultraThinMaterial)
+            Color.black
+                .opacity(0.5)
+//            Color.clear
+//                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
-                .environment(\.colorScheme, .dark)
+                .onTapGesture {
+                    dismissKeyboard()
+                }
+//                .environment(\.colorScheme, .dark)
             
             VStack(spacing: 0) {
                 textFieldButtons
                 
                 textField
             }
-            .background(Color(.systemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .padding()
         }
         .onAppear {
