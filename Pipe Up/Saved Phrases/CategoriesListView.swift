@@ -26,7 +26,6 @@ struct CategoriesListView: View {
             categoryList
 //                .navigationTitle("Manage Phrases")
                 .navigationBarTitleDisplayMode(.inline)
-                .listRowSpacing(vm.listRowSpacing)
                 .scrollDismissesKeyboard(.interactively)
                 .onAppear {
                     if categories.count == 0 {
@@ -56,6 +55,18 @@ struct CategoriesListView: View {
 //                        } label: {
 //                            Label("Add New Category", systemImage: "plus.circle.fill")
 //                        }
+                    }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        Button {
+                            isAddingCategory = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "plus.circle.fill")
+                                Text("New Category")
+                            }
+//                            Label("Add Category", systemImage: "plus.circle.fill")
+                        }
                     }
                     
 //                    ToolbarItemGroup(placement: .topBarLeading) {
@@ -102,8 +113,12 @@ struct CategoriesListView: View {
                     NavigationLink {
                         SavedPhrasesListView(category: nil)
                     } label: {
-                        Label("Recents", systemImage: "clock.arrow.circlepath")
-                            .foregroundStyle(Color.primary)
+                        Label {
+                            Text("Recents")
+                        } icon: {
+                            Image(systemName: "clock.arrow.circlepath")
+                                .foregroundStyle(Color.secondary)
+                        }
                     }
                 }
                 
@@ -115,19 +130,25 @@ struct CategoriesListView: View {
                                 .navigationTitle(category.title)
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
-                            Label(category.title, systemImage: category.symbolName)
-                                .foregroundStyle(Color.primary)
+                            Label {
+                                Text(category.title)
+                            } icon: {
+                                Image(systemName: category.symbolName)
+                                    .foregroundStyle(Color.secondary)
+                            }
                         }
                     }
                 }
                 
-                Button("Add Category") {
-                    isAddingCategory = true
-                }
-                .padding()
-                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-                .listRowBackground(Color.clear)
-                .frame(maxWidth: .infinity)
+//                Button {
+//                    isAddingCategory = true
+//                } label: {
+//                    Label("Add Category", systemImage: "plus.circle.fill")
+//                }
+//                .padding()
+//                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//                .listRowBackground(Color.clear)
+//                .listRowInsets(EdgeInsets())
             }
         }
         .listRowSpacing(vm.listRowSpacing)
