@@ -94,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E213B5C2CA455BA00A3727B /* Unused Files */ = {
+			isa = PBXGroup;
+			children = (
+				9EDC1F392C82068D005D7780 /* VoicePickerView.swift */,
+				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
+			);
+			path = "Unused Files";
+			sourceTree = "<group>";
+		};
 		9E4B46A32A0987B20076367F = {
 			isa = PBXGroup;
 			children = (
@@ -119,12 +128,12 @@
 				9EAE515E2C401F6E00C6ADE1 /* Saved Phrases */,
 				9EDC1F3B2C824579005D7780 /* Settings */,
 				9EAE515F2C401F9300C6ADE1 /* Class Helpers */,
-				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
 				9EF689DF2C4AAAC500568B6D /* AppInfo.swift */,
+				9E213B5C2CA455BA00A3727B /* Unused Files */,
 				9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
 				9E4B46B52A0987B30076367F /* Preview Content */,
@@ -210,7 +219,6 @@
 			children = (
 				9EAEE8782C2319380012D3CC /* SettingsView.swift */,
 				9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */,
-				9EDC1F392C82068D005D7780 /* VoicePickerView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
