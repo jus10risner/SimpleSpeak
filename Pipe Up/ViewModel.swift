@@ -13,6 +13,7 @@ class ViewModel: NSObject, ObservableObject {
     @Published var voiceToUse = AVSpeechSynthesisVoice(language: Locale.preferredLanguages[0])
     @Published var synthesizerState: SynthesizerState = .inactive
     @Published var phraseIsRepeatable: Bool = false
+    @Published var personalVoices: [AVSpeechSynthesisVoice] = []
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
@@ -30,12 +31,6 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("selectedLanguage")  var selectedLanguage = Locale.preferredLanguages[0] {
         willSet { objectWillChange.send() }
     }
-//    @AppStorage("selectedPersonalVoiceIdentifier")  var selectedPersonalVoiceIdentifier: String? {
-//        willSet { objectWillChange.send() }
-//    }
-//    @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String = AVSpeechSynthesisVoice(language: Locale.current.identifier)?.identifier ?? "Alex" {
-//        willSet { objectWillChange.send() }
-//    }
     @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
         willSet { objectWillChange.send() }
     }
@@ -87,14 +82,14 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
-    // Request to use Personal Voice, if iOS 17 is available
+    // Populates the personalVoices array, and selects the first available Personal Voice, if no selectedVoiceIdentifer has been prveiously set
     @available(iOS 17, *)
-    func requestPersonalVoiceAuthorization() {
-        AVSpeechSynthesizer.requestPersonalVoiceAuthorization { status in
-            if status == .authorized {
-                print("I'm authorized to use Personal Voice!")
-            } else {
-                print("Personal Voice not authorized")
+    func fetchPersonalVoices() {
+        personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits.contains(.isPersonalVoice) }
+        
+        if selectedVoiceIdentifier == nil {
+            if let firstVoice = personalVoices.first {
+                selectedVoiceIdentifier = firstVoice.identifier
             }
         }
     }
@@ -102,43 +97,14 @@ class ViewModel: NSObject, ObservableObject {
     // Set the voice to use for text-to-speech
     func assignVoice() {
         if let selectedVoiceIdentifier {
-            voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
+            if self.usePersonalVoice == true {
+                voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
+            } else {
+                voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
+            }
         } else {
             voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
         }
-        
-//        if AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.identifier == selectedVoiceIdentifier }) && self.usePersonalVoice == true {
-//            voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-//        } else {
-//            voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
-//        }
-        
-//        if AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.identifier == selectedVoiceIdentifier }) {
-//            voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-//        } else {
-//            voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
-//        }
-        
-//        if let selectedVoiceIdentifier {
-//            if #available(iOS 17, *) {
-//                let authorizationStatus = AVSpeechSynthesizer.personalVoiceAuthorizationStatus
-//                let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
-//                
-//                if personalVoices.contains(where: { $0.identifier == selectedVoiceIdentifier }) {
-//                    if self.usePersonalVoice == true && authorizationStatus == .authorized {
-//                        voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-//                    } else {
-//                        voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
-//                    }
-//                } else {
-//                    voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-//                }
-//            } else {
-//                voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-//            }
-//        } else {
-//            voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
-//        }
     }
 }
 
