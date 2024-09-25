@@ -79,7 +79,8 @@ struct CommunicationView: View {
                             Label("Settings", systemImage: "gearshape")
                         }
                     } label: {
-                        Image(systemName: "ellipsis.circle")
+                        Image(systemName: "ellipsis.circle.fill")
+                            .symbolRenderingMode(.hierarchical)
                     }
                 }
             }
