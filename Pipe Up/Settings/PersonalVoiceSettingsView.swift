@@ -12,30 +12,38 @@ struct PersonalVoiceSettingsView: View {
     @EnvironmentObject var vm: ViewModel
     @State private var showingPersonalVoiceAlert = false
     @State private var showingRestartAlert = false
+    @State private var showingPersonalVoiceSetupSheet = false
     
     var body: some View {
         if #available(iOS 17, *) {
             Section {
-                Toggle(isOn: $vm.usePersonalVoice, label: {
-                    Label("Use Personal Voice", systemImage: "waveform.and.person.filled")
-                })
+                if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .denied {
+                    Text("Unavailable")
+                        .foregroundStyle(Color.secondary)
+                } else {
+                    Toggle(isOn: $vm.usePersonalVoice, label: {
+                        Label("Use Personal Voice", systemImage: "waveform.and.person.filled")
+                    })
+                }
                 
                 // TODO: Handle the case where multiple Personal Voices exist
-                if vm.usePersonalVoice == true && vm.personalVoices.count > 1 {
-                    Picker(selection: $vm.selectedVoiceIdentifier) {
-                        ForEach(vm.personalVoices, id: \.self) { voice in
-                            Button {
-                                vm.selectedVoiceIdentifier = voice.identifier
-                            } label: {
-                                Text(voice.name)
-                            }
-                        }
-                    } label: {
-                        Label("Selected Voice", systemImage: "waveform")
-                    }
-                }
+//                if vm.usePersonalVoice == true && vm.personalVoices.count > 1 {
+//                    Picker(selection: $vm.selectedVoiceIdentifier) {
+//                        ForEach(vm.personalVoices, id: \.self) { voice in
+//                            Button {
+//                                vm.selectedVoiceIdentifier = voice.identifier
+//                            } label: {
+//                                Text(voice.name)
+//                            }
+//                        }
+//                    } label: {
+//                        Label("Selected Voice", systemImage: "waveform")
+//                    }
+//                }
+            } header: {
+                Text("Personal Voice")
             } footer: {
-                Text("Have the app speak with your voice, using Apple's Personal Voice feature.")
+                Text("To set up and manage your Personal Voice, go to Settings > Accessiblity > Personal Voice.")
             }
 //            .task {
 //                await fetchPersonalVoices()
@@ -48,35 +56,38 @@ struct PersonalVoiceSettingsView: View {
             .onChange(of: vm.selectedVoiceIdentifier) { _ in
                 vm.assignVoice()
             }
-            .onChange(of: vm.usePersonalVoice) { _ in
-                checkPersonalVoiceStatus()
+            .onChange(of: vm.usePersonalVoice) { toggle in
+                if toggle == true {
+                    checkPersonalVoiceStatus()
+                }
                 
                 vm.assignVoice()
             }
-    //        .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
-    //            NavigationStack {
-    ////                    SafariView(url: URL(string: "https://support.apple.com/en-us/104993")!)
-    ////                        .edgesIgnoringSafeArea(.bottom)
-    //                WebView(url: URL(string: "https://support.apple.com/en-us/104993")!)
-    //                    .navigationTitle("Personal Voice")
-    //                    .navigationBarTitleDisplayMode(.inline)
-    //                    .toolbar {
-    //                        ToolbarItem(placement: .topBarTrailing) {
-    //                            Button("Done") {
-    //                                showingPersonalVoiceSetupSheet = false
-    //                            }
-    //                        }
-    //                    }
-    //            }
-    //        })
+            .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
+                NavigationStack {
+                        SafariView(url: URL(string: "https://support.apple.com/en-us/104993")!)
+                            .edgesIgnoringSafeArea(.bottom)
+//                    WebView(url: URL(string: "https://support.apple.com/en-us/104993")!)
+//                        .navigationTitle("Personal Voice")
+//                        .navigationBarTitleDisplayMode(.inline)
+//                        .toolbar {
+//                            ToolbarItem(placement: .topBarTrailing) {
+//                                Button("Done") {
+//                                    showingPersonalVoiceSetupSheet = false
+//                                }
+//                            }
+//                        }
+                }
+            })
 //            .sheet(isPresented: $showingAppRestartInstructions) {
 //                SafariView(url: URL(string: "https://support.apple.com/guide/iphone/quit-and-reopen-an-app-iph83bfec492/ios")!)
 //                    .edgesIgnoringSafeArea(.bottom)
 //            }
-            .alert("Personal Voice Not Authorized", isPresented: $showingPersonalVoiceAlert) {
+            .alert("Personal Voice Unavailable", isPresented: $showingPersonalVoiceAlert) {
                 Button("OK") { vm.usePersonalVoice = false }
+                Button("Learn More") { showingPersonalVoiceSetupSheet = true }
             } message: {
-                Text("It looks like you previously denied access to Personal Voice. To grant access, please go to Settings -> Accessibility -> Personal Voice")
+                Text("It looks like Personal Voice is either unavailable on this device, or access was previously denied.")
             }
             .alert(isPresented: $showingRestartAlert) {
                 Alert(title: Text("Restart Required"),
@@ -91,24 +102,22 @@ struct PersonalVoiceSettingsView: View {
     
     @available(iOS 17, *)
     func checkPersonalVoiceStatus() {
-        let personalVoiceStatus = AVSpeechSynthesizer.personalVoiceAuthorizationStatus
+//        let personalVoiceStatus = AVSpeechSynthesizer.personalVoiceAuthorizationStatus
         
-        if vm.usePersonalVoice == false {
-            vm.fetchPersonalVoices()
-        } else {
-            switch personalVoiceStatus {
+//        if vm.usePersonalVoice == false {
+//            vm.fetchPersonalVoices()
+//        } else {
+            switch AVSpeechSynthesizer.personalVoiceAuthorizationStatus {
             case .notDetermined:
                 requestPersonalVoiceAuthorization()
-            case .denied:
-                showingPersonalVoiceAlert = true
+            case .authorized:
+                vm.fetchPersonalVoices()
+//            case .denied:
+//                showingPersonalVoiceAlert = true
             default:
-                if vm.selectedVoiceIdentifier == nil {
-                    if let firstVoice = vm.personalVoices.first {
-                        vm.selectedVoiceIdentifier = firstVoice.identifier
-                    }
-                }
+                showingPersonalVoiceAlert = true
             }
-        }
+//        }
     }
     
     @available(iOS 17, *)
@@ -119,6 +128,7 @@ struct PersonalVoiceSettingsView: View {
                 showingRestartAlert = true
             } else {
                 print("Personal Voice not authorized")
+                vm.usePersonalVoice = false
             }
         }
     }
@@ -126,4 +136,5 @@ struct PersonalVoiceSettingsView: View {
 
 #Preview {
     PersonalVoiceSettingsView()
+        .environmentObject(ViewModel())
 }

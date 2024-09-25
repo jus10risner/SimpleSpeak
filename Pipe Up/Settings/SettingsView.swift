@@ -5,7 +5,7 @@
 //  Created by Justin Risner on 6/19/24.
 //
 
-//import AVFoundation
+import AVFoundation
 import SwiftUI
 
 struct SettingsView: View {
@@ -24,7 +24,11 @@ struct SettingsView: View {
                     Text("Allows this app to send your spoken audio to other parties on a phone call or FaceTime.")
                 }
                 
-                PersonalVoiceSettingsView()
+//                if #available(iOS 17, *) {
+//                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus != .unsupported {
+                        PersonalVoiceSettingsView()
+//                    }
+//                }
                 
                 // TODO: Re-enable conditional
 //                if Locale.preferredLanguages.count > 1 {
@@ -73,6 +77,7 @@ struct SettingsView: View {
                 }
             }
         }
+    }
 }
 
 #Preview {
