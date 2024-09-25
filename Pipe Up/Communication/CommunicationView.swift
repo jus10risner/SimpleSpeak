@@ -47,7 +47,13 @@ struct CommunicationView: View {
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .task { await assignCategory() }
-            .onAppear { vm.assignVoice() }
+            .onAppear {
+                if #available(iOS 17, *) {
+                    vm.fetchPersonalVoices()
+                }
+                
+                vm.assignVoice()
+            }
             .onChange(of: lastSelectedCategory) { _ in
                 withAnimation {
                     selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
