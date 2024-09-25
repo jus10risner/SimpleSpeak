@@ -34,6 +34,12 @@ struct SavedPhrasesListView: View {
     
     var body: some View {
         List {
+            if category == nil {
+                Section {
+                    recentsPicker
+                }
+            }
+            
             ForEach(savedPhrases) { phrase in
                 NavigationLink {
                     EditSavedPhraseView(category: category, savedPhrase: phrase)
@@ -75,7 +81,7 @@ struct SavedPhrasesListView: View {
                         Label("Add New Phrase", systemImage: "plus")
                     }
                 } else {
-                    recentsMenu
+//                    recentsPicker
                 }
             }
             
@@ -119,19 +125,20 @@ struct SavedPhrasesListView: View {
         }
     }
     
-    private var recentsMenu: some View {
+    private var recentsPicker: some View {
         let numberToKeep = [10, 50, 100]
         
-        return Menu {
-            Text("How many recent phrases would you like to keep?")
-            Picker("Phrases to Keep", selection: $vm.numberOfRecents) {
+//        return Menu {
+            return Picker(selection: $vm.numberOfRecents) {
                 ForEach(numberToKeep, id: \.self) {
                     Text($0.description)
                 }
+            } label: {
+                Label("Recents to Keep", systemImage: "clock.arrow.circlepath")
             }
-        } label: {
-            Label("Recents Menu", systemImage: "ellipsis.circle")
-        }
+//        } label: {
+//            Label("Recents Menu", systemImage: "ellipsis.circle")
+//        }
     }
     
     private var categoryMenu: some View {
