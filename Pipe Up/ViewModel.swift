@@ -10,38 +10,42 @@ import CoreData
 import SwiftUI
 
 class ViewModel: NSObject, ObservableObject {
-    @Published var voiceToUse = AVSpeechSynthesisVoice(language: Locale.preferredLanguages[0])
+//    @Published var voiceToUse: AVSpeechSynthesisVoice?
     @Published var synthesizerState: SynthesizerState = .inactive
     @Published var phraseIsRepeatable: Bool = false
-    @Published var personalVoices: [AVSpeechSynthesisVoice] = []
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
-    let synthesizer = AVSpeechSynthesizer()
+//    let synthesizer = AVSpeechSynthesizer()
+    lazy var synthesizer: AVSpeechSynthesizer = {
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.delegate = self
+        return synthesizer
+    }()
     
     @AppStorage("useDuringCalls") var useDuringCalls = true {
         willSet { objectWillChange.send() }
     }
-    @AppStorage("usePersonalVoice") var usePersonalVoice = true {
+    @AppStorage("usePersonalVoice") var usePersonalVoice = false {
         willSet { objectWillChange.send() }
     }
-    @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic {
+    @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
         willSet { objectWillChange.send() }
     }
     @AppStorage("selectedLanguage")  var selectedLanguage = Locale.preferredLanguages[0] {
         willSet { objectWillChange.send() }
     }
-    @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
+    @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic {
         willSet { objectWillChange.send() }
     }
     @AppStorage("numberOfRecents") var numberOfRecents: Int = 10 {
         willSet { objectWillChange.send() }
     }
     
-    override init() {
-        super.init()
-        self.synthesizer.delegate = self
-    }
+//    override init() {
+//        super.init()
+//        self.synthesizer.delegate = self
+//    }
     
     
     // MARK: - Methods
@@ -49,7 +53,15 @@ class ViewModel: NSObject, ObservableObject {
     // Speak typed text aloud
     func speak(_ text: String) {
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = voiceToUse
+        
+        if let identifier = selectedVoiceIdentifier {
+            utterance.voice = AVSpeechSynthesisVoice(identifier: identifier)
+        } else {
+            utterance.voice = AVSpeechSynthesisVoice(language: selectedLanguage)
+        }
+        
+//        synthesizer.speak(utterance)
+//        utterance.voice = voiceToUse
         
         synthesizer.mixToTelephonyUplink = self.useDuringCalls ? true : false
         synthesizer.speak(utterance)
@@ -71,9 +83,7 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     // Removes the phrase at the given offsets
-    func deletePhrase<T: NSManagedObject>(at offsets: IndexSet, from fetchedResults: FetchedResults<T>) {
-        let context = DataController.shared.container.viewContext
-        
+    func deletePhrase<T: NSManagedObject>(at offsets: IndexSet, from fetchedResults: FetchedResults<T>, in context: NSManagedObjectContext) {
         for index in offsets {
             let phrase = fetchedResults[index]
             context.delete(phrase)
@@ -83,29 +93,42 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     // Populates the personalVoices array, and selects the first available Personal Voice, if no selectedVoiceIdentifer has been prveiously set
-    @available(iOS 17, *)
-    func fetchPersonalVoices() {
-        personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits.contains(.isPersonalVoice) }
-        
-        if selectedVoiceIdentifier == nil {
-            if let firstVoice = personalVoices.first {
-                selectedVoiceIdentifier = firstVoice.identifier
-            }
-        }
-    }
+//    @available(iOS 17, *)
+//    func fetchPersonalVoices() async {
+////        
+////        if selectedVoiceIdentifier == nil {
+////            if let firstVoice = personalVoices.first {
+////                selectedVoiceIdentifier = firstVoice.identifier
+////            }
+////        }
+//        
+//        AVSpeechSynthesizer.requestPersonalVoiceAuthorization() { status in
+//            if status == .authorized {
+//                self.personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits.contains(.isPersonalVoice) }
+//                
+//                if self.selectedVoiceIdentifier == nil {
+//                    if let firstVoice = self.personalVoices.first {
+//                        self.selectedVoiceIdentifier = firstVoice.identifier
+//                    }
+//                }
+//            }
+//        }
+//        
+//        assignVoice()
+//    }
     
     // Set the voice to use for text-to-speech
-    func assignVoice() {
-        if let selectedVoiceIdentifier {
-            if self.usePersonalVoice == true {
-                voiceToUse = AVSpeechSynthesisVoice(identifier: selectedVoiceIdentifier)
-            } else {
-                voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
-            }
-        } else {
-            voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
-        }
-    }
+//    func assignVoice() {
+//        if let identifier = selectedVoiceIdentifier {
+////            if self.usePersonalVoice == true {
+//            voiceToUse = AVSpeechSynthesisVoice(identifier: identifier)
+////            } else {
+////                voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
+////            }
+//        } else {
+//            voiceToUse = AVSpeechSynthesisVoice(language: selectedLanguage)
+//        }
+//    }
 }
 
 enum SynthesizerState: String {
@@ -131,8 +154,13 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         print("cancelled")
         self.synthesizerState = .inactive
     }
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {}
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+        try? AVAudioSession.sharedInstance().setActive(true)
+        try? AVAudioSession.sharedInstance().setCategory(.playback, options: .interruptSpokenAudioAndMixWithOthers)
+    }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        
         print("finished")
         self.phraseIsRepeatable = true
         self.synthesizerState = .inactive
