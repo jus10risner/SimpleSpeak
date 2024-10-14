@@ -53,19 +53,16 @@ struct PhraseCardView: View {
                             .labelStyle(.iconOnly)
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity)
-//                            .multilineTextAlignment(.center)
-                            .padding()
                             .frame(height: 100)
-                            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: vm.cornerRadius)
+                                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [7]))
+                                    .foregroundStyle(Color.secondary)
+                            }
                     }
                 }
             }
             .padding()
-        }
-        .overlay {
-            if filteredPhrases.count == 0 {
-                EmptyListView(category: category)
-            }
         }
     }
     
