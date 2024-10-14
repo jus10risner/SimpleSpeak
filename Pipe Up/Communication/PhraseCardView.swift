@@ -58,6 +58,7 @@ struct PhraseCardView: View {
                                 RoundedRectangle(cornerRadius: vm.cornerRadius)
                                     .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [7]))
                                     .foregroundStyle(Color.secondary)
+                                    .opacity(0.5)
                             }
                     }
                 }
