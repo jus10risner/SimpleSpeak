@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
-		9E1C3C7C2C6E46C60018A43C /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C3C7B2C6E46C60018A43C /* EmptyListView.swift */; };
 		9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */; };
 		9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* PipeUpApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
@@ -23,6 +22,7 @@
 		9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */; };
 		9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
+		9EA9B4382CB8139F00EA55ED /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B4372CB8139F00EA55ED /* WebView.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
 		9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8762C2313980012D3CC /* CommunicationView.swift */; };
@@ -46,7 +46,6 @@
 
 /* Begin PBXFileReference section */
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
-		9E1C3C7B2C6E46C60018A43C /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVoiceSettingsView.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* Pipe Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pipe Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* PipeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeUpApp.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategory.swift; sourceTree = "<group>"; };
 		9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategoryView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
+		9EA9B4372CB8139F00EA55ED /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
 		9EAEE8762C2313980012D3CC /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
@@ -129,6 +129,7 @@
 				9EDC1F3B2C824579005D7780 /* Settings */,
 				9EAE515F2C401F9300C6ADE1 /* Class Helpers */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
+				9EA9B4372CB8139F00EA55ED /* WebView.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
@@ -200,7 +201,6 @@
 				9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */,
 				9E7FD0EC2C9CA6E2004EC298 /* Add & Edit Category */,
 				9E7FD0EB2C9CA6CC004EC298 /* Add & Edit Phrase */,
-				9E1C3C7B2C6E46C60018A43C /* EmptyListView.swift */,
 			);
 			path = "Saved Phrases";
 			sourceTree = "<group>";
@@ -323,6 +323,7 @@
 				9EAEE87B2C2319900012D3CC /* CategoriesListView.swift in Sources */,
 				9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */,
 				9E7FD0E42C9C9005004EC298 /* AddCategoryView.swift in Sources */,
+				9EA9B4382CB8139F00EA55ED /* WebView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
 				9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */,
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
@@ -330,7 +331,6 @@
 				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
 				9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */,
-				9E1C3C7C2C6E46C60018A43C /* EmptyListView.swift in Sources */,
 				9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */,
 				9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */,
