@@ -37,6 +37,7 @@ struct CommunicationView: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
+                .ignoresSafeArea(.keyboard)
             }
             .animation(.default, value: selectedCategory)
             .overlay {
@@ -44,15 +45,15 @@ struct CommunicationView: View {
             }
 //            .scrollDismissesKeyboard(.interactively)
             .navigationBarTitleDisplayMode(.inline)
-            .scrollContentBackground(.hidden)
+//            .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .task { await assignCategory() }
             .onAppear {
-                if #available(iOS 17, *) {
-                    vm.fetchPersonalVoices()
-                }
+//                if #available(iOS 17, *) {
+//                    vm.fetchPersonalVoices()
+//                }
                 
-                vm.assignVoice()
+//                vm.assignVoice()
             }
             .onChange(of: lastSelectedCategory) { _ in
                 withAnimation {
