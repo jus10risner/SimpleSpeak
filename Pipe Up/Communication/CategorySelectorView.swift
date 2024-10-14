@@ -32,13 +32,14 @@ struct CategorySelectorView: View {
                     }
                 }
 //                .frame(height: 50)
+//                .frame(maxHeight: .infinity)
                 .padding(.horizontal)
                 .onChange(of: selectedCategory) { category in
                     withAnimation {
                         if category == nil {
-                            value.scrollTo(0, anchor: .leading)
+                            value.scrollTo(0, anchor: .trailing)
                         } else {
-                            value.scrollTo(category?.id, anchor: .leading)
+                            value.scrollTo(category?.id, anchor: .trailing)
                         }
                     }
                 }
@@ -73,19 +74,15 @@ struct CategorySelectorView: View {
             .font(.headline)
             .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
             .padding()
+            .frame(height: 50)
             .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
             .animation(.easeInOut, value: selectedCategory)
-            
-//            Text(text)
-//                .font(.headline)
-//                .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
-//                .padding()
-//                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                 
         }
         .accessibilityLabel(text)
-        .frame(height: 44)
+//        .border(.secondary)
+//        .frame(height: 44)
         .padding(.vertical)
 //        .overlay {
 //            if selectedCategory == category {
