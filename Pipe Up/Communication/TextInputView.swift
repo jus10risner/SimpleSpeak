@@ -30,6 +30,7 @@ struct TextInputView: View {
                 .onTapGesture {
                     dismissKeyboard()
                 }
+//                .transition(.opacity.animation(.easeInOut))
 //                .environment(\.colorScheme, .dark)
             
             VStack(spacing: 0) {
@@ -40,6 +41,7 @@ struct TextInputView: View {
 //            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .padding()
+            .transition(.move(edge: .bottom))
         }
         .onAppear {
             vm.phraseIsRepeatable = false
