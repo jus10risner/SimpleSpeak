@@ -57,17 +57,17 @@ struct CategoriesListView: View {
 //                        }
                     }
                     
-                    ToolbarItem(placement: .bottomBar) {
-                        Button {
-                            isAddingCategory = true
-                        } label: {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                Text("New Category")
-                            }
-//                            Label("Add Category", systemImage: "plus.circle.fill")
-                        }
-                    }
+//                    ToolbarItem(placement: .bottomBar) {
+//                        Button {
+//                            isAddingCategory = true
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "plus.circle.fill")
+//                                Text("New Category")
+//                            }
+////                            Label("Add Category", systemImage: "plus.circle.fill")
+//                        }
+//                    }
                     
 //                    ToolbarItemGroup(placement: .topBarLeading) {
 //                        Button("Export") {
@@ -108,8 +108,8 @@ struct CategoriesListView: View {
     private var categoryList: some View {
         List {
             Section("Categories") {
-                ZStack {
-                    Color.clear
+//                ZStack {
+//                    Color.clear
                     NavigationLink {
                         SavedPhrasesListView(category: nil)
                     } label: {
@@ -120,11 +120,11 @@ struct CategoriesListView: View {
                                 .foregroundStyle(Color.secondary)
                         }
                     }
-                }
+//                }
                 
                 ForEach(categories) { category in
-                    ZStack {
-                        Color.clear
+//                    ZStack {
+//                        Color.clear
                         NavigationLink {
                             SavedPhrasesListView(category: category)
                                 .navigationTitle(category.title)
@@ -137,17 +137,24 @@ struct CategoriesListView: View {
                                     .foregroundStyle(Color.secondary)
                             }
                         }
-                    }
+//                    }
                 }
                 
-//                Button {
-//                    isAddingCategory = true
-//                } label: {
-//                    Label("Add Category", systemImage: "plus.circle.fill")
-//                }
-//                .padding()
-//                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//                .listRowBackground(Color.clear)
+                Button {
+                    isAddingCategory = true
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: "plus")
+                            .bold()
+                        
+                        Text("New Category")
+                    }
+//                    Label("Add Category", systemImage: "plus")
+                }
+                .padding(10)
+                .listRowBackground(Color.clear)
+                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                .frame(maxWidth: .infinity)
 //                .listRowInsets(EdgeInsets())
             }
         }
