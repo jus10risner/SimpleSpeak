@@ -14,7 +14,7 @@ struct SavedPhrasesListView: View {
     
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
-    let category: PhraseCategory?
+    var category: PhraseCategory?
     
     @State private var showingAddPhrase = false
     @State private var showingDeleteAlert = false
@@ -66,7 +66,7 @@ struct SavedPhrasesListView: View {
                 move(from: indices, to: newOffset)
             })
             .onDelete(perform: { indexSet in
-                vm.deletePhrase(at: indexSet, from: savedPhrases)
+                vm.deletePhrase(at: indexSet, from: savedPhrases, in: context)
             })
         }
         .navigationTitle(category?.title ?? "Recents")
@@ -80,8 +80,6 @@ struct SavedPhrasesListView: View {
                     } label: {
                         Label("Add New Phrase", systemImage: "plus")
                     }
-                } else {
-//                    recentsPicker
                 }
             }
             
@@ -98,7 +96,7 @@ struct SavedPhrasesListView: View {
         }
         .overlay {
             if savedPhrases.count == 0 {
-                EmptyListView(category: category)
+                emptyPhraseList
             }
         }
         .sheet(isPresented: $showingAddPhrase) {
@@ -128,17 +126,13 @@ struct SavedPhrasesListView: View {
     private var recentsPicker: some View {
         let numberToKeep = [10, 50, 100]
         
-//        return Menu {
-            return Picker(selection: $vm.numberOfRecents) {
-                ForEach(numberToKeep, id: \.self) {
-                    Text($0.description)
-                }
-            } label: {
-                Label("Recents to Keep", systemImage: "clock.arrow.circlepath")
+        return Picker(selection: $vm.numberOfRecents) {
+            ForEach(numberToKeep, id: \.self) {
+                Text($0.description)
             }
-//        } label: {
-//            Label("Recents Menu", systemImage: "ellipsis.circle")
-//        }
+        } label: {
+            Label("Recents to Keep", systemImage: "clock.arrow.circlepath")
+        }
     }
     
     private var categoryMenu: some View {
@@ -157,6 +151,29 @@ struct SavedPhrasesListView: View {
                 Label("Delete Category", systemImage: "trash")
             }
         }
+    }
+    
+    private var emptyPhraseList: some View {
+        ZStack {
+            Color(.systemGroupedBackground)
+            
+            VStack(spacing: 10) {
+                Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
+                    .font(.largeTitle)
+                    .foregroundStyle(.secondary)
+                
+                VStack(spacing: 5) {
+                    Text(category == nil ? "No Recents" : "No Phrases")
+                        .font(.title2.bold())
+                    
+                    Text(category == nil ? "" : "Tap the plus button to add a phrase.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+            }
+        }
+        .ignoresSafeArea()
     }
     
     func updateRecentsList() {
