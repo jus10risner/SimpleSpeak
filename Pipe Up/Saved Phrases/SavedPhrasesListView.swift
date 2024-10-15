@@ -40,34 +40,36 @@ struct SavedPhrasesListView: View {
                 }
             }
             
-            ForEach(savedPhrases) { phrase in
-                NavigationLink {
-                    EditSavedPhraseView(category: category, savedPhrase: phrase)
-                } label: {
-                    if phrase.label != "" {
-                        Text(phrase.label)
-                    } else {
-                        Text(phrase.text)
-                    }
-                }
-                .foregroundStyle(Color.primary)
-                .swipeActions(edge: .trailing) {
-                    Button(role: .destructive) {
-                        context.delete(phrase)
-                        try? context.save()
+            Section {
+                ForEach(savedPhrases) { phrase in
+                    NavigationLink {
+                        EditSavedPhraseView(category: category, savedPhrase: phrase)
                     } label: {
-                        Label("Delete Phrase", systemImage: "trash")
-                            .labelStyle(.iconOnly)
+                        if phrase.label != "" {
+                            Text(phrase.label)
+                        } else {
+                            Text(phrase.text)
+                        }
                     }
-                    .tint(Color.red)
+                    .foregroundStyle(Color.primary)
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            context.delete(phrase)
+                            try? context.save()
+                        } label: {
+                            Label("Delete Phrase", systemImage: "trash")
+                                .labelStyle(.iconOnly)
+                        }
+                        .tint(Color.red)
+                    }
                 }
+                .onMove(perform: { indices, newOffset in
+                    move(from: indices, to: newOffset)
+                })
+                //            .onDelete(perform: { indexSet in
+                //                vm.deletePhrase(at: indexSet, from: savedPhrases, in: context)
+                //            })
             }
-            .onMove(perform: { indices, newOffset in
-                move(from: indices, to: newOffset)
-            })
-            .onDelete(perform: { indexSet in
-                vm.deletePhrase(at: indexSet, from: savedPhrases, in: context)
-            })
         }
         .navigationTitle(category?.title ?? "Recents")
         .navigationBarTitleDisplayMode(.inline)
