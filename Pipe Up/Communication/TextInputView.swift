@@ -52,7 +52,7 @@ struct TextInputView: View {
     // MARK: - Views
     
     private var textField: some View {
-        TextField("Type to speak...", text: $text, axis: .vertical)
+        TextField("What would you like to say?", text: $text, axis: .vertical)
             .padding([.horizontal, .bottom])
             .padding(.top, 10)
             .font(.title3)
