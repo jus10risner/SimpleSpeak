@@ -139,6 +139,9 @@ struct CategoriesListView: View {
                         }
 //                    }
                 }
+                .onMove { indices, newOffset in
+                    move(from: indices, to: newOffset)
+                }
                 
                 Button {
                     isAddingCategory = true
@@ -169,6 +172,23 @@ struct CategoriesListView: View {
         newCategory.symbolName = "star.fill"
         newCategory.displayOrder = 0
     
+        try? context.save()
+    }
+    
+    // Persists the order of categories, after moving
+    func move(from source: IndexSet, to destination: Int) {
+        // Make an array of categories from fetched results
+        var modifiedCategoryList: [PhraseCategory] = categories.map { $0 }
+
+        // change the order of the categories in the array
+        modifiedCategoryList.move(fromOffsets: source, toOffset: destination )
+
+        // update the displayOrder attribute in modifiedCategoryList to
+        // persist the new order.
+        for index in (0..<modifiedCategoryList.count) {
+            modifiedCategoryList[index].displayOrder = Int64(index)
+        }
+        
         try? context.save()
     }
     
