@@ -49,25 +49,7 @@ struct CategoriesListView: View {
                                 .foregroundStyle(Color.secondary)
                         }
                         .buttonStyle(.plain)
-                        
-//                        Button {
-//                            isAddingCategory = true
-//                        } label: {
-//                            Label("Add New Category", systemImage: "plus.circle.fill")
-//                        }
                     }
-                    
-//                    ToolbarItem(placement: .bottomBar) {
-//                        Button {
-//                            isAddingCategory = true
-//                        } label: {
-//                            HStack {
-//                                Image(systemName: "plus.circle.fill")
-//                                Text("New Category")
-//                            }
-////                            Label("Add Category", systemImage: "plus.circle.fill")
-//                        }
-//                    }
                     
 //                    ToolbarItemGroup(placement: .topBarLeading) {
 //                        Button("Export") {
@@ -84,14 +66,6 @@ struct CategoriesListView: View {
 //                        }
 //                    }
                 }
-//                .alert("Add Category", isPresented: $isAddingCategory) {
-//                    TextField("Category Name", text: $categoryTitle)
-//                    Button("Save") {
-//                        addCategory()
-//                        categoryTitle = ""
-//                    }
-//                    Button("Cancel", role: .cancel) { categoryTitle = "" }
-//                }
                 .sheet(isPresented: $isAddingCategory, content: {
                     AddCategoryView()
                 })
@@ -152,13 +126,12 @@ struct CategoriesListView: View {
                         
                         Text("New Category")
                     }
-//                    Label("Add Category", systemImage: "plus")
                 }
+                .accessibilityLabel("Add Category")
                 .padding(10)
                 .listRowBackground(Color.clear)
                 .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                 .frame(maxWidth: .infinity)
-//                .listRowInsets(EdgeInsets())
             }
         }
         .listRowSpacing(vm.listRowSpacing)
@@ -191,20 +164,6 @@ struct CategoriesListView: View {
         
         try? context.save()
     }
-    
-//    // Adds a new category
-//    func addCategory() {
-//        if categories.contains(where: { $0.title == categoryTitle || categoryTitle == "Recents" }) {
-//            showingDuplicateCategoryAlert = true
-//        } else {
-//            let newCategory = PhraseCategory(context: context)
-//            newCategory.id = UUID()
-//            newCategory.title = categoryTitle
-//            newCategory.displayOrder = (categories.last?.displayOrder ?? 0) + 1
-//        
-//            try? context.save()
-//        }
-//    }
     
 //    func exportCategoriesToFolder(categories: [PhraseCategory]) -> URL? {
 //        let fileManager = FileManager.default
