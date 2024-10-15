@@ -12,7 +12,7 @@ struct DraftPhraseView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var draftPhrase: DraftPhrase
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
-    @FetchRequest(sortDescriptors: []) var phrases: FetchedResults<SavedPhrase>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var phrases: FetchedResults<SavedPhrase>
     
     let isEditing: Bool
     let savedPhrase: SavedPhrase?
