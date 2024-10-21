@@ -26,6 +26,7 @@ struct CategoriesListView: View {
             categoryList
 //                .navigationTitle("Manage Phrases")
                 .navigationBarTitleDisplayMode(.inline)
+                .background(Color(.systemGroupedBackground).ignoresSafeArea())
                 .scrollDismissesKeyboard(.interactively)
                 .onAppear {
                     if categories.count == 0 {

@@ -73,6 +73,7 @@ struct SavedPhrasesListView: View {
         }
         .navigationTitle(category?.title ?? "Recents")
         .navigationBarTitleDisplayMode(.inline)
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .listRowSpacing(vm.listRowSpacing)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -128,13 +129,14 @@ struct SavedPhrasesListView: View {
     private var recentsPicker: some View {
         let numberToKeep = [10, 50, 100]
         
-        return Picker(selection: $vm.numberOfRecents) {
+        return Picker("Recents to Keep", selection: $vm.numberOfRecents) {
             ForEach(numberToKeep, id: \.self) {
                 Text($0.description)
             }
-        } label: {
-            Label("Recents to Keep", systemImage: "clock.arrow.circlepath")
         }
+//        label: {
+//            Label("Recents to Keep", systemImage: "clock.arrow.circlepath")
+//        }
     }
     
     private var categoryMenu: some View {

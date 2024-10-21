@@ -39,7 +39,7 @@ struct DraftPhraseView: View {
                 
                 TextField("Label (optional)", text: $draftPhrase.label)
             } footer: {
-                Text("Use a label to quickly identify a longer phrase.")
+                Text("Use a label to help quickly identify a longer phrase.")
             }
             
             Section("Category") {
@@ -58,6 +58,7 @@ struct DraftPhraseView: View {
                 }
             }
         }
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
 //        .onAppear {
 //            phrases.nsPredicate = NSPredicate(format: "category == %@", draftPhrase.category ?? NSNull())
 //        }

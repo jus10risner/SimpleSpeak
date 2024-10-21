@@ -46,6 +46,7 @@ struct DraftCategoryView: View {
             }
             .textCase(nil)
         }
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .scrollDismissesKeyboard(.interactively)
         .onChange(of: draftCategoryData) { _ in
             hasChanges = true
