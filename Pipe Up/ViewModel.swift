@@ -155,11 +155,11 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         self.synthesizerState = .inactive
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        try? AVAudioSession.sharedInstance().setActive(true)
-        try? AVAudioSession.sharedInstance().setCategory(.playback, options: .interruptSpokenAudioAndMixWithOthers)
+//        try? AVAudioSession.sharedInstance().setActive(true)
+//        try? AVAudioSession.sharedInstance().setCategory(.playback, options: .interruptSpokenAudioAndMixWithOthers)
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+//        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         
         print("finished")
         self.phraseIsRepeatable = true
