@@ -18,8 +18,7 @@ struct HoveringButtonsView: View {
             } label: {
                 Label("Cancel Speech", systemImage: "stop.circle.fill")
                     .labelStyle(.iconOnly)
-                    .symbolRenderingMode(.multicolor)
-                    .font(.title)
+                    .font(.largeTitle)
             }
             .offset(x: vm.synthesizerState == .paused ? -60 : 0)
             .transition(.move(edge: .trailing))
@@ -28,7 +27,6 @@ struct HoveringButtonsView: View {
                 Circle()
                     .frame(width: 60, height: 60)
                     .foregroundStyle(Color(.defaultAccent))
-//                    .shadow(radius: 5)
                 
                 Group {
                     switch vm.synthesizerState {

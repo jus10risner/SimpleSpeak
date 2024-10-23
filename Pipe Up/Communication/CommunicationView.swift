@@ -40,9 +40,7 @@ struct CommunicationView: View {
                 .ignoresSafeArea(.keyboard)
             }
             .animation(.default, value: selectedCategory)
-            .overlay {
-                hoveringButtons
-            }
+            .overlay { hoveringButtons }
 //            .scrollDismissesKeyboard(.interactively)
             .navigationBarTitleDisplayMode(.inline)
 //            .scrollContentBackground(.hidden)
