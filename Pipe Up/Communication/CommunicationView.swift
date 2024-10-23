@@ -102,8 +102,14 @@ struct CommunicationView: View {
         .environmentObject(vm)
     }
     
+    // Sets selectedCategory when the app launches (based on lastSelectedCategory); prevents animation when selectedCategory is initially set
     func assignCategory() async {
-        selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
+        var transaction = Transaction()
+        transaction.disablesAnimations = true
+
+        withTransaction(transaction) {
+            selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
+        }
     }
     
     private var hoveringButtons: some View {
