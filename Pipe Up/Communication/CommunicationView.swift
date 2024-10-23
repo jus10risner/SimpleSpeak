@@ -116,7 +116,7 @@ struct CommunicationView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: [Color(.systemGroupedBackground), Color(.systemGroupedBackground).opacity(0.8), Color(.systemGroupedBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
-        .padding(.bottom, hasHomeButton ? 10 : 0)
+//        .padding(.bottom, hasHomeButton ? 10 : 0)
         .ignoresSafeArea(.keyboard)
     }
     

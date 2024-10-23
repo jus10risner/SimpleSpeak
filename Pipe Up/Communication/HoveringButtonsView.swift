@@ -54,6 +54,7 @@ struct HoveringButtonsView: View {
             .mask(Circle())
             .shadow(radius: 5)
         }
+        .padding(.bottom, 10)
         .animation(.bouncy(extraBounce: -0.1), value: vm.synthesizerState)
     }
 }
