@@ -13,6 +13,7 @@ struct CommunicationView: View {
     @StateObject var vm = ViewModel()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
+    @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
     
     @State private var selectedCategory: PhraseCategory?
     @State private var showingTextField = false
@@ -28,8 +29,10 @@ struct CommunicationView: View {
                 CategorySelectorView(selectedCategory: $selectedCategory)
                 
                 TabView(selection: $lastSelectedCategory) {
-                    PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
-                        .tag("Recents")
+                    if recentPhrases.count != 0 {
+                        PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
+                            .tag("Recents")
+                    }
                     
                     ForEach(categories) { category in
                         PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase)
