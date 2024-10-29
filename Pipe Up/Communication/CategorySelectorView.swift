@@ -10,7 +10,7 @@ import SwiftUI
 struct CategorySelectorView: View {
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
-//    @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
+    @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
     
     @Binding var selectedCategory: PhraseCategory?
     
@@ -20,10 +20,10 @@ struct CategorySelectorView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { value in
                 LazyHGrid(rows: rows, spacing: 5) {
-//                    if !recentPhrases.isEmpty {
+                    if !recentPhrases.isEmpty {
                         categoryButton(category: nil, text: "Recents")
                             .id(0)
-//                    }
+                    }
                     
                     ForEach(categories) { category in
 //                        if category.phrases?.count != 0 {
@@ -48,6 +48,12 @@ struct CategorySelectorView: View {
 //        .frame(height: 30)
 //        .padding(.bottom, 5)
         .fixedSize(horizontal: false, vertical: true)
+        .frame(maxHeight: 70)
+        .onChange(of: Array(recentPhrases)) { _ in
+            if recentPhrases.isEmpty {
+                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
+            }
+        }
 //        .onAppear {
 //            // Selects the first category that contains phrases, if the currently-selected category (or Recents) is empty
 //            if recentPhrases.isEmpty {
@@ -77,7 +83,7 @@ struct CategorySelectorView: View {
             .frame(height: 50)
             .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
-            .animation(.easeInOut, value: selectedCategory)
+//            .animation(.easeInOut, value: selectedCategory)
                 
         }
         .accessibilityLabel(text)
