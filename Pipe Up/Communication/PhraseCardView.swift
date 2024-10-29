@@ -46,24 +46,70 @@ struct PhraseCardView: View {
                 }
                 
                 if category != nil {
-                    Button {
-                        showingAddPhrase = true
-                    } label: {
-                        Label("Add Phrase", systemImage: "plus")
-                            .labelStyle(.iconOnly)
-                            .font(.title2.bold())
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 100)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: vm.cornerRadius)
-                                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [7]))
-                                    .foregroundStyle(Color.secondary)
-                                    .opacity(0.5)
-                            }
-                    }
+                    addPhraseButton
                 }
+                
+//                if category == nil && filteredPhrases.count == 0 {
+//                    Text("No Recents")
+//                        .font(.headline)
+//                        .foregroundStyle(Color.secondary)
+//                        .frame(maxWidth: .infinity)
+//                        .frame(height: 100)
+//                        .overlay {
+//                            RoundedRectangle(cornerRadius: vm.cornerRadius)
+//                                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [7]))
+//                                .foregroundStyle(Color.secondary)
+//                                .opacity(0.5)
+//                        }
+//                } else {
+//                    addPhraseButton
+//                }
             }
-            .padding()
+            .padding([.horizontal, .bottom])
+        }
+//        .overlay {
+//            if category == nil && filteredPhrases.count == 0 {
+//                VStack(spacing: 15) {
+////                    Spacer()
+////                    Spacer()
+//                    
+//                    Image(systemName: "clock.arrow.circlepath")
+//                        .font(.system(size: 60))
+//                        .foregroundStyle(Color.secondary)
+//                        .opacity(0.5)
+//                    
+//                    Text("No Recent Phrases")
+//                        .font(.title3.bold())
+////                    Text("Tap to type a phrase")
+////
+////                    Image(systemName: "arrow.down")
+////                        .font(.largeTitle)
+////                        .foregroundStyle(Color.secondary)
+////
+////                    Spacer()
+////                    Spacer()
+////                    Spacer()
+//                }
+////                .padding(.bottom, 100)
+//            }
+//        }
+    }
+    
+    private var addPhraseButton: some View {
+        Button {
+            showingAddPhrase = true
+        } label: {
+            Label("Add Phrase", systemImage: "plus")
+                .labelStyle(.iconOnly)
+                .font(.title2.bold())
+                .frame(maxWidth: .infinity)
+                .frame(height: 100)
+                .overlay {
+                    RoundedRectangle(cornerRadius: vm.cornerRadius)
+                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [7]))
+                        .foregroundStyle(Color.secondary)
+                        .opacity(0.5)
+                }
         }
     }
     
