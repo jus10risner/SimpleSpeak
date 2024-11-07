@@ -11,7 +11,7 @@ struct DraftCategoryView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
     @ObservedObject var draftCategory: DraftCategory
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.title_, ascending: true)]) var categories: FetchedResults<PhraseCategory>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
     let isEditing: Bool
     let selectedCategory: PhraseCategory?
@@ -20,7 +20,7 @@ struct DraftCategoryView: View {
     @State private var showingDuplicateAlert = false
     @State private var hasChanges = false
     
-    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
+//    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
 
     @FocusState var isInputActive: Bool
     
@@ -106,7 +106,7 @@ struct DraftCategoryView: View {
     func saveCategory() {
         if isEditing {
             selectedCategory?.update(draftCategory: draftCategory)
-            lastSelectedCategory = draftCategory.title
+//            lastSelectedCategory = draftCategory.title
         } else {
             addCategory()
         }
