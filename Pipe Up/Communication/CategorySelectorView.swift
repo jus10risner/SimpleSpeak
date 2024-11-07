@@ -16,6 +16,8 @@ struct CategorySelectorView: View {
     
     let rows = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
+    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { value in
@@ -50,18 +52,20 @@ struct CategorySelectorView: View {
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxHeight: 70)
         .onChange(of: Array(recentPhrases)) { _ in
+            // Selects the first category that contains phrases, when the last phrase is removed from Recents
             if recentPhrases.isEmpty {
                 selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
             }
         }
-//        .onAppear {
-//            // Selects the first category that contains phrases, if the currently-selected category (or Recents) is empty
-//            if recentPhrases.isEmpty {
-//                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
-//            } else if selectedCategory?.phrases?.count == 0 {
+        .onAppear {
+            // Selects the first category that contains phrases, if Recents was the last selected category and is now empty; added primarily for when phrases are syncing via iCloud
+            if recentPhrases.isEmpty && lastSelectedCategory == "Recents" {
+                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
+            }
+//            else if selectedCategory?.phrases?.count == 0 {
 //                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
 //            }
-//        }
+        }
     }
     
     // Category selection button
