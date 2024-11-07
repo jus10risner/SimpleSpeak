@@ -28,26 +28,28 @@ struct CommunicationView: View {
             VStack(spacing: 0) {
                 CategorySelectorView(selectedCategory: $selectedCategory)
                 
-                TabView(selection: $lastSelectedCategory) {
+                TabView(selection: $selectedCategory) {
                     if recentPhrases.count != 0 {
                         PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
-                            .tag("Recents")
+                            .tag(PhraseCategory?(nil))
                     }
                     
                     ForEach(categories) { category in
                         PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase)
-                            .tag(category.title)
+                            .tag(category)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                .ignoresSafeArea(.keyboard)
+//                .ignoresSafeArea(edges: .bottom)
             }
             .animation(.default, value: selectedCategory)
+//            .animation(.default, value: lastSelectedCategory)
             .overlay { hoveringButtons }
 //            .scrollDismissesKeyboard(.interactively)
             .navigationBarTitleDisplayMode(.inline)
 //            .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
+            .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
             .onAppear {
 //                if #available(iOS 17, *) {
@@ -56,15 +58,16 @@ struct CommunicationView: View {
                 
 //                vm.assignVoice()
             }
-            .onChange(of: lastSelectedCategory) { _ in
-                withAnimation {
-                    selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
-                }
-            }
+//            .onChange(of: lastSelectedCategory) { _ in
+////                withAnimation {
+//                    selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
+//                print("changed selectedCategory")
+////                }
+//            }
             .onChange(of: selectedCategory) { category in
-                withAnimation {
+//                withAnimation {
                     lastSelectedCategory = category?.title ?? "Recents"
-                }
+//                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -111,7 +114,7 @@ struct CommunicationView: View {
         transaction.disablesAnimations = true
 
         withTransaction(transaction) {
-            selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
+            selectedCategory = categories.first(where: { $0.title == lastSelectedCategory }) ?? nil
         }
     }
     
@@ -124,17 +127,17 @@ struct CommunicationView: View {
                 .background(LinearGradient(colors: [Color(.systemGroupedBackground), Color(.systemGroupedBackground).opacity(0.8), Color(.systemGroupedBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
 //        .padding(.bottom, hasHomeButton ? 10 : 0)
-        .ignoresSafeArea(.keyboard)
+//        .ignoresSafeArea(.keyboard)
     }
     
-    // Checks safe area insets, to determine if bottom padding is needed
-    private var hasHomeButton: Bool {
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        guard let window = windowScene?.windows.first else { return false }
-        
-        return window.safeAreaInsets.bottom == 0
-    }
+//    // Checks safe area insets, to determine if bottom padding is needed
+//    private var hasHomeButton: Bool {
+//        let scenes = UIApplication.shared.connectedScenes
+//        let windowScene = scenes.first as? UIWindowScene
+//        guard let window = windowScene?.windows.first else { return false }
+//        
+//        return window.safeAreaInsets.bottom == 0
+//    }
 }
 
 #Preview {
