@@ -98,7 +98,8 @@ struct SavedPhrasesListView: View {
             }
         }
         .overlay {
-            if savedPhrases.count == 0 {
+            // The category.symbolName check prevents a "no symbol found" error when deleting a category
+            if savedPhrases.count == 0 && category?.symbolName != "" {
                 emptyPhraseList
             }
         }
