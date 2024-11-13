@@ -25,6 +25,7 @@ struct CategorySelectorView: View {
                     if !recentPhrases.isEmpty {
                         categoryButton(category: nil, text: "Recents")
                             .id(0)
+                            .transition(.opacity.animation(.easeInOut))
                     }
                     
                     ForEach(categories) { category in
@@ -33,6 +34,7 @@ struct CategorySelectorView: View {
 //                        }
                     }
                 }
+                .animation(.easeInOut, value: recentPhrases.count)
 //                .frame(height: 50)
 //                .frame(maxHeight: .infinity)
                 .padding(.horizontal)
