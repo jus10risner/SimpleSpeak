@@ -63,6 +63,9 @@ class ViewModel: NSObject, ObservableObject {
 //        synthesizer.speak(utterance)
 //        utterance.voice = voiceToUse
         
+        let audioSession = AVAudioSession.sharedInstance()
+        try? audioSession.setCategory(.playback, mode: .default, options: [.duckOthers])
+        
         synthesizer.mixToTelephonyUplink = self.useDuringCalls ? true : false
         synthesizer.speak(utterance)
     }
