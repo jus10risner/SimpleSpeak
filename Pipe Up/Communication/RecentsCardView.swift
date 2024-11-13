@@ -53,8 +53,10 @@ struct RecentsCardView: View {
             }
         }
         .onDisappear {
-            // Prevents unexpected animation when returning to the Recents tab; without this, FetchRequest animates updates that occurred while the tab was not active
-            animationEnabled = false
+            // Waits for 1 second before disabling animation on Recents tab; this prevents jumpy animation when navigating to another tab
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                animationEnabled = false
+            }
         }
     }
 }
