@@ -44,6 +44,7 @@
 		9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689DF2C4AAAC500568B6D /* AppInfo.swift */; };
 		9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E12C4AB99700568B6D /* DraftPhrase.swift */; };
 		9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */; };
+		9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		9EF689DF2C4AAAC500568B6D /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		9EF689E12C4AB99700568B6D /* DraftPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhrase.swift; sourceTree = "<group>"; };
 		9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhraseView.swift; sourceTree = "<group>"; };
+		9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				9EDC1F4D2C8F4DDA005D7780 /* HoveringButtonsView.swift */,
 				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
 				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
+				9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */,
 				9EBF2E822C2DC9C000AB5A95 /* TextInputView.swift */,
 				9EDC1F482C8A2DE1005D7780 /* Buttons */,
 			);
@@ -325,6 +328,7 @@
 				9EDC1F3A2C82068D005D7780 /* VoicePickerView.swift in Sources */,
 				9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */,
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
+				9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */,
 				9EDC1F452C8A18D8005D7780 /* TextInputButton.swift in Sources */,
 				9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */,
 				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
