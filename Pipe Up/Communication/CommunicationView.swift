@@ -30,7 +30,8 @@ struct CommunicationView: View {
                 
                 TabView(selection: $selectedCategory) {
                     if recentPhrases.count != 0 {
-                        PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
+//                        PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
+                        RecentsCardView()
                             .tag(PhraseCategory?(nil))
                     }
                     
@@ -51,13 +52,13 @@ struct CommunicationView: View {
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
-            .onAppear {
+//            .onAppear {
 //                if #available(iOS 17, *) {
 //                    vm.fetchPersonalVoices()
 //                }
                 
 //                vm.assignVoice()
-            }
+//            }
 //            .onChange(of: lastSelectedCategory) { _ in
 ////                withAnimation {
 //                    selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
