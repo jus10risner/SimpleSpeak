@@ -29,14 +29,10 @@ struct CategorySelectorView: View {
                     }
                     
                     ForEach(categories) { category in
-//                        if category.phrases?.count != 0 {
-                            categoryButton(category: category, text: category.title)
-//                        }
+                        categoryButton(category: category, text: category.title)
                     }
                 }
                 .animation(.easeInOut, value: recentPhrases.count)
-//                .frame(height: 50)
-//                .frame(maxHeight: .infinity)
                 .padding(.horizontal)
                 .onChange(of: selectedCategory) { category in
                     withAnimation {
@@ -49,8 +45,6 @@ struct CategorySelectorView: View {
                 }
             }
         }
-//        .frame(height: 30)
-//        .padding(.bottom, 5)
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxHeight: 70)
         .onChange(of: Array(recentPhrases)) { _ in
@@ -64,9 +58,6 @@ struct CategorySelectorView: View {
             if recentPhrases.isEmpty && lastSelectedCategory == "Recents" {
                 selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
             }
-//            else if selectedCategory?.phrases?.count == 0 {
-//                selectedCategory = categories.first(where: { $0.phrases?.count != 0 })
-//            }
         }
     }
     
@@ -91,20 +82,10 @@ struct CategorySelectorView: View {
             .frame(height: 50)
             .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
-//            .animation(.easeInOut, value: selectedCategory)
                 
         }
         .accessibilityLabel(text)
-//        .border(.secondary)
-//        .frame(height: 44)
         .padding(.vertical)
-//        .overlay {
-//            if selectedCategory == category {
-//                RoundedRectangle(cornerRadius: vm.cornerRadius)
-//                    .stroke(Color(.defaultAccent), lineWidth: 2)
-//            }
-//        }
-        
     }
 }
 
