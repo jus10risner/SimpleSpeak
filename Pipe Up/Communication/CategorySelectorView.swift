@@ -73,7 +73,9 @@ struct CategorySelectorView: View {
     // Category selection button
     private func categoryButton(category: PhraseCategory?, text: String) -> some View {
         Button {
-            selectedCategory = category
+            withAnimation {
+                selectedCategory = category
+            }
         } label: {
             HStack {
                 Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
