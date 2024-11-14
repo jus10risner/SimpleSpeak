@@ -121,18 +121,23 @@ struct CategoriesListView: View {
                 Button {
                     isAddingCategory = true
                 } label: {
-                    HStack(spacing: 5) {
+                    HStack(spacing: 3) {
                         Image(systemName: "plus")
-                            .bold()
                         
-                        Text("New Category")
+                        Text("Add Category")
                     }
+                    .accessibilityLabel("Add Category")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, minHeight: 44)
                 }
-                .accessibilityLabel("Add Category")
-                .padding(10)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                        .foregroundStyle(Color.secondary)
+                        .opacity(0.5)
+                }
+                .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
-                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-                .frame(maxWidth: .infinity)
             }
         }
         .listRowSpacing(vm.listRowSpacing)
