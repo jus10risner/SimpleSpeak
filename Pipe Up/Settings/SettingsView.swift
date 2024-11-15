@@ -12,8 +12,12 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
-    @State private var showingPersonalVoiceSetupSheet = false
-    @State private var showingVoiceSelectionSheet = false
+//    @State private var showingPersonalVoiceSetupSheet = false
+//    @State private var showingVoiceSelectionSheet = false
+    
+//    @State private var standardVoices: [AVSpeechSynthesisVoice] = []
+//    @State private var noveltyVoices: [AVSpeechSynthesisVoice] = []
+//    @State private var personalVoices: [AVSpeechSynthesisVoice] = []
     
     var body: some View {
         NavigationStack {
@@ -23,17 +27,31 @@ struct SettingsView: View {
                         Label("Use During Calls", systemImage: "phone.fill")
                     })
                 } footer: {
-                    Text("Sends speech to other parties on a phone call or FaceTime.")
+                    Text("Sends speech to other participants during phone calls and FaceTime.")
                 }
                 
-                if #available(iOS 17, *) {
-//                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized {
-                    PersonalVoiceSettingsView(showingpersonalVoiceSetupSheet: $showingPersonalVoiceSetupSheet)
+//                if #available(iOS 17, *) {
+////                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized {
+//                    PersonalVoiceSettingsView(showingpersonalVoiceSetupSheet: $showingPersonalVoiceSetupSheet)
+////                    }
+//                }
+                
+//                if vm.usePersonalVoice == false {
+//                    Button("How to change your speech voice") {
+//                        showingVoiceSelectionSheet = true
 //                    }
-                }
-                
-                Button("Change your speech voice") {
-                    showingVoiceSelectionSheet = true
+//                }
+                NavigationLink {
+                    VoiceSelectionView()
+                } label: {
+                    HStack {
+                        Label("Voice", systemImage: "person.wave.2.fill")
+                        
+                        Spacer()
+                        
+                        Text(selectedVoice)
+                            .foregroundStyle(Color.secondary)
+                    }
                 }
                 
                 // TODO: Re-enable conditional
@@ -63,12 +81,12 @@ struct SettingsView: View {
             .tint(Color(.defaultAccent))
 //            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
-                webView(url: URL(string: "https://support.apple.com/en-us/104993")!, title: "Personal Voice", selection: $showingPersonalVoiceSetupSheet)
-            })
-            .sheet(isPresented: $showingVoiceSelectionSheet, content: {
-                webView(url: URL(string: "https://support.apple.com/en-us/111798")!, title: "Voice Selection", selection: $showingVoiceSelectionSheet)
-            })
+//            .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
+//                webView(url: URL(string: "https://support.apple.com/104993")!, title: "Personal Voice", selection: $showingPersonalVoiceSetupSheet)
+//            })
+//            .sheet(isPresented: $showingVoiceSelectionSheet, content: {
+//                webView(url: URL(string: "https://support.apple.com/111798")!, title: "Voice Selection", selection: $showingVoiceSelectionSheet)
+//            })
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("Settings")
@@ -91,21 +109,28 @@ struct SettingsView: View {
         }
     }
     
-    private func webView(url: URL, title: String, selection: Binding<Bool>) -> some View {
-        NavigationStack {
-            WebView(url: url)
-                .ignoresSafeArea(edges: .bottom)
-                .navigationTitle(title)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Done") {
-                            selection.wrappedValue = false
-                        }
-                    }
-                }
-        }
+    private var selectedVoice: String {
+        let voices = AVSpeechSynthesisVoice.speechVoices()
+        let selectedVoice = voices.first(where: { $0.identifier == vm.selectedVoiceIdentifier })
+        
+        return selectedVoice?.name ?? "Unknown"
     }
+    
+//    private func webView(url: URL, title: String, selection: Binding<Bool>) -> some View {
+//        NavigationStack {
+//            WebView(url: url)
+//                .ignoresSafeArea(edges: .bottom)
+//                .navigationTitle(title)
+//                .navigationBarTitleDisplayMode(.inline)
+//                .toolbar {
+//                    ToolbarItem(placement: .topBarTrailing) {
+//                        Button("Done") {
+//                            selection.wrappedValue = false
+//                        }
+//                    }
+//                }
+//        }
+//    }
 }
 
 #Preview {
