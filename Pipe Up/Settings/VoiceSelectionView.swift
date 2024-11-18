@@ -9,6 +9,7 @@ import AVFoundation
 import SwiftUI
 
 struct VoiceSelectionView: View {
+    @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var vm: ViewModel
     
     @State private var standardVoices: [AVSpeechSynthesisVoice] = []
@@ -71,6 +72,12 @@ struct VoiceSelectionView: View {
         .navigationTitle("Voices")
         .navigationBarTitleDisplayMode(.inline)
         .task { await loadVoices() }
+        .onChange(of: scenePhase) { newValue in
+            // Updates the list of voices, when a user downloads or deletes a speech synthesis voice in the Settings app
+            if newValue == .active {
+                Task { await loadVoices() }
+            }
+        }
     }
     
     private func loadVoices() async {
@@ -86,10 +93,6 @@ struct VoiceSelectionView: View {
         } else {
             standardVoices = voicesForCurrentLanguage.filter { !noveltyNames.contains($0.name) }
             noveltyVoices = voicesForCurrentLanguage.filter { noveltyNames.contains($0.name) }
-        }
-        
-        if vm.selectedVoiceIdentifier == nil {
-            vm.selectedVoiceIdentifier = Locale.preferredLanguages[0]
         }
     }
 }
