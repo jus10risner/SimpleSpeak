@@ -96,8 +96,9 @@ struct TextInputView: View {
                 dismissKeyboard()
             }
         }
-        .padding([.top, .horizontal])
-        .padding(.bottom, 0)
+//        .padding([.top, .horizontal], 5)
+//        .padding(.bottom, 10)
+        .padding(10)
         .drawingGroup()
     }
     
@@ -109,7 +110,7 @@ struct TextInputView: View {
                     vm.pauseSpeaking()
                 }
             case .paused:
-                TextInputButton(text: "Cancel Speech", symbolName: "stop.circle.fill") {
+                TextInputButton(text: "Cancel Speech", symbolName: "stop.circle.fill", color: .red) {
                     vm.cancelSpeaking()
                 }
                 
