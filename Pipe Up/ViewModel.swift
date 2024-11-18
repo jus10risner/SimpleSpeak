@@ -26,15 +26,15 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("useDuringCalls") var useDuringCalls = true {
         willSet { objectWillChange.send() }
     }
-    @AppStorage("usePersonalVoice") var usePersonalVoice = false {
-        willSet { objectWillChange.send() }
-    }
+//    @AppStorage("usePersonalVoice") var usePersonalVoice = false {
+//        willSet { objectWillChange.send() }
+//    }
     @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
         willSet { objectWillChange.send() }
     }
-    @AppStorage("selectedLanguage")  var selectedLanguage = Locale.preferredLanguages[0] {
-        willSet { objectWillChange.send() }
-    }
+//    @AppStorage("selectedLanguage")  var selectedLanguage = Locale.preferredLanguages[0] {
+//        willSet { objectWillChange.send() }
+//    }
     @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic {
         willSet { objectWillChange.send() }
     }
@@ -57,7 +57,7 @@ class ViewModel: NSObject, ObservableObject {
         if let identifier = selectedVoiceIdentifier {
             utterance.voice = AVSpeechSynthesisVoice(identifier: identifier)
         } else {
-            utterance.voice = AVSpeechSynthesisVoice(language: selectedLanguage)
+            utterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
         }
         
 //        synthesizer.speak(utterance)
@@ -119,6 +119,15 @@ class ViewModel: NSObject, ObservableObject {
 //        
 //        assignVoice()
 //    }
+    
+    func checkSpeechVoice() async {
+        if !AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.identifier == self.selectedVoiceIdentifier }) {
+            let languageCode = AVSpeechSynthesisVoice.currentLanguageCode()
+            let defaultVoiceIdentifier = AVSpeechSynthesisVoice(language: languageCode)?.identifier
+            
+            self.selectedVoiceIdentifier = defaultVoiceIdentifier
+        }
+    }
     
     // Set the voice to use for text-to-speech
 //    func assignVoice() {
