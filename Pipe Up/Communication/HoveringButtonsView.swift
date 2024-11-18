@@ -42,6 +42,7 @@ struct HoveringButtonsView: View {
                     case .inactive:
                         HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
                             withAnimation {
+                                vm.phraseIsRepeatable = false
                                 showingTextField = true
                             }
                         }

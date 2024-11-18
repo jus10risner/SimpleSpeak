@@ -43,10 +43,7 @@ struct TextInputView: View {
             .padding()
             .transition(.move(edge: .bottom))
         }
-        .onAppear {
-            vm.phraseIsRepeatable = false
-            isInputActive = true
-        }
+        .onAppear { isInputActive = true }
     }
     
     // MARK: - Views
