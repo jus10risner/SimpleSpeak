@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct QuickSpeakApp: App {
     @Environment(\.scenePhase) var scenePhase
+    @StateObject var vm = ViewModel()
     let dataController = DataController.shared
     
     init() {
@@ -21,10 +22,16 @@ struct QuickSpeakApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environmentObject(vm)
                 .task { AppearanceController.shared.setAppearance() }
         }
         .onChange(of: scenePhase) { _ in
             dataController.save()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                Task { await vm.checkSpeechVoice() }
+            }
         }
     }
 }

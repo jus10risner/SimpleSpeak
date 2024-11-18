@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CommunicationView: View {
     @Environment(\.managedObjectContext) var context
-    @StateObject var vm = ViewModel()
+    @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
@@ -106,7 +106,6 @@ struct CommunicationView: View {
                     .transition(.opacity.animation(.easeInOut))
             }
         }
-        .environmentObject(vm)
     }
     
     // Sets selectedCategory when the app launches (based on lastSelectedCategory); prevents animation when selectedCategory is initially set
