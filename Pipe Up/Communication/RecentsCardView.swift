@@ -14,7 +14,7 @@ struct RecentsCardView: View {
     let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
     @Namespace var animation
-    @State private var animationEnabled = false
+//    @State private var animationEnabled = false
     
     var body: some View {
         ScrollView {
@@ -44,20 +44,20 @@ struct RecentsCardView: View {
                 }
             }
             .padding([.horizontal, .bottom])
-            .animation(animationEnabled ? .easeInOut : nil, value: recentPhrases.count)
+            .animation(.default, value: recentPhrases.count)
         }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                // Briefly prevents animation when view appears; only animates updates to Recents while the tab is active
-                animationEnabled = true
-            }
-        }
-        .onDisappear {
-            // Waits for 1 second before disabling animation on Recents tab; this prevents jumpy animation when navigating to another tab
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                animationEnabled = false
-            }
-        }
+//        .onAppear {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                // Briefly prevents animation when view appears; only animates updates to Recents while the tab is active
+//                animationEnabled = true
+//            }
+//        }
+//        .onDisappear {
+//            // Waits for 1 second before disabling animation on Recents tab; this prevents jumpy animation when navigating to another tab
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                animationEnabled = false
+//            }
+//        }
     }
 }
 
