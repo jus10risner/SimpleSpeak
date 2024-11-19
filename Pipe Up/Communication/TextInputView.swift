@@ -56,16 +56,17 @@ struct TextInputView: View {
             .focused($isInputActive)
             .submitLabel(.send)
             .onChange(of: text) { newValue in
-                // This serves as a replacement for onSubmit, when a vertical axis is used on TextField
-                guard let newValueLastCharacter = newValue.last else { return }
-                if newValueLastCharacter == "\n" {
-                    text.removeLast()
-                    submitAndAddRecent()
+                // Serves as a replacement for onSubmit, when a vertical axis is used on TextField
+                let returnButtonTapped = newValue.contains("\n")
+                
+                if returnButtonTapped {
+                    text = newValue.filter({ $0 != "\n" })
+                    Task { await submitAndAddRecent()}
                 }
             }
             .onSubmit {
-                // This serves to keep TextField focused if a hardware keyboard is used
-                submitAndAddRecent()
+                // Serves to keep TextField focused if a hardware keyboard is used
+                Task { await submitAndAddRecent() }
             }
     }
     
@@ -140,7 +141,7 @@ struct TextInputView: View {
         }
     }
     
-    func submitAndAddRecent() {
+    func submitAndAddRecent() async {
         let textToSpeak = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         let recentPhrases = allPhrases.sorted(by: { $0.displayOrder > $1.displayOrder }).filter { $0.category == nil }
         
