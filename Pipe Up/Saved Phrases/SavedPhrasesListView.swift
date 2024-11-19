@@ -73,6 +73,7 @@ struct SavedPhrasesListView: View {
         }
         .navigationTitle(category?.title ?? "Recents")
         .navigationBarTitleDisplayMode(.inline)
+        .scrollContentBackground(.hidden)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .listRowSpacing(vm.listRowSpacing)
         .toolbar {
@@ -83,6 +84,16 @@ struct SavedPhrasesListView: View {
                     } label: {
                         Label("Add New Phrase", systemImage: "plus")
                     }
+                } else {
+                    Button("Clear All") {
+                        withAnimation(.snappy) {
+                            for phrase in savedPhrases {
+                                context.delete(phrase)
+                            }
+                            try? context.save()
+                        }
+                    }
+                    .opacity(savedPhrases.count > 0 ? 1 : 0)
                 }
             }
             
@@ -160,7 +171,7 @@ struct SavedPhrasesListView: View {
     
     private var emptyPhraseList: some View {
         ZStack {
-            Color(.systemGroupedBackground)
+            Color.clear
             
             VStack(spacing: 10) {
                 Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
