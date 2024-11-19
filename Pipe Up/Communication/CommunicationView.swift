@@ -76,7 +76,7 @@ struct CommunicationView: View {
                         Button {
                             showingSavedPhrases = true
                         } label: {
-                            Label("Manage Phrases", systemImage: "bookmark")
+                            Label("Manage Phrases", systemImage: "rectangle.grid.1x2")
                         }
                         
                         Button {
