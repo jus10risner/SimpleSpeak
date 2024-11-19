@@ -29,8 +29,7 @@ struct CommunicationView: View {
                 CategorySelectorView(selectedCategory: $selectedCategory)
                 
                 TabView(selection: $selectedCategory) {
-                    if recentPhrases.count != 0 {
-//                        PhraseCardView(category: nil, showingAddPhrase: $showingAddPhrase)
+                    if recentPhrases.count > 0 {
                         RecentsCardView()
                             .tag(PhraseCategory?(nil))
                     }
