@@ -24,7 +24,7 @@ struct HoveringButton: View {
                 .labelStyle(.iconOnly)
                 .font(.title3)
                 .foregroundStyle(Color.white)
-                .padding()
+                .padding(20)
         }
         .onAppear(perform: prepareHaptics)
     }
