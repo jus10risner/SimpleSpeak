@@ -84,16 +84,6 @@ struct SavedPhrasesListView: View {
                     } label: {
                         Label("Add New Phrase", systemImage: "plus")
                     }
-                } else {
-                    Button("Clear All") {
-                        withAnimation(.snappy) {
-                            for phrase in savedPhrases {
-                                context.delete(phrase)
-                            }
-                            try? context.save()
-                        }
-                    }
-                    .opacity(savedPhrases.count > 0 ? 1 : 0)
                 }
             }
             
