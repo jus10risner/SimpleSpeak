@@ -5,12 +5,9 @@
 //  Created by Justin Risner on 6/19/24.
 //
 
-import AVFoundation
 import SwiftUI
 
 struct CommunicationView: View {
-    @Environment(\.managedObjectContext) var context
-    @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
