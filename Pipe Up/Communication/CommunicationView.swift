@@ -39,6 +39,7 @@ struct CommunicationView: View {
                             .tag(category)
                     }
                 }
+                .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears
                 .tabViewStyle(.page(indexDisplayMode: .never))
 //                .ignoresSafeArea(edges: .bottom)
             }
