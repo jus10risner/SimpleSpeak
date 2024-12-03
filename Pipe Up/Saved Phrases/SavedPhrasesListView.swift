@@ -75,7 +75,7 @@ struct SavedPhrasesListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .scrollContentBackground(.hidden)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
-        .listRowSpacing(vm.listRowSpacing)
+//        .listRowSpacing(vm.listRowSpacing)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if category != nil {
