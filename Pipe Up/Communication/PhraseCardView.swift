@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct PhraseCardView: View {
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
     let category: PhraseCategory
     @Binding var showingAddPhrase: Bool
+    
+    @State private var showingEditPhrase = false
     
     // Custom init, so I can pass in the category property as a predicate
     init(category: PhraseCategory, showingAddPhrase: Binding<Bool>) {
@@ -56,8 +60,26 @@ struct PhraseCardView: View {
                             .frame(height: 100)
                         }
                         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
+                        .contextMenu {
+                            Button {
+                                showingEditPhrase = true
+                            } label: {
+                                Label("Edit Phrase", systemImage: "pencil")
+                            }
+                            
+                            Button(role: .destructive) {
+                                context.delete(phrase)
+                                try? context.save()
+                            } label: {
+                                Label("Delete Phrase", systemImage: "trash")
+                            }
+                        }
                     }
                     .buttonStyle(.plain)
+                    .sheet(isPresented: $showingEditPhrase, content: {
+                        EditSavedPhraseView(category: category, savedPhrase: phrase, showCancelButton: true)
+                    })
                 }
                 
                 addPhraseButton

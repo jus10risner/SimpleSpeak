@@ -14,10 +14,12 @@ struct EditSavedPhraseView: View {
 
     let category: PhraseCategory?
     let savedPhrase: SavedPhrase
+    let showCancelButton: Bool
     
-    init(category: PhraseCategory?, savedPhrase: SavedPhrase) {
+    init(category: PhraseCategory?, savedPhrase: SavedPhrase, showCancelButton: Bool) {
         self.category = category
         self.savedPhrase = savedPhrase
+        self.showCancelButton = showCancelButton
         
         _draftPhrase = StateObject(wrappedValue: DraftPhrase(savedPhrase: savedPhrase))
     }
@@ -27,10 +29,19 @@ struct EditSavedPhraseView: View {
             DraftPhraseView(draftPhrase: draftPhrase, isEditing: true, savedPhrase: savedPhrase)
                 .navigationTitle("Edit Phrase")
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    if showCancelButton == true {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button("Cancel") {
+                                dismiss()
+                            }
+                        }
+                    }
+                }
         }
     }
 }
 
 #Preview {
-    EditSavedPhraseView(category: nil, savedPhrase: SavedPhrase(context: DataController.preview.container.viewContext))
+    EditSavedPhraseView(category: nil, savedPhrase: SavedPhrase(context: DataController.preview.container.viewContext), showCancelButton: true)
 }

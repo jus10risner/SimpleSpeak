@@ -43,7 +43,7 @@ struct SavedPhrasesListView: View {
             Section {
                 ForEach(savedPhrases) { phrase in
                     NavigationLink {
-                        EditSavedPhraseView(category: category, savedPhrase: phrase)
+                        EditSavedPhraseView(category: category, savedPhrase: phrase, showCancelButton: false)
                     } label: {
                         if phrase.label != "" {
                             Text(phrase.label)
