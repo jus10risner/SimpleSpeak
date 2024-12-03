@@ -84,6 +84,7 @@ struct CommunicationView: View {
                     } label: {
                         Image(systemName: "ellipsis.circle.fill")
                             .symbolRenderingMode(.hierarchical)
+                            .font(.title2)
                     }
                 }
             }
