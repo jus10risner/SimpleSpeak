@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecentsCardView: View {
+    @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: false)], predicate: NSPredicate(format: "category == %@", NSNull()), animation: .easeInOut) var recentPhrases: FetchedResults<SavedPhrase>
     
@@ -16,16 +17,25 @@ struct RecentsCardView: View {
     @Namespace var animation
 //    @State private var animationEnabled = false
     
+    @State private var phraseToEdit: SavedPhrase?
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(recentPhrases, id: \.id) { phrase in
-                    Button {
-                        if vm.synthesizerState != .inactive {
-                            vm.cancelSpeaking()
+                    Menu {
+                        Button {
+                            phraseToEdit = phrase
+                        } label: {
+                            Label("Edit Phrase", systemImage: "pencil")
                         }
                         
-                        vm.speak(phrase.text)
+                        Button(role: .destructive) {
+                            context.delete(phrase)
+                            try? context.save()
+                        } label: {
+                            Label("Delete Phrase", systemImage: "trash")
+                        }
                     } label: {
                         ZStack {
                             Text(phrase.text)
@@ -39,12 +49,17 @@ struct RecentsCardView: View {
                         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                         .matchedGeometryEffect(id: phrase.id, in: animation)
                         .drawingGroup()
+                    } primaryAction: {
+                        speakPhrase(phrase)
                     }
                     .buttonStyle(.plain)
                 }
             }
             .padding([.horizontal, .bottom])
             .animation(.default, value: recentPhrases.count)
+            .sheet(item: $phraseToEdit) { phrase in
+                EditSavedPhraseView(category: nil, savedPhrase: phrase, showCancelButton: true)
+            }
         }
 //        .onAppear {
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -58,6 +73,15 @@ struct RecentsCardView: View {
 //                animationEnabled = false
 //            }
 //        }
+    }
+    
+    // Speaks the selected phrase
+    func speakPhrase(_ phrase: SavedPhrase) {
+        if vm.synthesizerState != .inactive {
+            vm.cancelSpeaking()
+        }
+        
+        vm.speak(phrase.text)
     }
 }
 
