@@ -38,12 +38,20 @@ struct PhraseCardView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(savedPhrases) { phrase in
-                    Button {
-                        if vm.synthesizerState != .inactive {
-                            vm.cancelSpeaking()
+                    Menu {
+                        Button {
+                            phraseToEdit = phrase
+                            showingEditPhrase = true
+                        } label: {
+                            Label("Edit Phrase", systemImage: "pencil")
                         }
                         
-                        vm.speak(phrase.text)
+                        Button(role: .destructive) {
+                            context.delete(phrase)
+                            try? context.save()
+                        } label: {
+                            Label("Delete Phrase", systemImage: "trash")
+                        }
                     } label: {
                         ZStack {
                             Group {
@@ -61,22 +69,9 @@ struct PhraseCardView: View {
                             .frame(height: 100)
                         }
                         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-                        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
-                        .contextMenu {
-                            Button {
-                                phraseToEdit = phrase
-                                showingEditPhrase = true
-                            } label: {
-                                Label("Edit Phrase", systemImage: "pencil")
-                            }
-                            
-                            Button(role: .destructive) {
-                                context.delete(phrase)
-                                try? context.save()
-                            } label: {
-                                Label("Delete Phrase", systemImage: "trash")
-                            }
-                        }
+                    } primaryAction: {
+                        // Makes menu function as a simple button, unless longPressGesture is used
+                        speakPhrase(phrase)
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showingEditPhrase, content: {
@@ -108,6 +103,15 @@ struct PhraseCardView: View {
                         .opacity(0.5)
                 }
         }
+    }
+    
+    // Speaks the selected phrase
+    func speakPhrase(_ phrase: SavedPhrase) {
+        if vm.synthesizerState != .inactive {
+            vm.cancelSpeaking()
+        }
+        
+        vm.speak(phrase.text)
     }
 }
 
