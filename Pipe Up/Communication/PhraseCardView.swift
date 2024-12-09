@@ -17,6 +17,7 @@ struct PhraseCardView: View {
     @Binding var showingAddPhrase: Bool
     
     @State private var showingEditPhrase = false
+    @State private var phraseToEdit: SavedPhrase?
     
     // Custom init, so I can pass in the category property as a predicate
     init(category: PhraseCategory, showingAddPhrase: Binding<Bool>) {
@@ -63,6 +64,7 @@ struct PhraseCardView: View {
                         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
                         .contextMenu {
                             Button {
+                                phraseToEdit = phrase
                                 showingEditPhrase = true
                             } label: {
                                 Label("Edit Phrase", systemImage: "pencil")
@@ -78,7 +80,9 @@ struct PhraseCardView: View {
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showingEditPhrase, content: {
-                        EditSavedPhraseView(category: category, savedPhrase: phrase, showCancelButton: true)
+                        if let phrase = phraseToEdit {
+                            EditSavedPhraseView(category: category, savedPhrase: phrase, showCancelButton: true)
+                        }
                     })
                 }
                 
