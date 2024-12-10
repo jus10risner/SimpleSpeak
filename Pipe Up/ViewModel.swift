@@ -95,6 +95,15 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
+    // Cancels any speech that may be occurring, before speaking the given phrase
+    func cancelAndSpeak(_ phrase: SavedPhrase) {
+        if self.synthesizerState != .inactive {
+            self.cancelSpeaking()
+        }
+        
+        self.speak(phrase.text)
+    }
+    
     // Populates the personalVoices array, and selects the first available Personal Voice, if no selectedVoiceIdentifer has been prveiously set
 //    @available(iOS 17, *)
 //    func fetchPersonalVoices() async {

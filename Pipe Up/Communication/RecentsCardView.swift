@@ -17,7 +17,7 @@ struct RecentsCardView: View {
     @Namespace var animation
 //    @State private var animationEnabled = false
     
-    @State private var phraseToEdit: SavedPhrase?
+    @Binding var phraseToEdit: SavedPhrase?
     
     var body: some View {
         ScrollView {
@@ -50,16 +50,13 @@ struct RecentsCardView: View {
                         .matchedGeometryEffect(id: phrase.id, in: animation)
                         .drawingGroup()
                     } primaryAction: {
-                        speakPhrase(phrase)
+                        vm.cancelAndSpeak(phrase)
                     }
                     .buttonStyle(.plain)
                 }
             }
             .padding([.horizontal, .bottom])
             .animation(.default, value: recentPhrases.count)
-            .sheet(item: $phraseToEdit) { phrase in
-                EditSavedPhraseView(category: nil, savedPhrase: phrase, showCancelButton: true)
-            }
         }
 //        .onAppear {
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -74,17 +71,8 @@ struct RecentsCardView: View {
 //            }
 //        }
     }
-    
-    // Speaks the selected phrase
-    func speakPhrase(_ phrase: SavedPhrase) {
-        if vm.synthesizerState != .inactive {
-            vm.cancelSpeaking()
-        }
-        
-        vm.speak(phrase.text)
-    }
 }
 
 #Preview {
-    RecentsCardView()
+    RecentsCardView(phraseToEdit: .constant(nil))
 }

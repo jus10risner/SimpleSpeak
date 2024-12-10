@@ -17,6 +17,7 @@ struct CommunicationView: View {
     @State private var showingSettings = false
     @State private var showingSavedPhrases = false
     @State private var showingAddPhrase = false
+    @State private var phraseToEdit: SavedPhrase?
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
@@ -27,12 +28,12 @@ struct CommunicationView: View {
                 
                 TabView(selection: $selectedCategory) {
                     if recentPhrases.count > 0 {
-                        RecentsCardView()
+                        RecentsCardView(phraseToEdit: $phraseToEdit)
                             .tag(PhraseCategory?(nil))
                     }
                     
                     ForEach(categories) { category in
-                        PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase)
+                        PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
                             .tag(category)
                     }
                 }
@@ -90,6 +91,9 @@ struct CommunicationView: View {
             }
             .sheet(isPresented: $showingAddPhrase, content: {
                 AddSavedPhraseView(category: selectedCategory)
+            })
+            .sheet(item: $phraseToEdit, content: { phrase in
+                EditSavedPhraseView(category: selectedCategory, savedPhrase: phrase, showCancelButton: true)
             })
             .sheet(isPresented: $showingSettings) {
                 SettingsView()

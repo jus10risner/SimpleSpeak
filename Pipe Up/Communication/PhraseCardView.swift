@@ -15,13 +15,13 @@ struct PhraseCardView: View {
     
     let category: PhraseCategory
     @Binding var showingAddPhrase: Bool
-    
-    @State private var phraseToEdit: SavedPhrase?
+    @Binding var phraseToEdit: SavedPhrase?
     
     // Custom init, so I can pass in the category property as a predicate
-    init(category: PhraseCategory, showingAddPhrase: Binding<Bool>) {
+    init(category: PhraseCategory, showingAddPhrase: Binding<Bool>, phraseToEdit: Binding<SavedPhrase?>) {
         self.category = category
         self._showingAddPhrase = showingAddPhrase
+        self._phraseToEdit = phraseToEdit
         let predicate = NSPredicate(format: "category == %@", category)
         
         self._savedPhrases = FetchRequest(entity: SavedPhrase.entity(), sortDescriptors: [
@@ -68,8 +68,7 @@ struct PhraseCardView: View {
                         }
                         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                     } primaryAction: {
-                        // Makes menu function as a simple button, unless longPressGesture is used
-                        speakPhrase(phrase)
+                        vm.cancelAndSpeak(phrase)
                     }
                     .buttonStyle(.plain)
                 }
@@ -77,9 +76,6 @@ struct PhraseCardView: View {
                 addPhraseButton
             }
             .padding([.horizontal, .bottom])
-            .sheet(item: $phraseToEdit, content: { phrase in
-                EditSavedPhraseView(category: category, savedPhrase: phrase, showCancelButton: true)
-            })
         }
     }
     
@@ -100,15 +96,6 @@ struct PhraseCardView: View {
                 }
         }
     }
-    
-    // Speaks the selected phrase
-    func speakPhrase(_ phrase: SavedPhrase) {
-        if vm.synthesizerState != .inactive {
-            vm.cancelSpeaking()
-        }
-        
-        vm.speak(phrase.text)
-    }
 }
 
 #Preview {
@@ -116,6 +103,6 @@ struct PhraseCardView: View {
     let category = PhraseCategory(context: context)
     category.title = "Favorites"
     
-    return PhraseCardView(category: category, showingAddPhrase: .constant(false))
+    return PhraseCardView(category: category, showingAddPhrase: .constant(false), phraseToEdit: .constant(nil))
         .environmentObject(ViewModel())
 }
