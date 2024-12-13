@@ -18,6 +18,7 @@ struct CommunicationView: View {
     @State private var showingSavedPhrases = false
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
+    @State private var animatingButton = false
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
@@ -126,7 +127,16 @@ struct CommunicationView: View {
             
             HoveringButtonsView(showingTextField: $showingTextField)
                 .frame(maxWidth: .infinity)
-                .background(LinearGradient(colors: [Color(.systemGroupedBackground), Color(.systemGroupedBackground).opacity(0.8), Color(.systemGroupedBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
+                .background(LinearGradient(colors: [Color(.secondarySystemBackground), Color(.secondarySystemBackground).opacity(0.8), Color(.secondarySystemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
+                .scaleEffect(animatingButton ? 1.1 : 1)
+                .animation(animatingButton ? .easeInOut.repeatForever(autoreverses: true) : .easeOut, value: animatingButton)
+                .onChange(of: vm.synthesizerState) { state in
+                    if state == .speaking {
+                        animatingButton = true
+                    } else {
+                        animatingButton = false
+                    }
+                }
         }
 //        .padding(.bottom, hasHomeButton ? 10 : 0)
 //        .ignoresSafeArea(.keyboard)
