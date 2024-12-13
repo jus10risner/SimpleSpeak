@@ -83,7 +83,7 @@ struct CategorySelectorView: View {
             .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
             .padding()
             .frame(height: 50)
-            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
                 
         }

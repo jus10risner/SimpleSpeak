@@ -47,7 +47,7 @@ struct CommunicationView: View {
 //            .scrollDismissesKeyboard(.interactively)
             .navigationBarTitleDisplayMode(.inline)
 //            .scrollContentBackground(.hidden)
-            .background(Color(.systemGroupedBackground).ignoresSafeArea())
+            .background(Color(.secondarySystemBackground).ignoresSafeArea())
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
 //            .onAppear {

@@ -66,7 +66,7 @@ struct PhraseCardView: View {
                             .padding()
                             .frame(height: 100)
                         }
-                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                     } primaryAction: {
                         vm.cancelAndSpeak(phrase)
                     }
