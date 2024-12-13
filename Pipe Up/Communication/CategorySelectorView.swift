@@ -19,29 +19,31 @@ struct CategorySelectorView: View {
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            ScrollViewReader { value in
+        ScrollViewReader { value in
+            ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: rows, spacing: 5) {
                     if !recentPhrases.isEmpty {
-                        categoryButton(category: nil, text: "Recents")
+                        categoryButton(category: nil, text: "Recents", value: value)
                             .id(0)
                             .transition(.opacity.animation(.easeInOut))
                     }
                     
                     ForEach(categories) { category in
-                        categoryButton(category: category, text: category.title)
+                        categoryButton(category: category, text: category.title, value: value)
                     }
                 }
-                .animation(.easeInOut, value: recentPhrases.count)
+                .animation(.easeInOut, value: recentPhrases.count) // Lets the Recents category selector animate in smoothly
                 .padding(.horizontal)
-                .onChange(of: selectedCategory) { category in
-                    withAnimation {
-                        if category == nil {
-                            value.scrollTo(0, anchor: .trailing)
-                        } else {
-                            value.scrollTo(category?.id, anchor: .trailing)
-                        }
-                    }
+            }
+            .onChange(of: selectedCategory) { category in
+                withAnimation {
+//                        if category == nil {
+//                            value.scrollTo(0, anchor: .trailing)
+//                        } else {
+//                            value.scrollTo(category?.id, anchor: .trailing)
+//                        }
+                    
+                    scrollToSelectedCategory(category: category, value: value)
                 }
             }
         }
@@ -62,10 +64,11 @@ struct CategorySelectorView: View {
     }
     
     // Category selection button
-    private func categoryButton(category: PhraseCategory?, text: String) -> some View {
+    private func categoryButton(category: PhraseCategory?, text: String, value: ScrollViewProxy) -> some View {
         Button {
             withAnimation {
                 selectedCategory = category
+//                scrollToSelectedCategory(category: category, value: value)
             }
         } label: {
             HStack {
@@ -86,6 +89,10 @@ struct CategorySelectorView: View {
         }
         .accessibilityLabel(text)
         .padding(.vertical)
+    }
+    
+    func scrollToSelectedCategory(category: PhraseCategory?, value: ScrollViewProxy) {
+        value.scrollTo(category?.id, anchor: .center)
     }
 }
 
