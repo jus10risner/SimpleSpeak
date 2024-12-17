@@ -73,6 +73,24 @@ struct CommunicationView: View {
 //                }
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        vm.useDuringCalls.toggle()
+                    } label: {
+                        Group {
+                            if vm.useDuringCalls {
+                                Image(systemName: "phone.circle.fill")
+                            } else {
+                                Image("phone.circle.slash.fill")
+                            }
+                        }
+                        .symbolRenderingMode(.hierarchical)
+                        .font(.title2)
+                        .animation(.easeInOut, value: vm.useDuringCalls)
+                    }
+                    .accessibilityLabel("Use during calls")
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Button {
