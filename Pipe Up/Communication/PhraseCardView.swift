@@ -10,6 +10,7 @@ import SwiftUI
 struct PhraseCardView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
@@ -68,6 +69,7 @@ struct PhraseCardView: View {
                         }
                         .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
                     } primaryAction: {
+                        manager.buttonTappedHaptic()
                         vm.cancelAndSpeak(phrase)
                     }
                     .buttonStyle(.plain)

@@ -23,6 +23,7 @@
 		9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */; };
 		9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
+		9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */; };
 		9EA9B4382CB8139F00EA55ED /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B4372CB8139F00EA55ED /* WebView.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
@@ -66,6 +67,7 @@
 		9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategory.swift; sourceTree = "<group>"; };
 		9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategoryView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
+		9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		9EA9B4372CB8139F00EA55ED /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		9E213B5C2CA455BA00A3727B /* Unused Files */ = {
 			isa = PBXGroup;
 			children = (
+				9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */,
 				9EDC1F392C82068D005D7780 /* VoicePickerView.swift */,
 				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
 			);
@@ -138,6 +141,7 @@
 				9EAE515F2C401F9300C6ADE1 /* Class Helpers */,
 				9ECA2CF22CC6A1E500A46FAB /* Onboarding */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
+				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
 				9EA9B4372CB8139F00EA55ED /* WebView.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
@@ -237,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				9EAEE8782C2319380012D3CC /* SettingsView.swift */,
-				9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */,
 				9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */,
 			);
 			path = Settings;
@@ -358,6 +361,7 @@
 				9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */,
 				9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */,
+				9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */,
 				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

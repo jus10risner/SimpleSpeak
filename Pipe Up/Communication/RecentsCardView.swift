@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecentsCardView: View {
     @Environment(\.managedObjectContext) var context
+    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: false)], predicate: NSPredicate(format: "category == %@", NSNull()), animation: .easeInOut) var recentPhrases: FetchedResults<SavedPhrase>
     
@@ -50,6 +51,7 @@ struct RecentsCardView: View {
                         .matchedGeometryEffect(id: phrase.id, in: animation)
                         .drawingGroup()
                     } primaryAction: {
+                        manager.buttonTappedHaptic()
                         vm.cancelAndSpeak(phrase)
                     }
                     .buttonStyle(.plain)

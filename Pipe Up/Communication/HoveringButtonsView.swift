@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct HoveringButtonsView: View {
+    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @Binding var showingTextField: Bool
     
     var body: some View {
         ZStack {
             Button(role: .destructive) {
+                manager.buttonTappedHaptic()
                 vm.cancelSpeaking()
             } label: {
                 Label("Cancel Speech", systemImage: "stop.circle.fill")
