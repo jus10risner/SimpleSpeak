@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecentsCardView: View {
     @Environment(\.managedObjectContext) var context
-    @EnvironmentObject var manager: HapticsManager
+//    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: false)], predicate: NSPredicate(format: "category == %@", NSNull()), animation: .easeInOut) var recentPhrases: FetchedResults<SavedPhrase>
     
@@ -17,6 +17,7 @@ struct RecentsCardView: View {
     
     @Namespace var animation
 //    @State private var animationEnabled = false
+//    @State private var phraseToSpeak = ""
     
     @Binding var phraseToEdit: SavedPhrase?
     
@@ -24,37 +25,49 @@ struct RecentsCardView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(recentPhrases, id: \.id) { phrase in
-                    Menu {
-                        Button {
-                            phraseToEdit = phrase
-                        } label: {
-                            Label("Edit Phrase", systemImage: "pencil")
-                        }
-                        
-                        Button(role: .destructive) {
-                            context.delete(phrase)
-                            try? context.save()
-                        } label: {
-                            Label("Delete Phrase", systemImage: "trash")
-                        }
-                    } label: {
-                        ZStack {
-                            Text(phrase.text)
-                                .font(.headline)
-                                .minimumScaleFactor(0.9)
-                                .frame(maxWidth: .infinity)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(height: 100)
-                        }
-                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                    CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)
                         .matchedGeometryEffect(id: phrase.id, in: animation)
-                        .drawingGroup()
-                    } primaryAction: {
-                        manager.buttonTappedHaptic()
-                        vm.cancelAndSpeak(phrase)
-                    }
-                    .buttonStyle(.plain)
+//                        .drawingGroup()
+                    
+//                    Button {
+//                        vm.cancelAndSpeak(phrase)
+////                    Menu {
+////                        Button {
+////                            phraseToEdit = phrase
+////                        } label: {
+////                            Label("Edit Phrase", systemImage: "pencil")
+////                        }
+//                        
+////                        Button(role: .destructive) {
+////                            context.delete(phrase)
+////                            try? context.save()
+////                        } label: {
+////                            Label("Delete Phrase", systemImage: "trash")
+////                        }
+//                    } label: {
+//                        ZStack {
+//                            Text(phrase.text)
+//                                .font(.headline)
+//                                .minimumScaleFactor(0.9)
+//                                .frame(maxWidth: .infinity)
+//                                .multilineTextAlignment(.center)
+//                                .padding()
+//                                .frame(height: 100)
+//                        }
+//                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//                        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
+//                        .matchedGeometryEffect(id: phrase.id, in: animation)
+//                        .drawingGroup()
+////                        .scaleEffect(phraseToSpeak == phrase.text && vm.synthesizerState == .speaking ? 0.9 : 1)
+//                    }
+//                    .contextMenu {
+//                        Button {
+//                            phraseToEdit = phrase
+//                        } label: {
+//                            Label("Edit Phrase", systemImage: "pencil")
+//                        }
+//                    }
+//                    .buttonStyle(.plain)
                 }
             }
             .padding([.horizontal, .bottom])

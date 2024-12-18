@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PhraseCardView: View {
     @Environment(\.managedObjectContext) var context
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var manager: HapticsManager
+//    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
@@ -38,41 +37,51 @@ struct PhraseCardView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(savedPhrases) { phrase in
-                    Menu {
-                        Button {
-                            phraseToEdit = phrase
-                        } label: {
-                            Label("Edit Phrase", systemImage: "pencil")
-                        }
-                        
-                        Button(role: .destructive) {
-                            context.delete(phrase)
-                            try? context.save()
-                        } label: {
-                            Label("Delete Phrase", systemImage: "trash")
-                        }
-                    } label: {
-                        ZStack {
-                            Group {
-                                if phrase.label != "" {
-                                    Text(phrase.label)
-                                } else {
-                                    Text(phrase.text)
-                                }
-                            }
-                            .font(.headline)
-                            .minimumScaleFactor(0.9)
-                            .frame(maxWidth: .infinity)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                            .frame(height: 100)
-                        }
-                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-                    } primaryAction: {
-                        manager.buttonTappedHaptic()
-                        vm.cancelAndSpeak(phrase)
-                    }
-                    .buttonStyle(.plain)
+                    CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)
+                    
+//                    Button {
+////                        manager.buttonTappedHaptic()
+//                        vm.cancelAndSpeak(phrase)
+////                    Menu {
+////                        Button {
+////                            phraseToEdit = phrase
+////                        } label: {
+////                            Label("Edit Phrase", systemImage: "pencil")
+////                        }
+//                        
+////                        Button(role: .destructive) {
+////                            context.delete(phrase)
+////                            try? context.save()
+////                        } label: {
+////                            Label("Delete Phrase", systemImage: "trash")
+////                        }
+//                    } label: {
+//                        ZStack {
+//                            Group {
+//                                if phrase.label != "" {
+//                                    Text(phrase.label)
+//                                } else {
+//                                    Text(phrase.text)
+//                                }
+//                            }
+//                            .font(.headline)
+//                            .minimumScaleFactor(0.9)
+//                            .frame(maxWidth: .infinity)
+//                            .multilineTextAlignment(.center)
+//                            .padding()
+//                            .frame(height: 100)
+//                        }
+//                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//                        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
+//                    }
+//                    .contextMenu {
+//                        Button {
+//                            phraseToEdit = phrase
+//                        } label: {
+//                            Label("Edit Phrase", systemImage: "pencil")
+//                        }
+//                    }
+//                    .buttonStyle(.plain)
                 }
                 
                 addPhraseButton

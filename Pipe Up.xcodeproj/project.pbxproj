@@ -24,6 +24,7 @@
 		9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
 		9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */; };
+		9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0F2D1325B700C726D4 /* CardButton.swift */; };
 		9EA9B4382CB8139F00EA55ED /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B4372CB8139F00EA55ED /* WebView.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
@@ -68,6 +69,7 @@
 		9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategoryView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
 		9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		9EA1EA0F2D1325B700C726D4 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9EA9B4372CB8139F00EA55ED /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		9EDC1F482C8A2DE1005D7780 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9EA1EA0F2D1325B700C726D4 /* CardButton.swift */,
 				9EDC1F422C8A06C1005D7780 /* HoveringButton.swift */,
 				9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */,
 			);
@@ -335,6 +338,7 @@
 				9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */,
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
 				9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */,
+				9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */,
 				9EDC1F452C8A18D8005D7780 /* TextInputButton.swift in Sources */,
 				9E68DA202CE7E82E0002277F /* VoiceSelectionView.swift in Sources */,
 				9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */,
