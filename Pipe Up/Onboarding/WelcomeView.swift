@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
+    
     var body: some View {
         VStack(alignment: .center) {
            Spacer()
@@ -34,7 +36,7 @@ struct WelcomeView: View {
             Spacer()
             
             Button {
-                // Dismiss button
+                showingWelcomeView = false
             } label: {
                 buttonLabel
             }

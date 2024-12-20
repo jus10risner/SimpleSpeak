@@ -102,6 +102,17 @@ class ViewModel: NSObject, ObservableObject {
             self.selectedVoiceIdentifier = defaultVoiceIdentifier
         }
     }
+    
+    @available(iOS 17, *)
+    func requestPersonalVoiceAccess() {
+        AVSpeechSynthesizer.requestPersonalVoiceAuthorization { result in
+            if result == .authorized {
+                let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
+                
+                self.selectedVoiceIdentifier = personalVoices.first?.identifier
+            }
+        }
+    }
 }
 
 enum SynthesizerState: String {

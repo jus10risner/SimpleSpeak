@@ -5,6 +5,7 @@
 //  Created by Justin Risner on 6/19/24.
 //
 
+import AVFoundation
 import SwiftUI
 
 struct CommunicationView: View {
@@ -23,6 +24,7 @@ struct CommunicationView: View {
 //    @State private var animatingButton = false
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
+    @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -92,6 +94,13 @@ struct CommunicationView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showingWelcomeView, onDismiss: {
+                if #available(iOS 17, *) {
+                    vm.requestPersonalVoiceAccess()
+                }
+            }, content: {
+                WelcomeView()
+            }).interactiveDismissDisabled()
             .sheet(isPresented: $showingAddPhrase, content: {
                 AddSavedPhraseView(category: selectedCategory)
             })
