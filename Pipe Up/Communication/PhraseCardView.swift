@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PhraseCardView: View {
     @Environment(\.managedObjectContext) var context
-//    @EnvironmentObject var manager: HapticsManager
+//    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
@@ -40,7 +40,7 @@ struct PhraseCardView: View {
                     CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)
                     
 //                    Button {
-////                        manager.buttonTappedHaptic()
+////                        haptics.buttonTapped()
 //                        vm.cancelAndSpeak(phrase)
 ////                    Menu {
 ////                        Button {

@@ -10,7 +10,7 @@ import CoreHaptics
 class HapticsManager: ObservableObject {
     var engine: CHHapticEngine?
     
-    func prepareHaptics() {
+    func prepare() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         
         do {
@@ -21,7 +21,7 @@ class HapticsManager: ObservableObject {
         }
     }
     
-    func buttonTappedHaptic() {
+    func buttonTapped() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         
         var events = [CHHapticEvent]()

@@ -18,7 +18,7 @@ struct HoveringButton: View {
     
     var body: some View {
         Button {
-            manager.buttonTappedHaptic()
+            manager.buttonTapped()
             action()
         } label: {
             Label(text, systemImage: symbolName)
@@ -27,10 +27,10 @@ struct HoveringButton: View {
                 .foregroundStyle(Color.white)
                 .padding(20)
         }
-//        .onAppear(perform: manager.prepareHaptics)
+//        .onAppear(perform: haptics.prepare)
     }
     
-//    func prepareHaptics() {
+//    func prepare() {
 //        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
 //        
 //        do {
@@ -41,7 +41,7 @@ struct HoveringButton: View {
 //        }
 //    }
 //    
-//    func buttonTappedHaptic() {
+//    func buttonTapped() {
 //        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
 //        
 //        var events = [CHHapticEvent]()

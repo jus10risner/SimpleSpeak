@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CommunicationView: View {
-    @EnvironmentObject var manager: HapticsManager
+    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
@@ -53,7 +53,7 @@ struct CommunicationView: View {
             .background(Color(.secondarySystemBackground).ignoresSafeArea())
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
-            .onAppear { manager.prepareHaptics() }
+            .onAppear { haptics.prepare() }
 //            .onAppear {
 //                if #available(iOS 17, *) {
 //                    vm.fetchPersonalVoices()
@@ -179,5 +179,6 @@ struct CommunicationView: View {
     
     return CommunicationView()
         .environment(\.managedObjectContext, context)
+        .environmentObject(HapticsManager())
         .environmentObject(ViewModel())
 }

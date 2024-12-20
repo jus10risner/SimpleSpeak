@@ -15,7 +15,7 @@ struct HoveringButtonsView: View {
     var body: some View {
         ZStack {
             Button(role: .destructive) {
-                manager.buttonTappedHaptic()
+                manager.buttonTapped()
                 vm.cancelSpeaking()
             } label: {
                 Label("Cancel Speech", systemImage: "stop.circle.fill")

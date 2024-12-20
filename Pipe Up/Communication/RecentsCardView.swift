@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecentsCardView: View {
     @Environment(\.managedObjectContext) var context
-//    @EnvironmentObject var manager: HapticsManager
+//    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: false)], predicate: NSPredicate(format: "category == %@", NSNull()), animation: .easeInOut) var recentPhrases: FetchedResults<SavedPhrase>
     
