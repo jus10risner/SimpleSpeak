@@ -19,16 +19,16 @@ struct WelcomeView: View {
                 
                 Text("Welcome to")
                 
-                Text("The App")
+                Text("SimpleSpeak")
             }
             .font(.largeTitle.bold())
 
             VStack(alignment: .leading) {
-                InformationItemView(title: "Speak", subtitle: "Type phrases to have the app speak them out loud.", imageName: "person.wave.2.fill")
+                InformationItemView(title: "Speak", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
                 
-                InformationItemView(title: "Save", subtitle: "Add your own commonly-used phrases, and speak them with a tap.", imageName: "bookmark.fill")
+                InformationItemView(title: "Customize", subtitle: "Add your own phrases, and speak them with a tap.", imageName: "star.fill")
                 
-                InformationItemView(title: "Call", subtitle: "Use the app to speak phrases over the phone and in FaceTime calls.", imageName: "phone.fill")
+                InformationItemView(title: "Call", subtitle: "Talk to friends and family on the phone or FaceTime.", imageName: "phone.fill")
             }
             
             Spacer()
@@ -46,15 +46,15 @@ struct WelcomeView: View {
     
     private var buttonLabel: some View {
         Text("Continue")
-        .foregroundColor(.white)
-        .font(.headline)
-        .padding()
-        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-        .background {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(Color(.defaultAccent))
-        }
-        .padding(.bottom)
+            .foregroundColor(.white)
+            .font(.headline)
+            .padding()
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .background {
+                RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    .fill(Color(.defaultAccent))
+            }
+            .padding(.bottom)
     }
 }
 
