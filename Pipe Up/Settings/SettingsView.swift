@@ -23,12 +23,28 @@ struct SettingsView: View {
         NavigationStack {
             List {
                 Section {
-                    Toggle(isOn: $vm.useDuringCalls, label: {
-                        Label("Use During Calls", systemImage: "phone.fill")
-                    })
-                } footer: {
-                    Text("Sends speech to other participants during phone calls and FaceTime.")
+                    NavigationLink {
+                        VoiceSelectionView()
+                    } label: {
+                        HStack {
+                            Label("Speech Voice", systemImage: "person.wave.2.fill")
+                            
+                            Spacer()
+                            
+                            Text(selectedVoice)
+                                .foregroundStyle(Color.secondary)
+                        }
+                    }
+                    
+//                    Toggle(isOn: $vm.useDuringCalls, label: {
+//                        Label("Use During Calls", systemImage: "phone.fill")
+//                    })
                 }
+//                header: {
+//                    Text("Speech")
+//                } footer: {
+//                    Text("Sends speech to other participants during phone calls and FaceTime.")
+//                }
                 
 //                if #available(iOS 17, *) {
 ////                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized {
@@ -41,18 +57,7 @@ struct SettingsView: View {
 //                        showingVoiceSelectionSheet = true
 //                    }
 //                }
-                NavigationLink {
-                    VoiceSelectionView()
-                } label: {
-                    HStack {
-                        Label("Voice", systemImage: "person.wave.2.fill")
-                        
-                        Spacer()
-                        
-                        Text(selectedVoice)
-                            .foregroundStyle(Color.secondary)
-                    }
-                }
+                
                 
                 // TODO: Re-enable conditional
 //                if Locale.preferredLanguages.count > 1 {
@@ -73,12 +78,13 @@ struct SettingsView: View {
                     } label: {
                         Label("App Theme", systemImage: "circle.lefthalf.filled")
                     }
+                    .pickerStyle(.navigationLink)
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
                     }
                 }
             }
-            .tint(Color(.defaultAccent))
+//            .tint(Color(.defaultAccent))
 //            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
 //            .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
