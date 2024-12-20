@@ -46,9 +46,10 @@ struct CategorySelectorView: View {
                     scrollToSelectedCategory(category: category, value: value)
                 }
             }
+            .frame(maxHeight: 70)
         }
-        .fixedSize(horizontal: false, vertical: true)
-        .frame(maxHeight: 70)
+//        .fixedSize(horizontal: false, vertical: true)
+//        .frame(maxHeight: 70)
         .onChange(of: Array(recentPhrases)) { _ in
             // Selects the first category that contains phrases, when the last phrase is removed from Recents
             if recentPhrases.isEmpty {
