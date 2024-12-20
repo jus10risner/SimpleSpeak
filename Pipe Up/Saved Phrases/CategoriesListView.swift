@@ -24,7 +24,6 @@ struct CategoriesListView: View {
     var body: some View {
         NavigationStack {
             categoryList
-//                .navigationTitle("Manage Phrases")
                 .navigationBarTitleDisplayMode(.inline)
                 .background(Color(.systemGroupedBackground).ignoresSafeArea())
                 .scrollDismissesKeyboard(.interactively)

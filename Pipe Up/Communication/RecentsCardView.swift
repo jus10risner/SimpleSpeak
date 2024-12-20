@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RecentsCardView: View {
     @Environment(\.managedObjectContext) var context
-//    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: false)], predicate: NSPredicate(format: "category == %@", NSNull()), animation: .easeInOut) var recentPhrases: FetchedResults<SavedPhrase>
     
@@ -73,18 +72,6 @@ struct RecentsCardView: View {
             .padding([.horizontal, .bottom])
             .animation(.default, value: recentPhrases.count)
         }
-//        .onAppear {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                // Briefly prevents animation when view appears; only animates updates to Recents while the tab is active
-//                animationEnabled = true
-//            }
-//        }
-//        .onDisappear {
-//            // Waits for 1 second before disabling animation on Recents tab; this prevents jumpy animation when navigating to another tab
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                animationEnabled = false
-//            }
-//        }
     }
 }
 

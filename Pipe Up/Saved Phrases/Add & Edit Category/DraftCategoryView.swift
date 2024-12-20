@@ -19,8 +19,6 @@ struct DraftCategoryView: View {
     @State private var showingDeleteAlert = false
     @State private var showingDuplicateAlert = false
     @State private var hasChanges = false
-    
-//    @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
 
     @FocusState var isInputActive: Bool
     
@@ -106,7 +104,6 @@ struct DraftCategoryView: View {
     func saveCategory() {
         if isEditing {
             selectedCategory?.update(draftCategory: draftCategory)
-//            lastSelectedCategory = draftCategory.title
         } else {
             addCategory()
         }

@@ -66,16 +66,12 @@ struct SavedPhrasesListView: View {
                 .onMove(perform: { indices, newOffset in
                     move(from: indices, to: newOffset)
                 })
-                //            .onDelete(perform: { indexSet in
-                //                vm.deletePhrase(at: indexSet, from: savedPhrases, in: context)
-                //            })
             }
         }
         .navigationTitle(category?.title ?? "Recents")
         .navigationBarTitleDisplayMode(.inline)
         .scrollContentBackground(.hidden)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
-//        .listRowSpacing(vm.listRowSpacing)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if category != nil {
@@ -136,9 +132,6 @@ struct SavedPhrasesListView: View {
                 Text($0.description)
             }
         }
-//        label: {
-//            Label("Recents to Keep", systemImage: "clock.arrow.circlepath")
-//        }
     }
     
     private var categoryMenu: some View {

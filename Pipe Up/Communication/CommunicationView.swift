@@ -42,35 +42,16 @@ struct CommunicationView: View {
                 }
                 .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears
                 .tabViewStyle(.page(indexDisplayMode: .never))
-//                .ignoresSafeArea(edges: .bottom)
             }
             .animation(.default, value: selectedCategory)
-//            .animation(.default, value: lastSelectedCategory)
             .overlay { hoveringButtons }
-//            .scrollDismissesKeyboard(.interactively)
             .navigationBarTitleDisplayMode(.inline)
-//            .scrollContentBackground(.hidden)
             .background(Color(.secondarySystemBackground).ignoresSafeArea())
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
             .onAppear { haptics.prepare() }
-//            .onAppear {
-//                if #available(iOS 17, *) {
-//                    vm.fetchPersonalVoices()
-//                }
-                
-//                vm.assignVoice()
-//            }
-//            .onChange(of: lastSelectedCategory) { _ in
-////                withAnimation {
-//                    selectedCategory = categories.first(where: { $0.title == lastSelectedCategory })
-//                print("changed selectedCategory")
-////                }
-//            }
             .onChange(of: selectedCategory) { category in
-//                withAnimation {
-                    lastSelectedCategory = category?.title ?? "Recents"
-//                }
+                lastSelectedCategory = category?.title ?? "Recents"
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -159,18 +140,7 @@ struct CommunicationView: View {
 //                    }
 //                }
         }
-//        .padding(.bottom, hasHomeButton ? 10 : 0)
-//        .ignoresSafeArea(.keyboard)
     }
-    
-//    // Checks safe area insets, to determine if bottom padding is needed
-//    private var hasHomeButton: Bool {
-//        let scenes = UIApplication.shared.connectedScenes
-//        let windowScene = scenes.first as? UIWindowScene
-//        guard let window = windowScene?.windows.first else { return false }
-//        
-//        return window.safeAreaInsets.bottom == 0
-//    }
 }
 
 #Preview {

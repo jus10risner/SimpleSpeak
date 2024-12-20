@@ -12,13 +12,6 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
-//    @State private var showingPersonalVoiceSetupSheet = false
-//    @State private var showingVoiceSelectionSheet = false
-    
-//    @State private var standardVoices: [AVSpeechSynthesisVoice] = []
-//    @State private var noveltyVoices: [AVSpeechSynthesisVoice] = []
-//    @State private var personalVoices: [AVSpeechSynthesisVoice] = []
-    
     var body: some View {
         NavigationStack {
             List {
@@ -46,30 +39,6 @@ struct SettingsView: View {
 //                    Text("Sends speech to other participants during phone calls and FaceTime.")
 //                }
                 
-//                if #available(iOS 17, *) {
-////                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized {
-//                    PersonalVoiceSettingsView(showingpersonalVoiceSetupSheet: $showingPersonalVoiceSetupSheet)
-////                    }
-//                }
-                
-//                if vm.usePersonalVoice == false {
-//                    Button("How to change your speech voice") {
-//                        showingVoiceSelectionSheet = true
-//                    }
-//                }
-                
-                
-                // TODO: Re-enable conditional
-//                if Locale.preferredLanguages.count > 1 {
-//                    Section {
-//                        Picker(selection: $vm.selectedLanguage) {
-//                            languagePicker
-//                        } label: {
-//                            Label("Speech Language", systemImage: "quote.bubble.fill")
-//                        }
-//                    }
-//                }
-                
                 Section {
                     Picker(selection: $vm.appAppearance) {
                         ForEach(AppearanceOptions.allCases, id: \.self) {
@@ -84,8 +53,6 @@ struct SettingsView: View {
                     }
                 }
             }
-//            .tint(Color(.defaultAccent))
-//            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
 //            .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
 //                webView(url: URL(string: "https://support.apple.com/104993")!, title: "Personal Voice", selection: $showingPersonalVoiceSetupSheet)

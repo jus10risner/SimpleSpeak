@@ -37,12 +37,6 @@ struct CategorySelectorView: View {
             }
             .onChange(of: selectedCategory) { category in
                 withAnimation {
-//                        if category == nil {
-//                            value.scrollTo(0, anchor: .trailing)
-//                        } else {
-//                            value.scrollTo(category?.id, anchor: .trailing)
-//                        }
-                    
                     scrollToSelectedCategory(category: category, value: value)
                 }
             }
@@ -69,7 +63,6 @@ struct CategorySelectorView: View {
         Button {
             withAnimation {
                 selectedCategory = category
-//                scrollToSelectedCategory(category: category, value: value)
             }
         } label: {
             HStack {

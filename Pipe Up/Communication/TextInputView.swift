@@ -24,21 +24,16 @@ struct TextInputView: View {
         ZStack(alignment: .bottom) {
             Color.black
                 .opacity(0.5)
-//            Color.clear
-//                .background(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     dismissKeyboard()
                 }
-//                .transition(.opacity.animation(.easeInOut))
-//                .environment(\.colorScheme, .dark)
             
             VStack(spacing: 0) {
                 textFieldButtons
                 
                 textField
             }
-//            .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .padding()
             .transition(.move(edge: .bottom))
@@ -97,8 +92,6 @@ struct TextInputView: View {
                 dismissKeyboard()
             }
         }
-//        .padding([.top, .horizontal], 5)
-//        .padding(.bottom, 10)
         .padding(10)
         .drawingGroup()
     }

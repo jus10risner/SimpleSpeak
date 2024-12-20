@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PhraseCardView: View {
     @Environment(\.managedObjectContext) var context
-//    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     

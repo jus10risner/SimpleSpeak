@@ -59,12 +59,6 @@ struct DraftPhraseView: View {
             }
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
-//        .onAppear {
-//            phrases.nsPredicate = NSPredicate(format: "category == %@", draftPhrase.category ?? NSNull())
-//        }
-//        .onChange(of: draftPhrase.category) { newCategory in
-//            phrases.nsPredicate = NSPredicate(format: "category == %@", newCategory ?? NSNull())
-//        }
         .onChange(of: draftPhraseData) { _ in
             hasChanges = true
         }
