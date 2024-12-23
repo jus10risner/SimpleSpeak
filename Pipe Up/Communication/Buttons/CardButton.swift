@@ -12,6 +12,8 @@ struct CardButton: View {
     @Binding var phraseToEdit: SavedPhrase?
     let phrase: SavedPhrase
     
+    @Namespace var animation
+    
     var body: some View {
         Button {
             vm.cancelAndSpeak(phrase)
@@ -33,6 +35,8 @@ struct CardButton: View {
             }
             .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .matchedGeometryEffect(id: phrase.id, in: animation)
+            .drawingGroup()
         }
         .contextMenu {
             Button {

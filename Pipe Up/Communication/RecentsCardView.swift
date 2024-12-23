@@ -14,7 +14,7 @@ struct RecentsCardView: View {
     
     let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
-    @Namespace var animation
+//    @Namespace var animation
 //    @State private var animationEnabled = false
 //    @State private var phraseToSpeak = ""
     
@@ -25,8 +25,6 @@ struct RecentsCardView: View {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(recentPhrases, id: \.id) { phrase in
                     CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)
-                        .matchedGeometryEffect(id: phrase.id, in: animation)
-//                        .drawingGroup()
                     
 //                    Button {
 //                        vm.cancelAndSpeak(phrase)
