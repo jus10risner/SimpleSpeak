@@ -26,11 +26,11 @@ struct WelcomeView: View {
             .font(.largeTitle.bold())
 
             VStack(alignment: .leading) {
-                InformationItemView(title: "Speak", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
+                InformationItemView(title: "Communicate", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
                 
-                InformationItemView(title: "Customize", subtitle: "Add your own phrases, and speak them with a tap.", imageName: "star.fill")
+                InformationItemView(title: "Customize", subtitle: "Add and categorize phrases, and speak them with a tap.", imageName: "star.fill")
                 
-                InformationItemView(title: "Call", subtitle: "Talk to friends and family on the phone or FaceTime.", imageName: "phone.fill")
+                InformationItemView(title: "Connect", subtitle: "Use during phone or FaceTime calls to talk to friends and family.", imageName: "phone.fill")
             }
             
             Spacer()
