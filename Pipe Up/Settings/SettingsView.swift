@@ -15,12 +15,12 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
+                Section("Speech") {
                     NavigationLink {
                         VoiceSelectionView()
                     } label: {
                         HStack {
-                            Label("Speech Voice", systemImage: "person.wave.2.fill")
+                            Label("Voice", systemImage: "person.wave.2.fill")
                             
                             Spacer()
                             
@@ -39,17 +39,43 @@ struct SettingsView: View {
 //                    Text("Sends speech to other participants during phone calls and FaceTime.")
 //                }
                 
-                Section {
+                Section("Appearance") {
+                    NavigationLink {
+                        // App Icon selector
+                    } label: {
+                        Label("App Icon", systemImage: "app.badge")
+                    }
+                    
                     Picker(selection: $vm.appAppearance) {
                         ForEach(AppearanceOptions.allCases, id: \.self) {
                             Text($0.rawValue.capitalized)
                         }
                     } label: {
-                        Label("App Theme", systemImage: "circle.lefthalf.filled")
+                        Label("Theme", systemImage: "circle.lefthalf.filled")
                     }
                     .pickerStyle(.navigationLink)
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
+                    }
+                }
+                
+                Section("More") {
+                    NavigationLink {
+                        // Email link
+                    } label: {
+                        Label("Contact", systemImage: "envelope")
+                    }
+                    
+                    NavigationLink {
+                        // App Store rating link
+                    } label: {
+                        Label("Rate on the App Store", systemImage: "star")
+                    }
+                    
+                    NavigationLink {
+                        // ShareLink
+                    } label: {
+                        Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
                     }
                 }
             }

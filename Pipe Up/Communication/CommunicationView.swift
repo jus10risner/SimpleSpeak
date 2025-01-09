@@ -6,11 +6,13 @@
 //
 
 import AVFoundation
+import CallKit
 import SwiftUI
 
 struct CommunicationView: View {
     @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
+    let callObserver = CXCallObserver()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
@@ -21,7 +23,8 @@ struct CommunicationView: View {
     @State private var showingSavedPhrases = false
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
-//    @State private var animatingButton = false
+    @State private var animatingButton = false
+//    @State private var animationAmount = 1.0
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
@@ -62,7 +65,7 @@ struct CommunicationView: View {
                     } label: {
                         Group {
                             if vm.useDuringCalls {
-                                Image(systemName: "phone.circle.fill")
+                                activeStateButtonLabel
                             } else {
                                 Image("phone.circle.slash.fill")
                             }
@@ -130,6 +133,34 @@ struct CommunicationView: View {
         withTransaction(transaction) {
             selectedCategory = categories.first(where: { $0.title == lastSelectedCategory }) ?? nil
         }
+    }
+    
+    private var activeStateButtonLabel: some View {
+        Image(systemName: "phone.circle.fill")
+            .overlay {
+                if !callObserver.calls.isEmpty {
+                    ZStack {
+                        Circle()
+                            .stroke(Color(.defaultAccent))
+                        
+                        Circle()
+                            .stroke(Color(.defaultAccent))
+                            .scaleEffect(animatingButton ? 1.5 : 1.0)
+                            .opacity(animatingButton ? 0 : 1)
+                            .animation(animatingButton ? .easeInOut(duration: 0.75).repeatForever(autoreverses: false) : .linear(duration: 0),
+                                       value: animatingButton
+                            )
+                    }
+                }
+            }
+            .onChange(of: vm.synthesizerState) { state in
+//                if state == .speaking {
+                if state == .speaking && !callObserver.calls.isEmpty { // Animate only during calls
+                    animatingButton = true
+                } else {
+                    animatingButton = false
+                }
+            }
     }
     
     private var hoveringButtons: some View {
