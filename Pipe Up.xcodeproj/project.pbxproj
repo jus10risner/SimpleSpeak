@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */; };
+		9E418AF42D3168720090D741 /* CallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF32D3168720090D741 /* CallObserver.swift */; };
 		9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* PipeUpApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVoiceSettingsView.swift; sourceTree = "<group>"; };
+		9E418AF32D3168720090D741 /* CallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallObserver.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* Pipe Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pipe Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* PipeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeUpApp.swift; sourceTree = "<group>"; };
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
+				9E418AF32D3168720090D741 /* CallObserver.swift */,
 				9EDC1F4D2C8F4DDA005D7780 /* HoveringButtonsView.swift */,
 				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
 				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
@@ -329,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */,
+				9E418AF42D3168720090D741 /* CallObserver.swift in Sources */,
 				9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */,
 				9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */,
 				9EDC1F432C8A06C1005D7780 /* HoveringButton.swift in Sources */,

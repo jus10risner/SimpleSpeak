@@ -6,13 +6,12 @@
 //
 
 import AVFoundation
-import CallKit
 import SwiftUI
 
 struct CommunicationView: View {
     @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
-    let callObserver = CXCallObserver()
+    @StateObject private var callObserver = CallObserver()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
@@ -54,7 +53,10 @@ struct CommunicationView: View {
             .background(Color(.secondarySystemBackground).ignoresSafeArea())
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
-            .onAppear { haptics.prepare() }
+            .onAppear {
+                haptics.prepare()
+                callObserver.objectWillChange.send() // Makes sure the view begins listening for changes to call status
+            }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }
@@ -138,7 +140,7 @@ struct CommunicationView: View {
     private var activeStateButtonLabel: some View {
         Image(systemName: "phone.circle.fill")
             .overlay {
-                if !callObserver.calls.isEmpty {
+                if callObserver.isCallActive == true {
                     ZStack {
                         Circle()
                             .stroke(Color(.defaultAccent))
@@ -155,7 +157,7 @@ struct CommunicationView: View {
             }
             .onChange(of: vm.synthesizerState) { state in
 //                if state == .speaking {
-                if state == .speaking && !callObserver.calls.isEmpty { // Animate only during calls
+                if state == .speaking && callObserver.isCallActive == true { // Animate only during calls
                     animatingButton = true
                 } else {
                     animatingButton = false
