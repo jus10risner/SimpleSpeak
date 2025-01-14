@@ -16,7 +16,7 @@ struct CardButton: View {
     
     var body: some View {
         Button {
-            vm.cancelAndSpeak(phrase)
+            vm.cancelAndSpeak(phrase.text)
         } label: {
             ZStack {
                 Group {

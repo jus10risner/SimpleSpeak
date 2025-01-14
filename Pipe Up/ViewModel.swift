@@ -87,12 +87,12 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     // Cancels any speech that may be occurring, before speaking the given phrase
-    func cancelAndSpeak(_ phrase: SavedPhrase) {
+    func cancelAndSpeak(_ text: String) {
         if self.synthesizerState != .inactive {
             self.cancelSpeaking()
         }
         
-        self.speak(phrase.text)
+        self.speak(text)
     }
     
     func checkSpeechVoice() async {
