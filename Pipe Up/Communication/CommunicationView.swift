@@ -55,7 +55,7 @@ struct CommunicationView: View {
             .task { await assignCategory() }
             .onAppear {
                 haptics.prepare()
-                callObserver.objectWillChange.send() // Makes sure the view begins listening for changes to call status
+//                callObserver.objectWillChange.send() // Makes sure the view begins listening for changes to call status
             }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
@@ -67,9 +67,9 @@ struct CommunicationView: View {
                     } label: {
                         Group {
                             if vm.useDuringCalls {
-                                activeStateButtonLabel
+                                callButtonLabel // symbol to use when option is enabled
                             } else {
-                                Image("phone.circle.slash.fill")
+                                Image("phone.circle.slash.fill") // symbol to use when option is disabled
                             }
                         }
                         .symbolRenderingMode(.hierarchical)
@@ -137,7 +137,8 @@ struct CommunicationView: View {
         }
     }
     
-    private var activeStateButtonLabel: some View {
+    // Label and animation to use when vm.useDuringCalls is true and a call is active
+    private var callButtonLabel: some View {
         Image(systemName: "phone.circle.fill")
             .overlay {
                 if callObserver.isCallActive == true {
@@ -156,7 +157,6 @@ struct CommunicationView: View {
                 }
             }
             .onChange(of: vm.synthesizerState) { state in
-//                if state == .speaking {
                 if state == .speaking && callObserver.isCallActive == true { // Animate only during calls
                     animatingButton = true
                 } else {
