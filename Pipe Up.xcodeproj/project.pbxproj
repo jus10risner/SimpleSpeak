@@ -10,6 +10,7 @@
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */; };
 		9E418AF42D3168720090D741 /* CallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF32D3168720090D741 /* CallObserver.swift */; };
+		9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */; };
 		9E4B46B02A0987B20076367F /* PipeUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* PipeUpApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVoiceSettingsView.swift; sourceTree = "<group>"; };
 		9E418AF32D3168720090D741 /* CallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallObserver.swift; sourceTree = "<group>"; };
+		9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenTextLabel.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* Pipe Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pipe Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* PipeUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeUpApp.swift; sourceTree = "<group>"; };
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				9EAE515F2C401F9300C6ADE1 /* Class Helpers */,
 				9ECA2CF22CC6A1E500A46FAB /* Onboarding */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
+				9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */,
 				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
 				9E418AF32D3168720090D741 /* CallObserver.swift */,
 				9EA9B4372CB8139F00EA55ED /* WebView.swift */,
@@ -351,6 +354,7 @@
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
 				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
+				9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */,
 				9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */,
 				9E7FD0E62C9C9FCC004EC298 /* EditCategoryView.swift in Sources */,
 				9ED40D402C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld in Sources */,

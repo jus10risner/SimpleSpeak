@@ -12,6 +12,7 @@ import SwiftUI
 class ViewModel: NSObject, ObservableObject {
     @Published var synthesizerState: SynthesizerState = .inactive
     @Published var phraseIsRepeatable: Bool = false
+    @Published var label: NSAttributedString?
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
@@ -139,8 +140,13 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         self.synthesizerState = .inactive
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString)
+        mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.systemTeal, range: characterRange)
+        label = mutableAttributedString
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+//        label = NSAttributedString(string: utterance.speechString)
+        label = nil
         print("finished")
         self.phraseIsRepeatable = true
         self.synthesizerState = .inactive
