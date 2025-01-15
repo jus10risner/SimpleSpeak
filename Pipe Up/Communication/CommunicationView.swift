@@ -79,6 +79,12 @@ struct CommunicationView: View {
                     .accessibilityLabel("Use during calls")
                 }
                 
+                ToolbarItem(placement: .principal) {
+                    if vm.synthesizerState != .inactive && showingTextField == false {
+                        SpokenTextLabel(text: vm.label)
+                    }
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Button {

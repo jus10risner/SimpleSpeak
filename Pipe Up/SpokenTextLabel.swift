@@ -9,12 +9,12 @@ import Foundation
 import SwiftUI
 
 struct SpokenTextLabel: UIViewRepresentable {
-    var text : NSAttributedString?
+    var text: NSAttributedString?
     
     func makeUIView(context: Context) -> UILabel {
         let label = UILabel()
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal) // Forces label to wrap, when extending beyond horizontal bounds
-        label.minimumScaleFactor = 0.9
+        label.minimumScaleFactor = 0.6
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
         return label
