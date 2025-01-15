@@ -16,6 +16,7 @@ struct TextInputView: View {
     
     @State private var text = ""
     @State private var mostRecentTypedPhrase = ""
+    @State private var textFieldOpacity = 1.0
     @Binding var showingTextField: Bool
     
     @FocusState var isInputActive: Bool
@@ -45,8 +46,11 @@ struct TextInputView: View {
     
     private var textField: some View {
         TextField("What would you like to say?", text: $text, axis: .vertical)
-            .padding([.horizontal, .bottom])
-            .padding(.top, 10)
+//            .opacity(vm.synthesizerState == .inactive ? textFieldOpacity : 0)
+            .opacity(textFieldOpacity)
+//            .padding([.horizontal, .bottom])
+//            .padding(.top, 10)
+            .padding()
             .font(.title3)
             .focused($isInputActive)
             .submitLabel(.send)
@@ -63,13 +67,37 @@ struct TextInputView: View {
                 // Serves to keep TextField focused if a hardware keyboard is used
                 Task { await submitAndAddRecent() }
             }
+            .onChange(of: vm.synthesizerState) { state in
+                if state == .inactive {
+                    withAnimation {
+                        textFieldOpacity = 1
+                        text = ""
+                    }
+                } else {
+                    withAnimation(.default.delay(0.1)) {
+                        textFieldOpacity = 0
+                    }
+                }
+            }
+            .overlay {
+                SpokenTextLabel(text: vm.label)
+//                    .opacity(vm.synthesizerState != .inactive ? 1 : 0)
+                    .padding()
+//                    .padding([.horizontal, .bottom])
+//                    .padding(.top, 10)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .allowsHitTesting(false)
+//                            .clipped()
+            }
     }
     
     private var textFieldButtons: some View {
         HStack {
             if vm.phraseIsRepeatable {
                 TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", color: .secondary) {
+                    textFieldOpacity = 0
                     vm.speak(mostRecentTypedPhrase)
+                    text = mostRecentTypedPhrase
                 }
                 .transition(.opacity.animation(.default))
             }
@@ -79,7 +107,7 @@ struct TextInputView: View {
             speechControlButtons
                 .transition(.opacity.animation(.default))
             
-            if text != "" {
+            if text != "" && vm.synthesizerState == .inactive {
                 TextInputButton(text: "Clear Text", symbolName: "trash.circle.fill", color: .secondary) {
                     withAnimation {
                         text = ""
@@ -138,7 +166,7 @@ struct TextInputView: View {
         let textToSpeak = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         let recentPhrases = allPhrases.sorted(by: { $0.displayOrder > $1.displayOrder }).filter { $0.category == nil }
         
-        isInputActive = true
+//        isInputActive = true
         
         if textToSpeak != "" {
             vm.speak(text)
@@ -159,9 +187,9 @@ struct TextInputView: View {
             
             mostRecentTypedPhrase = text
             
-            withAnimation {
-                text = ""
-            }
+//            withAnimation {
+//                text = ""
+//            }
         }
     }
 }
