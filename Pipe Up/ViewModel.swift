@@ -142,11 +142,17 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title3)])
         mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.defaultAccent, range: characterRange)
-        label = mutableAttributedString
+        
+        withAnimation {
+            label = mutableAttributedString
+        }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
 //        label = NSAttributedString(string: utterance.speechString)
-        label = nil
+        withAnimation {
+            label = nil
+        }
+        
         print("finished")
         self.phraseIsRepeatable = true
         self.synthesizerState = .inactive

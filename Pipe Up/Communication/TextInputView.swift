@@ -24,7 +24,7 @@ struct TextInputView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             Color.black
-                .opacity(0.5)
+                .opacity(0.7)
                 .ignoresSafeArea()
                 .onTapGesture {
                     dismissKeyboard()

@@ -31,6 +31,8 @@ struct CommunicationView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                customToolbar
+                
                 CategorySelectorView(selectedCategory: $selectedCategory)
                 
                 TabView(selection: $selectedCategory) {
@@ -49,62 +51,45 @@ struct CommunicationView: View {
             }
             .animation(.default, value: selectedCategory)
             .overlay { hoveringButtons }
-            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden)
             .background(Color(.secondarySystemBackground).ignoresSafeArea())
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
-            .onAppear {
-                haptics.prepare()
-//                callObserver.objectWillChange.send() // Makes sure the view begins listening for changes to call status
-            }
+            .onAppear { haptics.prepare() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        vm.useDuringCalls.toggle()
-                    } label: {
-                        Group {
-                            if vm.useDuringCalls {
-                                callButtonLabel // symbol to use when option is enabled
-                            } else {
-                                Image("phone.circle.slash.fill") // symbol to use when option is disabled
-                            }
-                        }
-                        .symbolRenderingMode(.hierarchical)
-                        .font(.title2)
-                        .animation(.easeInOut, value: vm.useDuringCalls)
-                    }
-                    .accessibilityLabel("Use during calls")
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    if vm.synthesizerState != .inactive && showingTextField == false {
-                        SpokenTextLabel(text: vm.label)
-                    }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    Menu {
-                        Button {
-                            showingSavedPhrases = true
-                        } label: {
-                            Label("Manage Phrases", systemImage: "rectangle.grid.1x2")
-                        }
-                        
-                        Button {
-                            showingSettings = true
-                        } label: {
-                            Label("Settings", systemImage: "gearshape")
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.title2)
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .topBarLeading) {
+//                    callButton
+//                }
+//                
+////                if verticalSizeClass == .compact {
+////                    ToolbarItem(placement: .principal) {
+////                        VStack {
+////                            if vm.synthesizerState != .inactive && showingTextField == false {
+////                                Text(vm.label?.string ?? " ") // This ensures that the SpokenTextLabel's height matches that of the text
+////                                    .opacity(0)
+////                                    .overlay { SpokenTextLabel(text: vm.label) }
+////                                    .transition(.opacity)
+////                            } else {
+////                                Text("Tap a phrase to speak")
+////                                    .font(.headline)
+////                                    .foregroundStyle(Color.secondary)
+////                            }
+////                        }
+////                        .frame(maxWidth: .infinity)
+//////                        .padding()
+//////                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//////                        .padding(.horizontal)
+////                    }
+////                }
+//                
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    optionsMenu
+//                }
+//            }
             .sheet(isPresented: $showingWelcomeView, onDismiss: {
                 if #available(iOS 17, *) {
                     vm.requestPersonalVoiceAccess()
@@ -143,6 +128,60 @@ struct CommunicationView: View {
         }
     }
     
+    private var customToolbar: some View {
+        HStack(alignment: .top) {
+            callButton
+            
+            speechSynthesisTextView
+                .padding(.top, 5)
+            
+            optionsMenu
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 5)
+    }
+    
+    private var speechSynthesisTextView: some View {
+        VStack {
+            if vm.synthesizerState != .inactive && showingTextField == false {
+                Text(vm.label?.string ?? " ") // This ensures that the SpokenTextLabel's height matches that of the text
+                    .opacity(0)
+                    .overlay {
+                        SpokenTextLabel(text: vm.label)
+                            .transaction { transaction in
+                                transaction.animation = nil
+                            }
+                    }
+            }
+//            else {
+//                Text("Tap a phrase to speak")
+//                    .foregroundStyle(Color.secondary)
+//            }
+        }
+        .frame(maxWidth: .infinity)
+        .animation(.easeInOut, value: vm.synthesizerState)
+//        .padding(.vertical, 5)
+    }
+    
+    // Toolbar button that toggles the option to send speech synthesis to other parties on a call
+    private var callButton: some View {
+        Button {
+            vm.useDuringCalls.toggle()
+        } label: {
+            Group {
+                if vm.useDuringCalls {
+                    callButtonLabel // symbol to use when option is enabled
+                } else {
+                    Image("phone.circle.slash.fill") // symbol to use when option is disabled
+                }
+            }
+            .symbolRenderingMode(.hierarchical)
+            .font(.title)
+            .animation(.easeInOut, value: vm.useDuringCalls)
+        }
+        .accessibilityLabel("Use during calls")
+    }
+    
     // Label and animation to use when vm.useDuringCalls is true and a call is active
     private var callButtonLabel: some View {
         Image(systemName: "phone.circle.fill")
@@ -169,6 +208,27 @@ struct CommunicationView: View {
                     animatingButton = false
                 }
             }
+    }
+    
+    // Toolbar menu, containing settings and phrase management options
+    private var optionsMenu: some View {
+        Menu {
+            Button {
+                showingSavedPhrases = true
+            } label: {
+                Label("Manage Phrases", systemImage: "rectangle.grid.1x2")
+            }
+            
+            Button {
+                showingSettings = true
+            } label: {
+                Label("Settings", systemImage: "gearshape")
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle.fill")
+                .symbolRenderingMode(.hierarchical)
+                .font(.title)
+        }
     }
     
     private var hoveringButtons: some View {

@@ -40,6 +40,7 @@ struct CategorySelectorView: View {
                     scrollToSelectedCategory(category: category, value: value)
                 }
             }
+            .background(Color(.secondarySystemBackground))
             .frame(maxHeight: 70)
         }
 //        .fixedSize(horizontal: false, vertical: true)
