@@ -44,7 +44,9 @@ struct DraftPhraseView: View {
             
             Section {
                 Picker("Category", selection: $draftPhrase.category) {
-                    Text("None").tag(nil as PhraseCategory?)
+                    if draftPhrase.category == nil {
+                        Text("None").tag(nil as PhraseCategory?)
+                    }
                     
                     ForEach(categories) {
                         Text($0.title).tag($0 as PhraseCategory?)
