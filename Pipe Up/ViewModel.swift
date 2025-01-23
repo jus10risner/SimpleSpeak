@@ -140,8 +140,8 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         self.synthesizerState = .inactive
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title3)])
-        mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.defaultAccent, range: characterRange)
+        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title3), .foregroundColor: UIColor.placeholderText])
+        mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.label, range: characterRange)
         
         withAnimation {
             label = mutableAttributedString
