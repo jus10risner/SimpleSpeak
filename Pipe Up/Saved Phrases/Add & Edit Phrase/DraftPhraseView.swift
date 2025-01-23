@@ -42,14 +42,18 @@ struct DraftPhraseView: View {
                 Text("Use a label to help quickly identify a longer phrase.")
             }
             
-            Section("Category") {
+            Section {
                 Picker("Category", selection: $draftPhrase.category) {
+                    Text("None").tag(nil as PhraseCategory?)
+                    
                     ForEach(categories) {
-                        Text($0.title).tag(Optional($0))
+                        Text($0.title).tag($0 as PhraseCategory?)
                     }
                 }
-                .labelsHidden()
-                .pickerStyle(.inline)
+            } footer: {
+                if draftPhrase.category == nil {
+                    Text("Please select a category for this phrase.")
+                }
             }
             
             if isEditing {
