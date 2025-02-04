@@ -81,7 +81,7 @@ struct CategoriesListView: View {
     // ZStacks and clear colors were added, due to jumpy navigation behavior on iOS 16
     private var categoryList: some View {
         List {
-            Section("Categories") {
+            Section {
 //                ZStack {
 //                    Color.clear
                     NavigationLink {
