@@ -9,6 +9,7 @@ import AVFoundation
 import SwiftUI
 
 struct CommunicationView: View {
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @StateObject private var callObserver = CallObserver()
@@ -24,7 +25,6 @@ struct CommunicationView: View {
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
     @State private var animatingButton = false
-//    @State private var animationAmount = 1.0
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
@@ -33,8 +33,10 @@ struct CommunicationView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 customToolbar
+                    
+                CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
                 
-                CategorySelectorView(selectedCategory: $selectedCategory)
+                Divider()
                 
                 TabView(selection: $selectedCategory) {
                     if recentPhrases.count > 0 {
@@ -52,45 +54,15 @@ struct CommunicationView: View {
             }
             .animation(.default, value: selectedCategory)
             .overlay { hoveringButtons }
-//            .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden)
-            .background(Color(.secondarySystemBackground).ignoresSafeArea())
+//            .background(Color(.secondarySystemBackground).ignoresSafeArea())
+            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
             .onAppear { haptics.prepare() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }
-//            .toolbar {
-//                ToolbarItem(placement: .topBarLeading) {
-//                    callButton
-//                }
-//                
-////                if verticalSizeClass == .compact {
-////                    ToolbarItem(placement: .principal) {
-////                        VStack {
-////                            if vm.synthesizerState != .inactive && showingTextField == false {
-////                                Text(vm.label?.string ?? " ") // This ensures that the SpokenTextLabel's height matches that of the text
-////                                    .opacity(0)
-////                                    .overlay { SpokenTextLabel(text: vm.label) }
-////                                    .transition(.opacity)
-////                            } else {
-////                                Text("Tap a phrase to speak")
-////                                    .font(.headline)
-////                                    .foregroundStyle(Color.secondary)
-////                            }
-////                        }
-////                        .frame(maxWidth: .infinity)
-//////                        .padding()
-//////                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//////                        .padding(.horizontal)
-////                    }
-////                }
-//                
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    optionsMenu
-//                }
-//            }
             .sheet(isPresented: $showingWelcomeView, onDismiss: {
                 if #available(iOS 17, *) {
                     vm.requestPersonalVoiceAccess()
@@ -133,11 +105,16 @@ struct CommunicationView: View {
     }
     
     private var customToolbar: some View {
-        HStack(alignment: .top) {
-            callButton
+        HStack(alignment: .firstTextBaseline) {
+            if callObserver.isCallActive == true {
+                callButton
+                
+                Spacer()
+            }
             
             speechSynthesisTextView
-                .padding(.top, 5)
+            
+            Spacer()
             
             optionsMenu
         }
@@ -156,15 +133,20 @@ struct CommunicationView: View {
                                 transaction.animation = nil
                             }
                     }
+                    .transition(.opacity.animation(.easeInOut))
+            } else {
+                Text("Tap a phrase to speak")
+                    .foregroundStyle(Color(UIColor.placeholderText))
+                    .transition(.asymmetric(insertion: .opacity.animation(.easeInOut), removal: .identity))
             }
-//            else {
-//                Text("Tap a phrase to speak")
-//                    .foregroundStyle(Color.secondary)
-//            }
         }
         .frame(maxWidth: .infinity)
-        .animation(.easeInOut, value: vm.synthesizerState)
-//        .padding(.vertical, 5)
+        .padding(10)
+        .overlay {
+            RoundedRectangle(cornerRadius: vm.cornerRadius)
+                .stroke(Color.secondary)
+        }
+        .mask { RoundedRectangle(cornerRadius: vm.cornerRadius) }
     }
     
     // Toolbar button that toggles the option to send speech synthesis to other parties on a call
@@ -172,46 +154,28 @@ struct CommunicationView: View {
         Button {
             vm.useDuringCalls.toggle()
         } label: {
-            Group {
-                if vm.useDuringCalls {
-                    callButtonLabel // symbol to use when option is enabled
-                } else {
-                    Image("phone.circle.slash.fill") // symbol to use when option is disabled
-                }
-            }
-            .symbolRenderingMode(.hierarchical)
-            .font(.title)
-            .animation(.easeInOut, value: vm.useDuringCalls)
-        }
-        .accessibilityLabel("Use during calls")
-    }
-    
-    // Label and animation to use when vm.useDuringCalls is true and a call is active
-    private var callButtonLabel: some View {
-        Image(systemName: "phone.circle.fill")
-            .overlay {
-                if callObserver.isCallActive == true {
-                    ZStack {
+            Label("Use During Calls", systemImage: vm.useDuringCalls ? "phone.circle.fill" : "speaker.wave.2.circle.fill")
+                .labelStyle(.iconOnly)
+                .symbolRenderingMode(vm.useDuringCalls ? .monochrome : .hierarchical)
+                .font(.title2)
+                .overlay {
+                    if vm.useDuringCalls {
                         Circle()
                             .stroke(Color(.defaultAccent))
-                        
-                        Circle()
-                            .stroke(Color(.defaultAccent))
-                            .scaleEffect(animatingButton ? 1.5 : 1.0)
+                            .scaleEffect(animatingButton ? 1.5 : 0.85)
                             .opacity(animatingButton ? 0 : 1)
-                            .animation(animatingButton ? .easeInOut(duration: 0.75).repeatForever(autoreverses: false) : .linear(duration: 0),
-                                       value: animatingButton
-                            )
+                            .animation(animatingButton ? .easeInOut(duration: 1).repeatForever(autoreverses: false) : .linear(duration: 0), value: animatingButton)
                     }
                 }
-            }
-            .onChange(of: vm.synthesizerState) { state in
-                if state == .speaking && callObserver.isCallActive == true { // Animate only during calls
-                    animatingButton = true
-                } else {
-                    animatingButton = false
+                .onChange(of: vm.synthesizerState) { state in
+                    if state == .speaking {
+//                    if state == .speaking && callObserver.isCallActive == true { // Animate only during calls
+                        animatingButton = true
+                    } else {
+                        animatingButton = false
+                    }
                 }
-            }
+        }
     }
     
     // Toolbar menu, containing settings and phrase management options
@@ -231,26 +195,17 @@ struct CommunicationView: View {
         } label: {
             Image(systemName: "ellipsis.circle.fill")
                 .symbolRenderingMode(.hierarchical)
-                .font(.title)
+                .font(.title2)
         }
     }
     
     private var hoveringButtons: some View {
-        VStack {
+        VStack(spacing: 0) {
             Spacer()
             
             HoveringButtonsView(showingTextField: $showingTextField)
                 .frame(maxWidth: .infinity)
-                .background(LinearGradient(colors: [Color(.secondarySystemBackground), Color(.secondarySystemBackground).opacity(0.8), Color(.secondarySystemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
-//                .scaleEffect(animatingButton ? 1.1 : 1)
-//                .animation(animatingButton ? .easeInOut.repeatForever(autoreverses: true) : .easeOut, value: animatingButton)
-//                .onChange(of: vm.synthesizerState) { state in
-//                    if state == .speaking {
-//                        animatingButton = true
-//                    } else {
-//                        animatingButton = false
-//                    }
-//                }
+                .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8), Color(.systemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
     }
 }
