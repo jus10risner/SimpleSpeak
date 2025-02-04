@@ -38,13 +38,13 @@ struct CardButton: View {
             .matchedGeometryEffect(id: phrase.id, in: animation)
             .drawingGroup()
         }
-//        .contextMenu {
-//            Button {
-//                phraseToEdit = phrase
-//            } label: {
-//                Label("Edit Phrase", systemImage: "pencil")
-//            }
-//        }
+        .contextMenu {
+            Button {
+                phraseToEdit = phrase
+            } label: {
+                Label("Edit Phrase", systemImage: "pencil")
+            }
+        }
         .buttonStyle(.plain)
     }
 }
