@@ -19,6 +19,7 @@ class ViewModel: NSObject, ObservableObject {
 //    let synthesizer = AVSpeechSynthesizer()
     lazy var synthesizer: AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
+        synthesizer.usesApplicationAudioSession = false // Ducked audio will only return to normal volume with this setting (when speech finishes)
         synthesizer.delegate = self
         return synthesizer
     }()
@@ -46,6 +47,7 @@ class ViewModel: NSObject, ObservableObject {
     
     // Speak typed text aloud
     func speak(_ text: String) {
+        let audioSession = AVAudioSession.sharedInstance()
         let utterance = AVSpeechUtterance(string: text)
         
         if let identifier = selectedVoiceIdentifier {
@@ -54,7 +56,6 @@ class ViewModel: NSObject, ObservableObject {
             utterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.currentLanguageCode())
         }
         
-        let audioSession = AVAudioSession.sharedInstance()
         try? audioSession.setCategory(.playback, mode: .default, options: [.duckOthers])
         
         synthesizer.mixToTelephonyUplink = self.useDuringCalls ? true : false
@@ -140,7 +141,7 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         self.synthesizerState = .inactive
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title3), .foregroundColor: UIColor.placeholderText])
+        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title3), .foregroundColor: UIColor.secondaryLabel])
         mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.label, range: characterRange)
         
         withAnimation {
