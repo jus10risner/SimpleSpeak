@@ -20,6 +20,7 @@ struct CommunicationView: View {
     @State private var showingTextField = false
     @State private var showingSettings = false
     @State private var showingSavedPhrases = false
+    @State private var showingAddCategory = false
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
     @State private var animatingButton = false
@@ -97,6 +98,9 @@ struct CommunicationView: View {
             }, content: {
                 WelcomeView()
             }).interactiveDismissDisabled()
+            .sheet(isPresented: $showingAddCategory, content: {
+                AddCategoryView()
+            })
             .sheet(isPresented: $showingAddPhrase, content: {
                 AddSavedPhraseView(category: selectedCategory)
             })

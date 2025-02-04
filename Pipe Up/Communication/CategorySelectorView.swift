@@ -13,6 +13,7 @@ struct CategorySelectorView: View {
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
     
     @Binding var selectedCategory: PhraseCategory?
+    @Binding var showingAddCategory: Bool
     
     let rows = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
@@ -31,6 +32,9 @@ struct CategorySelectorView: View {
                     ForEach(categories) { category in
                         categoryButton(category: category, text: category.title, value: value)
                     }
+                    
+                    addCategoryButton
+//                        .id(1)
                 }
                 .animation(.easeInOut, value: recentPhrases.count) // Lets the Recents category selector animate in smoothly
                 .padding(.horizontal)
@@ -40,11 +44,11 @@ struct CategorySelectorView: View {
                     scrollToSelectedCategory(category: category, value: value)
                 }
             }
-            .background(Color(.secondarySystemBackground))
-            .frame(maxHeight: 70)
+//            .background(Color(.secondarySystemBackground))
+//            .frame(maxHeight: 70)
         }
-//        .fixedSize(horizontal: false, vertical: true)
-//        .frame(maxHeight: 70)
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxHeight: 70)
         .onChange(of: Array(recentPhrases)) { _ in
             // Selects the first category that contains phrases, when the last phrase is removed from Recents
             if recentPhrases.isEmpty {
@@ -69,6 +73,7 @@ struct CategorySelectorView: View {
             HStack {
                 Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
                     .foregroundStyle(selectedCategory == category ? Color(.defaultAccent) : Color.secondary)
+                    .accessibilityHidden(true)
                 
                 if selectedCategory == category {
                     Text(text)
@@ -79,11 +84,30 @@ struct CategorySelectorView: View {
             .padding()
             .frame(height: 50)
             .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .mask(RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
                 
         }
-        .accessibilityLabel(text)
         .padding(.vertical)
+        .accessibilityLabel(selectedCategory == category ? "\(text), category, selected" : "\(text), category")
+    }
+    
+    private var addCategoryButton: some View {
+        Button {
+            showingAddCategory = true
+        } label: {
+            Label("Add Category", systemImage: "plus")
+                .labelStyle(.iconOnly)
+                .font(.headline)
+                .padding()
+                .frame(height: 50)
+                .overlay {
+                    RoundedRectangle(cornerRadius: vm.cornerRadius)
+                        .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [5]))
+                        .foregroundStyle(Color.secondary)
+                        .opacity(0.5)
+                }
+        }
     }
     
     func scrollToSelectedCategory(category: PhraseCategory?, value: ScrollViewProxy) {
@@ -92,6 +116,6 @@ struct CategorySelectorView: View {
 }
 
 #Preview {
-    CategorySelectorView(selectedCategory: .constant(nil))
+    CategorySelectorView(selectedCategory: .constant(nil), showingAddCategory: .constant(false))
         .environmentObject(ViewModel())
 }
