@@ -35,7 +35,7 @@ struct TextInputView: View {
                 
                 textField
             }
-            .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .padding()
             .transition(.move(edge: .bottom))
         }
@@ -46,22 +46,20 @@ struct TextInputView: View {
     
     private var textField: some View {
         TextField("What would you like to say?", text: $text, axis: .vertical)
-//            .opacity(vm.synthesizerState == .inactive ? textFieldOpacity : 0)
             .opacity(textFieldOpacity)
-//            .padding([.horizontal, .bottom])
-//            .padding(.top, 10)
+//            .textInputAutocapitalization(.never)
             .padding()
             .font(.title3)
             .focused($isInputActive)
-            .submitLabel(.send)
+            .submitLabel(text.isEmpty ? .done : .send)
             .onChange(of: text) { newValue in
+//                let firstLetter = newValue.prefix(1).capitalized
+//                let remainingText = newValue.dropFirst()
+//                text = firstLetter + remainingText
                 // Serves as a replacement for onSubmit, when a vertical axis is used on TextField
-                let returnButtonTapped = newValue.contains("\n")
-                
-                if returnButtonTapped {
-                    text = newValue.filter({ $0 != "\n" })
-                    Task { await submitAndAddRecent()}
-                }
+                guard newValue.contains("\n") else { return }
+                text = newValue.replacingOccurrences(of: "\n", with: "")
+                Task { await submitAndAddRecent() }
             }
             .onSubmit {
                 // Serves to keep TextField focused if a hardware keyboard is used
@@ -81,13 +79,11 @@ struct TextInputView: View {
             }
             .overlay {
                 SpokenTextLabel(text: vm.label)
-//                    .opacity(vm.synthesizerState != .inactive ? 1 : 0)
                     .padding()
-//                    .padding([.horizontal, .bottom])
-//                    .padding(.top, 10)
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     .allowsHitTesting(false)
-//                            .clipped()
+                    .transaction { transaction in
+                        transaction.animation = nil
+                    }
             }
     }
     
@@ -96,8 +92,12 @@ struct TextInputView: View {
             if vm.phraseIsRepeatable {
                 TextInputButton(text: "Repeat Last Typed Phrase", symbolName: "repeat.circle.fill", color: .secondary) {
                     textFieldOpacity = 0
+                    
+                    withAnimation {
+                        text = mostRecentTypedPhrase
+                    }
+                    
                     vm.speak(mostRecentTypedPhrase)
-                    text = mostRecentTypedPhrase
                 }
                 .transition(.opacity.animation(.default))
             }
@@ -163,33 +163,35 @@ struct TextInputView: View {
     }
     
     func submitAndAddRecent() async {
-        let textToSpeak = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         let recentPhrases = allPhrases.sorted(by: { $0.displayOrder > $1.displayOrder }).filter { $0.category == nil }
         
 //        isInputActive = true
         
-        if textToSpeak != "" {
+        if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             vm.speak(text)
             
-            // If phrase doesn't already exist in Recents, add it
-            if !recentPhrases.contains(where: { $0.text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == textToSpeak }) {
-                let newSavedPhrase = SavedPhrase(context: context)
-                newSavedPhrase.id = UUID()
-                newSavedPhrase.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
-                newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
-                
-                if recentPhrases.count >= vm.numberOfRecents {
-                    context.delete(recentPhrases.last ?? recentPhrases[vm.numberOfRecents])
+            withAnimation {
+                // If phrase doesn't already exist in Recents, add it
+                if !recentPhrases.contains(where: { $0.text.normalized == text.normalized }) {
+                    let newSavedPhrase = SavedPhrase(context: context)
+                    newSavedPhrase.id = UUID()
+                    newSavedPhrase.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    newSavedPhrase.displayOrder = (allPhrases.last?.displayOrder ?? 0) + 1
+                    
+                    if recentPhrases.count >= vm.numberOfRecents {
+                        if let lastPhrase = recentPhrases.last {
+                            context.delete(lastPhrase)
+                        }
+                    }
+                    
+                    try? context.save()
                 }
-                
-                try? context.save()
             }
             
             mostRecentTypedPhrase = text
-            
-//            withAnimation {
-//                text = ""
-//            }
+        } else {
+            text = "" // Clears empty spaces from TextField
+            dismissKeyboard()
         }
     }
 }
@@ -197,4 +199,11 @@ struct TextInputView: View {
 #Preview {
     TextInputView(showingTextField: .constant(false))
         .environmentObject(ViewModel())
+}
+
+// Used for submitAndAddRecent(), to make sure strings are normalized before comparison
+extension String {
+    var normalized: String {
+        self.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
