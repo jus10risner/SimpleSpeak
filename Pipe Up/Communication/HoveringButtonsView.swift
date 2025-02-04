@@ -24,6 +24,7 @@ struct HoveringButtonsView: View {
                     .font(.largeTitle)
             }
             .offset(x: vm.synthesizerState == .paused ? -60 : 0)
+            .accessibilityHidden(vm.synthesizerState == .paused ? false : true)
             .transition(.move(edge: .trailing))
             
             ZStack {
