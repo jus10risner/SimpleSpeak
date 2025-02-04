@@ -67,7 +67,9 @@ struct RecentsCardView: View {
 //                    .buttonStyle(.plain)
                 }
             }
-            .padding([.horizontal, .bottom])
+            .padding()
+//            .padding([.horizontal, .bottom])
+//            .padding(.top, 5)
             .animation(.default, value: recentPhrases.count)
         }
     }

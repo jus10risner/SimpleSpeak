@@ -85,7 +85,9 @@ struct PhraseCardView: View {
                 
                 addPhraseButton
             }
-            .padding([.horizontal, .bottom])
+//            .padding([.horizontal, .bottom])
+//            .padding(.top, 5)
+            .padding()
         }
     }
     
