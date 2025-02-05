@@ -22,6 +22,7 @@ struct HoveringButtonsView: View {
                     .labelStyle(.iconOnly)
                     .symbolRenderingMode(.multicolor)
                     .font(.largeTitle)
+                    .shadow(radius: 5)
             }
             .offset(x: vm.synthesizerState == .paused ? -60 : 0)
             .accessibilityHidden(vm.synthesizerState == .paused ? false : true)
