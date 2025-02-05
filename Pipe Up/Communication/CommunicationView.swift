@@ -59,7 +59,7 @@ struct CommunicationView: View {
             .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
-            .onAppear { haptics.prepare() }
+//            .onAppear { haptics.prepare() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }

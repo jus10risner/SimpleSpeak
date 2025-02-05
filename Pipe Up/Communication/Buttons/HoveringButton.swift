@@ -9,7 +9,7 @@ import CoreHaptics
 import SwiftUI
 
 struct HoveringButton: View {
-    @EnvironmentObject var manager: HapticsManager
+//    @EnvironmentObject var manager: HapticsManager
     
     var text: String
     var symbolName: String
@@ -17,7 +17,7 @@ struct HoveringButton: View {
     
     var body: some View {
         Button {
-            manager.buttonTapped()
+//            manager.buttonTapped()
             action()
         } label: {
             Label(text, systemImage: symbolName)
