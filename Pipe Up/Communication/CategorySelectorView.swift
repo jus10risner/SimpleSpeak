@@ -34,7 +34,7 @@ struct CategorySelectorView: View {
                     }
                     
                     addCategoryButton
-//                        .id(1)
+                        .id(1)
                 }
                 .animation(.easeInOut, value: recentPhrases.count) // Lets the Recents category selector animate in smoothly
                 .padding(.horizontal)
@@ -83,7 +83,11 @@ struct CategorySelectorView: View {
             .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
             .padding()
             .frame(height: 50)
-            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .overlay {
+                RoundedRectangle(cornerRadius: vm.cornerRadius)
+                    .stroke(Color.secondary, lineWidth: 2)
+            }
             .mask(RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
                 
@@ -103,7 +107,7 @@ struct CategorySelectorView: View {
                 .frame(height: 50)
                 .overlay {
                     RoundedRectangle(cornerRadius: vm.cornerRadius)
-                        .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [5]))
+                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
                         .foregroundStyle(Color.secondary)
                         .opacity(0.5)
                 }

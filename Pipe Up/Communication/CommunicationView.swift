@@ -33,10 +33,15 @@ struct CommunicationView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 customToolbar
-                    
-                CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
                 
-                Divider()
+                CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
+                    .background(Color(.systemBackground).shadow(.inner(radius: 1, x: 0, y: 0.5)))
+//                    .background {
+//                        RoundedRectangle(cornerRadius: vm.cornerRadius)
+//                            .fill(Color(.systemBackground).shadow(.inner(color: Color.secondary, radius: 1)))
+//                    }
+                
+//                Divider()
                 
                 TabView(selection: $selectedCategory) {
                     if recentPhrases.count > 0 {
@@ -55,8 +60,8 @@ struct CommunicationView: View {
             .animation(.default, value: selectedCategory)
             .overlay { hoveringButtons }
             .toolbar(.hidden)
-//            .background(Color(.secondarySystemBackground).ignoresSafeArea())
-            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+            .background(Color(.secondarySystemBackground).ignoresSafeArea())
+//            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
             .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
 //            .onAppear { haptics.prepare() }
@@ -105,7 +110,7 @@ struct CommunicationView: View {
     }
     
     private var customToolbar: some View {
-        HStack(alignment: .firstTextBaseline) {
+        HStack {
             if callObserver.isCallActive == true {
                 callButton
                 
@@ -118,8 +123,9 @@ struct CommunicationView: View {
             
             optionsMenu
         }
-        .padding(.horizontal)
-        .padding(.vertical, 5)
+//        .padding(.horizontal)
+//        .padding(.vertical, 5)
+        .padding()
     }
     
     private var speechSynthesisTextView: some View {
@@ -144,7 +150,7 @@ struct CommunicationView: View {
         .padding(10)
         .overlay {
             RoundedRectangle(cornerRadius: vm.cornerRadius)
-                .stroke(Color.secondary)
+                .stroke(Color.secondary, lineWidth: 1)
         }
         .mask { RoundedRectangle(cornerRadius: vm.cornerRadius) }
     }
@@ -157,7 +163,7 @@ struct CommunicationView: View {
             Label("Use During Calls", systemImage: vm.useDuringCalls ? "phone.circle.fill" : "speaker.wave.2.circle.fill")
                 .labelStyle(.iconOnly)
                 .symbolRenderingMode(vm.useDuringCalls ? .monochrome : .hierarchical)
-                .font(.title2)
+                .font(.title)
                 .overlay {
                     if vm.useDuringCalls {
                         Circle()
@@ -195,7 +201,7 @@ struct CommunicationView: View {
         } label: {
             Image(systemName: "ellipsis.circle.fill")
                 .symbolRenderingMode(.hierarchical)
-                .font(.title2)
+                .font(.title)
         }
     }
     
@@ -205,7 +211,7 @@ struct CommunicationView: View {
             
             HoveringButtonsView(showingTextField: $showingTextField)
                 .frame(maxWidth: .infinity)
-                .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8), Color(.systemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
+                .background(LinearGradient(colors: [Color(.secondarySystemBackground), Color(.secondarySystemBackground).opacity(0.8), Color(.secondarySystemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
     }
 }
