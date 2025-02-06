@@ -33,11 +33,16 @@ struct CardButton: View {
                 .padding()
                 .frame(height: 100)
             }
-            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//            .drawingGroup()
+//            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background {
+                RoundedRectangle(cornerRadius: vm.cornerRadius)
+                    .fill(Color(.systemBackground))
+                    .overlay(RoundedRectangle(cornerRadius: vm.cornerRadius).stroke(lineWidth: 1))
+            }
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
-            .matchedGeometryEffect(id: phrase.id, in: animation)
-            .drawingGroup()
         }
+        .matchedGeometryEffect(id: phrase.id, in: animation)
         .contextMenu {
             Button {
                 phraseToEdit = phrase
