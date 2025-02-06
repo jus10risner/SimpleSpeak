@@ -22,7 +22,7 @@ struct TextInputView: View {
     @FocusState var isInputActive: Bool
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             Color.black
                 .opacity(0.7)
                 .ignoresSafeArea()
@@ -30,14 +30,18 @@ struct TextInputView: View {
                     dismissKeyboard()
                 }
             
-            VStack(spacing: 0) {
-                textFieldButtons
+            VStack {
+                Spacer()
                 
-                textField
+                VStack(spacing: 0) {
+                    textFieldButtons
+                    
+                    textField
+                }
+                .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+                .padding()
             }
-            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-            .padding()
-            .transition(.move(edge: .bottom))
+//            .transition(.move(edge: .bottom))
         }
         .onAppear { isInputActive = true }
     }
