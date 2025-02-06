@@ -116,28 +116,32 @@ struct CategoriesListView: View {
                 .onMove { indices, newOffset in
                     move(from: indices, to: newOffset)
                 }
-                
-                Button {
-                    isAddingCategory = true
-                } label: {
-                    HStack(spacing: 3) {
-                        Image(systemName: "plus")
-                        
-                        Text("Add Category")
-                    }
-                    .accessibilityLabel("Add Category")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, minHeight: 44)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                        .foregroundStyle(Color.secondary)
-                        .opacity(0.5)
-                }
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color.clear)
             }
+            
+            Button {
+                isAddingCategory = true
+            } label: {
+                HStack(spacing: 3) {
+                    Image(systemName: "plus")
+                    
+                    Text("Add Category")
+                }
+                .accessibilityLabel("Add Category")
+                .font(.headline)
+                .foregroundStyle(Color.white)
+//                .frame(maxWidth: .infinity, minHeight: 44)
+                .padding()
+            }
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+//                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+//                    .foregroundStyle(Color.secondary)
+                    .foregroundStyle(Color(.defaultAccent))
+//                    .opacity(0.5)
+            }
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(Color.clear)
         }
         .listRowSpacing(vm.listRowSpacing)
     }
