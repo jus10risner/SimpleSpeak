@@ -15,6 +15,27 @@ class CallObserver: NSObject, ObservableObject {
         super.init()
         callObserver = CXCallObserver()
         callObserver?.setDelegate(self, queue: nil)
+        
+        checkExistingCalls()
+    }
+    
+    private func checkExistingCalls() {
+        guard let calls = callObserver?.calls else { return }
+        
+        // If a call is in progress, set isCallActive to true
+        for call in calls {
+            if call.hasConnected && !call.hasEnded {
+                DispatchQueue.main.async {
+                    self.isCallActive = true
+                }
+                return
+            }
+        }
+        
+        // If no call is in progress, set isCallActive to false
+        DispatchQueue.main.async {
+            self.isCallActive = false
+        }
     }
 }
 
