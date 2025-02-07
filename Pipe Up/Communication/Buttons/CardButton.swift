@@ -34,12 +34,13 @@ struct CardButton: View {
                 .frame(height: 100)
             }
 //            .drawingGroup()
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
 //            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-            .background {
-                RoundedRectangle(cornerRadius: vm.cornerRadius)
-                    .fill(Color(.systemBackground))
-                    .overlay(RoundedRectangle(cornerRadius: vm.cornerRadius).stroke(lineWidth: 1))
-            }
+//            .background {
+//                RoundedRectangle(cornerRadius: vm.cornerRadius)
+//                    .fill(Color(.systemBackground))
+//                    .overlay(RoundedRectangle(cornerRadius: vm.cornerRadius).stroke(lineWidth: 1))
+//            }
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
         .matchedGeometryEffect(id: phrase.id, in: animation)
