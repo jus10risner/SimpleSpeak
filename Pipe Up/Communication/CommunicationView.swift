@@ -32,33 +32,39 @@ struct CommunicationView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                customToolbar
                 
-                CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
+                VStack {
+                    customToolbar
+                    
+                    CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
+                }
+                .clipped() // Clips the category selector to the same width as the phrase card TabView
                 
                 Divider()
                 
-                TabView(selection: $selectedCategory) {
-                    if recentPhrases.count > 0 {
-                        RecentsCardView(phraseToEdit: $phraseToEdit)
-                            .tag(PhraseCategory?(nil))
+                ScrollView { // ScrollView, .frame, and .ignoresSafeArea are all necessary to remove padding under TabView (afaik)
+                    TabView(selection: $selectedCategory) {
+                        if recentPhrases.count > 0 {
+                            RecentsCardView(phraseToEdit: $phraseToEdit)
+                                .tag(PhraseCategory?(nil))
+                        }
+                        
+                        ForEach(categories) { category in
+                            PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
+                                .tag(category)
+                        }
                     }
-                    
-                    ForEach(categories) { category in
-                        PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
-                            .tag(category)
-                    }
+                    .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .frame(height: UIScreen.main.bounds.height)
                 }
-                .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                .ignoresSafeArea(edges: .bottom)
             }
-            .clipped() // Clips the category selector to the same width as the phrase card TabView
             .animation(.default, value: selectedCategory)
             .overlay { hoveringButtons }
             .toolbar(.hidden)
 //            .background(Color(.secondarySystemBackground).ignoresSafeArea())
 //            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
-            .ignoresSafeArea(.keyboard)
             .task { await assignCategory() }
 //            .onAppear { haptics.prepare() }
             .onChange(of: selectedCategory) { category in
@@ -212,6 +218,7 @@ struct CommunicationView: View {
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8), Color(.systemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 
