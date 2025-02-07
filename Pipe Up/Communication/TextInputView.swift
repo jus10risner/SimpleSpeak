@@ -23,9 +23,9 @@ struct TextInputView: View {
     
     var body: some View {
         ZStack {
-            Color.clear
-//                .opacity(0.7)
-                .overlay(.ultraThinMaterial)
+            Color.black
+                .opacity(0.7)
+//                .overlay(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     dismissKeyboard()
@@ -45,8 +45,12 @@ struct TextInputView: View {
                         .fill(Color(.systemBackground).shadow(.drop(radius: 1)))
                 }
                 .padding()
+                .background {
+                    UnevenRoundedRectangle(topLeadingRadius: vm.cornerRadius, topTrailingRadius: vm.cornerRadius)
+                        .fill(.ultraThinMaterial).ignoresSafeArea(edges: .bottom)
+                }
             }
-//            .transition(.move(edge: .bottom))
+//            .transition(.move(edge: .bottom).animation(.easeInOut))
         }
         .onAppear { isInputActive = true }
     }

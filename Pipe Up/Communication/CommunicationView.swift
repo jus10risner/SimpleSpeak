@@ -88,10 +88,13 @@ struct CommunicationView: View {
             }
         }
         .overlay {
-            if showingTextField {
-                TextInputView(showingTextField: $showingTextField)
-                    .transition(.opacity.animation(.easeInOut))
+            Group {
+                if showingTextField {
+                    TextInputView(showingTextField: $showingTextField)
+                }
             }
+            .transition(.move(edge: .bottom))
+            .animation(.easeInOut, value: showingTextField)
         }
     }
     
