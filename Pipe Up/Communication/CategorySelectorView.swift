@@ -72,7 +72,7 @@ struct CategorySelectorView: View {
         } label: {
             HStack {
                 Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
-//                    .foregroundStyle(selectedCategory == category ? Color(.defaultAccent) : Color.secondary)
+                    .foregroundStyle(selectedCategory == category ? Color(.defaultAccent) : Color.secondary)
                     .accessibilityHidden(true)
                 
                 if selectedCategory == category {
@@ -80,14 +80,14 @@ struct CategorySelectorView: View {
                 }
             }
             .font(.headline)
-            .foregroundStyle(selectedCategory == category ? Color.white : Color.secondary)
+            .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
             .padding()
             .frame(height: 50)
-            .background(selectedCategory == category ? Color(.defaultAccent) : Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//            .overlay {
-//                RoundedRectangle(cornerRadius: vm.cornerRadius)
-//                    .stroke(selectedCategory == category ? Color.primary : Color.secondary, lineWidth: 2)
-//            }
+//            .background(selectedCategory == category ? Color(.defaultAccent) : Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .overlay {
+                RoundedRectangle(cornerRadius: vm.cornerRadius)
+                    .stroke(selectedCategory == category ? Color.primary : Color.secondary, lineWidth: 2)
+            }
             .mask(RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
                 
