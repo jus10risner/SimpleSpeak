@@ -25,8 +25,8 @@ struct CategoriesListView: View {
         NavigationStack {
             categoryList
                 .navigationBarTitleDisplayMode(.inline)
-                .background(Color(.systemGroupedBackground).ignoresSafeArea())
-                .scrollDismissesKeyboard(.interactively)
+//                .background(Color(.systemGroupedBackground).ignoresSafeArea())
+//                .scrollDismissesKeyboard(.interactively)
                 .onAppear {
                     if categories.count == 0 {
                         addFavoritesCategory()
