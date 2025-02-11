@@ -21,7 +21,7 @@ struct RecentsCardView: View {
     @Binding var phraseToEdit: SavedPhrase?
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(recentPhrases, id: \.id) { phrase in
                     CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)

@@ -33,7 +33,7 @@ struct PhraseCardView: View {
     let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(savedPhrases) { phrase in
                     CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)
