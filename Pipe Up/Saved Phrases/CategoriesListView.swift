@@ -130,16 +130,18 @@ struct CategoriesListView: View {
                 .font(.headline)
                 .foregroundStyle(Color.white)
 //                .frame(maxWidth: .infinity, minHeight: 44)
-                .padding()
+//                .padding()
             }
-            .background {
-                RoundedRectangle(cornerRadius: 10)
-//                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-//                    .foregroundStyle(Color.secondary)
-                    .foregroundStyle(Color(.defaultAccent))
-//                    .opacity(0.5)
-            }
-            .frame(maxWidth: .infinity, minHeight: 44)
+            .buttonStyle(.borderedProminent)
+//            .background {
+//                RoundedRectangle(cornerRadius: 10)
+////                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+////                    .foregroundStyle(Color.secondary)
+//                    .foregroundStyle(Color(.defaultAccent))
+////                    .opacity(0.5)
+//            }
+//            .frame(maxWidth: .infinity, minHeight: 44)
+            .frame(maxWidth: .infinity)
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
         }
