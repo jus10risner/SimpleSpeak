@@ -34,8 +34,9 @@ struct CardButton: View {
                 .frame(height: 100)
             }
 //            .drawingGroup()
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//            .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+//            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background(Color(.tertiarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
 //            .background {
 //                RoundedRectangle(cornerRadius: vm.cornerRadius)
 //                    .fill(Color(.systemBackground))
