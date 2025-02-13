@@ -16,7 +16,7 @@ struct HoveringButtonsView: View {
         ZStack {
             Button(role: .destructive) {
 //                manager.buttonTapped()
-                vm.cancelSpeaking()
+                Task { await vm.cancelSpeaking() }
             } label: {
                 Label("Cancel Speech", systemImage: "stop.circle.fill")
                     .labelStyle(.iconOnly)
@@ -37,11 +37,11 @@ struct HoveringButtonsView: View {
                     switch vm.synthesizerState {
                     case .speaking:
                         HoveringButton(text: "Pause Speech", symbolName: "pause.fill") {
-                            vm.pauseSpeaking()
+                            Task { await vm.pauseSpeaking() }
                         }
                     case .paused:
                         HoveringButton(text: "Continue Speech", symbolName: "play.fill") {
-                            vm.continueSpeaking()
+                            Task { await vm.continueSpeaking() }
                         }
                     case .inactive:
                         HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {

@@ -49,7 +49,7 @@ class ViewModel: NSObject, ObservableObject {
     // MARK: - Methods
     
     // Speak typed text aloud
-    func speak(_ text: String) {
+    func speak(_ text: String) async {
         let audioSession = AVAudioSession.sharedInstance()
         let utterance = AVSpeechUtterance(string: text)
         
@@ -66,17 +66,17 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     // Stop speaking
-    func cancelSpeaking() {
+    func cancelSpeaking() async {
         self.synthesizer.stopSpeaking(at: .immediate)
     }
     
     // Pause speaking
-    func pauseSpeaking() {
+    func pauseSpeaking() async {
         self.synthesizer.pauseSpeaking(at: .immediate)
     }
     
     // Continue speaking
-    func continueSpeaking() {
+    func continueSpeaking() async {
         self.synthesizer.continueSpeaking()
     }
     
@@ -93,10 +93,10 @@ class ViewModel: NSObject, ObservableObject {
     // Cancels any speech that may be occurring, before speaking the given phrase
     func cancelAndSpeak(_ text: String) {
         if self.synthesizerState != .inactive {
-            self.cancelSpeaking()
+            Task { await self.cancelSpeaking() }
         }
         
-        self.speak(text)
+        Task { await self.speak(text) }
     }
     
     func checkSpeechVoice() async {

@@ -107,7 +107,7 @@ struct TextInputView: View {
                         text = mostRecentTypedPhrase
                     }
                     
-                    vm.speak(mostRecentTypedPhrase)
+                    Task { await vm.speak(mostRecentTypedPhrase) }
                 }
                 .transition(.opacity.animation(.default))
             }
@@ -152,15 +152,15 @@ struct TextInputView: View {
             switch vm.synthesizerState {
             case .speaking:
                 TextInputButton(text: "Pause Speech", symbolName: "pause.circle.fill") {
-                    vm.pauseSpeaking()
+                    Task { await vm.pauseSpeaking() }
                 }
             case .paused:
                 TextInputButton(text: "Cancel Speech", symbolName: "stop.circle.fill", color: .red) {
-                    vm.cancelSpeaking()
+                    Task { await vm.cancelSpeaking() }
                 }
                 
                 TextInputButton(text: "Continue Speech", symbolName: "play.circle.fill") {
-                    vm.continueSpeaking()
+                    Task { await vm.continueSpeaking() }
                 }
             case .inactive:
                 EmptyView()
@@ -189,7 +189,7 @@ struct TextInputView: View {
         let recentPhrases = allPhrases.sorted(by: { $0.displayOrder > $1.displayOrder }).filter { $0.category == nil }
         
         if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-            vm.speak(text)
+            Task { await  vm.speak(text) }
             
             withAnimation {
                 // If phrase doesn't already exist in Recents, add it
