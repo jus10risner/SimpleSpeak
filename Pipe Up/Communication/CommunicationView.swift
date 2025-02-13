@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CommunicationView: View {
 //    @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var haptics: HapticsManager
+//    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @StateObject private var callObserver = CallObserver()
     
@@ -25,6 +25,7 @@ struct CommunicationView: View {
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
     @State private var animatingButton = false
+    @State private var screenHeight: CGFloat = UIScreen.main.bounds.height
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
@@ -32,36 +33,47 @@ struct CommunicationView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                
-                VStack {
-                    customToolbar
+                VStack(spacing: 0) {
+                    speechSynthesisTextView
                     
                     CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
                 }
-                .clipped() // Clips the category selector to the same width as the phrase card TabView
+                .mask(RoundedRectangle(cornerRadius: vm.cornerRadius))
+                .background {
+                    RoundedRectangle(cornerRadius: vm.cornerRadius)
+                        .fill(Color(.secondarySystemBackground).shadow(.drop(radius: 1)))
+                        .ignoresSafeArea(edges: .top)
+                }
+                .padding(.bottom, 1) // Makes just enough room for the drop shadow to be shown
                 
-                Divider()
-                
-                ScrollView { // ScrollView, .frame, and .ignoresSafeArea are all necessary to remove padding under TabView (afaik)
-                    TabView(selection: $selectedCategory) {
-                        if recentPhrases.count > 0 {
-                            RecentsCardView(phraseToEdit: $phraseToEdit)
-                                .tag(PhraseCategory?(nil))
+                GeometryReader { geo in // This allows the ScrollView to resize as the device is rotated to landscape/portrait
+                    ScrollView { // This, combined with the frame, allows the TabView to extend to the bottom of the screen
+                        TabView(selection: $selectedCategory) {
+                            if recentPhrases.count > 0 {
+                                RecentsCardView(phraseToEdit: $phraseToEdit)
+                                    .tag(PhraseCategory?(nil))
+                            }
+                            
+                            ForEach(categories) { category in
+                                PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
+                                    .tag(category)
+                            }
                         }
-                        
-                        ForEach(categories) { category in
-                            PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
-                                .tag(category)
+                        .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears
+                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        .frame(height: screenHeight)
+                    }
+                    .onChange(of: geo.size.height) { newValue in
+                        withAnimation {
+                            screenHeight = newValue
                         }
                     }
-                    .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                    .frame(height: UIScreen.main.bounds.height)
                 }
                 .ignoresSafeArea(edges: .bottom)
             }
             .animation(.default, value: selectedCategory)
-            .overlay { hoveringButtons }
+            .ignoresSafeArea(.keyboard)
+            .overlay { customToolbar }
             .toolbar(.hidden)
 //            .background(Color(.secondarySystemBackground).ignoresSafeArea())
 //            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
@@ -69,6 +81,11 @@ struct CommunicationView: View {
 //            .onAppear { haptics.prepare() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
+            }
+            .onChange(of: categories.count) { _ in
+                if categories.count == 1 && recentPhrases.count == 0 {
+                    selectedCategory = categories.first
+                }
             }
             .sheet(isPresented: $showingWelcomeView, onDismiss: {
                 if #available(iOS 17, *) {
@@ -115,22 +132,54 @@ struct CommunicationView: View {
     }
     
     private var customToolbar: some View {
-        HStack {
-            if callObserver.isCallActive == true {
-                callButton
-                
-                Spacer()
-            }
-            
-            speechSynthesisTextView
-            
+        VStack {
             Spacer()
             
-            optionsMenu
+            ZStack {
+                HStack {
+                    callButton
+                        .padding(5)
+                        .background(.ultraThinMaterial, in: Circle())
+                    
+                    Spacer().frame(width: 250)
+                }
+                .opacity(callObserver.isCallActive ? 1 : 0)
+                
+                HStack {
+                    managePhrasesButton
+                    
+                    Spacer().frame(width: 90)
+                    
+                    settingsButton
+                }
+                .padding(5)
+                .background(.ultraThinMaterial, in: Capsule())
+                .padding(5)
+                .overlay { HoveringButtonsView(showingTextField: $showingTextField) }
+            }
         }
-        .padding(.horizontal)
-        .padding(.top, 5)
-//        .padding()
+        .compositingGroup()
+        .shadow(radius: 2)
+        .padding(.bottom, bottomPadding)
+        .ignoresSafeArea(.keyboard)
+    }
+    
+    // Check for safe area padding at the bottom, to determine if the device has a Home Button
+    private var hasHomeButton: Bool {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        guard let window = windowScene?.windows.first else { return false }
+                    
+        return window.safeAreaInsets.bottom == 0
+    }
+    
+    // Determine bottom padding, based on whether the device is an iPad; uses presence of Home Button, if not an iPad
+    private var bottomPadding: CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 20
+        } else {
+            return hasHomeButton ? 10 : 0
+        }
     }
     
     private var speechSynthesisTextView: some View {
@@ -153,11 +202,14 @@ struct CommunicationView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(10)
-        .overlay {
-            RoundedRectangle(cornerRadius: vm.cornerRadius)
-                .stroke(Color.secondary, lineWidth: 1)
-        }
-        .mask { RoundedRectangle(cornerRadius: vm.cornerRadius) }
+//        .overlay {
+//            RoundedRectangle(cornerRadius: vm.cornerRadius)
+//                .stroke(Color.secondary, lineWidth: 1)
+//        }
+//        .mask { RoundedRectangle(cornerRadius: vm.cornerRadius) }
+        .mask { Rectangle() }
+        .padding(.horizontal)
+        .padding(.vertical, 5)
     }
     
     // Toolbar button that toggles the option to send speech synthesis to other parties on a call
@@ -165,61 +217,95 @@ struct CommunicationView: View {
         Button {
             vm.useDuringCalls.toggle()
         } label: {
-            Label("Use During Calls", systemImage: vm.useDuringCalls ? "phone.circle.fill" : "speaker.wave.2.circle.fill")
-                .labelStyle(.iconOnly)
-                .symbolRenderingMode(vm.useDuringCalls ? .monochrome : .hierarchical)
-                .font(.title)
-                .overlay {
-                    if vm.useDuringCalls {
-                        Circle()
-                            .stroke(Color(.defaultAccent))
-                            .scaleEffect(animatingButton ? 1.5 : 0.85)
-                            .opacity(animatingButton ? 0 : 1)
-                            .animation(animatingButton ? .easeInOut(duration: 1).repeatForever(autoreverses: false) : .linear(duration: 0), value: animatingButton)
-                    }
+            Group {
+                if vm.useDuringCalls == true {
+                    Label("Use During Calls", systemImage: "phone.circle.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(Color.white, Color(.defaultAccent))
+                } else {
+                    Label("Use During Calls", systemImage: "speaker.wave.2.circle.fill")
+                        .symbolRenderingMode(.hierarchical)
                 }
-                .onChange(of: vm.synthesizerState) { state in
-                    if state == .speaking {
-//                    if state == .speaking && callObserver.isCallActive == true { // Animate only during calls
-                        animatingButton = true
-                    } else {
+            }
+            .labelStyle(.iconOnly)
+            .font(.largeTitle)
+            .background {
+                if vm.useDuringCalls {
+                    Circle()
+                        .stroke(Color(.defaultAccent))
+                        .scaleEffect(animatingButton ? 1.5 : 0.85)
+                        .opacity(animatingButton ? 0 : 1)
+                        .animation(animatingButton ? .easeInOut(duration: 1).repeatForever(autoreverses: false) : .linear(duration: 0), value: animatingButton)
+                }
+            }
+            .onChange(of: vm.synthesizerState) { state in
+                if state == .speaking {
+                    animatingButton = true
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                         animatingButton = false
                     }
                 }
+            }
+        }
+    }
+    
+    private var settingsButton: some View {
+        Button {
+            showingSettings = true
+        } label: {
+            Label("Settings", systemImage: "gearshape.circle.fill")
+                .symbolRenderingMode(.hierarchical)
+                .font(.largeTitle)
+                .labelStyle(.iconOnly)
+        }
+    }
+    
+    private var managePhrasesButton: some View {
+        Button {
+            showingSavedPhrases = true
+        } label: {
+            Label("Manage Phrases", systemImage: "bookmark.circle.fill")
+                .symbolRenderingMode(.hierarchical)
+                .font(.largeTitle)
+                .labelStyle(.iconOnly)
         }
     }
     
     // Toolbar menu, containing settings and phrase management options
-    private var optionsMenu: some View {
-        Menu {
-            Button {
-                showingSavedPhrases = true
-            } label: {
-                Label("Manage Phrases", systemImage: "rectangle.grid.1x2")
-            }
-            
-            Button {
-                showingSettings = true
-            } label: {
-                Label("Settings", systemImage: "gearshape")
-            }
-        } label: {
-            Image(systemName: "ellipsis.circle.fill")
-                .symbolRenderingMode(.hierarchical)
-                .font(.title)
-        }
-    }
+//    private var optionsMenu: some View {
+//        Menu {
+//            Button {
+//                showingSavedPhrases = true
+//            } label: {
+//                Label("Manage Phrases", systemImage: "rectangle.grid.1x2")
+//            }
+//            
+//            Button {
+//                showingSettings = true
+//            } label: {
+//                Label("Settings", systemImage: "gearshape")
+//            }
+//        } label: {
+//            Image(systemName: "ellipsis.circle.fill")
+//                .symbolRenderingMode(.hierarchical)
+//                .font(.title)
+//        }
+////        .padding(10)
+////        .background(.ultraThinMaterial, in: Circle())
+//    }
     
-    private var hoveringButtons: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            
-            HoveringButtonsView(showingTextField: $showingTextField)
-                .frame(maxWidth: .infinity)
-                .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8), Color(.systemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
-        }
-        .ignoresSafeArea(.keyboard)
-    }
+//    private var hoveringButtons: some View {
+//        VStack {
+//            Spacer()
+//            
+//            HoveringButtonsView(showingTextField: $showingTextField)
+////                .padding(.vertical)
+//                .frame(maxWidth: .infinity)
+//                .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0)], startPoint: .bottom, endPoint: .top).ignoresSafeArea().allowsHitTesting(false))
+//        }
+//        .ignoresSafeArea(.keyboard)
+//    }
 }
 
 #Preview {
