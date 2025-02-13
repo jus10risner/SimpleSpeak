@@ -36,6 +36,9 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("numberOfRecents") var numberOfRecents: Int = 10 {
         willSet { objectWillChange.send() }
     }
+    @AppStorage("cellWidth") var cellWidth: PhraseCellWidthOptions = .small {
+        willSet { objectWillChange.send() }
+    }
     
 //    override init() {
 //        super.init()
@@ -115,6 +118,10 @@ class ViewModel: NSObject, ObservableObject {
             }
         }
     }
+}
+
+enum PhraseCellWidthOptions: Int, CaseIterable {
+    case small = 150, large = 250
 }
 
 enum SynthesizerState: String {
