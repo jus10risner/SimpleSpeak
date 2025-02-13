@@ -20,7 +20,7 @@ struct SettingsView: View {
                         VoiceSelectionView()
                     } label: {
                         HStack {
-                            Label("Voice", systemImage: "person.wave.2.fill")
+                            Label("Voice", systemImage: "person.wave.2")
                             
                             Spacer()
                             
@@ -29,9 +29,18 @@ struct SettingsView: View {
                         }
                     }
                     
+                    Picker(selection: $vm.cellWidth) {
+                        ForEach(PhraseCellWidthOptions.allCases, id: \.self) {
+                            Text(String(describing: $0).capitalized)
+                        }
+                    } label: {
+                        Label("Phrase Buttons", systemImage: "rectangle.grid.2x2")
+                    }
+                    
 //                    Toggle(isOn: $vm.useDuringCalls, label: {
-//                        Label("Use During Calls", systemImage: "phone.fill")
+//                        Label("Use During Calls", systemImage: "phone")
 //                    })
+//                    .tint(Color(.defaultAccent))
                 }
 //                header: {
 //                    Text("Speech")
@@ -53,7 +62,7 @@ struct SettingsView: View {
                     } label: {
                         Label("Theme", systemImage: "circle.lefthalf.filled")
                     }
-                    .pickerStyle(.navigationLink)
+//                    .pickerStyle(.navigationLink)
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
                     }
