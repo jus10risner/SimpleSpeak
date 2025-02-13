@@ -12,11 +12,15 @@ struct RecentsCardView: View {
     @EnvironmentObject var vm: ViewModel
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: false)], predicate: NSPredicate(format: "category == %@", NSNull()), animation: .easeInOut) var recentPhrases: FetchedResults<SavedPhrase>
     
-    let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
+//    let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     
 //    @Namespace var animation
 //    @State private var animationEnabled = false
 //    @State private var phraseToSpeak = ""
+    
+    private var columns: [GridItem] {
+        [GridItem(.adaptive(minimum: CGFloat(vm.cellWidth.rawValue)), spacing: 5)]
+    }
     
     @Binding var phraseToEdit: SavedPhrase?
     
@@ -71,6 +75,9 @@ struct RecentsCardView: View {
 //            .padding([.horizontal, .bottom])
 //            .padding(.top, 5)
             .animation(.default, value: recentPhrases.count)
+            
+            // Allows phrases to scroll up to avoid hovering buttons on CommunicationView
+            Color.clear.frame(height: UIScreen.main.bounds.height * 0.1)
         }
     }
 }

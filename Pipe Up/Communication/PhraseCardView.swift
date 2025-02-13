@@ -30,7 +30,10 @@ struct PhraseCardView: View {
         ], predicate: predicate, animation: .easeInOut)
     }
     
-    let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
+//    let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
+    private var columns: [GridItem] {
+        [GridItem(.adaptive(minimum: CGFloat(vm.cellWidth.rawValue)), spacing: 5)]
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -88,6 +91,9 @@ struct PhraseCardView: View {
 //            .padding([.horizontal, .bottom])
 //            .padding(.top, 5)
             .padding()
+            
+            // Allows phrases to scroll up to avoid hovering buttons on CommunicationView
+            Color.clear.frame(height: UIScreen.main.bounds.height * 0.1)
         }
     }
     
