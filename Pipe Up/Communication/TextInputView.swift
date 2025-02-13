@@ -64,7 +64,7 @@ struct TextInputView: View {
             .padding()
             .font(.title3)
             .focused($isInputActive)
-            .submitLabel(text.isEmpty ? .done : .send)
+            .submitLabel(.send)
             .onChange(of: text) { newValue in
 //                let firstLetter = newValue.prefix(1).capitalized
 //                let remainingText = newValue.dropFirst()
@@ -120,7 +120,7 @@ struct TextInputView: View {
             speechControlButtons
                 .transition(.opacity.animation(.default))
             
-            if text != "" && vm.synthesizerState == .inactive {
+            if canClearText == true {
                 TextInputButton(text: "Clear Text", symbolName: "trash.circle.fill", color: .secondary) {
                     withAnimation {
                         text = ""
@@ -135,6 +135,19 @@ struct TextInputView: View {
         }
         .padding(10)
         .drawingGroup()
+    }
+    
+    // Determines whether the "Clear Text" button should be shown
+    private var canClearText: Bool {
+        if text != "" && vm.synthesizerState == .inactive {
+            if text != mostRecentTypedPhrase {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
     }
     
     private var speechControlButtons: some View {
@@ -200,6 +213,8 @@ struct TextInputView: View {
                     try? context.save()
                 }
             }
+            
+            isInputActive = true
             
             mostRecentTypedPhrase = text
         } else {
