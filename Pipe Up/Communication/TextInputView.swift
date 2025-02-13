@@ -66,9 +66,6 @@ struct TextInputView: View {
             .focused($isInputActive)
             .submitLabel(.send)
             .onChange(of: text) { newValue in
-//                let firstLetter = newValue.prefix(1).capitalized
-//                let remainingText = newValue.dropFirst()
-//                text = firstLetter + remainingText
                 // Serves as a replacement for onSubmit, when a vertical axis is used on TextField
                 guard newValue.contains("\n") else { return }
                 text = newValue.replacingOccurrences(of: "\n", with: "")
@@ -190,8 +187,6 @@ struct TextInputView: View {
     
     func submitAndAddRecent() async {
         let recentPhrases = allPhrases.sorted(by: { $0.displayOrder > $1.displayOrder }).filter { $0.category == nil }
-        
-//        isInputActive = true
         
         if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             vm.speak(text)
