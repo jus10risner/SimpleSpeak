@@ -141,7 +141,7 @@ struct CommunicationView: View {
                 
                 Spacer()
                 
-                HoveringButtonsView(showingTextField: $showingTextField)
+                MultiButtonView(showingTextField: $showingTextField)
                     .frame(width: 60) // Prevents the view from resizing when the symbols change, during speech synthesis
                 
                 Spacer()

@@ -1,5 +1,5 @@
 //
-//  HoveringButtonsView.swift
+//  MultiButtonView.swift
 //  Pipe Up
 //
 //  Created by Justin Risner on 9/9/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HoveringButtonsView: View {
+struct MultiButtonView: View {
 //    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @Binding var showingTextField: Bool
@@ -36,15 +36,15 @@ struct HoveringButtonsView: View {
                 Group {
                     switch vm.synthesizerState {
                     case .speaking:
-                        HoveringButton(text: "Pause Speech", symbolName: "pause.fill") {
+                        MultiButton(text: "Pause Speech", symbolName: "pause.fill") {
                             Task { await vm.pauseSpeaking() }
                         }
                     case .paused:
-                        HoveringButton(text: "Continue Speech", symbolName: "play.fill") {
+                        MultiButton(text: "Continue Speech", symbolName: "play.fill") {
                             Task { await vm.continueSpeaking() }
                         }
                     case .inactive:
-                        HoveringButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
+                        MultiButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
                             withAnimation {
                                 vm.phraseIsRepeatable = false
                                 showingTextField = true
@@ -82,6 +82,6 @@ struct HoveringButtonsView: View {
 }
 
 #Preview {
-    HoveringButtonsView(showingTextField: .constant(false))
+    MultiButtonView(showingTextField: .constant(false))
         .environmentObject(ViewModel())
 }

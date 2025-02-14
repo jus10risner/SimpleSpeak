@@ -1,5 +1,5 @@
 //
-//  HoveringButton.swift
+//  MultiButton.swift
 //  Pipe Up
 //
 //  Created by Justin Risner on 9/5/24.
@@ -8,7 +8,7 @@
 import CoreHaptics
 import SwiftUI
 
-struct HoveringButton: View {
+struct MultiButton: View {
 //    @EnvironmentObject var manager: HapticsManager
     
     var text: String
@@ -30,5 +30,5 @@ struct HoveringButton: View {
 }
 
 #Preview {
-    HoveringButton(text: "Test", symbolName: "keyboard", action: {})
+    MultiButton(text: "Test", symbolName: "keyboard", action: {})
 }
