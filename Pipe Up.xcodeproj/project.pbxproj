@@ -206,7 +206,6 @@
 			isa = PBXGroup;
 			children = (
 				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
-				9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */,
 				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
 				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
 				9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */,
@@ -259,6 +258,7 @@
 			children = (
 				9EA1EA0F2D1325B700C726D4 /* CardButton.swift */,
 				9EDC1F422C8A06C1005D7780 /* MultiButton.swift */,
+				9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */,
 				9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */,
 			);
 			path = Buttons;
