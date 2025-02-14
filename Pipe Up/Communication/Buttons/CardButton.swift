@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct CardButton: View {
+    @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     @Binding var phraseToEdit: SavedPhrase?
     let phrase: SavedPhrase
     
-    @Namespace var animation
+//    @Namespace var animation
     
     var body: some View {
         Button {
@@ -44,12 +45,21 @@ struct CardButton: View {
 //            }
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
-        .matchedGeometryEffect(id: phrase.id, in: animation)
+//        .matchedGeometryEffect(id: phrase.id, in: animation)
         .contextMenu {
             Button {
                 phraseToEdit = phrase
             } label: {
                 Label("Edit Phrase", systemImage: "pencil")
+            }
+            
+            Button(role: .destructive) {
+                withAnimation {
+                    context.delete(phrase)
+                    try? context.save()
+                }
+            } label: {
+                Label("Delete Phrase", systemImage: "trash")
             }
         }
         .buttonStyle(.plain)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PhraseCardView: View {
-    @Environment(\.managedObjectContext) var context
+//    @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
@@ -40,50 +40,6 @@ struct PhraseCardView: View {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(savedPhrases) { phrase in
                     CardButton(phraseToEdit: $phraseToEdit, phrase: phrase)
-                    
-//                    Button {
-////                        haptics.buttonTapped()
-//                        vm.cancelAndSpeak(phrase)
-////                    Menu {
-////                        Button {
-////                            phraseToEdit = phrase
-////                        } label: {
-////                            Label("Edit Phrase", systemImage: "pencil")
-////                        }
-//                        
-////                        Button(role: .destructive) {
-////                            context.delete(phrase)
-////                            try? context.save()
-////                        } label: {
-////                            Label("Delete Phrase", systemImage: "trash")
-////                        }
-//                    } label: {
-//                        ZStack {
-//                            Group {
-//                                if phrase.label != "" {
-//                                    Text(phrase.label)
-//                                } else {
-//                                    Text(phrase.text)
-//                                }
-//                            }
-//                            .font(.headline)
-//                            .minimumScaleFactor(0.9)
-//                            .frame(maxWidth: .infinity)
-//                            .multilineTextAlignment(.center)
-//                            .padding()
-//                            .frame(height: 100)
-//                        }
-//                        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//                        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
-//                    }
-//                    .contextMenu {
-//                        Button {
-//                            phraseToEdit = phrase
-//                        } label: {
-//                            Label("Edit Phrase", systemImage: "pencil")
-//                        }
-//                    }
-//                    .buttonStyle(.plain)
                 }
                 
                 addPhraseButton
@@ -91,9 +47,7 @@ struct PhraseCardView: View {
 //            .padding([.horizontal, .bottom])
 //            .padding(.top, 5)
             .padding()
-            
-            // Allows phrases to scroll up to avoid hovering buttons on CommunicationView
-            Color.clear.frame(height: UIScreen.main.bounds.height * 0.1)
+            .animation(.default, value: category.phrases?.count)
         }
     }
     
