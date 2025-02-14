@@ -116,7 +116,12 @@ struct CategoriesListView: View {
                 .onMove { indices, newOffset in
                     move(from: indices, to: newOffset)
                 }
+            } header: {
+                Text("Categories")
+                    .bold()
+                    .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
             }
+            .textCase(nil)
             
             Button {
                 isAddingCategory = true
@@ -127,12 +132,14 @@ struct CategoriesListView: View {
                     Text("Add Category")
                 }
                 .accessibilityLabel("Add Category")
-                .font(.headline)
-                .foregroundStyle(Color.white)
+//                .font(.headline)
+                .bold()
+//                .foregroundStyle(Color.white)
 //                .frame(maxWidth: .infinity, minHeight: 44)
 //                .padding()
             }
-            .buttonStyle(.borderedProminent)
+//            .buttonStyle(.borderedProminent)
+//            .buttonStyle(.borderless)
 //            .background {
 //                RoundedRectangle(cornerRadius: 10)
 ////                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
