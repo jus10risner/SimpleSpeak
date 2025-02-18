@@ -27,11 +27,11 @@ struct CategoriesListView: View {
                 .navigationBarTitleDisplayMode(.inline)
 //                .background(Color(.systemGroupedBackground).ignoresSafeArea())
 //                .scrollDismissesKeyboard(.interactively)
-                .onAppear {
-                    if categories.count == 0 {
-                        addFavoritesCategory()
-                    }
-                }
+//                .onAppear {
+//                    if categories.count == 0 {
+//                        addFavoritesCategory()
+//                    }
+//                }
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Text("Manage Phrases")
@@ -156,15 +156,15 @@ struct CategoriesListView: View {
     }
     
     // Adds a default "Favorites" category
-    func addFavoritesCategory() {
-        let newCategory = PhraseCategory(context: context)
-        newCategory.id = UUID()
-        newCategory.title = "Favorites"
-        newCategory.symbolName = "star.fill"
-        newCategory.displayOrder = 0
-    
-        try? context.save()
-    }
+//    func addFavoritesCategory() {
+//        let newCategory = PhraseCategory(context: context)
+//        newCategory.id = UUID()
+//        newCategory.title = "Favorites"
+//        newCategory.symbolName = "star.fill"
+//        newCategory.displayOrder = 0
+//    
+//        try? context.save()
+//    }
     
     // Persists the order of categories, after moving
     func move(from source: IndexSet, to destination: Int) {

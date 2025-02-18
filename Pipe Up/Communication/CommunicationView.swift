@@ -49,8 +49,10 @@ struct CommunicationView: View {
                 lastSelectedCategory = category?.title ?? "Recents"
             }
             .onChange(of: categories.count) { _ in
-                if categories.count == 1 && recentPhrases.count == 0 {
-                    selectedCategory = categories.first
+                if categories.count > 0 {
+                    selectedCategory = categories.last
+                } else {
+                    selectedCategory = nil
                 }
             }
             .sheet(isPresented: $showingWelcomeView, onDismiss: {
@@ -118,14 +120,18 @@ struct CommunicationView: View {
     
     private var phraseCards: some View {
         TabView(selection: $selectedCategory) {
-            if recentPhrases.count > 0 {
-                RecentsCardView(phraseToEdit: $phraseToEdit)
-                    .tag(PhraseCategory?(nil))
-            }
-            
-            ForEach(categories) { category in
-                PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
-                    .tag(category)
+            if categories.count == 0 && recentPhrases.count == 0 {
+                EmptyCommunicationView(showingAddCategory: $showingAddCategory)
+            } else {
+                if recentPhrases.count > 0 {
+                    RecentsCardView(phraseToEdit: $phraseToEdit)
+                        .tag(PhraseCategory?(nil))
+                }
+                
+                ForEach(categories) { category in
+                    PhraseCardView(category: category, showingAddPhrase: $showingAddPhrase, phraseToEdit: $phraseToEdit)
+                        .tag(category)
+                }
             }
         }
         .id(recentPhrases.count < 1 ? recentPhrases.count : nil) // Prevents blink when RecentsCardView first appears

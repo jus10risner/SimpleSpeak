@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E085A042D64D7AB000F4A5A /* EmptyCommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */; };
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */; };
 		9E418AF42D3168720090D741 /* CallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF32D3168720090D741 /* CallObserver.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommunicationView.swift; sourceTree = "<group>"; };
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVoiceSettingsView.swift; sourceTree = "<group>"; };
 		9E418AF32D3168720090D741 /* CallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallObserver.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			children = (
 				9ECA2CF02CC6A1DD00A46FAB /* WelcomeView.swift */,
 				9ECA2CF32CC6B13B00A46FAB /* InformationItemView.swift */,
+				9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */,
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
 				9EDC1F4E2C8F4DDA005D7780 /* MultiButtonView.swift in Sources */,
+				9E085A042D64D7AB000F4A5A /* EmptyCommunicationView.swift in Sources */,
 				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
 				9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */,
