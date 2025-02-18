@@ -100,16 +100,20 @@ struct CommunicationView: View {
     }
     
     private var topBar: some View {
-        HStack {
-            if callObserver.isCallActive == true {
-                callButton
+        VStack(spacing: 0) {
+            HStack {
+                if callObserver.isCallActive == true {
+                    callButton
+                }
+                
+                speechSynthesisTextView
+                    .mask(Rectangle())
             }
+            .padding(.horizontal)
+            .padding(.vertical, 5)
             
-            speechSynthesisTextView
-                .mask(Rectangle())
+            CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
         .background {
             Rectangle()
                 .fill(Color(.secondarySystemBackground).shadow(.drop(radius: 1)))
@@ -139,24 +143,21 @@ struct CommunicationView: View {
     }
     
     private var bottomBar: some View {
-        VStack {
-            CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
+        HStack {
+            managePhrasesButton
             
-            HStack {
-                managePhrasesButton
-                
-                Spacer()
-                
-                MultiButtonView(showingTextField: $showingTextField)
-                    .frame(width: 60) // Prevents the view from resizing when the symbols change, during speech synthesis
-                
-                Spacer()
-                
-                settingsButton
-            }
-            .padding(.horizontal)
+            Spacer()
+            
+            MultiButtonView(showingTextField: $showingTextField)
+                .frame(width: 60) // Prevents the view from resizing when the symbols change, during speech synthesis
+            
+            Spacer()
+            
+            settingsButton
         }
+        .padding(.horizontal)
         .padding(.bottom, bottomPadding)
+        .padding(.top, 10)
         .frame(maxWidth: .infinity)
         .mask(Rectangle())
         .background {
