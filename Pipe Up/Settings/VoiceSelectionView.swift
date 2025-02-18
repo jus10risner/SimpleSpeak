@@ -16,30 +16,42 @@ struct VoiceSelectionView: View {
     @State private var noveltyVoices: [AVSpeechSynthesisVoice] = []
     @State private var personalVoices: [AVSpeechSynthesisVoice] = []
     
+    @State private var showingPersonalVoiceInfo = false
+    
     var body: some View {
         List {
-            if !personalVoices.isEmpty { // Only show this section if Personal Voices exist
+            if #available(iOS 17, *) {
                 Section {
-                    Picker("Personal Voice", selection: $vm.selectedVoiceIdentifier) {
-                        ForEach(personalVoices, id: \.identifier) { voice in
-                            Button(voice.name) {
-                                vm.selectedVoiceIdentifier = voice.identifier
+                    if !personalVoices.isEmpty { // Only show this section if Personal Voices exist
+                        Picker("Personal Voice", selection: $vm.selectedVoiceIdentifier) {
+                            ForEach(personalVoices, id: \.identifier) { voice in
+                                Button(voice.name) {
+                                    vm.selectedVoiceIdentifier = voice.identifier
+                                }
+                                .tag(voice.identifier as String?)
+                                .buttonStyle(.plain)
                             }
-                            .tag(voice.identifier as String?)
-                            .buttonStyle(.plain)
                         }
+                        .labelsHidden()
+                        .pickerStyle(.inline)
+                    } else {
+                        Text("No available voices")
+                            .foregroundStyle(Color.secondary)
                     }
-                    .labelsHidden()
-                    .pickerStyle(.inline)
                 } header: {
                     Text("Personal Voice")
                 } footer: {
-                    Text("Manage in Settings > Accessiblity > Personal Voice")
+                    if AVSpeechSynthesizer.personalVoiceAuthorizationStatus == .authorized {
+                        Text("Manage your Personal Voice in the Settings app, under Accessibility > Personal Voice.")
+                    } else {
+                        Button("Learn about Personal Voice") { showingPersonalVoiceInfo = true }
+                            .font(.footnote)
+                    }
                 }
             }
             
             Section {
-                Picker("System", selection: $vm.selectedVoiceIdentifier) {
+                Picker("Standard Voices", selection: $vm.selectedVoiceIdentifier) {
                     ForEach(standardVoices, id: \.identifier) { voice in
                         Button(voice.name) {
                             vm.selectedVoiceIdentifier = voice.identifier
@@ -51,13 +63,13 @@ struct VoiceSelectionView: View {
                 .labelsHidden()
                 .pickerStyle(.inline)
             } header: {
-                Text("System")
+                Text("Standard Voices")
             } footer: {
-                Text("Manage speech voices in Settings > Accessiblity > Spoken Content > Voices")
+                Text("Manage system voices in the Settings app, under Accessibility > Spoken Content > Voices.")
             }
             
             if !noveltyVoices.isEmpty {
-                Picker("Novelty", selection: $vm.selectedVoiceIdentifier) {
+                Picker("Novelty Voices", selection: $vm.selectedVoiceIdentifier) {
                     ForEach(noveltyVoices, id: \.identifier) { voice in
                         Button(voice.name) {
                             vm.selectedVoiceIdentifier = voice.identifier
@@ -71,6 +83,10 @@ struct VoiceSelectionView: View {
         }
         .navigationTitle("Voices")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showingPersonalVoiceInfo, content: {
+            SafariView(url: URL(string: "https://support.apple.com/en-us/104993")!)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        })
         .task { await loadVoices() }
         .onChange(of: scenePhase) { newValue in
             // Updates the list of voices, in case a user adds/deletes/modifies a speech synthesis voice in the Settings app
