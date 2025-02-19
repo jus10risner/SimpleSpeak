@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9E085A042D64D7AB000F4A5A /* EmptyCommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */; };
+		9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A052D663120000F4A5A /* PopoverTipView.swift */; };
+		9E085A082D66632B000F4A5A /* MailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A072D66632B000F4A5A /* MailComposeViewController.swift */; };
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */; };
 		9E418AF42D3168720090D741 /* CallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF32D3168720090D741 /* CallObserver.swift */; };
@@ -55,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommunicationView.swift; sourceTree = "<group>"; };
+		9E085A052D663120000F4A5A /* PopoverTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTipView.swift; sourceTree = "<group>"; };
+		9E085A072D66632B000F4A5A /* MailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewController.swift; sourceTree = "<group>"; };
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVoiceSettingsView.swift; sourceTree = "<group>"; };
 		9E418AF32D3168720090D741 /* CallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallObserver.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
 				9EF689DF2C4AAAC500568B6D /* AppInfo.swift */,
+				9E085A072D66632B000F4A5A /* MailComposeViewController.swift */,
 				9E213B5C2CA455BA00A3727B /* Unused Files */,
 				9ED40D3E2C21D5F9008C7E49 /* PipeUpDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
@@ -242,6 +247,7 @@
 			children = (
 				9ECA2CF02CC6A1DD00A46FAB /* WelcomeView.swift */,
 				9ECA2CF32CC6B13B00A46FAB /* InformationItemView.swift */,
+				9E085A052D663120000F4A5A /* PopoverTipView.swift */,
 				9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */,
 			);
 			path = Onboarding;
@@ -351,11 +357,13 @@
 				9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */,
 				9EDC1F452C8A18D8005D7780 /* TextInputButton.swift in Sources */,
 				9E68DA202CE7E82E0002277F /* VoiceSelectionView.swift in Sources */,
+				9E085A082D66632B000F4A5A /* MailComposeViewController.swift in Sources */,
 				9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */,
 				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
 				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
+				9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
 				9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */,
 				9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */,

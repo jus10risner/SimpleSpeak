@@ -12,6 +12,8 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var vm: ViewModel
     
+    @State private var showingMailError = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -69,32 +71,23 @@ struct SettingsView: View {
                 }
                 
                 Section("More") {
-                    NavigationLink {
-                        // Email link
-                    } label: {
-                        Label("Contact", systemImage: "envelope")
-                    }
+                    contactButton
                     
-                    NavigationLink {
+                    Button {
                         // App Store rating link
                     } label: {
                         Label("Rate on the App Store", systemImage: "star")
                     }
                     
-                    NavigationLink {
+                    Button {
                         // ShareLink
                     } label: {
                         Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
                     }
                 }
+                .buttonStyle(.plain)
             }
             .navigationBarTitleDisplayMode(.inline)
-//            .sheet(isPresented: $showingPersonalVoiceSetupSheet, content: {
-//                webView(url: URL(string: "https://support.apple.com/104993")!, title: "Personal Voice", selection: $showingPersonalVoiceSetupSheet)
-//            })
-//            .sheet(isPresented: $showingVoiceSelectionSheet, content: {
-//                webView(url: URL(string: "https://support.apple.com/111798")!, title: "Voice Selection", selection: $showingVoiceSelectionSheet)
-//            })
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("Settings")
@@ -115,6 +108,11 @@ struct SettingsView: View {
                 }
             }
         }
+        .alert("Could not send mail", isPresented: $showingMailError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("\nPlease make sure email has been set up on this device, then try again.")
+        }
     }
     
     private var selectedVoice: String {
@@ -124,21 +122,21 @@ struct SettingsView: View {
         return selectedVoice?.name ?? "Unknown"
     }
     
-//    private func webView(url: URL, title: String, selection: Binding<Bool>) -> some View {
-//        NavigationStack {
-//            WebView(url: url)
-//                .ignoresSafeArea(edges: .bottom)
-//                .navigationTitle(title)
-//                .navigationBarTitleDisplayMode(.inline)
-//                .toolbar {
-//                    ToolbarItem(placement: .topBarTrailing) {
-//                        Button("Done") {
-//                            selection.wrappedValue = false
-//                        }
-//                    }
-//                }
-//        }
-//    }
+    // Launches Mail Composer, if email has been set up
+    private var contactButton: some View {
+        Button {
+            let composeVC = MailComposeViewController.shared
+            
+            if composeVC.canSendEmail == true {
+                // Composes an email message, and prefills email address
+                composeVC.sendEmail()
+            } else {
+                showingMailError = true
+            }
+        } label: {
+            Label("Contact", systemImage: "envelope")
+        }
+    }
 }
 
 #Preview {
