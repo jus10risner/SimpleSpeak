@@ -19,6 +19,7 @@ struct SavedPhrasesListView: View {
     @State private var showingAddPhrase = false
     @State private var showingDeleteAlert = false
     @State private var showingEditCategory = false
+    @State private var showingPopover = false
     
     // Custom init, so I can pass in the optional "category" property as a predicate
     init(category: PhraseCategory?) {
@@ -88,8 +89,26 @@ struct SavedPhrasesListView: View {
             
 //            if category?.title != "Favorites" && category != nil {
             if category != nil {
-                ToolbarTitleMenu {
-                    categoryMenu
+//                ToolbarTitleMenu {
+//                    categoryMenu
+//                }
+                ToolbarItem(placement: .principal) {
+                    Menu {
+                        categoryMenu
+                    } label: {
+                        HStack(spacing: 3) {
+                            Text(category?.title ?? "Recents")
+                                .font(.headline)
+                                .foregroundStyle(Color.primary)
+                            
+                            Image(systemName: "chevron.down.circle.fill")
+                                .font(.caption)
+                                .symbolRenderingMode(.hierarchical)
+                        }
+                    }
+                    .popover(isPresented: $showingPopover, attachmentAnchor: .point(.bottom), arrowEdge: .top) {
+                        PopoverTipView(symbolName: "hand.tap.fill", text: "Tap the category name to make changes.")
+                    }
                 }
             }
         }

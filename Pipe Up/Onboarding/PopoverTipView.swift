@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct PopoverTipView: View {
+    let symbolName: String
+    let text: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: symbolName)
+                .font(.title)
+                .foregroundStyle(Color.secondary)
+                .padding(.trailing)
+            
+            Text(text)
+        }
+        .padding()
+        .frame(width: 300)
+        .presentationCompactAdaptation(.popover)
     }
 }
 
 #Preview {
-    PopoverTipView()
+    PopoverTipView(symbolName: "hand.tap.fill", text: "Tap me!")
 }
