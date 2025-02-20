@@ -199,14 +199,14 @@ struct CommunicationView: View {
                     }
                     .transition(.opacity.animation(.easeInOut))
             } else {
-                Text("Tap a phrase to speak")
-                    .foregroundStyle(Color(UIColor.placeholderText))
+                Text("SimpleSpeak")
+                    .font(.headline)
                     .transition(.asymmetric(insertion: .opacity.animation(.easeInOut), removal: .identity))
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(10)
-        .mask { Rectangle() }
+        .padding(.bottom, 5)
+//        .mask { Rectangle() }
     }
     
     // Toolbar button that toggles the option to send speech synthesis to other parties on a call
