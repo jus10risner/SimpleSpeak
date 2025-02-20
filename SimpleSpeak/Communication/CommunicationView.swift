@@ -55,6 +55,13 @@ struct CommunicationView: View {
                     selectedCategory = nil
                 }
             }
+            .onChange(of: recentPhrases.count) { newValue in
+                if newValue == 0 && categories.count > 0 {
+                    Task { @MainActor in
+                        selectedCategory = categories.first
+                    }
+                }
+            }
             .sheet(isPresented: $showingWelcomeView, onDismiss: {
                 if #available(iOS 17, *) {
                     vm.requestPersonalVoiceAccess()

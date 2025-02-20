@@ -28,7 +28,11 @@ class ViewModel: NSObject, ObservableObject {
         willSet { objectWillChange.send() }
     }
     @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
-        willSet { objectWillChange.send() }
+        willSet {
+            Task { @MainActor in
+                objectWillChange.send()
+            }
+        }
     }
     @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic {
         willSet { objectWillChange.send() }
@@ -104,7 +108,9 @@ class ViewModel: NSObject, ObservableObject {
             let languageCode = AVSpeechSynthesisVoice.currentLanguageCode()
             let defaultVoiceIdentifier = AVSpeechSynthesisVoice(language: languageCode)?.identifier
             
-            self.selectedVoiceIdentifier = defaultVoiceIdentifier
+            Task { @MainActor in
+                self.selectedVoiceIdentifier = defaultVoiceIdentifier
+            }
         }
     }
     
