@@ -35,10 +35,10 @@ class DataController: ObservableObject {
 //    }()
     
     // Storage for Core Data. Sets the appropriate persistent container.
-//    lazy var container: NSPersistentCloudKitContainer = {
-    lazy var container: NSPersistentContainer = {
-//        container = NSPersistentCloudKitContainer(name: "SimpleSpeakDataModel")
-        container = NSPersistentContainer(name: "SimpleSpeakDataModel")
+    lazy var container: NSPersistentCloudKitContainer = {
+//    lazy var container: NSPersistentContainer = {
+        container = NSPersistentCloudKitContainer(name: "SimpleSpeakDataModel")
+//        container = NSPersistentContainer(name: "SimpleSpeakDataModel")
         
         guard let description = container.persistentStoreDescriptions.first else {
             fatalError("###\(#function): Failed to retrieve a persistent store description.")
@@ -46,11 +46,11 @@ class DataController: ObservableObject {
         description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
         
-//        if cloudContainerAvailable == true {
-//            description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.risner.justin.SocketCD")
-//        } else {
-//            description.cloudKitContainerOptions = nil
-//        }
+        if cloudContainerAvailable == true {
+            description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.risner.justin.SimpleSpeak")
+        } else {
+            description.cloudKitContainerOptions = nil
+        }
 
         container.loadPersistentStores { description, error in
             if let error = error as NSError? {
@@ -86,13 +86,13 @@ class DataController: ObservableObject {
     }
     
     // Checks to see if an iCloud container is available on the device
-//    var cloudContainerAvailable: Bool {
-//        if let _ = FileManager.default.ubiquityIdentityToken {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
+    var cloudContainerAvailable: Bool {
+        if let _ = FileManager.default.ubiquityIdentityToken {
+            return true
+        } else {
+            return false
+        }
+    }
     
     // If there are any changes, attempt to save
     func save() {
