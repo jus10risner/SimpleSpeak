@@ -139,19 +139,27 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         print("started")
         self.phraseIsRepeatable = false
-        self.synthesizerState = .speaking
+        Task { @MainActor in
+            self.synthesizerState = .speaking
+        }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
         print("paused")
-        self.synthesizerState = .paused
+        Task { @MainActor in
+            self.synthesizerState = .paused
+        }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
         print("continued")
-        self.synthesizerState = .speaking
+        Task { @MainActor in
+            self.synthesizerState = .speaking
+        }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         print("cancelled")
-        self.synthesizerState = .inactive
+        Task { @MainActor in
+            self.synthesizerState = .inactive
+        }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title3), .foregroundColor: UIColor.secondaryLabel])
@@ -162,13 +170,14 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-//        label = NSAttributedString(string: utterance.speechString)
         withAnimation {
             label = nil
         }
         
         print("finished")
         self.phraseIsRepeatable = true
-        self.synthesizerState = .inactive
+        Task { @MainActor in
+            self.synthesizerState = .inactive
+        }
     }
 }
