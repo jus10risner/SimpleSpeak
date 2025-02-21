@@ -109,6 +109,20 @@ struct SavedPhrasesListView: View {
                     .popover(isPresented: $showingPopover, attachmentAnchor: .point(.bottom), arrowEdge: .top) {
                         PopoverTipView(symbolName: "hand.tap.fill", text: "Tap the category name to make changes.")
                     }
+                    .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
+                        Button("Delete", role: .destructive) {
+                            if let category {
+                                context.delete(category)
+                            }
+                            try? context.save()
+                            
+                            dismiss()
+                        }
+                        
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("Delete this category and all associated phrases?\nThis cannot be undone.")
+                    }
                 }
             }
         }
@@ -130,20 +144,6 @@ struct SavedPhrasesListView: View {
             if let category {
                 EditCategoryView(selectedCategory: category)
             }
-        }
-        .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
-            Button("Delete", role: .destructive) {
-                if let category {
-                    context.delete(category)
-                }
-                try? context.save()
-                
-                dismiss()
-            }
-            
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("Delete this category and all associated phrases?\nThis cannot be undone.")
         }
     }
     
