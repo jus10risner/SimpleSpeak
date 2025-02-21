@@ -127,7 +127,7 @@ class ViewModel: NSObject, ObservableObject {
 }
 
 enum PhraseCellWidthOptions: Int, CaseIterable {
-    case small = 150, medium = 200, large = 250
+    case small = 150, large = 250
 }
 
 enum SynthesizerState: String {
