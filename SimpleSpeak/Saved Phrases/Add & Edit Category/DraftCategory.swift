@@ -11,7 +11,7 @@ class DraftCategory: ObservableObject {
     var id: UUID? = nil
     
     @Published var title: String = ""
-    @Published var symbolName: String = "bookmark.fill"
+    @Published var symbolName: String = "hand.wave.fill"
     
     
     init(phraseCategory: PhraseCategory) {
