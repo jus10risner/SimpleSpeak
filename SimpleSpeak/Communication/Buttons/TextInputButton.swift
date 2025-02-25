@@ -21,7 +21,7 @@ struct TextInputButton: View {
                 .labelStyle(.iconOnly)
                 .font(.title)
                 .foregroundStyle(color ?? Color(.defaultAccent))
-                .symbolRenderingMode(.hierarchical)
+                .symbolRenderingMode(color == nil || color == .red ? .multicolor : .hierarchical)
                 .fixedSize()
         }
     }
