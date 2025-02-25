@@ -28,7 +28,7 @@ struct InformationItemView: View {
                     .accessibility(addTraits: .isHeader)
 
                 Text(subtitle)
-                    .font(.body)
+                    .font(.subheadline)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
