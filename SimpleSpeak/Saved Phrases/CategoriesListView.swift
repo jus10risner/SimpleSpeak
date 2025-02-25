@@ -25,6 +25,7 @@ struct CategoriesListView: View {
         NavigationStack {
             categoryList
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Saved Phrases")
 //                .background(Color(.systemGroupedBackground).ignoresSafeArea())
 //                .scrollDismissesKeyboard(.interactively)
 //                .onAppear {
@@ -33,11 +34,11 @@ struct CategoriesListView: View {
 //                    }
 //                }
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Text("Manage Phrases")
-                            .font(.title2)
-                            .fontWeight(.heavy)
-                    }
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        Text("Manage Phrases")
+//                            .font(.title2)
+//                            .fontWeight(.heavy)
+//                    }
                     
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -81,7 +82,7 @@ struct CategoriesListView: View {
     // ZStacks and clear colors were added, due to jumpy navigation behavior on iOS 16
     private var categoryList: some View {
         List {
-            Section {
+            Section("Categories") {
 //                ZStack {
 //                    Color.clear
                     NavigationLink {
@@ -116,10 +117,6 @@ struct CategoriesListView: View {
                 .onMove { indices, newOffset in
                     move(from: indices, to: newOffset)
                 }
-            } header: {
-                Text("Categories")
-                    .bold()
-                    .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
             }
             .textCase(nil)
             
