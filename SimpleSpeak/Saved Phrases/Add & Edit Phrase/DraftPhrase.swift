@@ -28,7 +28,7 @@ class DraftPhrase: ObservableObject {
     }
     
     var canBeSaved: Bool {
-        if text.count > 0 && category != nil {
+        if text.count > 0 {
             return true
         } else {
             return false
