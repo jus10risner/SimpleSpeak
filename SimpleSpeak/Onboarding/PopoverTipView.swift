@@ -18,6 +18,7 @@ struct PopoverTipView: View {
                 .font(.title)
                 .foregroundStyle(Color(.defaultAccent))
                 .padding(.trailing)
+                .accessibilityHidden(true)
             
             VStack(alignment: .leading, spacing: 5) {
                 if let title {
