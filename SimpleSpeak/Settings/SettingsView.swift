@@ -17,7 +17,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Speech") {
+                Section {
                     NavigationLink {
                         VoiceSelectionView()
                     } label: {
@@ -31,24 +31,15 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Picker(selection: $vm.cellWidth) {
-                        ForEach(PhraseCellWidthOptions.allCases, id: \.self) {
-                            Text(String(describing: $0).capitalized)
-                        }
-                    } label: {
-                        Label("Phrase Buttons", systemImage: "rectangle.grid.2x2")
-                    }
-                    
-//                    Toggle(isOn: $vm.useDuringCalls, label: {
-//                        Label("Use During Calls", systemImage: "phone")
-//                    })
-//                    .tint(Color(.defaultAccent))
+                    Toggle(isOn: $vm.useDuringCalls, label: {
+                        Label("Use During Calls", systemImage: "phone")
+                    })
+                    .tint(Color(.defaultAccent))
+                } header: {
+                    Text("Speech")
+                } footer: {
+                    Text("Speech will be sent to other participants on calls, but you won't hear it yourself.")
                 }
-//                header: {
-//                    Text("Speech")
-//                } footer: {
-//                    Text("Sends speech to other participants during phone calls and FaceTime.")
-//                }
                 
                 Section("Appearance") {
                     NavigationLink {
@@ -67,6 +58,15 @@ struct SettingsView: View {
 //                    .pickerStyle(.navigationLink)
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
+                    }
+                    
+                    Picker(selection: $vm.cellWidth) {
+                        ForEach(PhraseCellWidthOptions.allCases, id: \.self) { option in
+                            Text(String(describing: option).capitalized)
+                        }
+                    } label: {
+                        Label("Phrase Button Size", systemImage: "rectangle.grid.2x2")
+                        
                     }
                 }
                 
@@ -88,12 +88,13 @@ struct SettingsView: View {
                 .buttonStyle(.plain)
             }
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Settings")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("Settings")
-                        .font(.title2)
-                        .fontWeight(.heavy)
-                }
+//                ToolbarItem(placement: .topBarLeading) {
+//                    Text("Settings")
+//                        .font(.title2)
+//                        .fontWeight(.heavy)
+//                }
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
