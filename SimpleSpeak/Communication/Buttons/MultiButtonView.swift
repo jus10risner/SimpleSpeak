@@ -14,19 +14,20 @@ struct MultiButtonView: View {
     
     var body: some View {
         ZStack {
-            Button(role: .destructive) {
-//                manager.buttonTapped()
-                Task { await vm.cancelSpeaking() }
-            } label: {
-                Label("Cancel Speech", systemImage: "stop.circle.fill")
-                    .labelStyle(.iconOnly)
-                    .symbolRenderingMode(.multicolor)
-                    .font(.largeTitle)
-//                    .shadow(radius: 5)
+            if vm.synthesizerState == .paused { // Required, because VoiceOver ignores .accessibilityHidden() inside ZStacks
+                Button(role: .destructive) {
+                    //                manager.buttonTapped()
+                    Task { await vm.cancelSpeaking() }
+                } label: {
+                    Label("Cancel Speech", systemImage: "stop.circle.fill")
+                        .labelStyle(.iconOnly)
+                        .symbolRenderingMode(.multicolor)
+                        .font(.largeTitle)
+                }
+                .offset(x: vm.synthesizerState == .paused ? -60 : 0)
+                .accessibilityHidden(vm.synthesizerState != .paused)
+                .transition(.move(edge: .trailing).combined(with: .opacity))
             }
-            .offset(x: vm.synthesizerState == .paused ? -60 : 0)
-            .accessibilityHidden(vm.synthesizerState == .paused ? false : true)
-            .transition(.move(edge: .trailing))
             
             ZStack {
                 Circle()
