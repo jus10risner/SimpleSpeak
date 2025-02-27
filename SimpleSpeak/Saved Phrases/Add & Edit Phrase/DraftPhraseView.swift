@@ -104,7 +104,7 @@ struct DraftPhraseView: View {
     private var canSavePhrase: Bool {
         let containsMatchingPhrase = phrases.contains { phrase in
             phrase.category == draftPhrase.category &&
-            (phrase.text == draftPhrase.text || (!phrase.label.isEmpty && phrase.label == draftPhrase.label)) &&
+            (phrase.text.normalized == draftPhrase.text.normalized || (!phrase.label.isEmpty && phrase.label.normalized == draftPhrase.label.normalized)) &&
             phrase.id != draftPhrase.id
         }
         

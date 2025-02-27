@@ -80,7 +80,7 @@ struct DraftCategoryView: View {
     }
     
     private var canSaveCategory: Bool {
-        if categories.contains(where: { $0.title == draftCategory.title && $0.id != draftCategory.id }) {
+        if categories.contains(where: { $0.title.normalized == draftCategory.title.normalized && $0.id != draftCategory.id }) {
             return false
         } else {
             return true
