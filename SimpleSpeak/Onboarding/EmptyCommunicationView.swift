@@ -12,23 +12,27 @@ struct EmptyCommunicationView: View {
     @EnvironmentObject var vm: ViewModel
     
     @Binding var showingAddCategory: Bool
+    @Binding var showingDefaultCategoriesSelector: Bool
+    @State private var showingCategoryExplanation = false
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 20) {
             HStack {
                 Text("Tap")
                 
                 Button {
                     showingAddCategory = true
                 } label: {
-                    Image(systemName: "plus")
+                    Label("Add Category", systemImage: "plus")
+                        .labelStyle(.iconOnly)
                         .font(.headline)
-                        .foregroundStyle(Color(.defaultAccent))
-                        .frame(width: 50, height: 50)
+                        .padding()
+                        .frame(height: 50)
                         .overlay {
                             RoundedRectangle(cornerRadius: vm.cornerRadius)
                                 .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
                                 .foregroundStyle(Color.secondary)
+                                .opacity(0.5)
                         }
                 }
                 
@@ -36,37 +40,22 @@ struct EmptyCommunicationView: View {
             }
             .font(.title2.bold())
             .accessibilityElement()
-            .accessibilityLabel("Tap the Add Category button to add a category.")
-                
-            Text("Use categories to group phrases by theme, for quick communication.")
-                .foregroundStyle(Color.secondary)
-                .multilineTextAlignment(.center)
+            .accessibilityLabel("Tap Add Category to add your first category.")
             
             VStack {
                 Text("Not sure where to start?")
                     .foregroundStyle(Color.secondary)
+                    .multilineTextAlignment(.center)
                 
-                Button("Add Favorites category") {
-                    addFavoritesCategory()
-                }
+                Button("Use Pre-made Categories") { showingDefaultCategoriesSelector = true }
             }
-            .padding(.top, 40)
+            .font(.subheadline)
         }
-        .frame(width: 300)
-    }
-    
-    func addFavoritesCategory() {
-        let newCategory = PhraseCategory(context: context)
-        newCategory.id = UUID()
-        newCategory.title = "Favorites"
-        newCategory.symbolName = "star.fill"
-        newCategory.displayOrder = 0
-    
-        try? context.save()
+        .padding()
     }
 }
 
 #Preview {
-    EmptyCommunicationView(showingAddCategory: .constant(false))
+    EmptyCommunicationView(showingAddCategory: .constant(false), showingDefaultCategoriesSelector: .constant(false))
         .environmentObject(ViewModel())
 }

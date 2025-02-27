@@ -53,6 +53,9 @@
 		9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E12C4AB99700568B6D /* DraftPhrase.swift */; };
 		9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */; };
 		9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */; };
+		9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */; };
+		9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */; };
+		9EFC29CE2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +107,9 @@
 		9EF689E12C4AB99700568B6D /* DraftPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhrase.swift; sourceTree = "<group>"; };
 		9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhraseView.swift; sourceTree = "<group>"; };
 		9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsCardView.swift; sourceTree = "<group>"; };
+		9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
+		9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategoriesSelectorView.swift; sourceTree = "<group>"; };
+		9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDefaultCategoryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +257,9 @@
 				9ECA2CF32CC6B13B00A46FAB /* InformationItemView.swift */,
 				9E085A052D663120000F4A5A /* PopoverTipView.swift */,
 				9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */,
+				9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */,
+				9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */,
+				9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -369,7 +378,9 @@
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
 				9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */,
 				9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */,
+				9EFC29CE2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift in Sources */,
 				9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */,
+				9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */,
 				9E7FD0E62C9C9FCC004EC298 /* EditCategoryView.swift in Sources */,
 				9EAEE87B2C2319900012D3CC /* CategoriesListView.swift in Sources */,
 				9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */,
@@ -387,6 +398,7 @@
 				9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */,
 				9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */,
 				9E4B46B02A0987B20076367F /* SimpleSpeakApp.swift in Sources */,
+				9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */,
 				9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */,
 				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,
 			);

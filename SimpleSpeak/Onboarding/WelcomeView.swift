@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
+    @EnvironmentObject var onboarding: OnboardingManager
+//    @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
     
     var body: some View {
         VStack(alignment: .center) {
@@ -19,11 +20,11 @@ struct WelcomeView: View {
 //                    .clipShape(RoundedRectangle(cornerRadius: 12))
 //                    .padding(.bottom, 10)
                 
-                Text("Welcome to")
-                
-                Text("SimpleSpeak")
+                Text("Welcome to SimpleSpeak")
+                    .multilineTextAlignment(.center)
+                    .frame(width: 300)
             }
-            .font(.largeTitle.bold())
+            .font(.title.bold())
 
             VStack(alignment: .leading) {
                 InformationItemView(title: "Communicate", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
@@ -36,7 +37,7 @@ struct WelcomeView: View {
             Spacer()
             
             Button {
-                showingWelcomeView = false
+                onboarding.isShowingWelcomeView = false
             } label: {
                 buttonLabel
             }
