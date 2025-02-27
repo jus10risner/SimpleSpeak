@@ -133,7 +133,7 @@ struct DraftCategoryView: View {
 
 private enum SelectableSymbols: String, CaseIterable {
     case
-//    bookmark = "bookmark.fill",
+    bookmark = "bookmark.fill",
     handWave = "hand.wave.fill",
     utensils = "fork.knife",
     books = "books.vertical.fill",
@@ -169,7 +169,6 @@ private enum SelectableSymbols: String, CaseIterable {
     sun = "sun.max.fill",
     moon = "moon.fill",
     star = "star.fill",
-    square = "square.fill",
     circle = "circle.fill",
     triangle = "triangle.fill",
     diamond = "diamond.fill",
