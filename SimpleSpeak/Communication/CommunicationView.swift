@@ -9,10 +9,10 @@ import AVFoundation
 import SwiftUI
 
 struct CommunicationView: View {
-//    @Environment(\.colorScheme) var colorScheme
 //    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
-    @StateObject private var callObserver = CallObserver()
+//    @StateObject private var callObserver = CallObserver()
+    @StateObject var onboarding = OnboardingManager()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
@@ -24,10 +24,11 @@ struct CommunicationView: View {
     @State private var showingAddCategory = false
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
-    @State private var animatingButton = false
+//    @State private var animatingButton = false
+    @State private var showingDefaultCategoriesSelector = false
+    @State private var disableButtonPresses = false
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
-    @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -38,13 +39,15 @@ struct CommunicationView: View {
                 
                 bottomBar
             }
+            .accessibilityHidden(showingTextField ? true : false)
             .animation(.default, value: selectedCategory)
+            .tint(Color(.defaultAccent)) // Prevents buttons from graying out, when onboarding tips are shown
             .ignoresSafeArea(.keyboard)
             .toolbar(.hidden)
-//            .background(Color(.secondarySystemBackground).ignoresSafeArea())
-//            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+            .allowsHitTesting(disableButtonPresses ? false : true)
             .task { await assignCategory() }
 //            .onAppear { haptics.prepare() }
+            .onAppear { onboarding.showWelcome() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }
@@ -55,6 +58,12 @@ struct CommunicationView: View {
                     selectedCategory = nil
                 }
             }
+            .onChange(of: onboarding.currentStep) { newValue in
+                if newValue == .complete {
+                    onboarding.isComplete = true
+                    print("Onboarding complete!")
+                }
+            }
             .onChange(of: recentPhrases.count) { newValue in
                 if newValue == 0 && categories.count > 0 {
                     Task { @MainActor in
@@ -62,14 +71,14 @@ struct CommunicationView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showingWelcomeView, onDismiss: {
-                if #available(iOS 17, *) {
-                    vm.requestPersonalVoiceAccess()
-                }
-            }, content: {
+            .sheet(isPresented: $onboarding.isShowingWelcomeView, onDismiss: continueOnboarding, content: {
                 WelcomeView()
             }).interactiveDismissDisabled()
-            .sheet(isPresented: $showingAddCategory, content: {
+            .sheet(isPresented: $showingDefaultCategoriesSelector, onDismiss: showOnboardingButtonTip, content: {
+                DefaultCategoriesSelectorView()
+                    .presentationDetents([.medium])
+            })
+            .sheet(isPresented: $showingAddCategory, onDismiss: showOnboardingButtonTip, content: {
                 AddCategoryView()
             })
             .sheet(isPresented: $showingAddPhrase, content: {
@@ -78,17 +87,20 @@ struct CommunicationView: View {
             .sheet(item: $phraseToEdit, content: { phrase in
                 EditSavedPhraseView(category: selectedCategory, savedPhrase: phrase, showCancelButton: true)
             })
-            .sheet(isPresented: $showingSettings) {
+            .sheet(isPresented: $showingSettings, content: {
                 SettingsView()
-            }
-            .sheet(isPresented: $showingSavedPhrases) {
+            })
+            .sheet(isPresented: $showingSavedPhrases, onDismiss: showOnboardingButtonTip, content: {
                 CategoriesListView()
-            }
+            })
         }
+        .environmentObject(onboarding)
         .overlay {
             Group {
                 if showingTextField {
                     TextInputView(showingTextField: $showingTextField)
+                } else {
+                    EmptyView()
                 }
             }
             .transition(.move(edge: .bottom))
@@ -106,18 +118,38 @@ struct CommunicationView: View {
         }
     }
     
+    // Begin the onboarding process
+    func continueOnboarding() {
+        if #available(iOS 17, *) {
+            vm.requestPersonalVoiceAccess()
+        }
+        
+        onboarding.currentStep = .multiButton
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            if categories.count > 0 {
+//                onboarding.isShowingMultiButtonTip = true
+//            }
+//        }
+    }
+    
+    // When appropriate, shows a popover tip to explain the MultiButton
+    func showOnboardingButtonTip() {
+        if onboarding.currentStep == .multiButton && categories.count > 0 {
+            disableButtonPresses = true // Prevents popover from causing conflicts with other modals attempting to display
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                onboarding.isShowingMultiButtonTip = true
+            }
+        }
+    }
+    
     private var topBar: some View {
         VStack(spacing: 0) {
-            HStack {
-                if callObserver.isCallActive == true {
-                    callButton
-                }
-                
-                speechSynthesisTextView
-                    .mask(Rectangle())
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 5)
+            speechSynthesisTextView
+                .mask(Rectangle())
+                .padding(.horizontal)
+                .padding(.vertical, 5)
             
             CategorySelectorView(selectedCategory: $selectedCategory, showingAddCategory: $showingAddCategory)
         }
@@ -132,7 +164,7 @@ struct CommunicationView: View {
     private var phraseCards: some View {
         TabView(selection: $selectedCategory) {
             if categories.count == 0 && recentPhrases.count == 0 {
-                EmptyCommunicationView(showingAddCategory: $showingAddCategory)
+                EmptyCommunicationView(showingAddCategory: $showingAddCategory, showingDefaultCategoriesSelector: $showingDefaultCategoriesSelector)
             } else {
                 if recentPhrases.count > 0 {
                     RecentsCardView(phraseToEdit: $phraseToEdit)
@@ -151,12 +183,19 @@ struct CommunicationView: View {
     
     private var bottomBar: some View {
         HStack {
-            managePhrasesButton
+            savedPhrasesButton
             
             Spacer()
             
             MultiButtonView(showingTextField: $showingTextField)
                 .frame(width: 60) // Prevents the view from resizing when the symbols change, during speech synthesis
+                .popover(isPresented: $onboarding.isShowingMultiButtonTip) {
+                    PopoverTipView(symbolName: "sparkles", title: "One-button Control", text: "When idle, this button shows the keyboard; during speech, it controls phrase playback.")
+                        .onDisappear {
+                            onboarding.currentStep = .manageCategory
+                            disableButtonPresses = false
+                        }
+                }
             
             Spacer()
             
@@ -217,42 +256,42 @@ struct CommunicationView: View {
     }
     
     // Toolbar button that toggles the option to send speech synthesis to other parties on a call
-    private var callButton: some View {
-        Button {
-            vm.useDuringCalls.toggle()
-        } label: {
-            Group {
-                if vm.useDuringCalls == true {
-                    Label("Use During Calls", systemImage: "phone.circle.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(Color.white, Color(.defaultAccent))
-                } else {
-                    Label("Use During Calls", systemImage: "speaker.wave.2.circle.fill")
-                        .symbolRenderingMode(.hierarchical)
-                }
-            }
-            .labelStyle(.iconOnly)
-            .font(.title)
-            .background {
-                if vm.useDuringCalls {
-                    Circle()
-                        .stroke(Color(.defaultAccent))
-                        .scaleEffect(animatingButton ? 1.5 : 0.85)
-                        .opacity(animatingButton ? 0 : 1)
-                        .animation(animatingButton ? .easeInOut(duration: 1).repeatForever(autoreverses: false) : .linear(duration: 0), value: animatingButton)
-                }
-            }
-            .onChange(of: vm.synthesizerState) { state in
-                if state == .speaking {
-                    animatingButton = true
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        animatingButton = false
-                    }
-                }
-            }
-        }
-    }
+//    private var callButton: some View {
+//        Button {
+//            vm.useDuringCalls.toggle()
+//        } label: {
+//            Group {
+//                if vm.useDuringCalls == true {
+//                    Label("Use During Calls", systemImage: "phone.circle.fill")
+//                        .symbolRenderingMode(.palette)
+//                        .foregroundStyle(Color.white, Color(.defaultAccent))
+//                } else {
+//                    Label("Use During Calls", systemImage: "speaker.wave.2.circle.fill")
+//                        .symbolRenderingMode(.hierarchical)
+//                }
+//            }
+//            .labelStyle(.iconOnly)
+//            .font(.title)
+//            .background {
+//                if vm.useDuringCalls {
+//                    Circle()
+//                        .stroke(Color(.defaultAccent))
+//                        .scaleEffect(animatingButton ? 1.5 : 0.85)
+//                        .opacity(animatingButton ? 0 : 1)
+//                        .animation(animatingButton ? .easeInOut(duration: 1).repeatForever(autoreverses: false) : .linear(duration: 0), value: animatingButton)
+//                }
+//            }
+//            .onChange(of: vm.synthesizerState) { state in
+//                if state == .speaking {
+//                    animatingButton = true
+//                } else {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+//                        animatingButton = false
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     private var settingsButton: some View {
         Button {
@@ -265,11 +304,11 @@ struct CommunicationView: View {
         }
     }
     
-    private var managePhrasesButton: some View {
+    private var savedPhrasesButton: some View {
         Button {
             showingSavedPhrases = true
         } label: {
-            Label("Manage Phrases", systemImage: "bookmark.circle.fill")
+            Label("Saved Phrases", systemImage: "bookmark.circle.fill")
                 .symbolRenderingMode(.hierarchical)
                 .font(.largeTitle)
                 .labelStyle(.iconOnly)
