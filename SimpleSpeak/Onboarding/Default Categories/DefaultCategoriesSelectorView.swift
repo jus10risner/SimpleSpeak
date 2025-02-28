@@ -13,26 +13,25 @@ struct DefaultCategoriesSelectorView: View {
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
-    let essentials = ["Hello", "Goodbye", "Please", "Thank you", "Sorry", "Excuse me", "Yes", "No", "Maybe", "I don't know", "Help", "Stop"]
-    let places = ["Home", "School", "Work", "Store", "Car", "Bathroom", "Park", "Friend’s house", "Doctor", "Hospital"]
-    let questions = ["What is this?", "Where is it?", "Can I have this?", "What’s your name?", "What’s this?", "What’s happening?", "When is it?", "How are you?", "Why?", "Can you help me?"]
-    let time = ["Now", "Later", "Tomorrow", "Today", "Yesterday", "Wait", "Soon", "I’m ready", "I’m done", "When is it?", "How long?"]
+    let defaultCategories = DefaultCategoryArrays()
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    createDefaultCategory(name: "Essentials", symbolName: "bubble.fill", description: "Phrases for everyday conversation", phrases: essentials)
+                    createDefaultCategory(name: "Essentials", symbolName: "bubble.fill", description: "Phrases for everyday conversation", phrases: defaultCategories.essentials)
                 
-                    createDefaultCategory(name: "Places", symbolName: "map.fill", description: "Names of common locations", phrases: places)
+                    createDefaultCategory(name: "Places", symbolName: "map.fill", description: "Names of common locations", phrases: defaultCategories.places)
                 
-                    createDefaultCategory(name: "Questions", symbolName: "questionmark.bubble.fill", description: "Useful inquiries for everyday life", phrases: questions)
+                    createDefaultCategory(name: "Questions", symbolName: "questionmark.bubble.fill", description: "Useful inquiries for daily life", phrases: defaultCategories.questions)
                     
-                    createDefaultCategory(name: "Time", symbolName: "clock.fill", description: "Past, present, and future descriptions.", phrases: time)
+                    createDefaultCategory(name: "Time", symbolName: "clock.fill", description: "Past, present, and future descriptions", phrases: defaultCategories.time)
                 }
                 .textCase(nil)
             }
             .listRowSpacing(5)
+            .scrollContentBackground(.hidden)
+            .background(Color(.systemGroupedBackground))
             .animation(.easeInOut, value: categories.count)
             .navigationTitle("Add Categories")
             .navigationBarTitleDisplayMode(.inline)
@@ -41,6 +40,21 @@ struct DefaultCategoriesSelectorView: View {
                     Button("Done") { dismiss() }
                 }
             }
+            .onChange(of: categories.count) { _ in
+                if allCategoriesAdded {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+    
+    private var allCategoriesAdded: Bool {
+        let defaultCategoryTitles = ["essentials", "places", "questions", "time"]
+        
+        return defaultCategoryTitles.allSatisfy { title in
+            categories.contains { $0.title.normalized == title }
         }
     }
     
