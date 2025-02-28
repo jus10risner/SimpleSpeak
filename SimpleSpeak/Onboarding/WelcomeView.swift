@@ -8,43 +8,52 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @EnvironmentObject var onboarding: OnboardingManager
+//    @EnvironmentObject var onboarding: OnboardingManager
 //    @AppStorage("showingWelcomeView") var showingWelcomeView: Bool = true
     
     var body: some View {
-        VStack(alignment: .center) {
-           Spacer()
-            
-            VStack {
-//                Image("Primary Icon")
-//                    .clipShape(RoundedRectangle(cornerRadius: 12))
-//                    .padding(.bottom, 10)
+        NavigationStack {
+            VStack(alignment: .center) {
+                Spacer()
                 
-                Text("Welcome to SimpleSpeak")
-                    .multilineTextAlignment(.center)
-                    .frame(width: 300)
-            }
-            .font(.title.bold())
-
-            VStack(alignment: .leading) {
-                InformationItemView(title: "Communicate", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
+                VStack {
+                    //                Image("Primary Icon")
+                    //                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    //                    .padding(.bottom, 10)
+                    
+                    Text("Welcome to SimpleSpeak")
+                        .multilineTextAlignment(.center)
+                        .frame(width: 300)
+                }
+                .font(.title.bold())
                 
-                InformationItemView(title: "Customize", subtitle: "Add and categorize phrases, and speak them with a tap.", imageName: "star.fill")
+                VStack(alignment: .leading) {
+                    InformationItemView(title: "Communicate", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
+                    
+                    InformationItemView(title: "Customize", subtitle: "Add and categorize phrases, and speak them with a tap.", imageName: "star.fill")
+                    
+                    InformationItemView(title: "Connect", subtitle: "Use during phone or FaceTime calls to talk to friends and family.", imageName: "phone.fill")
+                }
                 
-                InformationItemView(title: "Connect", subtitle: "Use during phone or FaceTime calls to talk to friends and family.", imageName: "phone.fill")
+                Spacer()
+                
+                NavigationLink {
+                    CategoriesExplanationView()
+                } label: {
+                    buttonLabel
+                }
+                .buttonStyle(.plain)
+                
+//                Button {
+//                    onboarding.isShowingWelcomeView = false
+//                } label: {
+//                    buttonLabel
+//                }
+//                .buttonStyle(.plain)
             }
-            
-            Spacer()
-            
-            Button {
-                onboarding.isShowingWelcomeView = false
-            } label: {
-                buttonLabel
-            }
-            .buttonStyle(.plain)
+            .interactiveDismissDisabled()
+            .padding(.horizontal)
         }
-        .interactiveDismissDisabled()
-        .padding(.horizontal)
     }
     
     private var buttonLabel: some View {
