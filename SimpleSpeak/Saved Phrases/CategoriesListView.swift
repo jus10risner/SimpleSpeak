@@ -18,6 +18,7 @@ struct CategoriesListView: View {
     @State private var isAddingCategory = false
     @State private var categoryTitle = ""
     @State private var showingDuplicateCategoryAlert = false
+    @State private var showingDefaultCategoriesSelector = false
     
 //    @State private var exportURL: URL?
     
@@ -26,20 +27,7 @@ struct CategoriesListView: View {
             categoryList
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Saved Phrases")
-//                .background(Color(.systemGroupedBackground).ignoresSafeArea())
-//                .scrollDismissesKeyboard(.interactively)
-//                .onAppear {
-//                    if categories.count == 0 {
-//                        addFavoritesCategory()
-//                    }
-//                }
                 .toolbar {
-//                    ToolbarItem(placement: .topBarLeading) {
-//                        Text("Manage Phrases")
-//                            .font(.title2)
-//                            .fontWeight(.heavy)
-//                    }
-                    
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             dismiss()
@@ -70,49 +58,65 @@ struct CategoriesListView: View {
                 .sheet(isPresented: $isAddingCategory, content: {
                     AddCategoryView()
                 })
+                .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
+                    DefaultCategoriesSelectorView()
+                        .presentationDetents([.medium])
+                })
                 .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
                     Button("OK", role: .cancel) { }
                 } message: {
                     Text("This category title already exists. Please select a different title.")
                 }
+                .overlay {
+                    VStack {
+                        Spacer()
+                        
+                        if allCategoriesAdded == false {
+                            Button("Use Pre-made Categories") { showingDefaultCategoriesSelector = true }
+                                .font(.subheadline)
+                        }
+                    }
+                    .padding(.bottom)
+                }
+        }
+    }
+    
+    private var allCategoriesAdded: Bool {
+        let defaultCategoryTitles = ["essentials", "places", "questions", "time"]
+        
+        return defaultCategoryTitles.allSatisfy { title in
+            categories.contains { $0.title.normalized == title }
         }
     }
     
     // List of categories, with navigation links to their respective phrases
-    // ZStacks and clear colors were added, due to jumpy navigation behavior on iOS 16
     private var categoryList: some View {
         List {
             Section("Categories") {
-//                ZStack {
-//                    Color.clear
+                NavigationLink {
+                    SavedPhrasesListView(category: nil)
+                } label: {
+                    Label {
+                        Text("Recents")
+                    } icon: {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .foregroundStyle(Color.secondary)
+                    }
+                }
+                
+                ForEach(categories) { category in
                     NavigationLink {
-                        SavedPhrasesListView(category: nil)
+                        SavedPhrasesListView(category: category)
+                            .navigationTitle(category.title)
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         Label {
-                            Text("Recents")
+                            Text(category.title)
                         } icon: {
-                            Image(systemName: "clock.arrow.circlepath")
+                            Image(systemName: category.symbolName)
                                 .foregroundStyle(Color.secondary)
                         }
                     }
-//                }
-                
-                ForEach(categories) { category in
-//                    ZStack {
-//                        Color.clear
-                        NavigationLink {
-                            SavedPhrasesListView(category: category)
-                                .navigationTitle(category.title)
-                                .navigationBarTitleDisplayMode(.inline)
-                        } label: {
-                            Label {
-                                Text(category.title)
-                            } icon: {
-                                Image(systemName: category.symbolName)
-                                    .foregroundStyle(Color.secondary)
-                            }
-                        }
-//                    }
                 }
                 .onMove { indices, newOffset in
                     move(from: indices, to: newOffset)
@@ -123,45 +127,31 @@ struct CategoriesListView: View {
             Button {
                 isAddingCategory = true
             } label: {
-                HStack(spacing: 3) {
+                HStack {
                     Image(systemName: "plus")
                     
-                    Text("Add Category")
+                    Text("Category")
                 }
-                .accessibilityLabel("Add Category")
-//                .font(.headline)
                 .bold()
-//                .foregroundStyle(Color.white)
-//                .frame(maxWidth: .infinity, minHeight: 44)
-//                .padding()
             }
-//            .buttonStyle(.borderedProminent)
-//            .buttonStyle(.borderless)
-//            .background {
-//                RoundedRectangle(cornerRadius: 10)
-////                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-////                    .foregroundStyle(Color.secondary)
-//                    .foregroundStyle(Color(.defaultAccent))
-////                    .opacity(0.5)
-//            }
-//            .frame(maxWidth: .infinity, minHeight: 44)
+            .accessibilityLabel("Add Category")
             .frame(maxWidth: .infinity)
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
+            
+        #if DEBUG
+            Button(role: .destructive) {
+                for category in categories {
+                    context.delete(category)
+                }
+                try? context.save()
+            } label: {
+                Label("Delete All Categories", systemImage: "trash.fill")
+            }
+        #endif
         }
         .listRowSpacing(vm.listRowSpacing)
     }
-    
-    // Adds a default "Favorites" category
-//    func addFavoritesCategory() {
-//        let newCategory = PhraseCategory(context: context)
-//        newCategory.id = UUID()
-//        newCategory.title = "Favorites"
-//        newCategory.symbolName = "star.fill"
-//        newCategory.displayOrder = 0
-//    
-//        try? context.save()
-//    }
     
     // Persists the order of categories, after moving
     func move(from source: IndexSet, to destination: Int) {
