@@ -10,6 +10,7 @@ import SwiftUI
 struct SavedPhrasesListView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var onboarding: OnboardingManager
     @EnvironmentObject var vm: ViewModel
     
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
@@ -19,7 +20,6 @@ struct SavedPhrasesListView: View {
     @State private var showingAddPhrase = false
     @State private var showingDeleteAlert = false
     @State private var showingEditCategory = false
-    @State private var showingPopover = false
     
     // Custom init, so I can pass in the optional "category" property as a predicate
     init(category: PhraseCategory?) {
@@ -38,6 +38,8 @@ struct SavedPhrasesListView: View {
             if category == nil {
                 Section {
                     recentsPicker
+                } footer: {
+                    Text("Max number of recent phrases to save; oldest phrases will be deleted as new ones are added.")
                 }
             }
             
@@ -73,6 +75,13 @@ struct SavedPhrasesListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .scrollContentBackground(.hidden)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
+        .onAppear {
+            if onboarding.currentStep == .manageCategory && category != nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    onboarding.isShowingManageCategoryTip = true
+                }
+            }
+        }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if category != nil {
@@ -87,11 +96,7 @@ struct SavedPhrasesListView: View {
                 }
             }
             
-//            if category?.title != "Favorites" && category != nil {
             if category != nil {
-//                ToolbarTitleMenu {
-//                    categoryMenu
-//                }
                 ToolbarItem(placement: .principal) {
                     Menu {
                         categoryMenu
@@ -106,8 +111,11 @@ struct SavedPhrasesListView: View {
                                 .symbolRenderingMode(.hierarchical)
                         }
                     }
-                    .popover(isPresented: $showingPopover, attachmentAnchor: .point(.bottom), arrowEdge: .top) {
-                        PopoverTipView(symbolName: "hand.tap.fill", text: "Tap the category name to make changes.")
+                    .allowsHitTesting(onboarding.isShowingManageCategoryTip ? false : true)
+                    .popover(isPresented: $onboarding.isShowingManageCategoryTip) {
+                        PopoverTipView(symbolName: "pencil", title: "Manage Category", text: "Tap the category name to make changes or delete.")
+                            .onDisappear { onboarding.currentStep = .complete }
+                        
                     }
                     .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
                         Button("Delete", role: .destructive) {
@@ -160,14 +168,12 @@ struct SavedPhrasesListView: View {
     private var categoryMenu: some View {
         Group {
             Button {
-                // TODO: Add EditCategoryView
                 showingEditCategory = true
             } label: {
                 Label("Edit Category", systemImage: "pencil")
             }
             
             Button(role: .destructive) {
-                // TODO: Add deleteCategory() method
                 showingDeleteAlert = true
             } label: {
                 Label("Delete Category", systemImage: "trash")
@@ -188,7 +194,7 @@ struct SavedPhrasesListView: View {
                     Text(category == nil ? "No Recents" : "No Phrases")
                         .font(.title2.bold())
                     
-                    Text(category == nil ? "" : "Tap the plus button to add a phrase.")
+                    Text(category == nil ? "Recently-typed phrases will appear here." : "Tap the plus button to add a phrase.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -231,5 +237,6 @@ struct SavedPhrasesListView: View {
 
 #Preview {
     SavedPhrasesListView(category: nil)
+        .environmentObject(OnboardingManager())
         .environmentObject(ViewModel())
 }
