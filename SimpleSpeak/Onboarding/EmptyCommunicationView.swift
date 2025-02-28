@@ -5,18 +5,24 @@
 //  Created by Justin Risner on 2/18/25.
 //
 
+import CoreData
 import SwiftUI
 
 struct EmptyCommunicationView: View {
-    @Environment(\.managedObjectContext) var context
+    @EnvironmentObject var onboarding: OnboardingManager
     @EnvironmentObject var vm: ViewModel
     
     @Binding var showingAddCategory: Bool
     @Binding var showingDefaultCategoriesSelector: Bool
-    @State private var showingCategoryExplanation = false
+    
+    // Properties to track iCloud sync status
+    @State private var iCloudDataImporting = false
+    @State private var publisher = NotificationCenter.default.publisher(for: NSPersistentCloudKitContainer.eventChangedNotification)
     
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
+            
             HStack {
                 Text("Tap")
                 
@@ -36,8 +42,36 @@ struct EmptyCommunicationView: View {
                 Button("Use Pre-made Categories") { showingDefaultCategoriesSelector = true }
             }
             .font(.subheadline)
+            
+            Spacer()
         }
-        .padding()
+        .overlay {
+            VStack {
+                if iCloudDataImporting && onboarding.isComplete == false {
+                    VStack(spacing: 10) {
+                        Text("Checking for iCloud data")
+                            .font(.subheadline)
+                        
+                        ProgressView()
+                    }
+                    .foregroundStyle(Color.secondary)
+                    .padding(.top)
+                }
+                
+                Spacer()
+            }
+        }
+        .onReceive(publisher) { notification in
+            if let userInfo = notification.userInfo {
+                if let event = userInfo["event"] as? NSPersistentCloudKitContainer.Event {
+                    if event.type == .import {
+                      iCloudDataImporting = true
+                    } else {
+                      iCloudDataImporting = false
+                    }
+                 }
+              }
+           }
     }
 }
 

@@ -56,6 +56,9 @@
 		9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */; };
 		9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */; };
 		9EFC29CE2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */; };
+		9EFC29D02D7208F200F3F3A9 /* DefaultCategoryArrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CF2D7208F200F3F3A9 /* DefaultCategoryArrays.swift */; };
+		9EFC29D32D72235700F3F3A9 /* CategoriesExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29D22D72235700F3F3A9 /* CategoriesExplanationView.swift */; };
+		9EFC29D52D72512100F3F3A9 /* AddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29D42D72512100F3F3A9 /* AddCategoryButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +113,9 @@
 		9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
 		9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategoriesSelectorView.swift; sourceTree = "<group>"; };
 		9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDefaultCategoryButton.swift; sourceTree = "<group>"; };
+		9EFC29CF2D7208F200F3F3A9 /* DefaultCategoryArrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategoryArrays.swift; sourceTree = "<group>"; };
+		9EFC29D22D72235700F3F3A9 /* CategoriesExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesExplanationView.swift; sourceTree = "<group>"; };
+		9EFC29D42D72512100F3F3A9 /* AddCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,11 +260,11 @@
 			isa = PBXGroup;
 			children = (
 				9ECA2CF02CC6A1DD00A46FAB /* WelcomeView.swift */,
+				9EFC29D22D72235700F3F3A9 /* CategoriesExplanationView.swift */,
 				9ECA2CF32CC6B13B00A46FAB /* InformationItemView.swift */,
 				9E085A052D663120000F4A5A /* PopoverTipView.swift */,
 				9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */,
-				9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */,
-				9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */,
+				9EFC29D12D7209DC00F3F3A9 /* Default Categories */,
 				9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */,
 			);
 			path = Onboarding;
@@ -280,8 +286,19 @@
 				9EDC1F422C8A06C1005D7780 /* MultiButton.swift */,
 				9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */,
 				9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */,
+				9EFC29D42D72512100F3F3A9 /* AddCategoryButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		9EFC29D12D7209DC00F3F3A9 /* Default Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */,
+				9EFC29CF2D7208F200F3F3A9 /* DefaultCategoryArrays.swift */,
+				9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */,
+			);
+			path = "Default Categories";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,6 +390,7 @@
 				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
+				9EFC29D32D72235700F3F3A9 /* CategoriesExplanationView.swift in Sources */,
 				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
 				9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
@@ -397,6 +415,8 @@
 				9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */,
 				9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */,
 				9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */,
+				9EFC29D02D7208F200F3F3A9 /* DefaultCategoryArrays.swift in Sources */,
+				9EFC29D52D72512100F3F3A9 /* AddCategoryButton.swift in Sources */,
 				9E4B46B02A0987B20076367F /* SimpleSpeakApp.swift in Sources */,
 				9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */,
 				9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */,
