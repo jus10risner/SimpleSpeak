@@ -33,7 +33,7 @@ struct CategorySelectorView: View {
                         categoryButton(category: category, text: category.title, value: value)
                     }
                     
-                    addCategoryButton
+                    AddCategoryButton(action: { showingAddCategory = true })
                         .id(1)
                 }
                 .animation(.easeInOut, value: recentPhrases.count) // Lets the Recents category selector animate in smoothly
@@ -94,24 +94,6 @@ struct CategorySelectorView: View {
         }
         .padding(.vertical)
         .accessibilityLabel(selectedCategory == category ? "\(text), category, selected" : "\(text), category")
-    }
-    
-    private var addCategoryButton: some View {
-        Button {
-            showingAddCategory = true
-        } label: {
-            Label("Add Category", systemImage: "plus")
-                .labelStyle(.iconOnly)
-                .font(.headline)
-                .padding()
-                .frame(height: 50)
-                .overlay {
-                    RoundedRectangle(cornerRadius: vm.cornerRadius)
-                        .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                        .foregroundStyle(Color.secondary)
-                        .opacity(0.5)
-                }
-        }
     }
     
     func scrollToSelectedCategory(category: PhraseCategory?, value: ScrollViewProxy) {

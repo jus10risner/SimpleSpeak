@@ -20,21 +20,7 @@ struct EmptyCommunicationView: View {
             HStack {
                 Text("Tap")
                 
-                Button {
-                    showingAddCategory = true
-                } label: {
-                    Label("Add Category", systemImage: "plus")
-                        .labelStyle(.iconOnly)
-                        .font(.headline)
-                        .padding()
-                        .frame(height: 50)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: vm.cornerRadius)
-                                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                                .foregroundStyle(Color.secondary)
-                                .opacity(0.5)
-                        }
-                }
+                AddCategoryButton(action: { showingAddCategory = true })
                 
                 Text("to add a category")
             }
