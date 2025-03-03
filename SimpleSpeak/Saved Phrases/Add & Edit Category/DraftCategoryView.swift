@@ -134,7 +134,6 @@ struct DraftCategoryView: View {
 private enum SelectableSymbols: String, CaseIterable {
     case
     bookmark = "bookmark.fill",
-    handWave = "hand.wave.fill",
     utensils = "fork.knife",
     books = "books.vertical.fill",
     lanyard = "lanyardcard.fill",
@@ -144,7 +143,10 @@ private enum SelectableSymbols: String, CaseIterable {
     twoPeople = "figure.2.arms.open",
     parentsAndChild = "figure.2.and.child.holdinghands",
     parentAndChild = "figure.and.child.holdinghands",
-    exclamationBubble = "exclamationmark.bubble.fill",
+    handWave = "hand.wave.fill",
+    handRaised = "hand.raised.fill",
+    overlappingBubbles = "bubble.left.and.bubble.right.fill",
+    speechBubble = "bubble.left.fill",
     questionBubble = "questionmark.bubble.fill",
     phone = "phone.fill",
     bankNote = "banknote.fill",
@@ -170,7 +172,5 @@ private enum SelectableSymbols: String, CaseIterable {
     moon = "moon.fill",
     star = "star.fill",
     circle = "circle.fill",
-    triangle = "triangle.fill",
-    diamond = "diamond.fill",
     heart = "heart.fill"
 }
