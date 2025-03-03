@@ -75,6 +75,7 @@ struct SavedPhrasesListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .scrollContentBackground(.hidden)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
+        .allowsHitTesting(onboarding.isShowingManageCategoryTip ? false : true)
         .onAppear {
             if onboarding.currentStep == .manageCategory && category != nil {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -111,7 +112,6 @@ struct SavedPhrasesListView: View {
                                 .symbolRenderingMode(.hierarchical)
                         }
                     }
-                    .allowsHitTesting(onboarding.isShowingManageCategoryTip ? false : true)
                     .popover(isPresented: $onboarding.isShowingManageCategoryTip) {
                         PopoverTipView(symbolName: "pencil", title: "Manage Category", text: "Tap the category name to make changes or delete.")
                             .onDisappear { onboarding.currentStep = .complete }
