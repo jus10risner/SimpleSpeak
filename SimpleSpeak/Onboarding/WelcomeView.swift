@@ -57,7 +57,7 @@ struct WelcomeView: View {
     }
     
     private var buttonLabel: some View {
-        Text("Continue")
+        Text("Next")
             .foregroundColor(.white)
             .font(.headline)
             .padding()

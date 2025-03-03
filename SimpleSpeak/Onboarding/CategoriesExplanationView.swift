@@ -55,7 +55,7 @@ struct CategoriesExplanationView: View {
             Button {
                 onboarding.isShowingWelcomeView = false
             } label: {
-                Text("Got It")
+                Text("Get Started")
                     .foregroundColor(.white)
                     .font(.headline)
                     .padding()
