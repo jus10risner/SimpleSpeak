@@ -31,7 +31,6 @@
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
 		9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */; };
 		9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0F2D1325B700C726D4 /* CardButton.swift */; };
-		9EA9B4382CB8139F00EA55ED /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9B4372CB8139F00EA55ED /* WebView.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
 		9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8762C2313980012D3CC /* CommunicationView.swift */; };
@@ -88,7 +87,6 @@
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
 		9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		9EA1EA0F2D1325B700C726D4 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
-		9EA9B4372CB8139F00EA55ED /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
 		9EAEE8762C2313980012D3CC /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
@@ -170,7 +168,6 @@
 				9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */,
 				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
 				9E418AF32D3168720090D741 /* CallObserver.swift */,
-				9EA9B4372CB8139F00EA55ED /* WebView.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
@@ -404,7 +401,6 @@
 				9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */,
 				9ECA2CF42CC6B13B00A46FAB /* InformationItemView.swift in Sources */,
 				9E7FD0E42C9C9005004EC298 /* AddCategoryView.swift in Sources */,
-				9EA9B4382CB8139F00EA55ED /* WebView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
 				9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */,
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
