@@ -39,7 +39,7 @@ struct EmptyCommunicationView: View {
                     .foregroundStyle(Color.secondary)
                     .multilineTextAlignment(.center)
                 
-                Button("Use Pre-made Categories") { showingDefaultCategoriesSelector = true }
+                Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
             }
             .font(.subheadline)
             

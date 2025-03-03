@@ -19,13 +19,15 @@ struct DefaultCategoriesSelectorView: View {
         NavigationStack {
             List {
                 Section {
-                    createDefaultCategory(name: "Essentials", symbolName: "bubble.fill", description: "Phrases for everyday conversation", phrases: defaultCategories.essentials)
-                
-                    createDefaultCategory(name: "Places", symbolName: "map.fill", description: "Names of common locations", phrases: defaultCategories.places)
-                
-                    createDefaultCategory(name: "Questions", symbolName: "questionmark.bubble.fill", description: "Useful inquiries for daily life", phrases: defaultCategories.questions)
+                    createDefaultCategory(name: "Basics", symbolName: "bubble.left.fill", description: "Phrases for everyday conversation", phrases: defaultCategories.basics)
                     
-                    createDefaultCategory(name: "Time", symbolName: "clock.fill", description: "Past, present, and future descriptions", phrases: defaultCategories.time)
+                    createDefaultCategory(name: "Feelings", symbolName: "heart.fill", description: "Express emotions", phrases: defaultCategories.feelings)
+                    
+                    createDefaultCategory(name: "Health", symbolName: "stethoscope", description: "Discuss medical concerns and needs", phrases: defaultCategories.health)
+                    
+                    createDefaultCategory(name: "Interactions", symbolName: "bubble.left.and.bubble.right.fill", description: "Greetings, conversations, and farewells", phrases: defaultCategories.interactions)
+                    
+                    createDefaultCategory(name: "Requests", symbolName: "hand.raised.fill", description: "Communicate needs and preferences", phrases: defaultCategories.requests)
                 }
                 .textCase(nil)
             }
@@ -33,7 +35,7 @@ struct DefaultCategoriesSelectorView: View {
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground))
             .animation(.easeInOut, value: categories.count)
-            .navigationTitle("Add Categories")
+            .navigationTitle("Default Categories")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -51,7 +53,7 @@ struct DefaultCategoriesSelectorView: View {
     }
     
     private var allCategoriesAdded: Bool {
-        let defaultCategoryTitles = ["essentials", "places", "questions", "time"]
+        let defaultCategoryTitles = ["basics", "feelings", "health", "interactions", "requests"]
         
         return defaultCategoryTitles.allSatisfy { title in
             categories.contains { $0.title.normalized == title }

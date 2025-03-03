@@ -72,7 +72,7 @@ struct CategoriesListView: View {
                         Spacer()
                         
                         if allCategoriesAdded == false {
-                            Button("Use Pre-made Categories") { showingDefaultCategoriesSelector = true }
+                            Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
                                 .font(.subheadline)
                         }
                     }
@@ -82,7 +82,7 @@ struct CategoriesListView: View {
     }
     
     private var allCategoriesAdded: Bool {
-        let defaultCategoryTitles = ["essentials", "places", "questions", "time"]
+        let defaultCategoryTitles = ["basics", "feelings", "health", "interactions", "requests"]
         
         return defaultCategoryTitles.allSatisfy { title in
             categories.contains { $0.title.normalized == title }
