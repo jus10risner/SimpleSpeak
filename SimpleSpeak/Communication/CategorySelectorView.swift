@@ -93,7 +93,7 @@ struct CategorySelectorView: View {
                 
         }
         .padding(.vertical)
-        .accessibilityLabel(selectedCategory == category ? "\(text), category, selected" : "\(text), category")
+        .accessibilityLabel(selectedCategory == category ? "selected, \(text), category" : "\(text), category")
     }
     
     func scrollToSelectedCategory(category: PhraseCategory?, value: ScrollViewProxy) {
