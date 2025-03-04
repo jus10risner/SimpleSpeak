@@ -189,6 +189,7 @@ struct SavedPhrasesListView: View {
                 Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
                 
                 VStack(spacing: 5) {
                     Text(category == nil ? "No Recents" : "No Phrases")
@@ -200,6 +201,8 @@ struct SavedPhrasesListView: View {
                         .multilineTextAlignment(.center)
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilitySortPriority(category == nil ? -1 : 0)
         }
         .ignoresSafeArea()
     }

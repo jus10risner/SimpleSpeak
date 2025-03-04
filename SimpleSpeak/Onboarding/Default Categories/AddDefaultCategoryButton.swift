@@ -34,6 +34,7 @@ struct AddDefaultCategoryButton: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            .accessibilityElement(children: .combine)
         }
     }
 }

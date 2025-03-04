@@ -74,6 +74,7 @@ struct CategoriesListView: View {
                         if allCategoriesAdded == false {
                             Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
                                 .font(.subheadline)
+                                .accessibilitySortPriority(-1)
                         }
                     }
                     .padding(.bottom)
