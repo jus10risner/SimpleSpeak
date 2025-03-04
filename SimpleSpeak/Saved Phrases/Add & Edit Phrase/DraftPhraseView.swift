@@ -20,24 +20,21 @@ struct DraftPhraseView: View {
     @State private var showingDeleteAlert = false
     @State private var showingDuplicateAlert = false
     @State private var hasChanges = false
+    
+    private var placeholder: String { draftPhrase.text.isEmpty ? " " : draftPhrase.text } // Used by phraseField
 
     @FocusState var isInputActive: Bool
     
     var body: some View {
         Form {
             Section {
-                TextField("Phrase", text: $draftPhrase.text, axis: .vertical)
-                    .lineLimit(5)
-                    .focused($isInputActive)
-                    .onAppear {
-                        if isEditing == false {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                                isInputActive = true
-                            }
-                        }
-                    }
+                phraseField
                 
-                TextField("Label (optional)", text: $draftPhrase.label)
+                LabeledContent("Label") {
+                    TextField("Optional", text: $draftPhrase.label, axis: .vertical)
+                        .padding(.leading, 10)
+                        .lineLimit(1)
+                }
             } footer: {
                 Text("Use a label to help quickly identify a longer phrase.")
             }
@@ -101,6 +98,31 @@ struct DraftPhraseView: View {
         }
     }
     
+    // Custom labeled TextField, to work around alignment issues and VoiceOver struggles, both related to the 'axis: .vertical' TextField property
+    private var phraseField: some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text("Phrase")
+                .accessibilityHidden(true)
+            
+            TextField("Required", text: .constant(placeholder), axis: .vertical)
+                .opacity(0)
+                .lineLimit(5)
+                .overlay {
+                    TextField("Required", text: $draftPhrase.text, axis: .vertical)
+                        .padding(.leading, 10)
+                        .accessibilityLabel("Phrase")
+                        .focused($isInputActive)
+                        .onAppear {
+                            if isEditing == false {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                                    isInputActive = true
+                                }
+                            }
+                        }
+                }
+        }
+    }
+    
     private var canSavePhrase: Bool {
         let containsMatchingPhrase = phrases.contains { phrase in
             phrase.category == draftPhrase.category &&
@@ -125,7 +147,7 @@ struct DraftPhraseView: View {
         dismiss()
     }
     
-    // Used to detect changes in draftPhrase's published properties, to determine whether the Save button is enabled
+    // Used with onChange, to detect changes in draftPhrase's published properties, to determine whether the Save button is enabled
     private var draftPhraseData: [String?] {
         return [draftPhrase.text, draftPhrase.label, draftPhrase.category?.description]
     }
