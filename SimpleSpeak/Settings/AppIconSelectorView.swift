@@ -12,7 +12,7 @@ struct AppIconSelectorView: View {
     
     var body: some View {
         List {
-            Section("Select an app icon") {
+            Section {
                 ForEach(AppIcons.allCases, id: \.rawValue) { icon in
                     HStack {
                         Image(decorative: icon.previewImage)
@@ -33,6 +33,12 @@ struct AppIconSelectorView: View {
                         selectedIcon = icon
                         UIApplication.shared.setAlternateIconName(icon.assignedValue)
                     }
+                }
+            } header: {
+                Text("Select an app icon")
+            } footer: {
+                if #available(iOS 18.0, *) {
+                    Text("**Note:** If your system icons are set to the *Dark* theme, only the **Monochrome** option will have an effect.")
                 }
             }
             .textCase(nil)

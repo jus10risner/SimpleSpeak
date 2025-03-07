@@ -38,7 +38,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Speech")
                 } footer: {
-                    Text("Speech will be sent to other participants on calls, but you won't hear it yourself.")
+                    Text("Send speech to other participants on calls (you won't hear the audio yourself).")
                 }
                 
                 Section("Appearance") {
@@ -55,7 +55,6 @@ struct SettingsView: View {
                     } label: {
                         Label("Theme", systemImage: "circle.lefthalf.filled")
                     }
-//                    .pickerStyle(.navigationLink)
                     .onChange(of: vm.appAppearance) { _ in
                         AppearanceController.shared.setAppearance()
                     }
@@ -73,29 +72,30 @@ struct SettingsView: View {
                 Section("More") {
                     contactButton
                     
-                    Button {
-                        // App Store rating link
-                    } label: {
-                        Label("Rate on the App Store", systemImage: "star")
-                    }
-                    
-                    Button {
-                        // ShareLink
-                    } label: {
-                        Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
-                    }
+                    // TODO: Add links to App Store rating & app page
+//                    Button {
+//                        // App Store rating link
+//                    } label: {
+//                        Label("Rate on the App Store", systemImage: "star")
+//                    }
+//                    
+//                    Button {
+//                        // ShareLink
+//                    } label: {
+//                        Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
+//                    }
                 }
                 .buttonStyle(.plain)
+                
+                Text("Version \(AppInfo().version)")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.secondary)
+                    .listRowBackground(Color.clear)
+                    .frame(maxWidth: .infinity)
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Settings")
             .toolbar {
-//                ToolbarItem(placement: .topBarLeading) {
-//                    Text("Settings")
-//                        .font(.title2)
-//                        .fontWeight(.heavy)
-//                }
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
