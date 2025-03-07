@@ -34,17 +34,16 @@ struct EmptyCommunicationView: View {
             .accessibilityElement()
             .accessibilityLabel("Tap Add Category to add your first category.")
             
-            VStack {
-                Text("Not sure where to start?")
-                    .foregroundStyle(Color.secondary)
-                    .multilineTextAlignment(.center)
-                
-                Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
-            }
-            .font(.subheadline)
+            Text("Not sure where to start? Try using default categories. You can always add these later, on the Saved Phrases screen.")
+                .foregroundStyle(Color.secondary)
+                .multilineTextAlignment(.center)
+                .font(.subheadline)
+            
+            Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
             
             Spacer()
         }
+        .frame(width: 300)
         .overlay {
             VStack {
                 if iCloudDataImporting && onboarding.isComplete == false {
