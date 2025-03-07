@@ -38,7 +38,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Speech")
                 } footer: {
-                    Text("Send speech to other participants on calls (you won't hear the audio yourself).")
+                    Text("Send speech to other participants on calls.")
                 }
                 
                 Section("Appearance") {
