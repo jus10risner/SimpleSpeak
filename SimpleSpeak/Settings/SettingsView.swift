@@ -43,7 +43,7 @@ struct SettingsView: View {
                 
                 Section("Appearance") {
                     NavigationLink {
-                        // App Icon selector
+                        AppIconSelectorView()
                     } label: {
                         Label("App Icon", systemImage: "app.badge")
                     }

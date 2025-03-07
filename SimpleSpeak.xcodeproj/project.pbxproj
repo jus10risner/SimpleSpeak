@@ -44,6 +44,7 @@
 		9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D412C21D80D008C7E49 /* DataController.swift */; };
 		9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */; };
 		9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D452C21DA11008C7E49 /* AppearanceController.swift */; };
+		9EDAE1E42D7B669000F26B43 /* AppIconSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAE1E32D7B669000F26B43 /* AppIconSelectorView.swift */; };
 		9EDC1F3A2C82068D005D7780 /* VoicePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F392C82068D005D7780 /* VoicePickerView.swift */; };
 		9EDC1F432C8A06C1005D7780 /* MultiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F422C8A06C1005D7780 /* MultiButton.swift */; };
 		9EDC1F452C8A18D8005D7780 /* TextInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */; };
@@ -100,6 +101,8 @@
 		9ED40D412C21D80D008C7E49 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedPhrase+helper.swift"; sourceTree = "<group>"; };
 		9ED40D452C21DA11008C7E49 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
+		9EDAE1E22D7B635200F26B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9EDAE1E32D7B669000F26B43 /* AppIconSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconSelectorView.swift; sourceTree = "<group>"; };
 		9EDC1F392C82068D005D7780 /* VoicePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicePickerView.swift; sourceTree = "<group>"; };
 		9EDC1F422C8A06C1005D7780 /* MultiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiButton.swift; sourceTree = "<group>"; };
 		9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputButton.swift; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 		9E4B46AE2A0987B20076367F /* SimpleSpeak */ = {
 			isa = PBXGroup;
 			children = (
+				9EDAE1E22D7B635200F26B43 /* Info.plist */,
 				9E085A092D666A63000F4A5A /* SimpleSpeak.entitlements */,
 				9E4B46AF2A0987B20076367F /* SimpleSpeakApp.swift */,
 				9E4B46B12A0987B20076367F /* ContentView.swift */,
@@ -271,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				9EAEE8782C2319380012D3CC /* SettingsView.swift */,
+				9EDAE1E32D7B669000F26B43 /* AppIconSelectorView.swift */,
 				9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */,
 			);
 			path = Settings;
@@ -390,6 +395,7 @@
 				9EFC29D32D72235700F3F3A9 /* CategoriesExplanationView.swift in Sources */,
 				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
 				9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */,
+				9EDAE1E42D7B669000F26B43 /* AppIconSelectorView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
 				9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */,
 				9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */,
@@ -427,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark Monochrome";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -489,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark Monochrome";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -553,6 +561,7 @@
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SimpleSpeak/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -585,6 +594,7 @@
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SimpleSpeak/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
