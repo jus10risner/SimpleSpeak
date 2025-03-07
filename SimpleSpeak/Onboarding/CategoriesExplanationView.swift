@@ -11,6 +11,10 @@ struct CategoriesExplanationView: View {
     @EnvironmentObject var onboarding: OnboardingManager
     @EnvironmentObject var vm: ViewModel
     
+    @State private var showingPhraseButton = false
+    @State private var showingCategoryButton = false
+    @State private var categoryButtonExpanded = false
+    
     var body: some View {
         VStack {
             Spacer()
@@ -28,27 +32,34 @@ struct CategoriesExplanationView: View {
             
                 Text("In SimpleSpeak, *phrases* are words or sentences you can speak with a tap.")
             }
+            .opacity(showingPhraseButton ? 1 : 0)
             
             Spacer().frame(height: 75)
             
             VStack(spacing: 20) {
                 HStack {
                     Image(systemName: "bookmark.fill")
-                        .foregroundStyle(Color(.defaultAccent))
+                        .foregroundStyle(categoryButtonExpanded ? Color(.defaultAccent) : Color.secondary)
                     
-                    Text("Saved")
+                    if categoryButtonExpanded {
+                        Text("Saved")
+                    }
                 }
                 .font(.headline)
+                .foregroundStyle(categoryButtonExpanded ? Color.primary : Color.secondary)
                 .padding()
                 .frame(height: 50)
                 .overlay {
                     RoundedRectangle(cornerRadius: vm.cornerRadius)
-                        .stroke(lineWidth: 2)
+                        .stroke(categoryButtonExpanded ? Color.primary : Color.secondary, lineWidth: 2)
                 }
+                .mask(RoundedRectangle(cornerRadius: vm.cornerRadius))
+                .drawingGroup()
                 .accessibilityHidden(true)
                 
                 Text("You can group these phrases into *categories*, making it easy to find the ones you need quickly.")
             }
+            .opacity(showingCategoryButton ? 1 : 0)
             
             Spacer()
             
@@ -72,6 +83,25 @@ struct CategoriesExplanationView: View {
 //        .padding()
 //        .padding(30)
         .frame(width: 300)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation {
+                    showingPhraseButton = true
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showingCategoryButton = true
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                withAnimation {
+                    categoryButtonExpanded = true
+                }
+            }
+        }
     }
 }
 
