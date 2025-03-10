@@ -31,7 +31,7 @@ struct DefaultCategoriesSelectorView: View {
                     createDefaultCategory(name: "Requests", symbolName: "hand.raised.fill", description: "Communicate needs and preferences", phrases: defaultCategories.requests)
                 } header: {
                     if shouldShowHeader {
-                        Text("You can always add these later in **Saved Phrases**")
+                        Text("You can add these later in **Manage Categories**")
                     }
                 }
                 .textCase(nil)

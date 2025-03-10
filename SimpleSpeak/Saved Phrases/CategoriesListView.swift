@@ -26,7 +26,7 @@ struct CategoriesListView: View {
         NavigationStack {
             categoryList
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Saved Phrases")
+                .navigationTitle("Manage Categories")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -72,7 +72,7 @@ struct CategoriesListView: View {
                         Spacer()
                         
                         if allCategoriesAdded == false {
-                            Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
+                            Button("Add Default Categories") { showingDefaultCategoriesSelector = true }
                                 .font(.subheadline)
                                 .accessibilitySortPriority(-1)
                         }
@@ -93,52 +93,55 @@ struct CategoriesListView: View {
     // List of categories, with navigation links to their respective phrases
     private var categoryList: some View {
         List {
-            Section("Categories") {
+            NavigationLink {
+                SavedPhrasesListView(category: nil)
+            } label: {
+                Label {
+                    Text("Recents")
+                } icon: {
+                    Image(systemName: "clock.arrow.circlepath")
+                        .foregroundStyle(Color.secondary)
+                }
+            }
+            
+            ForEach(categories) { category in
                 NavigationLink {
-                    SavedPhrasesListView(category: nil)
+                    SavedPhrasesListView(category: category)
+                        .navigationTitle(category.title)
+                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     Label {
-                        Text("Recents")
+                        Text(category.title)
                     } icon: {
-                        Image(systemName: "clock.arrow.circlepath")
+                        Image(systemName: category.symbolName)
                             .foregroundStyle(Color.secondary)
                     }
                 }
-                
-                ForEach(categories) { category in
-                    NavigationLink {
-                        SavedPhrasesListView(category: category)
-                            .navigationTitle(category.title)
-                            .navigationBarTitleDisplayMode(.inline)
-                    } label: {
-                        Label {
-                            Text(category.title)
-                        } icon: {
-                            Image(systemName: category.symbolName)
-                                .foregroundStyle(Color.secondary)
-                        }
-                    }
-                }
-                .onMove { indices, newOffset in
-                    move(from: indices, to: newOffset)
-                }
             }
-            .textCase(nil)
+            .onMove { indices, newOffset in
+                move(from: indices, to: newOffset)
+            }
             
             Button {
                 isAddingCategory = true
             } label: {
-                HStack {
-                    Image(systemName: "plus")
-                    
-                    Text("Category")
-                }
-                .bold()
+                Label("Add Category", systemImage: "plus.circle.fill")
             }
-            .accessibilityLabel("Add Category")
-            .frame(maxWidth: .infinity)
-            .listRowInsets(EdgeInsets())
-            .listRowBackground(Color.clear)
+            
+//            Button {
+//                isAddingCategory = true
+//            } label: {
+//                HStack {
+//                    Image(systemName: "plus")
+//                    
+//                    Text("Category")
+//                }
+//                .bold()
+//            }
+//            .accessibilityLabel("Add Category")
+//            .frame(maxWidth: .infinity)
+//            .listRowInsets(EdgeInsets())
+//            .listRowBackground(Color.clear)
             
 //        #if DEBUG
 //            Button(role: .destructive) {

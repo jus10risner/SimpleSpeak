@@ -308,7 +308,7 @@ struct CommunicationView: View {
         Button {
             showingSavedPhrases = true
         } label: {
-            Label("Saved Phrases", systemImage: "bookmark.circle.fill")
+            Label("Manage Categories", systemImage: "bookmark.circle.fill")
                 .symbolRenderingMode(.hierarchical)
                 .font(.largeTitle)
                 .labelStyle(.iconOnly)
