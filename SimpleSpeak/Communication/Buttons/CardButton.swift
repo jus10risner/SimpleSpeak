@@ -11,7 +11,7 @@ struct CardButton: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     @Binding var phraseToEdit: SavedPhrase?
-    let phrase: SavedPhrase
+    @ObservedObject var phrase: SavedPhrase
     
 //    @Namespace var animation
     
@@ -23,6 +23,7 @@ struct CardButton: View {
                 Group {
                     if phrase.label != "" {
                         Text(phrase.label)
+                            .font(isEmoji() ? .largeTitle : .headline)
                     } else {
                         Text(phrase.text)
                     }
@@ -63,6 +64,12 @@ struct CardButton: View {
             }
         }
         .buttonStyle(.plain)
+    }
+    
+    func isEmoji() -> Bool {
+        return phrase.label.contains { character in
+            character.unicodeScalars.contains { $0.properties.isEmoji }
+        }
     }
 }
 
