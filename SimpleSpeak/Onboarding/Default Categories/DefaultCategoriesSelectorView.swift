@@ -20,7 +20,7 @@ struct DefaultCategoriesSelectorView: View {
         NavigationStack {
             List {
                 Section {
-                    createDefaultCategory(name: "Basics", symbolName: "bubble.left.fill", description: "Phrases for everyday conversation", phrases: defaultCategories.basics)
+                    createDefaultCategory(name: "Basics", symbolName: "circle.fill", description: "Phrases for everyday conversation", phrases: defaultCategories.basics)
                     
                     createDefaultCategory(name: "Feelings", symbolName: "heart.fill", description: "Express emotions", phrases: defaultCategories.feelings)
                     
