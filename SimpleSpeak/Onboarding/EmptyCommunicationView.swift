@@ -34,12 +34,13 @@ struct EmptyCommunicationView: View {
             .accessibilityElement()
             .accessibilityLabel("Tap Add Category to add your first category.")
             
-            Text("Not sure where to start? Try using default categories. You can always add these later, on the Saved Phrases screen.")
-                .foregroundStyle(Color.secondary)
-                .multilineTextAlignment(.center)
-                .font(.subheadline)
-            
-            Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
+            VStack {
+                Text("Not sure where to start?")
+                    .foregroundStyle(Color.secondary)
+                    .multilineTextAlignment(.center)
+                
+                Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
+            }
             
             Spacer()
         }

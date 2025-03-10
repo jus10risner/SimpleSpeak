@@ -59,7 +59,7 @@ struct CategoriesListView: View {
                     AddCategoryView()
                 })
                 .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
-                    DefaultCategoriesSelectorView()
+                    DefaultCategoriesSelectorView(shouldShowHeader: false)
                         .presentationDetents([.medium])
                 })
                 .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
@@ -140,16 +140,16 @@ struct CategoriesListView: View {
             .listRowInsets(EdgeInsets())
             .listRowBackground(Color.clear)
             
-        #if DEBUG
-            Button(role: .destructive) {
-                for category in categories {
-                    context.delete(category)
-                }
-                try? context.save()
-            } label: {
-                Label("Delete All Categories", systemImage: "trash.fill")
-            }
-        #endif
+//        #if DEBUG
+//            Button(role: .destructive) {
+//                for category in categories {
+//                    context.delete(category)
+//                }
+//                try? context.save()
+//            } label: {
+//                Label("Delete All Categories", systemImage: "trash.fill")
+//            }
+//        #endif
         }
         .listRowSpacing(vm.listRowSpacing)
     }

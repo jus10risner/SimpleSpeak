@@ -75,7 +75,7 @@ struct CommunicationView: View {
                 WelcomeView()
             }).interactiveDismissDisabled()
             .sheet(isPresented: $showingDefaultCategoriesSelector, onDismiss: showOnboardingButtonTip, content: {
-                DefaultCategoriesSelectorView()
+                DefaultCategoriesSelectorView(shouldShowHeader: true)
                     .presentationDetents([.medium])
             })
             .sheet(isPresented: $showingAddCategory, onDismiss: showOnboardingButtonTip, content: {
