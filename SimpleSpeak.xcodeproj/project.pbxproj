@@ -133,6 +133,8 @@
 		9E213B5C2CA455BA00A3727B /* Unused Files */ = {
 			isa = PBXGroup;
 			children = (
+				9E418AF32D3168720090D741 /* CallObserver.swift */,
+				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
 				9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */,
 				9EDC1F392C82068D005D7780 /* VoicePickerView.swift */,
 				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
@@ -170,8 +172,6 @@
 				9ECA2CF22CC6A1E500A46FAB /* Onboarding */,
 				9EAEE8802C24BB050012D3CC /* ViewModel.swift */,
 				9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */,
-				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
-				9E418AF32D3168720090D741 /* CallObserver.swift */,
 				9E195FD82C260AAC00B37618 /* SafariView.swift */,
 				9ED40D452C21DA11008C7E49 /* AppearanceController.swift */,
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
