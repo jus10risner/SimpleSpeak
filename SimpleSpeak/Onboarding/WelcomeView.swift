@@ -17,9 +17,10 @@ struct WelcomeView: View {
                 Spacer()
                 
                 VStack {
-                    //                Image("Primary Icon")
-                    //                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    //                    .padding(.bottom, 10)
+                    Image("Primary")
+                        .resizable()
+                        .frame(width: 75, height: 75)
+                        .padding(.bottom, 10)
                     
                     Text("Welcome to SimpleSpeak")
                         .multilineTextAlignment(.center)
