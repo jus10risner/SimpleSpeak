@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-//    @StateObject var haptics = HapticsManager()
-    
     var body: some View {
         CommunicationView()
-//            .environmentObject(haptics)
     }
 }
 

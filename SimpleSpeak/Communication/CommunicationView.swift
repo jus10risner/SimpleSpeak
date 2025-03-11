@@ -9,7 +9,6 @@ import AVFoundation
 import SwiftUI
 
 struct CommunicationView: View {
-//    @EnvironmentObject var haptics: HapticsManager
     @EnvironmentObject var vm: ViewModel
 //    @StateObject private var callObserver = CallObserver()
     @StateObject var onboarding = OnboardingManager()
@@ -46,7 +45,6 @@ struct CommunicationView: View {
             .toolbar(.hidden)
             .allowsHitTesting(disableButtonPresses ? false : true)
             .task { await assignCategory() }
-//            .onAppear { haptics.prepare() }
             .onAppear { onboarding.showWelcome() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
@@ -322,6 +320,5 @@ struct CommunicationView: View {
     
     return CommunicationView()
         .environment(\.managedObjectContext, context)
-        .environmentObject(HapticsManager())
         .environmentObject(ViewModel())
 }

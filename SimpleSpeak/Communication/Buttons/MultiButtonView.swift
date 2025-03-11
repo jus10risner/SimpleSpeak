@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MultiButtonView: View {
-//    @EnvironmentObject var manager: HapticsManager
     @EnvironmentObject var vm: ViewModel
     @Binding var showingTextField: Bool
     
