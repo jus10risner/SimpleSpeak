@@ -109,7 +109,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .alert("Could not send mail", isPresented: $showingMailError) {
+        .alert("Mail account not found", isPresented: $showingMailError) {
             Button("OK", role: .cancel) { }
         } message: {
             Text("\nPlease make sure email has been set up on this device, then try again.")
