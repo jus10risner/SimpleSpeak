@@ -72,7 +72,7 @@ struct CommunicationView: View {
             }).interactiveDismissDisabled()
             .sheet(isPresented: $showingDefaultCategoriesSelector, onDismiss: showOnboardingButtonTip, content: {
                 DefaultCategoriesSelectorView(shouldShowHeader: true)
-                    .presentationDetents([.medium])
+                    .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
             .sheet(isPresented: $showingAddCategory, onDismiss: showOnboardingButtonTip, content: {
                 AddCategoryView()
@@ -180,7 +180,7 @@ struct CommunicationView: View {
             MultiButtonView(showingTextField: $showingTextField)
                 .frame(width: 60) // Prevents the view from resizing when the symbols change, during speech synthesis
                 .popover(isPresented: $onboarding.isShowingMultiButtonTip) {
-                    PopoverTipView(symbolName: "sparkles", title: "One-button Control", text: "When idle, this button shows the keyboard; during speech, it controls phrase playback.")
+                    PopoverTipView(symbolName: "sparkles", title: "One-button, Multiple Uses", text: "When idle, this button shows the keyboard; during speech, it controls phrase playback.")
                         .onDisappear {
                             onboarding.currentStep = .manageCategory
                             disableButtonPresses = false

@@ -113,7 +113,7 @@ struct SavedPhrasesListView: View {
                         }
                     }
                     .popover(isPresented: $onboarding.isShowingManageCategoryTip) {
-                        PopoverTipView(symbolName: "pencil", title: "Manage Category", text: "Tap the category name to make changes or delete.")
+                        PopoverTipView(symbolName: "pencil", title: "Modify Category", text: "Tap the category name to make changes or delete.")
                             .onDisappear { onboarding.currentStep = .complete }
                         
                     }

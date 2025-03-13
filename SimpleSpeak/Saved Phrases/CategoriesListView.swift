@@ -43,7 +43,7 @@ struct CategoriesListView: View {
                 })
                 .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
                     DefaultCategoriesSelectorView(shouldShowHeader: false)
-                        .presentationDetents([.medium])
+                        .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
                 })
                 .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
                     Button("OK", role: .cancel) { }
@@ -56,7 +56,6 @@ struct CategoriesListView: View {
                         
                         if allCategoriesAdded == false {
                             Button("Add Default Categories") { showingDefaultCategoriesSelector = true }
-                                .font(.subheadline)
                                 .accessibilitySortPriority(-1)
                         }
                     }
