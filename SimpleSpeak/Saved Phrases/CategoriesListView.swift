@@ -37,6 +37,13 @@ struct CategoriesListView: View {
                         }
                         .buttonStyle(.plain)
                     }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        if allCategoriesAdded == false {
+                            Button("Add Default Categories") { showingDefaultCategoriesSelector = true }
+                                .font(.subheadline)
+                        }
+                    }
                 }
                 .sheet(isPresented: $isAddingCategory, content: {
                     AddCategoryView()
@@ -49,17 +56,6 @@ struct CategoriesListView: View {
                     Button("OK", role: .cancel) { }
                 } message: {
                     Text("This category title already exists. Please select a different title.")
-                }
-                .overlay {
-                    VStack {
-                        Spacer()
-                        
-                        if allCategoriesAdded == false {
-                            Button("Add Default Categories") { showingDefaultCategoriesSelector = true }
-                                .accessibilitySortPriority(-1)
-                        }
-                    }
-                    .padding(.bottom)
                 }
         }
     }
@@ -108,6 +104,7 @@ struct CategoriesListView: View {
                 isAddingCategory = true
             } label: {
                 Label("Add Category", systemImage: "plus.circle.fill")
+                    .symbolRenderingMode(.hierarchical)
             }
         }
         .listRowSpacing(vm.listRowSpacing)
