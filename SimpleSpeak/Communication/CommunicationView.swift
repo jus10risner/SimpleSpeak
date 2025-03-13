@@ -48,11 +48,7 @@ struct CommunicationView: View {
                 lastSelectedCategory = category?.title ?? "Recents"
             }
             .onChange(of: categories.count) { _ in
-                if categories.count > 0 {
-                    selectedCategory = categories.last
-                } else {
-                    selectedCategory = nil
-                }
+                selectedCategory = categories.last ?? nil
             }
             .onChange(of: onboarding.currentStep) { newValue in
                 if newValue == .complete {
