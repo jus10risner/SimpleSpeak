@@ -15,7 +15,7 @@ struct TextInputView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedPhrase.displayOrder, ascending: true)]) var allPhrases: FetchedResults<SavedPhrase>
     
     @State private var text = ""
-    @State private var mostRecentTypedPhrase = ""
+    @State private var repeatableText = ""
     @State private var textFieldOpacity = 1.0
     @Binding var showingTextField: Bool
     
@@ -97,10 +97,10 @@ struct TextInputView: View {
                     textFieldOpacity = 0
                     
                     withAnimation {
-                        text = mostRecentTypedPhrase
+                        text = repeatableText
                     }
                     
-                    Task { await vm.speak(mostRecentTypedPhrase) }
+                    Task { await vm.speak(repeatableText) }
                 }
                 .transition(.opacity.animation(.default))
             }
@@ -130,7 +130,7 @@ struct TextInputView: View {
     // Determines whether the "Clear Text" button should be shown
     private var canClearText: Bool {
         if text != "" && vm.synthesizerState == .inactive {
-            if text != mostRecentTypedPhrase {
+            if text != repeatableText {
                 return true
             } else {
                 return false
@@ -165,7 +165,7 @@ struct TextInputView: View {
     // MARK: - Methods
     
     func dismissKeyboard() {
-        mostRecentTypedPhrase = ""
+        repeatableText = ""
         vm.phraseIsRepeatable = false
         isInputActive = false
         
@@ -204,7 +204,7 @@ struct TextInputView: View {
             
             isInputActive = true
             
-            mostRecentTypedPhrase = text
+            repeatableText = text
         } else {
             text = "" // Clears empty spaces from TextField
             dismissKeyboard()
