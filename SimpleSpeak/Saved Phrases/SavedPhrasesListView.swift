@@ -119,12 +119,9 @@ struct SavedPhrasesListView: View {
                     }
                     .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
                         Button("Delete", role: .destructive) {
-                            if let category {
-                                context.delete(category)
-                            }
-                            try? context.save()
+                            guard let category else { return }
                             
-                            dismiss()
+                            deleteCategory(category)
                         }
                         
                         Button("Cancel", role: .cancel) { }
@@ -205,6 +202,24 @@ struct SavedPhrasesListView: View {
             .accessibilitySortPriority(category == nil ? -1 : 0)
         }
         .ignoresSafeArea()
+    }
+    
+    func deleteCategory(_ category: PhraseCategory) {
+        // Delete any phrases first, to prevent unexpected behavior
+        if let phrases = category.phrases as? Set<SavedPhrase> {
+            for phrase in phrases {
+                context.delete(phrase)
+            }
+        }
+        
+        // After a brief pause, delete the category itself, then save
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            context.delete(category)
+            
+            try? context.save()
+        }
+        
+        dismiss()
     }
     
     func updateRecentsList() {
