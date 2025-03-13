@@ -23,25 +23,11 @@ class ViewModel: NSObject, ObservableObject {
         return synthesizer
     }()
     
-    @AppStorage("useDuringCalls") var useDuringCalls = true {
-        willSet { objectWillChange.send() }
-    }
-    @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? {
-        willSet {
-            Task { @MainActor in
-                objectWillChange.send()
-            }
-        }
-    }
-    @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic {
-        willSet { objectWillChange.send() }
-    }
-    @AppStorage("numberOfRecents") var numberOfRecents: Int = 10 {
-        willSet { objectWillChange.send() }
-    }
-    @AppStorage("cellWidth") var cellWidth: PhraseCellWidthOptions = .small {
-        willSet { objectWillChange.send() }
-    }
+    @AppStorage("useDuringCalls") var useDuringCalls = true // Specifies whether audio is sent to other parties during calls
+    @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? //  Used to set the voice for speech synthesis
+    @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic // Sets the theme for the app (auto, dark, light)
+    @AppStorage("numberOfRecents") var numberOfRecents: Int = 10 // Specifies how many recent phrases to save
+    @AppStorage("cellWidth") var cellWidth: PhraseCellWidthOptions = .small // Sets the width of phrase buttons (small or large)
     
     
     // MARK: - Methods
@@ -89,7 +75,7 @@ class ViewModel: NSObject, ObservableObject {
     }
     
     // Cancels any speech that may be occurring, before speaking the given phrase
-    func cancelAndSpeak(_ text: String) {
+    func speakImmediately(_ text: String) {
         if self.synthesizerState != .inactive {
             Task { await self.cancelSpeaking() }
         }
