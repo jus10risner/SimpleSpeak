@@ -15,12 +15,6 @@ class OnboardingManager: ObservableObject {
     @AppStorage("isShowingMultiButtonTip") var isShowingMultiButtonTip: Bool = false
     @AppStorage("isShowingManageCategoryTip") var isShowingManageCategoryTip: Bool = false
     
-//    @Published var currentStep: OnboardingStep = .welcome
-//    @Published var isComplete: Bool = false
-//    @Published var isShowingWelcomeView: Bool = true
-//    @Published var isShowingMultiButtonTip: Bool = false
-//    @Published var isShowingManageCategoryTip: Bool = false
-    
     func showWelcome() {
         if isComplete == false && currentStep == .welcome {
             self.isShowingWelcomeView = true

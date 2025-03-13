@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CommunicationView: View {
     @EnvironmentObject var vm: ViewModel
-//    @StateObject private var callObserver = CallObserver()
     @StateObject var onboarding = OnboardingManager()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
@@ -23,7 +22,6 @@ struct CommunicationView: View {
     @State private var showingAddCategory = false
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
-//    @State private var animatingButton = false
     @State private var showingDefaultCategoriesSelector = false
     @State private var disableButtonPresses = false
      
@@ -123,12 +121,6 @@ struct CommunicationView: View {
         }
         
         onboarding.currentStep = .multiButton
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            if categories.count > 0 {
-//                onboarding.isShowingMultiButtonTip = true
-//            }
-//        }
     }
     
     // When appropriate, shows a popover tip to explain the MultiButton
@@ -250,46 +242,7 @@ struct CommunicationView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.bottom, 5)
-//        .mask { Rectangle() }
     }
-    
-    // Toolbar button that toggles the option to send speech synthesis to other parties on a call
-//    private var callButton: some View {
-//        Button {
-//            vm.useDuringCalls.toggle()
-//        } label: {
-//            Group {
-//                if vm.useDuringCalls == true {
-//                    Label("Use During Calls", systemImage: "phone.circle.fill")
-//                        .symbolRenderingMode(.palette)
-//                        .foregroundStyle(Color.white, Color(.defaultAccent))
-//                } else {
-//                    Label("Use During Calls", systemImage: "speaker.wave.2.circle.fill")
-//                        .symbolRenderingMode(.hierarchical)
-//                }
-//            }
-//            .labelStyle(.iconOnly)
-//            .font(.title)
-//            .background {
-//                if vm.useDuringCalls {
-//                    Circle()
-//                        .stroke(Color(.defaultAccent))
-//                        .scaleEffect(animatingButton ? 1.5 : 0.85)
-//                        .opacity(animatingButton ? 0 : 1)
-//                        .animation(animatingButton ? .easeInOut(duration: 1).repeatForever(autoreverses: false) : .linear(duration: 0), value: animatingButton)
-//                }
-//            }
-//            .onChange(of: vm.synthesizerState) { state in
-//                if state == .speaking {
-//                    animatingButton = true
-//                } else {
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-//                        animatingButton = false
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     private var settingsButton: some View {
         Button {

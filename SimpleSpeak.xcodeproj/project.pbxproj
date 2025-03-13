@@ -11,7 +11,6 @@
 		9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A052D663120000F4A5A /* PopoverTipView.swift */; };
 		9E085A082D66632B000F4A5A /* MailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A072D66632B000F4A5A /* MailComposeViewController.swift */; };
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
-		9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */; };
 		9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E33BB7E2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld */; };
 		9E418AF42D3168720090D741 /* CallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF32D3168720090D741 /* CallObserver.swift */; };
 		9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */; };
@@ -45,7 +44,6 @@
 		9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D432C21D857008C7E49 /* SavedPhrase+helper.swift */; };
 		9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED40D452C21DA11008C7E49 /* AppearanceController.swift */; };
 		9EDAE1E42D7B669000F26B43 /* AppIconSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAE1E32D7B669000F26B43 /* AppIconSelectorView.swift */; };
-		9EDC1F3A2C82068D005D7780 /* VoicePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F392C82068D005D7780 /* VoicePickerView.swift */; };
 		9EDC1F432C8A06C1005D7780 /* MultiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F422C8A06C1005D7780 /* MultiButton.swift */; };
 		9EDC1F452C8A18D8005D7780 /* TextInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */; };
 		9EDC1F4E2C8F4DDA005D7780 /* MultiButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */; };
@@ -67,7 +65,6 @@
 		9E085A072D66632B000F4A5A /* MailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewController.swift; sourceTree = "<group>"; };
 		9E085A092D666A63000F4A5A /* SimpleSpeak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleSpeak.entitlements; sourceTree = "<group>"; };
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
-		9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalVoiceSettingsView.swift; sourceTree = "<group>"; };
 		9E33BB7F2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleSpeakDataModel.xcdatamodel; sourceTree = "<group>"; };
 		9E418AF32D3168720090D741 /* CallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallObserver.swift; sourceTree = "<group>"; };
 		9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenTextLabel.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		9ED40D452C21DA11008C7E49 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 		9EDAE1E22D7B635200F26B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9EDAE1E32D7B669000F26B43 /* AppIconSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconSelectorView.swift; sourceTree = "<group>"; };
-		9EDC1F392C82068D005D7780 /* VoicePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicePickerView.swift; sourceTree = "<group>"; };
 		9EDC1F422C8A06C1005D7780 /* MultiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiButton.swift; sourceTree = "<group>"; };
 		9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputButton.swift; sourceTree = "<group>"; };
 		9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiButtonView.swift; sourceTree = "<group>"; };
@@ -135,8 +131,6 @@
 			children = (
 				9E418AF32D3168720090D741 /* CallObserver.swift */,
 				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
-				9E213B582CA1DC5300A3727B /* PersonalVoiceSettingsView.swift */,
-				9EDC1F392C82068D005D7780 /* VoicePickerView.swift */,
 				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
 			);
 			path = "Unused Files";
@@ -380,7 +374,6 @@
 				9EDC1F432C8A06C1005D7780 /* MultiButton.swift in Sources */,
 				9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */,
 				9ECA2CF12CC6A1DD00A46FAB /* WelcomeView.swift in Sources */,
-				9EDC1F3A2C82068D005D7780 /* VoicePickerView.swift in Sources */,
 				9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */,
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
 				9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */,
@@ -404,7 +397,6 @@
 				9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */,
 				9E7FD0E62C9C9FCC004EC298 /* EditCategoryView.swift in Sources */,
 				9EAEE87B2C2319900012D3CC /* CategoriesListView.swift in Sources */,
-				9E213B592CA1DC5300A3727B /* PersonalVoiceSettingsView.swift in Sources */,
 				9ECA2CF42CC6B13B00A46FAB /* InformationItemView.swift in Sources */,
 				9E7FD0E42C9C9005004EC298 /* AddCategoryView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
@@ -556,12 +548,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleSpeak/Preview Content\"";
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleSpeak/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleSpeak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -588,12 +582,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleSpeak/Preview Content\"";
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleSpeak/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleSpeak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";

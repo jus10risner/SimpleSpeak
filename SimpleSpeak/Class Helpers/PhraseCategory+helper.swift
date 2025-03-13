@@ -26,13 +26,4 @@ extension PhraseCategory {
         
         try? context.save()
     }
-    
-    // Used for exporting app data
-//    var phrasesArray: [SavedPhrase] {
-//        let set = phrases as? Set<SavedPhrase> ?? []
-//        
-//        return set.sorted {
-//            $0.label < $1.label
-//        }
-//    }
 }

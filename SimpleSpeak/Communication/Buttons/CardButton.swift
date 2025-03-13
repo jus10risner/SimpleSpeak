@@ -13,8 +13,6 @@ struct CardButton: View {
     @Binding var phraseToEdit: SavedPhrase?
     @ObservedObject var phrase: SavedPhrase
     
-//    @Namespace var animation
-    
     var body: some View {
         Button {
             vm.cancelAndSpeak(phrase.text)
@@ -35,18 +33,9 @@ struct CardButton: View {
                 .padding()
                 .frame(height: 100)
             }
-//            .drawingGroup()
-//            .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .background(Color(.tertiarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//            .background {
-//                RoundedRectangle(cornerRadius: vm.cornerRadius)
-//                    .fill(Color(.systemBackground))
-//                    .overlay(RoundedRectangle(cornerRadius: vm.cornerRadius).stroke(lineWidth: 1))
-//            }
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
-//        .matchedGeometryEffect(id: phrase.id, in: animation)
         .contextMenu {
             Button {
                 phraseToEdit = phrase

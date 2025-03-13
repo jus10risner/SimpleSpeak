@@ -44,8 +44,6 @@ struct CategorySelectorView: View {
                     scrollToSelectedCategory(category: category, value: value)
                 }
             }
-//            .background(Color(.secondarySystemBackground))
-//            .frame(maxHeight: 70)
         }
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxHeight: 70)
@@ -83,7 +81,6 @@ struct CategorySelectorView: View {
             .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
             .padding()
             .frame(height: 50)
-//            .background(selectedCategory == category ? Color(.defaultAccent) : Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
             .overlay {
                 RoundedRectangle(cornerRadius: vm.cornerRadius)
                     .stroke(selectedCategory == category ? Color.primary : Color.secondary, lineWidth: 2)

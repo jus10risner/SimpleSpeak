@@ -76,10 +76,7 @@ struct CategoriesExplanationView: View {
                     .padding(.bottom)
             }
         }
-//        .font(.title3)
         .multilineTextAlignment(.center)
-//        .padding()
-//        .padding(30)
         .frame(width: 300)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {

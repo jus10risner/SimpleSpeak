@@ -25,7 +25,6 @@ struct TextInputView: View {
         ZStack {
             Color.black
                 .opacity(0.5)
-//                .overlay(.ultraThinMaterial)
                 .ignoresSafeArea()
                 .onTapGesture {
                     dismissKeyboard()
@@ -40,17 +39,12 @@ struct TextInputView: View {
                     textField
                 }
                 .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-//                .background {
-//                    RoundedRectangle(cornerRadius: vm.cornerRadius)
-//                        .fill(Color(.systemBackground).shadow(.drop(radius: 1)))
-//                }
                 .padding()
                 .background {
                     UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
                         .fill(.ultraThinMaterial).ignoresSafeArea(edges: .bottom)
                 }
             }
-//            .transition(.move(edge: .bottom).animation(.easeInOut))
         }
         .onAppear { isInputActive = true }
     }
@@ -60,7 +54,6 @@ struct TextInputView: View {
     private var textField: some View {
         TextField("What would you like to say?", text: $text, axis: .vertical)
             .opacity(textFieldOpacity)
-//            .textInputAutocapitalization(.never)
             .padding()
             .font(.title3)
             .focused($isInputActive)

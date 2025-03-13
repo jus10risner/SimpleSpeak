@@ -36,9 +36,7 @@ class DataController: ObservableObject {
     
     // Storage for Core Data. Sets the appropriate persistent container.
     lazy var container: NSPersistentCloudKitContainer = {
-//    lazy var container: NSPersistentContainer = {
         container = NSPersistentCloudKitContainer(name: "SimpleSpeakDataModel")
-//        container = NSPersistentContainer(name: "SimpleSpeakDataModel")
         
         guard let description = container.persistentStoreDescriptions.first else {
             fatalError("###\(#function): Failed to retrieve a persistent store description.")
@@ -63,7 +61,6 @@ class DataController: ObservableObject {
         
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         container.viewContext.automaticallyMergesChangesFromParent = true
-//        container.viewContext.undoManager = UndoManager()
         
 //        #if DEBUG
 //        do {

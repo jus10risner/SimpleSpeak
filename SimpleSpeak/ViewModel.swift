@@ -16,7 +16,6 @@ class ViewModel: NSObject, ObservableObject {
     
     let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
-//    let synthesizer = AVSpeechSynthesizer()
     lazy var synthesizer: AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.usesApplicationAudioSession = false // Ducked audio will only return to normal volume with this setting (when speech finishes)
@@ -43,11 +42,6 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("cellWidth") var cellWidth: PhraseCellWidthOptions = .small {
         willSet { objectWillChange.send() }
     }
-    
-//    override init() {
-//        super.init()
-//        self.synthesizer.delegate = self
-//    }
     
     
     // MARK: - Methods

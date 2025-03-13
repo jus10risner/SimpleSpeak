@@ -20,8 +20,6 @@ struct CategoriesListView: View {
     @State private var showingDuplicateCategoryAlert = false
     @State private var showingDefaultCategoriesSelector = false
     
-//    @State private var exportURL: URL?
-    
     var body: some View {
         NavigationStack {
             categoryList
@@ -39,21 +37,6 @@ struct CategoriesListView: View {
                         }
                         .buttonStyle(.plain)
                     }
-                    
-//                    ToolbarItemGroup(placement: .topBarLeading) {
-//                        Button("Export") {
-//                            Task {
-//                                let url = exportCategoriesToFolder(categories: Array(categories))
-//                                DispatchQueue.main.async {
-//                                    exportURL = url
-//                                }
-//                            }
-//                        }
-//                        
-//                        if let exportURL {
-//                            ShareLink(item: exportURL)
-//                        }
-//                    }
                 }
                 .sheet(isPresented: $isAddingCategory, content: {
                     AddCategoryView()
@@ -127,32 +110,6 @@ struct CategoriesListView: View {
             } label: {
                 Label("Add Category", systemImage: "plus.circle.fill")
             }
-            
-//            Button {
-//                isAddingCategory = true
-//            } label: {
-//                HStack {
-//                    Image(systemName: "plus")
-//                    
-//                    Text("Category")
-//                }
-//                .bold()
-//            }
-//            .accessibilityLabel("Add Category")
-//            .frame(maxWidth: .infinity)
-//            .listRowInsets(EdgeInsets())
-//            .listRowBackground(Color.clear)
-            
-//        #if DEBUG
-//            Button(role: .destructive) {
-//                for category in categories {
-//                    context.delete(category)
-//                }
-//                try? context.save()
-//            } label: {
-//                Label("Delete All Categories", systemImage: "trash.fill")
-//            }
-//        #endif
         }
         .listRowSpacing(vm.listRowSpacing)
     }
@@ -173,37 +130,6 @@ struct CategoriesListView: View {
         
         try? context.save()
     }
-    
-//    func exportCategoriesToFolder(categories: [PhraseCategory]) -> URL? {
-//        let fileManager = FileManager.default
-//        let tempDirectoryURL = fileManager.temporaryDirectory
-//        let categoriesFolderURL = tempDirectoryURL.appendingPathComponent("SimpleSpeak Data")
-//        
-//        do {
-//            // Create the categories folder
-//            try fileManager.createDirectory(at: categoriesFolderURL, withIntermediateDirectories: true, attributes: nil)
-//            
-//            for category in categories {
-//                let categoryFolderURL = categoriesFolderURL.appendingPathComponent(category.title)
-//                try fileManager.createDirectory(at: categoryFolderURL, withIntermediateDirectories: true, attributes: nil)
-//                
-//                for phrase in category.phrasesArray {
-//                    let phraseFolderURL = categoryFolderURL.appendingPathComponent(phrase.label)
-//                    try fileManager.createDirectory(at: phraseFolderURL, withIntermediateDirectories: true, attributes: nil)
-//                    
-//                    // Save the phrase text with a custom extension
-//                    let textFileURL = phraseFolderURL.appendingPathComponent("phrase.pipeupapp")
-//                    try phrase.text.write(to: textFileURL, atomically: true, encoding: .utf8)
-//                }
-//            }
-//            
-//            // Return the URL of the exported folder
-//            return categoriesFolderURL
-//        } catch {
-//            print("An error occurred while exporting: \(error)")
-//            return nil
-//        }
-//    }
 }
 
 #Preview {

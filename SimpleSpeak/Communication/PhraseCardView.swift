@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PhraseCardView: View {
-//    @Environment(\.managedObjectContext) var context
     @EnvironmentObject var vm: ViewModel
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
     
@@ -30,7 +29,6 @@ struct PhraseCardView: View {
         ], predicate: predicate, animation: .easeInOut)
     }
     
-//    let columns = [GridItem(.adaptive(minimum: 150), spacing: 5)]
     private var columns: [GridItem] {
         [GridItem(.adaptive(minimum: CGFloat(vm.cellWidth.rawValue)), spacing: 5)]
     }
@@ -44,8 +42,6 @@ struct PhraseCardView: View {
                 
                 addPhraseButton
             }
-//            .padding([.horizontal, .bottom])
-//            .padding(.top, 5)
             .padding()
             .animation(.default, value: category.phrases?.count)
         }
