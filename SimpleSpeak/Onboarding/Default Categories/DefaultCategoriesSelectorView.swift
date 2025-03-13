@@ -10,6 +10,7 @@ import SwiftUI
 struct DefaultCategoriesSelectorView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var vm: ViewModel
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
@@ -36,7 +37,7 @@ struct DefaultCategoriesSelectorView: View {
                 }
                 .textCase(nil)
             }
-            .listRowSpacing(5)
+            .listRowSpacing(vm.listRowSpacing)
             .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground))
             .animation(.easeInOut, value: categories.count)
@@ -102,4 +103,5 @@ struct DefaultCategoriesSelectorView: View {
 
 #Preview {
     DefaultCategoriesSelectorView(shouldShowHeader: true)
+        .environmentObject(ViewModel())
 }
