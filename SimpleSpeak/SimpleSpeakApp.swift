@@ -5,6 +5,7 @@
 //  Created by Justin Risner on 5/8/23.
 //
 
+import AVFoundation
 import SwiftUI
 
 @main
@@ -28,9 +29,9 @@ struct SimpleSpeakApp: App {
         .onChange(of: scenePhase) { _ in
             dataController.save()
         }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .active {
-                Task { await vm.checkSpeechVoice() }
+        .onChange(of: AVSpeechSynthesisVoice.speechVoices().count) { newPhase in
+            Task { @MainActor in
+                await vm.checkSpeechVoice()
             }
         }
     }

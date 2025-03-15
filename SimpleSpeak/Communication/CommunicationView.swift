@@ -42,7 +42,13 @@ struct CommunicationView: View {
             .ignoresSafeArea(.keyboard)
             .toolbar(.hidden)
             .allowsHitTesting(disableButtonPresses ? false : true)
-            .task { await assignCategory() }
+            .task {
+                await assignCategory()
+                
+                if onboarding.currentStep != .welcome { // Ensures that this method doesn't interfere with fetching Personal Voice
+                    await vm.checkSpeechVoice()
+                }
+            }
             .onAppear { onboarding.showWelcome() }
             .onChange(of: selectedCategory) { category in
                 lastSelectedCategory = category?.title ?? "Recents"
@@ -114,6 +120,10 @@ struct CommunicationView: View {
     func continueOnboarding() {
         if #available(iOS 17, *) {
             vm.requestPersonalVoiceAccess()
+        } else {
+            Task {
+               await vm.checkSpeechVoice()
+            }
         }
         
         onboarding.currentStep = .multiButton
