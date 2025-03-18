@@ -512,11 +512,12 @@
 		9E4B46BB2A0987B30076367F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark \"Monochrome Dark\" \"Monochrome Light\"";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleSpeak/Preview Content\"";
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
@@ -546,11 +547,12 @@
 		9E4B46BC2A0987B30076367F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark \"Monochrome Dark\" \"Monochrome Light\"";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleSpeak/Preview Content\"";
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;

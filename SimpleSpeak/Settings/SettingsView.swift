@@ -13,6 +13,8 @@ struct SettingsView: View {
     @EnvironmentObject var vm: ViewModel
     
     @State private var showingMailError = false
+    let appStoreURL: URL = URL(string: "https://apps.apple.com/app/id6743131751")!
+    let ratingURL: URL = URL(string: "https://apps.apple.com/app/id6743131751?action=write-review")!
     
     var body: some View {
         NavigationStack {
@@ -72,18 +74,13 @@ struct SettingsView: View {
                 Section("More") {
                     contactButton
                     
-                    // TODO: Add links to App Store rating & app page
-//                    Button {
-//                        // App Store rating link
-//                    } label: {
-//                        Label("Rate on the App Store", systemImage: "star")
-//                    }
-//                    
-//                    Button {
-//                        // ShareLink
-//                    } label: {
-//                        Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
-//                    }
+                    Link(destination: ratingURL) {
+                        Label("Rate on the App Store", systemImage: "star")
+                    }
+//
+                    ShareLink(item: appStoreURL) {
+                        Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
+                    }
                 }
                 .buttonStyle(.plain)
                 
