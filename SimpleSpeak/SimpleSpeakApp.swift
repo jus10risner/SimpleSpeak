@@ -29,8 +29,9 @@ struct SimpleSpeakApp: App {
         .onChange(of: scenePhase) { _ in
             dataController.save()
         }
-        .onChange(of: AVSpeechSynthesisVoice.speechVoices().count) { newPhase in
+        .onChange(of: AVSpeechSynthesisVoice.speechVoices().count) { _ in
             Task { @MainActor in
+                try await Task.sleep(for: .seconds(0.5))
                 await vm.checkSpeechVoice()
             }
         }
