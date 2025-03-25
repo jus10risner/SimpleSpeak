@@ -15,7 +15,7 @@
 When a close relative lost the ability to speak, I wanted to do something to help restore their ability to communicate. I learned about Apple's AVSpeechSynthesizer framework and built a very simple app that converted typed text into speech, which became the foundation of SimpleSpeak.
 
 <br>
-After finishing my first app, [Socket](github.io/jus10risner/socket), I returned to my text-to-speech app and decided to expand it into a more comprehensive tool to help anyone who struggles to communicate. Leveraging my background in user experience design and growing software development skills, I built an app that gives a voice to those who have lost theirs.
+After finishing my first app, Socket, I returned to my text-to-speech app and decided to expand it into a more comprehensive tool to help anyone who struggles to communicate. Leveraging my background in user experience design and growing software development skills, I built an app that gives a voice to those who have lost theirs.
 
 
 ## Features
