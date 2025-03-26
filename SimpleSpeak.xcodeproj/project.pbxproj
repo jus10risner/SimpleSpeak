@@ -12,14 +12,11 @@
 		9E085A082D66632B000F4A5A /* MailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A072D66632B000F4A5A /* MailComposeViewController.swift */; };
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E33BB7E2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld */; };
-		9E418AF42D3168720090D741 /* CallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF32D3168720090D741 /* CallObserver.swift */; };
 		9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */; };
 		9E4B46B02A0987B20076367F /* SimpleSpeakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46AF2A0987B20076367F /* SimpleSpeakApp.swift */; };
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
-		9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F1F2C5BDDF700E6CAC5 /* TextScanner.swift */; };
-		9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */; };
 		9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */; };
 		9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */; };
 		9E68DA202CE7E82E0002277F /* VoiceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */; };
@@ -28,7 +25,6 @@
 		9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */; };
 		9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
-		9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */; };
 		9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0F2D1325B700C726D4 /* CardButton.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
@@ -66,15 +62,12 @@
 		9E085A092D666A63000F4A5A /* SimpleSpeak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleSpeak.entitlements; sourceTree = "<group>"; };
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9E33BB7F2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleSpeakDataModel.xcdatamodel; sourceTree = "<group>"; };
-		9E418AF32D3168720090D741 /* CallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallObserver.swift; sourceTree = "<group>"; };
 		9E418AF72D36DB7F0090D741 /* SpokenTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenTextLabel.swift; sourceTree = "<group>"; };
 		9E4B46AC2A0987B20076367F /* SimpleSpeak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleSpeak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4B46AF2A0987B20076367F /* SimpleSpeakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSpeakApp.swift; sourceTree = "<group>"; };
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E4B46B32A0987B30076367F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E4B46B62A0987B30076367F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9E503F1F2C5BDDF700E6CAC5 /* TextScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScanner.swift; sourceTree = "<group>"; };
-		9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScannerView.swift; sourceTree = "<group>"; };
 		9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavedPhraseView.swift; sourceTree = "<group>"; };
 		9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSavedPhraseView.swift; sourceTree = "<group>"; };
 		9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSelectionView.swift; sourceTree = "<group>"; };
@@ -83,7 +76,6 @@
 		9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategory.swift; sourceTree = "<group>"; };
 		9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategoryView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
-		9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		9EA1EA0F2D1325B700C726D4 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
@@ -126,16 +118,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9E213B5C2CA455BA00A3727B /* Unused Files */ = {
-			isa = PBXGroup;
-			children = (
-				9E418AF32D3168720090D741 /* CallObserver.swift */,
-				9EA1EA0D2D11D30600C726D4 /* HapticsManager.swift */,
-				9E503F232C5BDE6100E6CAC5 /* Text Scanner */,
-			);
-			path = "Unused Files";
-			sourceTree = "<group>";
-		};
 		9E4B46A32A0987B20076367F = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +153,6 @@
 				9ED40D412C21D80D008C7E49 /* DataController.swift */,
 				9EF689DF2C4AAAC500568B6D /* AppInfo.swift */,
 				9E085A072D66632B000F4A5A /* MailComposeViewController.swift */,
-				9E213B5C2CA455BA00A3727B /* Unused Files */,
 				9E33BB7E2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld */,
 				9E4B46B32A0987B30076367F /* Assets.xcassets */,
 				9E4B46B52A0987B30076367F /* Preview Content */,
@@ -185,15 +166,6 @@
 				9E4B46B62A0987B30076367F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		9E503F232C5BDE6100E6CAC5 /* Text Scanner */ = {
-			isa = PBXGroup;
-			children = (
-				9E503F1F2C5BDDF700E6CAC5 /* TextScanner.swift */,
-				9E503F212C5BDE4B00E6CAC5 /* TextScannerView.swift */,
-			);
-			path = "Text Scanner";
 			sourceTree = "<group>";
 		};
 		9E7FD0EB2C9CA6CC004EC298 /* Add & Edit Phrase */ = {
@@ -368,7 +340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */,
-				9E418AF42D3168720090D741 /* CallObserver.swift in Sources */,
 				9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */,
 				9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */,
 				9EDC1F432C8A06C1005D7780 /* MultiButton.swift in Sources */,
@@ -386,7 +357,6 @@
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
 				9EFC29D32D72235700F3F3A9 /* CategoriesExplanationView.swift in Sources */,
-				9E503F222C5BDE4B00E6CAC5 /* TextScannerView.swift in Sources */,
 				9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */,
 				9EDAE1E42D7B669000F26B43 /* AppIconSelectorView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
@@ -400,7 +370,6 @@
 				9ECA2CF42CC6B13B00A46FAB /* InformationItemView.swift in Sources */,
 				9E7FD0E42C9C9005004EC298 /* AddCategoryView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
-				9E503F202C5BDDF700E6CAC5 /* TextScanner.swift in Sources */,
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
 				9EDC1F4E2C8F4DDA005D7780 /* MultiButtonView.swift in Sources */,
 				9E085A042D64D7AB000F4A5A /* EmptyCommunicationView.swift in Sources */,
@@ -413,7 +382,6 @@
 				9EFC29D52D72512100F3F3A9 /* AddCategoryButton.swift in Sources */,
 				9E4B46B02A0987B20076367F /* SimpleSpeakApp.swift in Sources */,
 				9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */,
-				9EA1EA0E2D11D30600C726D4 /* HapticsManager.swift in Sources */,
 				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,11 +512,12 @@
 		9E4B46BB2A0987B30076367F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark \"Monochrome Dark\" \"Monochrome Light\"";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleSpeak/Preview Content\"";
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
@@ -566,7 +535,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = risner.justin.SimpleSpeak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -578,11 +547,12 @@
 		9E4B46BC2A0987B30076367F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark \"Monochrome Dark\" \"Monochrome Light\"";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleSpeak/Preview Content\"";
 				DEVELOPMENT_TEAM = X8A236JXFT;
 				ENABLE_PREVIEWS = YES;
@@ -600,7 +570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = risner.justin.SimpleSpeak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -12,7 +12,7 @@ struct AppIconSelectorView: View {
     
     var body: some View {
         List {
-            Section {
+            Section("Select an app icon") {
                 ForEach(AppIcons.allCases, id: \.rawValue) { icon in
                     HStack {
                         Image(decorative: icon.previewImage)
@@ -34,12 +34,6 @@ struct AppIconSelectorView: View {
                         UIApplication.shared.setAlternateIconName(icon.assignedValue)
                     }
                 }
-            } header: {
-                Text("Select an app icon")
-            } footer: {
-                if #available(iOS 18.0, *) {
-                    Text("**Note:** If your system icons are set to the *Dark* theme, only the **Monochrome** option will have an effect.")
-                }
             }
             .textCase(nil)
         }
@@ -59,7 +53,7 @@ struct AppIconSelectorView: View {
 }
 
 enum AppIcons: String, CaseIterable {
-    case appIcon = "Primary", dark = "Dark", light = "Light", monochrome = "Monochrome"
+    case appIcon = "Primary", dark = "Dark", light = "Light", monochromeDark = "Monochrome Dark", monochromeLight = "Monochrome Light"
     
     // Determines whether to use the default icon or an alternate version
     var assignedValue: String? {
@@ -79,8 +73,10 @@ enum AppIcons: String, CaseIterable {
             return "Dark"
         case .light:
             return "Light"
-        case .monochrome:
-            return "Monochrome"
+        case .monochromeDark:
+            return "Monochrome Dark"
+        case .monochromeLight:
+            return "Monochrome Light"
         }
     }
 }

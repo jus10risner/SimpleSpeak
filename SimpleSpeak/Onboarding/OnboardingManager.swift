@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 class OnboardingManager: ObservableObject {
     @AppStorage("currentStep") var currentStep: OnboardingStep = .welcome
     @AppStorage("isComplete") var isComplete: Bool = false
