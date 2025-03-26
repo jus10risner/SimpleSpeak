@@ -86,7 +86,7 @@ class ViewModel: NSObject, ObservableObject {
     func checkSpeechVoice() async {
         if !AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.identifier == self.selectedVoiceIdentifier }) {
             let languageCode = AVSpeechSynthesisVoice.currentLanguageCode()
-            
+
             if let defaultVoice = AVSpeechSynthesisVoice(language: languageCode) {
                 let defaultVoiceIdentifier = defaultVoice.identifier
                 
@@ -104,6 +104,7 @@ class ViewModel: NSObject, ObservableObject {
                 let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
                 
                 self.selectedVoiceIdentifier = personalVoices.first?.identifier
+
             } else {
                 Task {
                     await self.checkSpeechVoice()

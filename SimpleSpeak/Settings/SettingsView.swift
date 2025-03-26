@@ -77,7 +77,7 @@ struct SettingsView: View {
                     Link(destination: ratingURL) {
                         Label("Rate on the App Store", systemImage: "star")
                     }
-//
+                  
                     ShareLink(item: appStoreURL) {
                         Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
                     }
