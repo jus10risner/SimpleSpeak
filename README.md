@@ -3,7 +3,7 @@
   <h1>SimpleSpeak AAC</h1>
   <p>Communicate quickly and easily, with this intuitive app that lets users save and organize phrases, then speak them with a tap.</p>
 
-  <img src='https://github.com/jus10risner/jus10risner.github.io/docs/assets/simplespeak-site-image1.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/docs/assets/simplespeak-site-image2.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/docs/assets/simplespeak-site-image3.png?raw=true' height='500'>
+  <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image1.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image2.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image3.png?raw=true' height='500'>
 
   <a href="https://apps.apple.com/app/id6743131751">
     <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1276560000&h=7e7b68fad19738b5649a1bfb78ff46e9"
