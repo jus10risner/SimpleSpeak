@@ -25,7 +25,7 @@ class DataController: ObservableObject {
     
     // MARK: - Initializer
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "SocketDataModel")
+        container = NSPersistentCloudKitContainer(name: "SimpleSpeakDataModel")
 
         if inMemory {
             // Preview / unit test store
@@ -43,7 +43,7 @@ class DataController: ObservableObject {
 
         if !inMemory, FileManager.default.ubiquityIdentityToken != nil {
             description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
-                containerIdentifier: "iCloud.risner.justin.SocketCD"
+                containerIdentifier: "iCloud.risner.justin.SimpleSpeak"
             )
         } else if !inMemory {
             description.cloudKitContainerOptions = nil
