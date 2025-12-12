@@ -27,6 +27,7 @@ struct CardButton: View {
                     }
                 }
                 .font(.headline)
+                .foregroundStyle(Color.primary)
                 .minimumScaleFactor(0.9)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
@@ -52,7 +53,6 @@ struct CardButton: View {
                 Label("Delete Phrase", systemImage: "trash")
             }
         }
-        .buttonStyle(.plain)
     }
     
     func isEmoji() -> Bool {
