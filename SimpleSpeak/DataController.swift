@@ -15,93 +15,78 @@ class DataController: ObservableObject {
     // Properties to be passed to other views, for toggling
     var isShowingDataError: Bool = false
 
-    // A test configuration for SwiftUI previews
-    static var preview: DataController = {
-        let controller = DataController(inMemory: true)
-        let viewContext = controller.container.viewContext
-        
-        // Create example phrase.
-        let phrase = SavedPhrase(context: viewContext)
-        phrase.text = "Hello, my name is John"
+    // MARK: - Persistent container
+    let container: NSPersistentCloudKitContainer
 
-        return controller
-    }()
+    // MARK: - Preview / Unit Test instances
+    static let preview: DataController = DataController(inMemory: true)
+
+    static let unitTest: DataController = DataController(inMemory: true)
     
-    // A configuration, specifically for use in unit tests
-//    static let unitTest: DataController = {
-//        let controller = DataController(inMemory: true)
-//        // empty data store
-//        return controller
-//    }()
-    
-    // Storage for Core Data. Sets the appropriate persistent container.
-    lazy var container: NSPersistentCloudKitContainer = {
-        container = NSPersistentCloudKitContainer(name: "SimpleSpeakDataModel")
-        
-        guard let description = container.persistentStoreDescriptions.first else {
-            fatalError("###\(#function): Failed to retrieve a persistent store description.")
+    // MARK: - Initializer
+    init(inMemory: Bool = false) {
+        container = NSPersistentCloudKitContainer(name: "SocketDataModel")
+
+        if inMemory {
+            // Preview / unit test store
+            let description = NSPersistentStoreDescription()
+            description.url = URL(fileURLWithPath: "/dev/null")
+            container.persistentStoreDescriptions = [description]
         }
+
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("Failed to retrieve persistent store description")
+        }
+
         description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
-        
-        if cloudContainerAvailable == true {
-            description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.risner.justin.SimpleSpeak")
-        } else {
+
+        if !inMemory, FileManager.default.ubiquityIdentityToken != nil {
+            description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
+                containerIdentifier: "iCloud.risner.justin.SocketCD"
+            )
+        } else if !inMemory {
             description.cloudKitContainerOptions = nil
+            print("⚠️ CloudKit unavailable — using local store only")
         }
 
-        container.loadPersistentStores { description, error in
-            if let error = error as NSError? {
-                self.isShowingDataError = true
-                print("Unresolved error: \(error.localizedDescription), \(error.userInfo)")
+        // ✅ Load store synchronously so local data is immediately available
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error {
+                print("❌ Failed to load persistent store:", error)
             } else {
-                print("Loaded Core Data!")
+                print("✅ Loaded persistent store: \(storeDescription.url?.absoluteString ?? "")")
             }
         }
-        
+
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         container.viewContext.automaticallyMergesChangesFromParent = true
-        
-//        #if DEBUG
-//        do {
-//            // Use the container to initialize the development schema.
-//            try container.initializeCloudKitSchema(options: [])
-//        } catch {
-//            // Handle any errors.
-//            print("Unable to initialize CloudKit schema: \(error.localizedDescription)")
-//        }
-//        #endif
-        
-        return container
-    }()
-    
-    // An initializer to load Core Data, optionally able to use an in-memory store.
-    init(inMemory: Bool = false) {
-        if inMemory {
-            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+
+        // Async CloudKit schema initialization for debug
+        #if DEBUG
+        if description.cloudKitContainerOptions != nil {
+            Task {
+                do {
+                    try container.initializeCloudKitSchema(options: [])
+                    print("✅ CloudKit schema initialized")
+                } catch {
+                    print("❌ Unable to initialize CloudKit schema:", error)
+                }
+            }
         }
-    }
-    
-    // Checks to see if an iCloud container is available on the device
-    var cloudContainerAvailable: Bool {
-        if let _ = FileManager.default.ubiquityIdentityToken {
-            return true
-        } else {
-            return false
-        }
+        #endif
     }
     
     // If there are any changes, attempt to save
     func save() {
         let context = container.viewContext
-
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch let error {
-                self.isShowingDataError = true
-                print("Error: \(error.localizedDescription)")
-            }
+        guard context.hasChanges else { return }
+        
+        do {
+            try context.save()
+        } catch let error {
+            self.isShowingDataError = true
+            print("⚠️ Failed to save Core Data context: \(error.localizedDescription)")
         }
     }
 }
