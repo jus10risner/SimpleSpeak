@@ -46,7 +46,7 @@ struct DraftCategoryView: View {
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .scrollDismissesKeyboard(.interactively)
-        .onChange(of: draftCategoryData) { _ in
+        .onChange(of: draftCategoryData) {
             hasChanges = true
         }
         .toolbar {

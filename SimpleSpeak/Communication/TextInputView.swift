@@ -58,7 +58,7 @@ struct TextInputView: View {
             .font(.title3)
             .focused($isInputActive)
             .submitLabel(.send)
-            .onChange(of: text) { newValue in
+            .onChange(of: text) { _, newValue in
                 // Serves as a replacement for onSubmit, when a vertical axis is used on TextField
                 guard newValue.contains("\n") else { return }
                 text = newValue.replacingOccurrences(of: "\n", with: "")
@@ -68,7 +68,7 @@ struct TextInputView: View {
                 // Serves to keep TextField focused if a hardware keyboard is used
                 Task { await submitAndAddRecent() }
             }
-            .onChange(of: vm.synthesizerState) { state in
+            .onChange(of: vm.synthesizerState) { _, state in
                 if state == .inactive {
                     withAnimation {
                         textFieldOpacity = 1

@@ -48,7 +48,7 @@ struct DefaultCategoriesSelectorView: View {
                     Button("Done") { dismiss() }
                 }
             }
-            .onChange(of: categories.count) { _ in
+            .onChange(of: categories.count) {
                 if allCategoriesAdded {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         dismiss()

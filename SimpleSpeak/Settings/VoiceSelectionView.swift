@@ -88,7 +88,7 @@ struct VoiceSelectionView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         })
         .task { await loadVoices() }
-        .onChange(of: scenePhase) { newValue in
+        .onChange(of: scenePhase) { _, newValue in
             // Updates the list of voices, in case a user adds/deletes/modifies a speech synthesis voice in the Settings app
             if newValue == .active {
                 Task { await loadVoices() }

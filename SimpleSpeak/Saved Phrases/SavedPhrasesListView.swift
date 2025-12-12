@@ -131,7 +131,7 @@ struct SavedPhrasesListView: View {
                 }
             }
         }
-        .onChange(of: vm.numberOfRecents) { _ in
+        .onChange(of: vm.numberOfRecents) {
             withAnimation {
                 updateRecentsList()
             }

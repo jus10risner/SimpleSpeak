@@ -39,7 +39,7 @@ struct CategorySelectorView: View {
                 .animation(.easeInOut, value: recentPhrases.count) // Lets the Recents category selector animate in smoothly
                 .padding(.horizontal)
             }
-            .onChange(of: selectedCategory) { category in
+            .onChange(of: selectedCategory) { _, category in
                 withAnimation {
                     scrollToSelectedCategory(category: category, value: value)
                 }
@@ -47,7 +47,7 @@ struct CategorySelectorView: View {
         }
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxHeight: 70)
-        .onChange(of: Array(recentPhrases)) { _ in
+        .onChange(of: Array(recentPhrases)) {
             // Selects the first category that contains phrases, when the last phrase is removed from Recents
             if recentPhrases.isEmpty {
                 selectedCategory = categories.first(where: { $0.phrases?.count != 0 })

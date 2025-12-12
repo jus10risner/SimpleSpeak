@@ -26,10 +26,10 @@ struct SimpleSpeakApp: App {
                 .environmentObject(vm)
                 .task { AppearanceController.shared.setAppearance() }
         }
-        .onChange(of: scenePhase) { _ in
+        .onChange(of: scenePhase) {
             dataController.save()
         }
-        .onChange(of: AVSpeechSynthesisVoice.speechVoices().count) { _ in
+        .onChange(of: AVSpeechSynthesisVoice.speechVoices().count) {
             Task { @MainActor in
                 try await Task.sleep(for: .seconds(0.5))
                 await vm.checkSpeechVoice()

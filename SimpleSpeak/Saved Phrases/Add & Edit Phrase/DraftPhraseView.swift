@@ -62,7 +62,7 @@ struct DraftPhraseView: View {
             }
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
-        .onChange(of: draftPhraseData) { _ in
+        .onChange(of: draftPhraseData) {
             hasChanges = true
         }
         .toolbar {

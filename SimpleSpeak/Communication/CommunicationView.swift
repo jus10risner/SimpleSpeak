@@ -50,19 +50,19 @@ struct CommunicationView: View {
                 }
             }
             .onAppear { onboarding.showWelcome() }
-            .onChange(of: selectedCategory) { category in
+            .onChange(of: selectedCategory) { _, category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }
-            .onChange(of: categories.count) { _ in
+            .onChange(of: categories.count) {
                 selectedCategory = categories.last ?? nil
             }
-            .onChange(of: onboarding.currentStep) { newValue in
+            .onChange(of: onboarding.currentStep) { _, newValue in
                 if newValue == .complete {
                     onboarding.isComplete = true
                     print("Onboarding complete!")
                 }
             }
-            .onChange(of: recentPhrases.count) { newValue in
+            .onChange(of: recentPhrases.count) { _, newValue in
                 if newValue == 0 && categories.count > 0 {
                     Task { @MainActor in
                         selectedCategory = categories.first
