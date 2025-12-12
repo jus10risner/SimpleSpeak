@@ -71,7 +71,7 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section("More") {
+                Section {
                     contactButton
                     
                     Link(destination: ratingURL) {
@@ -81,14 +81,12 @@ struct SettingsView: View {
                     ShareLink(item: appStoreURL) {
                         Label("Share SimpleSpeak", systemImage: "square.and.arrow.up")
                     }
+                } header: {
+                    Text("More")
+                } footer: {
+                    Text("Version \(AppInfo().version)")
                 }
                 .buttonStyle(.plain)
-                
-                Text("Version \(AppInfo().version)")
-                    .font(.subheadline)
-                    .foregroundStyle(Color.secondary)
-                    .listRowBackground(Color.clear)
-                    .frame(maxWidth: .infinity)
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Settings")
