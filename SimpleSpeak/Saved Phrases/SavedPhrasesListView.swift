@@ -46,7 +46,7 @@ struct SavedPhrasesListView: View {
             Section {
                 ForEach(savedPhrases) { phrase in
                     NavigationLink {
-                        EditSavedPhraseView(category: category, savedPhrase: phrase, showCancelButton: false)
+                        AddEditPhraseView(category: category, savedPhrase: phrase)
                     } label: {
                         if phrase.label != "" {
                             Text(phrase.label)
@@ -143,11 +143,12 @@ struct SavedPhrasesListView: View {
             }
         }
         .sheet(isPresented: $showingAddPhrase) {
-            AddSavedPhraseView(category: category)
+//            AddSavedPhraseView(category: category)
+            AddEditPhraseView(category: category)
         }
         .sheet(isPresented: $showingEditCategory) {
             if let category {
-                EditCategoryView(selectedCategory: category)
+                AddEditCategoryView(selectedCategory: category)
             }
         }
     }

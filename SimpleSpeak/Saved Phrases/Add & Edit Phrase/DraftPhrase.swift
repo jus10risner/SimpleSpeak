@@ -12,26 +12,21 @@ class DraftPhrase: ObservableObject {
     
     @Published var label: String = ""
     @Published var text: String = ""
+    @Published var color: PhraseColor? = nil
     @Published var category: PhraseCategory?
     
     
-    init(savedPhrase: SavedPhrase) {
-        id = savedPhrase.id
-        label = savedPhrase.label
-        text = savedPhrase.text
-        category = savedPhrase.category
-    }
-    
-    init() {
-        self.label = label
-        self.text = text
+    init(savedPhrase: SavedPhrase? = nil) {
+        if let savedPhrase {
+            id = savedPhrase.id
+            label = savedPhrase.label
+            text = savedPhrase.text
+            color = savedPhrase.color
+            category = savedPhrase.category
+        }
     }
     
     var canBeSaved: Bool {
-        if text.count > 0 {
-            return true
-        } else {
-            return false
-        }
+        text.count > 0
     }
 }

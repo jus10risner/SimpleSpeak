@@ -32,7 +32,7 @@ struct MultiButtonView: View {
                     .frame(width: 60, height: 60)
                     .foregroundStyle(Color(.defaultAccent))
                 
-                Group {
+                ZStack {
                     switch vm.synthesizerState {
                     case .speaking:
                         MultiButton(text: "Pause Speech", symbolName: "pause.fill") {
@@ -52,9 +52,9 @@ struct MultiButtonView: View {
                     }
                 }
                 .zIndex(1) // This is necessary for the removal animation (button disappears instantly otherwise)
-                .transition(.offset(y: 50).combined(with: .move(edge: .bottom)))
+////                .transition(.offset(y: 50).combined(with: .move(edge: .bottom)))
             }
-            .mask(Circle())
+//            .mask(Circle())
         }
         .animation(.bouncy(extraBounce: -0.1), value: vm.synthesizerState)
     }

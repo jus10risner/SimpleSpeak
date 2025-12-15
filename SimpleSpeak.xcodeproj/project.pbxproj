@@ -17,13 +17,9 @@
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
-		9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */; };
-		9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */; };
 		9E68DA202CE7E82E0002277F /* VoiceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */; };
-		9E7FD0E42C9C9005004EC298 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E32C9C9005004EC298 /* AddCategoryView.swift */; };
-		9E7FD0E62C9C9FCC004EC298 /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E52C9C9FCC004EC298 /* EditCategoryView.swift */; };
 		9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */; };
-		9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */; };
+		9E7FD0EA2C9CA24E004EC298 /* AddEditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* AddEditCategoryView.swift */; };
 		9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */; };
 		9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0F2D1325B700C726D4 /* CardButton.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
@@ -45,7 +41,7 @@
 		9EDC1F4E2C8F4DDA005D7780 /* MultiButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */; };
 		9EF689E02C4AAAC500568B6D /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689DF2C4AAAC500568B6D /* AppInfo.swift */; };
 		9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E12C4AB99700568B6D /* DraftPhrase.swift */; };
-		9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */; };
+		9EF689E42C4ABAA800568B6D /* AddEditPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E32C4ABAA800568B6D /* AddEditPhraseView.swift */; };
 		9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */; };
 		9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */; };
 		9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */; };
@@ -68,13 +64,10 @@
 		9E4B46B12A0987B20076367F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E4B46B32A0987B30076367F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E4B46B62A0987B30076367F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavedPhraseView.swift; sourceTree = "<group>"; };
-		9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSavedPhraseView.swift; sourceTree = "<group>"; };
+		9E64507F2EF0730E00369728 /* SimpleSpeakDataModel_V2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleSpeakDataModel_V2.xcdatamodel; sourceTree = "<group>"; };
 		9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSelectionView.swift; sourceTree = "<group>"; };
-		9E7FD0E32C9C9005004EC298 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
-		9E7FD0E52C9C9FCC004EC298 /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
 		9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategory.swift; sourceTree = "<group>"; };
-		9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategoryView.swift; sourceTree = "<group>"; };
+		9E7FD0E92C9CA24E004EC298 /* AddEditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCategoryView.swift; sourceTree = "<group>"; };
 		9E8B7B912C404CC100A53F39 /* SavedPhrasesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPhrasesListView.swift; sourceTree = "<group>"; };
 		9EA1EA0F2D1325B700C726D4 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
@@ -97,7 +90,7 @@
 		9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiButtonView.swift; sourceTree = "<group>"; };
 		9EF689DF2C4AAAC500568B6D /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		9EF689E12C4AB99700568B6D /* DraftPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhrase.swift; sourceTree = "<group>"; };
-		9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhraseView.swift; sourceTree = "<group>"; };
+		9EF689E32C4ABAA800568B6D /* AddEditPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhraseView.swift; sourceTree = "<group>"; };
 		9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsCardView.swift; sourceTree = "<group>"; };
 		9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
 		9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategoriesSelectorView.swift; sourceTree = "<group>"; };
@@ -171,10 +164,8 @@
 		9E7FD0EB2C9CA6CC004EC298 /* Add & Edit Phrase */ = {
 			isa = PBXGroup;
 			children = (
-				9E503F242C611BEA00E6CAC5 /* AddSavedPhraseView.swift */,
-				9E503F262C65012300E6CAC5 /* EditSavedPhraseView.swift */,
+				9EF689E32C4ABAA800568B6D /* AddEditPhraseView.swift */,
 				9EF689E12C4AB99700568B6D /* DraftPhrase.swift */,
-				9EF689E32C4ABAA800568B6D /* DraftPhraseView.swift */,
 			);
 			path = "Add & Edit Phrase";
 			sourceTree = "<group>";
@@ -182,10 +173,8 @@
 		9E7FD0EC2C9CA6E2004EC298 /* Add & Edit Category */ = {
 			isa = PBXGroup;
 			children = (
-				9E7FD0E32C9C9005004EC298 /* AddCategoryView.swift */,
-				9E7FD0E52C9C9FCC004EC298 /* EditCategoryView.swift */,
+				9E7FD0E92C9CA24E004EC298 /* AddEditCategoryView.swift */,
 				9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */,
-				9E7FD0E92C9CA24E004EC298 /* DraftCategoryView.swift */,
 			);
 			path = "Add & Edit Category";
 			sourceTree = "<group>";
@@ -345,7 +334,6 @@
 				9EDC1F432C8A06C1005D7780 /* MultiButton.swift in Sources */,
 				9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */,
 				9ECA2CF12CC6A1DD00A46FAB /* WelcomeView.swift in Sources */,
-				9E503F252C611BEA00E6CAC5 /* AddSavedPhraseView.swift in Sources */,
 				9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */,
 				9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */,
 				9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */,
@@ -363,12 +351,10 @@
 				9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */,
 				9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */,
 				9EFC29CE2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift in Sources */,
-				9EF689E42C4ABAA800568B6D /* DraftPhraseView.swift in Sources */,
+				9EF689E42C4ABAA800568B6D /* AddEditPhraseView.swift in Sources */,
 				9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */,
-				9E7FD0E62C9C9FCC004EC298 /* EditCategoryView.swift in Sources */,
 				9EAEE87B2C2319900012D3CC /* CategoriesListView.swift in Sources */,
 				9ECA2CF42CC6B13B00A46FAB /* InformationItemView.swift in Sources */,
-				9E7FD0E42C9C9005004EC298 /* AddCategoryView.swift in Sources */,
 				9ED40D462C21DA11008C7E49 /* AppearanceController.swift in Sources */,
 				9EBF2E852C2F020500AB5A95 /* PhraseCategory+helper.swift in Sources */,
 				9EDC1F4E2C8F4DDA005D7780 /* MultiButtonView.swift in Sources */,
@@ -376,8 +362,7 @@
 				9ED40D422C21D80D008C7E49 /* DataController.swift in Sources */,
 				9E4B46B22A0987B20076367F /* ContentView.swift in Sources */,
 				9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */,
-				9E7FD0EA2C9CA24E004EC298 /* DraftCategoryView.swift in Sources */,
-				9E503F272C65012300E6CAC5 /* EditSavedPhraseView.swift in Sources */,
+				9E7FD0EA2C9CA24E004EC298 /* AddEditCategoryView.swift in Sources */,
 				9EFC29D02D7208F200F3F3A9 /* DefaultCategoryArrays.swift in Sources */,
 				9EFC29D52D72512100F3F3A9 /* AddCategoryButton.swift in Sources */,
 				9E4B46B02A0987B20076367F /* SimpleSpeakApp.swift in Sources */,
@@ -608,9 +593,10 @@
 		9E33BB7E2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				9E64507F2EF0730E00369728 /* SimpleSpeakDataModel_V2.xcdatamodel */,
 				9E33BB7F2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodel */,
 			);
-			currentVersion = 9E33BB7F2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodel */;
+			currentVersion = 9E64507F2EF0730E00369728 /* SimpleSpeakDataModel_V2.xcdatamodel */;
 			path = SimpleSpeakDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

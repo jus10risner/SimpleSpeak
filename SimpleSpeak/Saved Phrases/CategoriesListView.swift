@@ -46,7 +46,7 @@ struct CategoriesListView: View {
                     }
                 }
                 .sheet(isPresented: $isAddingCategory, content: {
-                    AddCategoryView()
+                    AddEditCategoryView()
                 })
                 .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
                     DefaultCategoriesSelectorView(shouldShowHeader: false)

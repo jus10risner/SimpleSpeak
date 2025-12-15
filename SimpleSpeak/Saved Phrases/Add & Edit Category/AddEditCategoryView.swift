@@ -1,5 +1,5 @@
 //
-//  DraftCategoryView.swift
+//  AddEditCategoryView.swift
 //  SimpleSpeak
 //
 //  Created by Justin Risner on 9/19/24.
@@ -7,14 +7,19 @@
 
 import SwiftUI
 
-struct DraftCategoryView: View {
+struct AddEditCategoryView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var draftCategory: DraftCategory
+    @StateObject var draftCategory: DraftCategory
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
-    let isEditing: Bool
     let selectedCategory: PhraseCategory?
+    
+    init(selectedCategory: PhraseCategory? = nil) {
+        self.selectedCategory = selectedCategory
+        
+        _draftCategory = StateObject(wrappedValue: DraftCategory(phraseCategory: selectedCategory))
+    }
     
     @State private var showingDeleteAlert = false
     @State private var showingDuplicateAlert = false
@@ -23,54 +28,58 @@ struct DraftCategoryView: View {
     @FocusState var isInputActive: Bool
     
     var body: some View {
-        Form {
-            TextField("Category Name", text: $draftCategory.title)
-                .focused($isInputActive)
-                .onAppear {
-                    if isEditing == false {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            isInputActive = true
+        NavigationStack {
+            Form {
+                TextField("Category Name", text: $draftCategory.title)
+                    .focused($isInputActive)
+                    .onAppear {
+                        if selectedCategory == nil {
+                            DispatchQueue.main.async {
+                                isInputActive = true
+                            }
                         }
                     }
-                }
-            
-            Section("Select a symbol to represent this category.") {
-                // This prevents the app from crashing when rotating the phone from portrait to landscape orientation. The app gets stuck in a recursive layout loop, unable to rearrange the symbols, without this
-                ViewThatFits {
-                    symbolGrid
-                    
-                    symbolGrid
-                }
-            }
-            .textCase(nil)
-        }
-        .background(Color(.systemGroupedBackground).ignoresSafeArea())
-        .scrollDismissesKeyboard(.interactively)
-        .onChange(of: draftCategoryData) {
-            hasChanges = true
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Save") {
-                    if canSaveCategory {
-                        saveCategory()
-                    } else {
-                        showingDuplicateAlert = true
+                
+                Section("Select a symbol to represent this category.") {
+                    // This prevents the app from crashing when rotating the phone from portrait to landscape orientation. The app gets stuck in a recursive layout loop, unable to rearrange the symbols, without this
+                    ViewThatFits {
+                        symbolGrid
+                        
+                        symbolGrid
                     }
                 }
-                .disabled(hasChanges && draftCategory.canBeSaved ? false : true)
+                .textCase(nil)
             }
-            
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel") {
-                    dismiss()
+            .navigationTitle(selectedCategory == nil ? "New Category" : "Edit Category")
+            .navigationBarTitleDisplayMode(.inline)
+            .background(Color(.systemGroupedBackground).ignoresSafeArea())
+            .scrollDismissesKeyboard(.interactively)
+            .onChange(of: draftCategoryData) {
+                hasChanges = true
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(selectedCategory == nil ? "Add" : "Save") {
+                        if canSaveCategory {
+                            saveCategory()
+                        } else {
+                            showingDuplicateAlert = true
+                        }
+                    }
+                    .disabled(hasChanges && draftCategory.canBeSaved ? false : true)
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
                 }
             }
-        }
-        .alert("Duplicate Category", isPresented: $showingDuplicateAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text("This category name already exists. Please select a different name.")
+            .alert("Duplicate Category", isPresented: $showingDuplicateAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("This category name already exists. Please select a different name.")
+            }
         }
     }
     
@@ -102,8 +111,8 @@ struct DraftCategoryView: View {
     }
     
     func saveCategory() {
-        if isEditing {
-            selectedCategory?.update(draftCategory: draftCategory)
+        if let selectedCategory {
+            selectedCategory.update(draftCategory: draftCategory)
         } else {
             addCategory()
         }
@@ -128,7 +137,7 @@ struct DraftCategoryView: View {
 }
 
 #Preview {
-    DraftCategoryView(draftCategory: DraftCategory(), isEditing: false, selectedCategory: nil)
+    AddEditCategoryView()
 }
 
 private enum SelectableSymbols: String, CaseIterable {

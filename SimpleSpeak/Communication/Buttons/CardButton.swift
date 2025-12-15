@@ -34,7 +34,11 @@ struct CardButton: View {
                 .padding()
                 .frame(height: 100)
             }
-            .background(Color(.tertiarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background {
+                RoundedRectangle(cornerRadius: vm.cornerRadius)
+                    .fill(Color(.tertiarySystemGroupedBackground))
+                    .strokeBorder(phrase.color?.value ?? Color.clear, lineWidth: 3)
+            }
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
         .contextMenu {

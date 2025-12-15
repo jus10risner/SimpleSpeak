@@ -77,13 +77,13 @@ struct CommunicationView: View {
                     .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
             .sheet(isPresented: $showingAddCategory, onDismiss: showOnboardingButtonTip, content: {
-                AddCategoryView()
+                AddEditCategoryView()
             })
             .sheet(isPresented: $showingAddPhrase, content: {
-                AddSavedPhraseView(category: selectedCategory)
+                AddEditPhraseView(category: selectedCategory)
             })
             .sheet(item: $phraseToEdit, content: { phrase in
-                EditSavedPhraseView(category: selectedCategory, savedPhrase: phrase, showCancelButton: true)
+                AddEditPhraseView(category: selectedCategory, savedPhrase: phrase, showCancelButton: true)
             })
             .sheet(isPresented: $showingSettings, content: {
                 SettingsView()

@@ -14,22 +14,15 @@ class DraftCategory: ObservableObject {
     @Published var symbolName: String = "bookmark.fill"
     
     
-    init(phraseCategory: PhraseCategory) {
-        id = phraseCategory.id
-        title = phraseCategory.title
-        symbolName = phraseCategory.symbolName
-    }
-    
-    init() {
-        self.title = title
-        self.symbolName = symbolName
+    init(phraseCategory: PhraseCategory? = nil) {
+        if let phraseCategory {
+            id = phraseCategory.id
+            title = phraseCategory.title
+            symbolName = phraseCategory.symbolName
+        }
     }
     
     var canBeSaved: Bool {
-        if title.count > 0 {
-            return true
-        } else {
-            return false
-        }
+        title.count > 0
     }
 }
