@@ -28,6 +28,7 @@ class ViewModel: NSObject, ObservableObject {
     @AppStorage("appAppearance") var appAppearance: AppearanceOptions = .automatic // Sets the theme for the app (auto, dark, light)
     @AppStorage("numberOfRecents") var numberOfRecents: Int = 10 // Specifies how many recent phrases to save
     @AppStorage("cellWidth") var cellWidth: PhraseCellWidthOptions = .small // Sets the width of phrase buttons (small or large)
+    @AppStorage("selectedFont") var selectedFont: FontOption = .medium
     
     
     // MARK: - Methods

@@ -67,7 +67,15 @@ struct SettingsView: View {
                         }
                     } label: {
                         Label("Phrase Button Size", systemImage: "rectangle.grid.2x2")
-                        
+                    }
+                    
+                    Picker(selection: $vm.selectedFont) {
+                        ForEach(FontOption.allCases) {
+                            Text($0.rawValue)
+                                .tag($0)
+                        }
+                    } label: {
+                        Label("Phrase Text Size", systemImage: "textformat.size")
                     }
                 }
                 

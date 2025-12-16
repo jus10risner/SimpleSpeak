@@ -21,12 +21,12 @@ struct CardButton: View {
                 Group {
                     if phrase.label != "" {
                         Text(phrase.label)
-                            .font(isEmoji() ? .largeTitle : .headline)
+                            .font(containsOnlyEmoji ? .largeTitle : vm.selectedFont.name)
                     } else {
                         Text(phrase.text)
                     }
                 }
-                .font(.headline)
+                .font(vm.selectedFont.name)
                 .foregroundStyle(Color.primary)
                 .minimumScaleFactor(0.9)
                 .frame(maxWidth: .infinity)
@@ -48,22 +48,11 @@ struct CardButton: View {
             } label: {
                 Label("Edit Phrase", systemImage: "pencil")
             }
-            
-            Button(role: .destructive) {
-                withAnimation {
-                    context.delete(phrase)
-                    try? context.save()
-                }
-            } label: {
-                Label("Delete Phrase", systemImage: "trash")
-            }
         }
     }
     
-    func isEmoji() -> Bool {
-        return phrase.label.contains { character in
-            character.unicodeScalars.contains { $0.properties.isEmoji }
-        }
+    private var containsOnlyEmoji: Bool {
+        return phrase.label.unicodeScalars.allSatisfy { $0.properties.isEmoji }
     }
 }
 
@@ -74,4 +63,18 @@ struct CardButton: View {
     
     return CardButton(phraseToEdit: .constant(nil), phrase: phrase)
         .environmentObject(ViewModel())
+}
+
+enum FontOption: String, CaseIterable, Identifiable {
+    case small = "Small", medium = "Medium", large = "Large", xl = "Extra Large"
+    var id: String { self.rawValue }
+    
+    var name: Font {
+        switch self {
+        case .small: return .subheadline.bold()
+        case .medium: return .headline
+        case .large: return .title3.bold()
+        case .xl: return .title2.bold()
+        }
+    }
 }
