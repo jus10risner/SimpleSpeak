@@ -41,6 +41,7 @@ struct CardButton: View {
             }
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
+        .buttonStyle(.borderless)
         .contextMenu {
             Button {
                 phraseToEdit = phrase

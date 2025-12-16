@@ -80,7 +80,7 @@ struct CommunicationView: View {
                 AddEditCategoryView()
             })
             .sheet(isPresented: $showingAddPhrase, content: {
-                AddEditPhraseView(category: selectedCategory)
+                AddEditPhraseView(category: selectedCategory, showCancelButton: true)
             })
             .sheet(item: $phraseToEdit, content: { phrase in
                 AddEditPhraseView(category: selectedCategory, savedPhrase: phrase, showCancelButton: true)

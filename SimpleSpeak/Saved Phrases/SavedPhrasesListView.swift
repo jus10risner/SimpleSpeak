@@ -143,8 +143,7 @@ struct SavedPhrasesListView: View {
             }
         }
         .sheet(isPresented: $showingAddPhrase) {
-//            AddSavedPhraseView(category: category)
-            AddEditPhraseView(category: category)
+            AddEditPhraseView(category: category, showCancelButton: true)
         }
         .sheet(isPresented: $showingEditCategory) {
             if let category {
