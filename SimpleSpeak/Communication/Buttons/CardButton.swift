@@ -13,6 +13,8 @@ struct CardButton: View {
     @Binding var phraseToEdit: SavedPhrase?
     @ObservedObject var phrase: SavedPhrase
     
+    @State private var showingEditButton: Bool = false
+    
     var body: some View {
         Button {
             vm.speakImmediately(phrase.text)
@@ -42,12 +44,24 @@ struct CardButton: View {
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
         }
         .buttonStyle(.borderless)
-        .contextMenu {
+        .highPriorityGesture(LongPressGesture().onEnded { _ in
+            showingEditButton = true
+        })
+        .popover(isPresented: $showingEditButton) {
             Button {
+                print(phrase.text)
                 phraseToEdit = phrase
             } label: {
                 Label("Edit Phrase", systemImage: "pencil")
             }
+            .padding()
+            .presentationBackground(.regularMaterial)
+            .presentationCompactAdaptation(.popover)
+        }
+        .accessibilityElement()
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAction(named: "More Actions") {
+            showingEditButton = true
         }
     }
     
