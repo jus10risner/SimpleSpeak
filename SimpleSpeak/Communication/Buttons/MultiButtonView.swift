@@ -13,7 +13,7 @@ struct MultiButtonView: View {
     
     var body: some View {
         ZStack {
-            if vm.synthesizerState == .paused { // Required, because VoiceOver ignores .accessibilityHidden() inside ZStacks
+            if vm.synthesizerState == .paused { // Required (VoiceOver ignores .accessibilityHidden() inside ZStacks)
                 Button(role: .destructive) {
                     Task { await vm.cancelSpeaking() }
                 } label: {
@@ -27,36 +27,51 @@ struct MultiButtonView: View {
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
             
-            ZStack {
-                Circle()
-                    .frame(width: 60, height: 60)
-                    .foregroundStyle(Color(.defaultAccent))
-                
-                ZStack {
-                    switch vm.synthesizerState {
-                    case .speaking:
-                        MultiButton(text: "Pause Speech", symbolName: "pause.fill") {
+            Circle()
+                .frame(width: 60, height: 60)
+                .foregroundStyle(Color(.defaultAccent))
+                .overlay {
+                    Button {
+                        switch vm.synthesizerState {
+                        case .speaking:
                             Task { await vm.pauseSpeaking() }
-                        }
-                    case .paused:
-                        MultiButton(text: "Continue Speech", symbolName: "play.fill") {
+
+                        case .paused:
                             Task { await vm.continueSpeaking() }
-                        }
-                    case .inactive:
-                        MultiButton(text: "Show Keyboard", symbolName: "keyboard.fill") {
+
+                        case .inactive:
                             withAnimation {
                                 vm.phraseIsRepeatable = false
                                 showingTextField = true
                             }
                         }
+                    } label: {
+                        Label(buttonTitle, systemImage: symbolName)
+                            .labelStyle(.iconOnly)
+                            .contentTransition(.symbolEffect(.replace))
+                            .font(.title3)
+                            .foregroundStyle(Color.white)
+                            .padding(20)
                     }
                 }
-                .zIndex(1) // This is necessary for the removal animation (button disappears instantly otherwise)
-////                .transition(.offset(y: 50).combined(with: .move(edge: .bottom)))
-            }
-//            .mask(Circle())
         }
         .animation(.bouncy(extraBounce: -0.1), value: vm.synthesizerState)
+    }
+    
+    private var buttonTitle: String {
+        switch vm.synthesizerState {
+        case .speaking: return "Pause Speech"
+        case .paused:   return "Continue Speech"
+        case .inactive: return "Show Keyboard"
+        }
+    }
+    
+    private var symbolName: String {
+        switch vm.synthesizerState {
+        case .speaking: return "pause.fill"
+        case .paused:   return "play.fill"
+        case .inactive: return "keyboard.fill"
+        }
     }
 }
 
