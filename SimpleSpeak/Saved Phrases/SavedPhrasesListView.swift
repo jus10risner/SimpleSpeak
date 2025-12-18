@@ -84,16 +84,13 @@ struct SavedPhrasesListView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
+            ToolbarItem {
                 if category != nil {
                     Button {
                         showingAddPhrase = true
                     } label: {
-                        Label("Add New Phrase", systemImage: "plus.circle.fill")
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.title2)
+                        Label("Add New Phrase", systemImage: "plus")
                     }
-                    .buttonStyle(.borderless)
                 }
             }
             

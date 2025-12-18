@@ -26,16 +26,13 @@ struct CategoriesListView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Manage Categories")
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .confirmationAction) {
                         Button {
                             dismiss()
                         } label: {
-                            Label("Dismiss", systemImage: "xmark.circle.fill")
-                                .symbolRenderingMode(.hierarchical)
-                                .font(.title2)
-                                .foregroundStyle(Color.secondary)
+                            Label("Done", systemImage: "xmark")
+                                .labelStyle(.adaptive)
                         }
-                        .buttonStyle(.plain)
                     }
                     
                     ToolbarItem(placement: .bottomBar) {

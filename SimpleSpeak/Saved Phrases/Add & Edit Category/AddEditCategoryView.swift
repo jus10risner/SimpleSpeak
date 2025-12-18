@@ -58,20 +58,26 @@ struct AddEditCategoryView: View {
                 hasChanges = true
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(selectedCategory == nil ? "Add" : "Save") {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
                         if canSaveCategory {
                             saveCategory()
                         } else {
                             showingDuplicateAlert = true
                         }
+                    } label: {
+                        Label("Save", systemImage: "checkmark")
+                            .labelStyle(.adaptive)
                     }
                     .disabled(hasChanges && draftCategory.canBeSaved ? false : true)
                 }
                 
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
                         dismiss()
+                    } label: {
+                        Label("Cancel", systemImage: "xmark")
+                            .labelStyle(.adaptive)
                     }
                 }
             }

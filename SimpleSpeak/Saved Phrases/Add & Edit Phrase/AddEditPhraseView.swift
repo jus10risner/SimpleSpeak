@@ -100,21 +100,27 @@ struct AddEditPhraseView: View {
                 hasChanges = true
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Save") {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
                         if canSavePhrase {
                             savePhrase()
                         } else {
                             showingDuplicateAlert = true
                         }
+                    } label: {
+                        Label("Save", systemImage: "checkmark")
+                            .labelStyle(.adaptive)
                     }
                     .disabled(hasChanges && draftPhrase.canBeSaved ? false : true)
                 }
                 
                 if showCancelButton == true {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Cancel") {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
                             dismiss()
+                        } label: {
+                            Label("Cancel", systemImage: "xmark")
+                                .labelStyle(.adaptive)
                         }
                     }
                 }

@@ -44,8 +44,13 @@ struct DefaultCategoriesSelectorView: View {
             .navigationTitle("Default Categories")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Done", systemImage: "xmark")
+                            .labelStyle(.adaptive)
+                    }
                 }
             }
             .onChange(of: categories.count) {
