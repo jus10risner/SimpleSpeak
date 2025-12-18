@@ -90,7 +90,7 @@ struct AddEditPhraseView: View {
                     }
                 }
             }
-            .navigationTitle("Add New Phrase")
+            .navigationTitle(savedPhrase == nil ? "New Phrase" : "Edit Phrase")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 draftPhrase.category = category
