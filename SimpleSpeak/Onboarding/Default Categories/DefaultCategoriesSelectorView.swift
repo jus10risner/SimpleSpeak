@@ -44,7 +44,7 @@ struct DefaultCategoriesSelectorView: View {
             .navigationTitle("Default Categories")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem {
                     Button {
                         dismiss()
                     } label: {

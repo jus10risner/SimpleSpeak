@@ -26,7 +26,7 @@ struct CategoriesListView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Manage Categories")
                 .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
+                    ToolbarItem {
                         Button {
                             dismiss()
                         } label: {

@@ -99,7 +99,7 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Settings")
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem {
                     Button {
                         dismiss()
                     } label: {
