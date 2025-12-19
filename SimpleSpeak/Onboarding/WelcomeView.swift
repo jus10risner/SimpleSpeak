@@ -19,11 +19,13 @@ struct WelcomeView: View {
                         .frame(width: 75, height: 75)
                         .padding(.bottom, 10)
                     
-                    Text("Welcome to SimpleSpeak")
-                        .multilineTextAlignment(.center)
-                        .frame(width: 300)
+                    Text("""
+                        Welcome to 
+                        SimpleSpeak
+                        """)
+                    .font(.title.bold())
+                    .multilineTextAlignment(.center)
                 }
-                .font(.title.bold())
                 
                 VStack(alignment: .leading) {
                     InformationItemView(title: "Communicate", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
@@ -32,32 +34,24 @@ struct WelcomeView: View {
                     
                     InformationItemView(title: "Connect", subtitle: "Use during phone or FaceTime calls to talk to friends and family.", imageName: "phone.fill")
                 }
+                .padding(.horizontal, 40)
                 
                 Spacer()
                 
                 NavigationLink {
                     CategoriesExplanationView()
                 } label: {
-                    buttonLabel
+                    Text("Next")
+                        .font(.headline)
+                        .padding(.vertical, 10)
+                        .frame(maxWidth: 350)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 5)
             }
             .interactiveDismissDisabled()
-            .padding(.horizontal)
         }
-    }
-    
-    private var buttonLabel: some View {
-        Text("Next")
-            .foregroundColor(.white)
-            .font(.headline)
-            .padding()
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .background {
-                RoundedRectangle(cornerRadius: 15, style: .continuous)
-                    .fill(Color(.defaultAccent))
-            }
-            .padding(.bottom)
     }
 }
 
