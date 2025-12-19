@@ -79,16 +79,6 @@ struct SavedPhrasesListView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .scrollContentBackground(.hidden)
-        .background(Color(.systemGroupedBackground).ignoresSafeArea())
-        .allowsHitTesting(onboarding.isShowingManageCategoryTip ? false : true)
-        .onAppear {
-            if onboarding.currentStep == .manageCategory && category != nil {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    onboarding.isShowingManageCategoryTip = true
-                }
-            }
-        }
         .toolbar {
             ToolbarItem {
                 if category != nil {
