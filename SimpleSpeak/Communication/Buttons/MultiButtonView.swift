@@ -49,6 +49,7 @@ struct MultiButtonView: View {
                         Label(buttonTitle, systemImage: symbolName)
                             .labelStyle(.iconOnly)
                             .contentTransition(.symbolEffect(.replace))
+                            .frame(width: 50, height: 50)
                             .font(.title3)
                             .foregroundStyle(Color.white)
                             .padding(20)
