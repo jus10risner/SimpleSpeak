@@ -95,7 +95,6 @@ struct AddEditPhraseView: View {
             .onAppear {
                 draftPhrase.category = category
             }
-            .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .onChange(of: draftPhraseData) {
                 hasChanges = true
             }
