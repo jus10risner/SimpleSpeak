@@ -14,9 +14,11 @@ struct AddEditCategoryView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
     let selectedCategory: PhraseCategory?
+    let onDelete: (() -> Void)?
     
-    init(selectedCategory: PhraseCategory? = nil) {
+    init(selectedCategory: PhraseCategory? = nil, onDelete: (() -> Void)? = nil) {
         self.selectedCategory = selectedCategory
+        self.onDelete = onDelete
         
         _draftCategory = StateObject(wrappedValue: DraftCategory(phraseCategory: selectedCategory))
     }
@@ -40,7 +42,7 @@ struct AddEditCategoryView: View {
                         }
                     }
                 
-                Section("Select a symbol to represent this category.") {
+                Section {
                     // This prevents the app from crashing when rotating the phone from portrait to landscape orientation. The app gets stuck in a recursive layout loop, unable to rearrange the symbols, without this
                     ViewThatFits {
                         symbolGrid
@@ -48,11 +50,15 @@ struct AddEditCategoryView: View {
                         symbolGrid
                     }
                 }
-                .textCase(nil)
+                
+                if selectedCategory != nil {
+                    Button("Delete Category", role: .destructive) {
+                        showingDeleteAlert = true
+                    }
+                }
             }
             .navigationTitle(selectedCategory == nil ? "New Category" : "Edit Category")
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .scrollDismissesKeyboard(.interactively)
             .onChange(of: draftCategoryData) {
                 hasChanges = true
@@ -86,6 +92,17 @@ struct AddEditCategoryView: View {
             } message: {
                 Text("This category name already exists. Please select a different name.")
             }
+            .alert("Delete Category", isPresented: $showingDeleteAlert) {
+                Button("Delete", role: .destructive) {
+                    guard let selectedCategory else { return }
+                    
+                    deleteCategory(selectedCategory)
+                }
+                
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("Delete this category and all associated phrases?\nThis cannot be undone.")
+            }
         }
     }
     
@@ -95,28 +112,31 @@ struct AddEditCategoryView: View {
     }
     
     private var canSaveCategory: Bool {
-        if categories.contains(where: { $0.title.normalized == draftCategory.title.normalized && $0.id != draftCategory.id }) {
-            return false
-        } else {
-            return true
-        }
+        !categories.contains(where: { $0.title.normalized == draftCategory.title.normalized && $0.id != draftCategory.id })
     }
     
     private var symbolGrid: some View {
-        let columns = [GridItem(.adaptive(minimum: 50))]
+        let columns = [GridItem(.adaptive(minimum: 45, maximum: 50), spacing: 15)]
         
-        return LazyVGrid(columns: columns, spacing: 20) {
+        return LazyVGrid(columns: columns, spacing: 5) {
             ForEach(SelectableSymbols.allCases, id: \.self) { symbol in
                 Image(systemName: symbol.rawValue)
                     .font(.title2)
                     .foregroundStyle(draftCategory.symbolName == symbol.rawValue ? Color(.defaultAccent) : Color.secondary)
+                    .frame(width: 45, height: 45)
+                    .background {
+                        if draftCategory.symbolName == symbol.rawValue {
+                            Circle()
+                                .stroke(Color(.defaultAccent), lineWidth: 3)
+                        }
+                    }
                     .onTapGesture { draftCategory.symbolName = symbol.rawValue }
             }
         }
         .padding(.vertical)
     }
     
-    func saveCategory() {
+    private func saveCategory() {
         if let selectedCategory {
             selectedCategory.update(draftCategory: draftCategory)
         } else {
@@ -126,8 +146,27 @@ struct AddEditCategoryView: View {
         dismiss()
     }
     
+    private func deleteCategory(_ category: PhraseCategory) {
+        // Delete any phrases first, to prevent unexpected behavior
+        if let phrases = category.phrases as? Set<SavedPhrase> {
+            for phrase in phrases {
+                context.delete(phrase)
+            }
+        }
+        
+        // After a brief pause, delete the category itself, then save
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            context.delete(category)
+            
+            try? context.save()
+        }
+        
+        onDelete?() // Triggers dismissal of the saved phrases list
+        dismiss()
+    }
+    
     // Adds a new category
-    func addCategory() {
+    private func addCategory() {
         if categories.contains(where: { $0.title == draftCategory.title || draftCategory.title == "Recents" }) {
             showingDuplicateAlert = true
         } else {
