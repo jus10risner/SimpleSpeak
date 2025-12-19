@@ -92,6 +92,7 @@ struct AddEditPhraseView: View {
             }
             .navigationTitle(savedPhrase == nil ? "New Phrase" : "Edit Phrase")
             .navigationBarTitleDisplayMode(.inline)
+            .scrollDismissesKeyboard(.interactively)
             .onAppear {
                 draftPhrase.category = category
             }
