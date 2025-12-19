@@ -13,11 +13,16 @@ struct CardButton: View {
     @Binding var phraseToEdit: SavedPhrase?
     @ObservedObject var phrase: SavedPhrase
     
-    @State private var showingEditButton: Bool = false
+    @State private var isPressed = false
     
     var body: some View {
-        Button {
-            vm.speakImmediately(phrase.text)
+        Menu {
+            Button {
+                print(phrase.text)
+                phraseToEdit = phrase
+            } label: {
+                Label("Edit Phrase", systemImage: "pencil")
+            }
         } label: {
             ZStack {
                 Group {
@@ -29,7 +34,6 @@ struct CardButton: View {
                     }
                 }
                 .font(vm.selectedFont.name)
-                .foregroundStyle(Color.primary)
                 .minimumScaleFactor(0.9)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
@@ -40,29 +44,19 @@ struct CardButton: View {
                 RoundedRectangle(cornerRadius: vm.cornerRadius)
                     .fill(Color(.tertiarySystemGroupedBackground))
                     .strokeBorder(phrase.color?.value ?? Color.clear, lineWidth: 3)
+                    .opacity(isPressed ? 0.3 : 1)
             }
-            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: vm.cornerRadius))
-        }
-        .buttonStyle(.borderless)
-        .highPriorityGesture(LongPressGesture().onEnded { _ in
-            showingEditButton = true
-        })
-        .popover(isPresented: $showingEditButton) {
-            Button {
-                print(phrase.text)
-                phraseToEdit = phrase
-            } label: {
-                Label("Edit Phrase", systemImage: "pencil")
+            .scaleEffect(isPressed ? 0.97 : 1)
+            .animation(.easeInOut(duration: 0.2), value: isPressed)
+        } primaryAction: {
+            isPressed = true
+            vm.speakImmediately(phrase.text)
+            // Reset after a brief delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                isPressed = false
             }
-            .padding()
-            .presentationBackground(.regularMaterial)
-            .presentationCompactAdaptation(.popover)
         }
-        .accessibilityElement()
-        .accessibilityAddTraits(.isButton)
-        .accessibilityAction(named: "More Actions") {
-            showingEditButton = true
-        }
+        .buttonStyle(.plain)
     }
     
     private var containsOnlyEmoji: Bool {
