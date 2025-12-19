@@ -82,8 +82,6 @@ struct CategoriesListView: View {
             ForEach(categories) { category in
                 NavigationLink {
                     SavedPhrasesListView(category: category)
-                        .navigationTitle(category.title)
-                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     Label {
                         Text(category.title)

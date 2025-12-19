@@ -18,7 +18,6 @@ struct SavedPhrasesListView: View {
     var category: PhraseCategory?
     
     @State private var showingAddPhrase = false
-    @State private var showingDeleteAlert = false
     @State private var showingEditCategory = false
     
     // Custom init, so I can pass in the optional "category" property as a predicate
@@ -35,12 +34,20 @@ struct SavedPhrasesListView: View {
     
     var body: some View {
         List {
+            headerSection
+            
             if category == nil {
                 Section {
                     recentsPicker
                 } footer: {
                     Text("Max number of recent phrases to save; oldest phrases will be deleted as new ones are added.")
                 }
+            } else if savedPhrases.count == 0 && category?.symbolName != "" {
+                // category?.symbolName check prevents a "no symbol found" error when deleting a category
+                Text("Tap the plus button to add a phrase.")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.secondary)
+                    .frame(maxWidth: .infinity)
             }
             
             Section {
@@ -71,7 +78,6 @@ struct SavedPhrasesListView: View {
                 })
             }
         }
-        .navigationTitle(category?.title ?? "Recents")
         .navigationBarTitleDisplayMode(.inline)
         .scrollContentBackground(.hidden)
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
@@ -93,50 +99,10 @@ struct SavedPhrasesListView: View {
                     }
                 }
             }
-            
-            if category != nil {
-                ToolbarItem(placement: .principal) {
-                    Menu {
-                        categoryMenu
-                    } label: {
-                        HStack(spacing: 3) {
-                            Text(category?.title ?? "Recents")
-                                .font(.headline)
-                                .foregroundStyle(Color.primary)
-                            
-                            Image(systemName: "chevron.down.circle.fill")
-                                .font(.caption)
-                                .symbolRenderingMode(.hierarchical)
-                        }
-                    }
-                    .popover(isPresented: $onboarding.isShowingManageCategoryTip) {
-                        PopoverTipView(symbolName: "pencil", title: "Modify Category", text: "Tap the category name to make changes or delete.")
-                            .onDisappear { onboarding.currentStep = .complete }
-                        
-                    }
-                    .confirmationDialog("Delete Category", isPresented: $showingDeleteAlert) {
-                        Button("Delete", role: .destructive) {
-                            guard let category else { return }
-                            
-                            deleteCategory(category)
-                        }
-                        
-                        Button("Cancel", role: .cancel) { }
-                    } message: {
-                        Text("Delete this category and all associated phrases?\nThis cannot be undone.")
-                    }
-                }
-            }
         }
         .onChange(of: vm.numberOfRecents) {
             withAnimation {
                 updateRecentsList()
-            }
-        }
-        .overlay {
-            // The category.symbolName check prevents a "no symbol found" error when deleting a category
-            if savedPhrases.count == 0 && category?.symbolName != "" {
-                emptyPhraseList
             }
         }
         .sheet(isPresented: $showingAddPhrase) {
@@ -144,11 +110,40 @@ struct SavedPhrasesListView: View {
         }
         .sheet(isPresented: $showingEditCategory) {
             if let category {
-                AddEditCategoryView(selectedCategory: category)
+                AddEditCategoryView(selectedCategory: category, onDelete: { dismiss() })
             }
         }
     }
     
+    // The symbol, name, and Edit button for the displayed category
+    private var headerSection: some View {
+        Section {
+            VStack(spacing: 10) {
+                Image(systemName: category?.symbolName ?? "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                    .font(.largeTitle)
+                    .foregroundStyle(Color(.defaultAccent))
+                    .padding()
+                    .background(Color(.tertiarySystemBackground), in: Circle())
+                    .accessibilityHidden(true)
+                
+                VStack(spacing: 0) {
+                    Text(category?.title ?? "Recents")
+                        .font(.title3.bold())
+                    
+                    if category != nil {
+                        Button("Edit") {
+                            showingEditCategory = true
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .listRowBackground(Color.clear)
+        .listRowInsets(EdgeInsets())
+    }
+    
+    // Picker that lets users specify how many recent phrases to keep
     private var recentsPicker: some View {
         let numberToKeep = [10, 50, 100]
         
@@ -159,67 +154,8 @@ struct SavedPhrasesListView: View {
         }
     }
     
-    private var categoryMenu: some View {
-        Group {
-            Button {
-                showingEditCategory = true
-            } label: {
-                Label("Edit Category", systemImage: "pencil")
-            }
-            
-            Button(role: .destructive) {
-                showingDeleteAlert = true
-            } label: {
-                Label("Delete Category", systemImage: "trash")
-            }
-        }
-    }
-    
-    private var emptyPhraseList: some View {
-        ZStack {
-            Color.clear
-            
-            VStack(spacing: 10) {
-                Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
-                    .font(.largeTitle)
-                    .foregroundStyle(.secondary)
-                    .accessibilityHidden(true)
-                
-                VStack(spacing: 5) {
-                    Text(category == nil ? "No Recents" : "No Phrases")
-                        .font(.title2.bold())
-                    
-                    Text(category == nil ? "Recently-typed phrases will appear here." : "Tap the plus button to add a phrase.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-            }
-            .accessibilityElement(children: .combine)
-            .accessibilitySortPriority(category == nil ? -1 : 0)
-        }
-        .ignoresSafeArea()
-    }
-    
-    func deleteCategory(_ category: PhraseCategory) {
-        // Delete any phrases first, to prevent unexpected behavior
-        if let phrases = category.phrases as? Set<SavedPhrase> {
-            for phrase in phrases {
-                context.delete(phrase)
-            }
-        }
-        
-        // After a brief pause, delete the category itself, then save
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            context.delete(category)
-            
-            try? context.save()
-        }
-        
-        dismiss()
-    }
-    
-    func updateRecentsList() {
+    // Removes any recent phrases that exceed the specified number to keep, if necessary
+    private func updateRecentsList() {
         let recentsList = savedPhrases.filter { $0.category == nil }
         guard recentsList.count > vm.numberOfRecents else { return }
         
@@ -233,7 +169,7 @@ struct SavedPhrasesListView: View {
     }
     
     // Persists the order of phrases, after moving
-    func move(from source: IndexSet, to destination: Int) {
+    private func move(from source: IndexSet, to destination: Int) {
         // Make an array of phrases from fetched results
         var modifiedPhraseList: [SavedPhrase] = savedPhrases.map { $0 }
 
