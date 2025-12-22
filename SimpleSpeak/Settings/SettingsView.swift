@@ -92,7 +92,7 @@ struct SettingsView: View {
                 } header: {
                     Text("More")
                 } footer: {
-                    Text("Version \(AppInfo().version)")
+                    Text("Version \(AppInfo.shared.version)")
                 }
                 .buttonStyle(.plain)
             }

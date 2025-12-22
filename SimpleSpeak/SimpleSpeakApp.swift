@@ -7,6 +7,7 @@
 
 import AVFoundation
 import SwiftUI
+import TipKit
 
 @main
 struct SimpleSpeakApp: App {

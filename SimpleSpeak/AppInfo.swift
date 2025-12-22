@@ -9,6 +9,7 @@ import Foundation
 
 // Source: https://stackoverflow.com/questions/24501288/getting-version-and-build-information-with-swift
 struct AppInfo {
+    static let shared = AppInfo()
 
    /// Returns the official app name, defined in project data.
    var appName : String {
