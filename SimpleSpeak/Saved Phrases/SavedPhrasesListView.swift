@@ -124,6 +124,7 @@ struct SavedPhrasesListView: View {
                         Button("Edit") {
                             showingEditCategory = true
                         }
+                        .buttonStyle(.borderless)
                     }
                 }
             }

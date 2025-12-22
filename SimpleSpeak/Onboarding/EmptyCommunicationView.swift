@@ -20,45 +20,48 @@ struct EmptyCommunicationView: View {
     @State private var publisher = NotificationCenter.default.publisher(for: NSPersistentCloudKitContainer.eventChangedNotification)
     
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            HStack {
-                Text("Tap")
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 20) {
+                Spacer()
                 
-                AddCategoryButton(action: { showingAddCategory = true })
+                HStack {
+                    Text("Tap")
+                    
+                    AddCategoryButton(action: { showingAddCategory = true })
+                    
+                    Text("to add a category")
+                }
+                .font(.title2.bold())
+                .accessibilityElement()
+                .accessibilityLabel("Tap Add Category to add your first category.")
                 
-                Text("to add a category")
+                VStack {
+                    Text("Not sure where to start?")
+                        .foregroundStyle(Color.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
+                }
+                
+                Spacer()
             }
-            .font(.title2.bold())
-            .accessibilityElement()
-            .accessibilityLabel("Tap Add Category to add your first category.")
-            
-            VStack {
-                Text("Not sure where to start?")
-                    .foregroundStyle(Color.secondary)
-                    .multilineTextAlignment(.center)
-                
-                Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
-            }
-            
-            Spacer()
         }
         .frame(width: 300)
         .overlay {
             VStack {
-                if iCloudDataImporting && onboarding.isComplete == false {
+                if iCloudDataImporting {
+                    Spacer()
+                    
                     VStack(spacing: 10) {
-                        Text("Checking for iCloud data")
-                            .font(.subheadline)
-                        
                         ProgressView()
+                            .tint(Color.primary)
+                        
+                        Text("Checking for iCloud data")
+                            .font(.caption)
+                            .foregroundStyle(Color.secondary)
                     }
-                    .foregroundStyle(Color.secondary)
-                    .padding(.top)
+                    .padding(.bottom)
                 }
-                
-                Spacer()
             }
         }
         .onReceive(publisher) { notification in
