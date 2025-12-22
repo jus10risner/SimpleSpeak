@@ -23,7 +23,6 @@ struct CommunicationView: View {
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
     @State private var showingDefaultCategoriesSelector = false
-    @State private var disableButtonPresses = false
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
@@ -38,10 +37,8 @@ struct CommunicationView: View {
             }
             .accessibilityHidden(showingTextField ? true : false)
             .animation(.default, value: selectedCategory)
-            .tint(Color(.defaultAccent)) // Prevents buttons from graying out, when onboarding tips are shown
             .ignoresSafeArea(.keyboard)
             .toolbar(.hidden)
-            .allowsHitTesting(disableButtonPresses ? false : true)
             .task {
                 await assignCategory()
                 

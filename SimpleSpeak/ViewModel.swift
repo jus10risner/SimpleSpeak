@@ -98,7 +98,6 @@ class ViewModel: NSObject, ObservableObject {
         }
     }
     
-    @available(iOS 17, *)
     func requestPersonalVoiceAccess() {
         AVSpeechSynthesizer.requestPersonalVoiceAuthorization { result in
             if result == .authorized {
