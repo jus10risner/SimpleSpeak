@@ -55,7 +55,7 @@ struct SettingsView: View {
                             Text($0.rawValue.capitalized)
                         }
                     } label: {
-                        Label("Theme", systemImage: "circle.lefthalf.filled")
+                        Label("Appearance", systemImage: "circle.lefthalf.filled")
                     }
                     .onChange(of: vm.appAppearance) {
                         AppearanceController.shared.setAppearance()
