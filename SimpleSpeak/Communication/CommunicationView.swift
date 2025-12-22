@@ -45,22 +45,15 @@ struct CommunicationView: View {
             .task {
                 await assignCategory()
                 
-                if onboarding.currentStep != .welcome { // Ensures that this method doesn't interfere with fetching Personal Voice
+                if onboarding.isShowingWelcomeView == false { // Prevents interference with fetching Personal Voice
                     await vm.checkSpeechVoice()
                 }
             }
-            .onAppear { onboarding.showWelcome() }
             .onChange(of: selectedCategory) { _, category in
                 lastSelectedCategory = category?.title ?? "Recents"
             }
             .onChange(of: categories.count) {
                 selectedCategory = categories.last ?? nil
-            }
-            .onChange(of: onboarding.currentStep) { _, newValue in
-                if newValue == .complete {
-                    onboarding.isComplete = true
-                    print("Onboarding complete!")
-                }
             }
             .onChange(of: recentPhrases.count) { _, newValue in
                 if newValue == 0 && categories.count > 0 {
@@ -69,14 +62,18 @@ struct CommunicationView: View {
                     }
                 }
             }
-            .sheet(isPresented: $onboarding.isShowingWelcomeView, onDismiss: continueOnboarding, content: {
+            .sheet(isPresented: $onboarding.isShowingWelcomeView, onDismiss: {
+                onboarding.isShowingWelcomeView = false
+                onboarding.savedAppVersion = AppInfo().version
+                vm.requestPersonalVoiceAccess()
+            }, content: {
                 WelcomeView()
-            }).interactiveDismissDisabled()
-            .sheet(isPresented: $showingDefaultCategoriesSelector, onDismiss: showOnboardingButtonTip, content: {
+            })
+            .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
                 DefaultCategoriesSelectorView(shouldShowHeader: true)
                     .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
-            .sheet(isPresented: $showingAddCategory, onDismiss: showOnboardingButtonTip, content: {
+            .sheet(isPresented: $showingAddCategory, content: {
                 AddEditCategoryView()
             })
             .sheet(isPresented: $showingAddPhrase, content: {
@@ -88,7 +85,7 @@ struct CommunicationView: View {
             .sheet(isPresented: $showingSettings, content: {
                 SettingsView()
             })
-            .sheet(isPresented: $showingSavedPhrases, onDismiss: showOnboardingButtonTip, content: {
+            .sheet(isPresented: $showingSavedPhrases, content: {
                 CategoriesListView()
             })
         }
@@ -113,30 +110,6 @@ struct CommunicationView: View {
 
         withTransaction(transaction) {
             selectedCategory = categories.first(where: { $0.title == lastSelectedCategory }) ?? nil
-        }
-    }
-    
-    // Begin the onboarding process
-    func continueOnboarding() {
-        if #available(iOS 17, *) {
-            vm.requestPersonalVoiceAccess()
-        } else {
-            Task {
-               await vm.checkSpeechVoice()
-            }
-        }
-        
-        onboarding.currentStep = .multiButton
-    }
-    
-    // When appropriate, shows a popover tip to explain the MultiButton
-    func showOnboardingButtonTip() {
-        if onboarding.currentStep == .multiButton && categories.count > 0 {
-            disableButtonPresses = true // Prevents popover from causing conflicts with other modals attempting to display
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                onboarding.isShowingMultiButtonTip = true
-            }
         }
     }
     
@@ -185,13 +158,7 @@ struct CommunicationView: View {
             
             MultiButtonView(showingTextField: $showingTextField)
                 .frame(width: 60) // Prevents the view from resizing when the symbols change, during speech synthesis
-                .popover(isPresented: $onboarding.isShowingMultiButtonTip) {
-                    PopoverTipView(symbolName: "sparkles", title: "One-button, Multiple Uses", text: "When idle, this button shows the keyboard; during speech, it controls phrase playback.")
-                        .onDisappear {
-                            onboarding.currentStep = .manageCategory
-                            disableButtonPresses = false
-                        }
-                }
+                .popoverTip(MultiButtonTip())
             
             Spacer()
             

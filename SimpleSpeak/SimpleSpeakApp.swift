@@ -24,7 +24,17 @@ struct SimpleSpeakApp: App {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(vm)
-                .task { AppearanceController.shared.setAppearance() }
+                .task {
+                    AppearanceController.shared.setAppearance()
+                    
+                    #if DEBUG
+                    // Reset the datastore for testing purposes
+                    try? Tips.resetDatastore()
+                    #endif
+
+                    // Configure TipKit
+                    try? Tips.configure()
+                }
         }
         .onChange(of: scenePhase) {
             dataController.save()

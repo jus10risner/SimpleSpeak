@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9E085A042D64D7AB000F4A5A /* EmptyCommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */; };
-		9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A052D663120000F4A5A /* PopoverTipView.swift */; };
 		9E085A082D66632B000F4A5A /* MailComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E085A072D66632B000F4A5A /* MailComposeViewController.swift */; };
 		9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E195FD82C260AAC00B37618 /* SafariView.swift */; };
 		9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E33BB7E2D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld */; };
@@ -17,6 +16,7 @@
 		9E4B46B22A0987B20076367F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B46B12A0987B20076367F /* ContentView.swift */; };
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
+		9E64A6462EF5E2C8005CFF3B /* OnboardingTips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E64A6452EF5E2C8005CFF3B /* OnboardingTips.swift */; };
 		9E68DA202CE7E82E0002277F /* VoiceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */; };
 		9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */; };
 		9E7FD0EA2C9CA24E004EC298 /* AddEditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* AddEditCategoryView.swift */; };
@@ -53,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCommunicationView.swift; sourceTree = "<group>"; };
-		9E085A052D663120000F4A5A /* PopoverTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTipView.swift; sourceTree = "<group>"; };
 		9E085A072D66632B000F4A5A /* MailComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewController.swift; sourceTree = "<group>"; };
 		9E085A092D666A63000F4A5A /* SimpleSpeak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleSpeak.entitlements; sourceTree = "<group>"; };
 		9E195FD82C260AAC00B37618 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		9E4B46B32A0987B30076367F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E4B46B62A0987B30076367F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9E64507F2EF0730E00369728 /* SimpleSpeakDataModel_V2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleSpeakDataModel_V2.xcdatamodel; sourceTree = "<group>"; };
+		9E64A6452EF5E2C8005CFF3B /* OnboardingTips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTips.swift; sourceTree = "<group>"; };
 		9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSelectionView.swift; sourceTree = "<group>"; };
 		9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftCategory.swift; sourceTree = "<group>"; };
 		9E7FD0E92C9CA24E004EC298 /* AddEditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCategoryView.swift; sourceTree = "<group>"; };
@@ -219,10 +219,10 @@
 				9ECA2CF02CC6A1DD00A46FAB /* WelcomeView.swift */,
 				9EFC29D22D72235700F3F3A9 /* CategoriesExplanationView.swift */,
 				9ECA2CF32CC6B13B00A46FAB /* InformationItemView.swift */,
-				9E085A052D663120000F4A5A /* PopoverTipView.swift */,
 				9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */,
 				9EFC29D12D7209DC00F3F3A9 /* Default Categories */,
 				9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */,
+				9E64A6452EF5E2C8005CFF3B /* OnboardingTips.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -344,9 +344,9 @@
 				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
 				9EFC29D32D72235700F3F3A9 /* CategoriesExplanationView.swift in Sources */,
-				9E085A062D663120000F4A5A /* PopoverTipView.swift in Sources */,
 				9EDAE1E42D7B669000F26B43 /* AppIconSelectorView.swift in Sources */,
 				9EBF2E832C2DC9C000AB5A95 /* TextInputView.swift in Sources */,
+				9E64A6462EF5E2C8005CFF3B /* OnboardingTips.swift in Sources */,
 				9E33BB802D667E0A00B130EA /* SimpleSpeakDataModel.xcdatamodeld in Sources */,
 				9E418AF82D36DB7F0090D741 /* SpokenTextLabel.swift in Sources */,
 				9EFC29CE2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift in Sources */,

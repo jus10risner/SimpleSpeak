@@ -9,23 +9,9 @@ import SwiftUI
 
 @MainActor
 class OnboardingManager: ObservableObject {
-    @AppStorage("currentStep") var currentStep: OnboardingStep = .welcome
-    @AppStorage("isComplete") var isComplete: Bool = false
+    // Used to determine whether the user has launched the app since the most recent update was released
+    @AppStorage("savedAppVersion") var savedAppVersion: String = ""
     
     @AppStorage("isShowingWelcomeView") var isShowingWelcomeView: Bool = true
-    @AppStorage("isShowingMultiButtonTip") var isShowingMultiButtonTip: Bool = false
-    @AppStorage("isShowingManageCategoryTip") var isShowingManageCategoryTip: Bool = false
-    
-    func showWelcome() {
-        if isComplete == false && currentStep == .welcome {
-            self.isShowingWelcomeView = true
-        }
-    }
-
-    enum OnboardingStep: Int {
-        case welcome
-        case multiButton
-        case manageCategory
-        case complete
-    }
+    @AppStorage("isShowingWhatsNewView") var isShowingWhatsNewView: Bool = false
 }
