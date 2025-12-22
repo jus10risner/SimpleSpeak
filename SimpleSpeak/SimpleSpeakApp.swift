@@ -17,7 +17,7 @@ struct SimpleSpeakApp: App {
     
     init() {
         // Tints alert buttons throughout the app
-        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color(.defaultAccent))
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color(.accent))
     }
     
     var body: some Scene {

@@ -36,7 +36,7 @@ struct SettingsView: View {
                     Toggle(isOn: $vm.useDuringCalls, label: {
                         Label("Use During Calls", systemImage: "phone")
                     })
-                    .tint(Color(.defaultAccent))
+                    .tint(Color(.accent))
                 } header: {
                     Text("Speech")
                 } footer: {

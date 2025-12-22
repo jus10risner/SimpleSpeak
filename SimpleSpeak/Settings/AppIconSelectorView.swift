@@ -26,7 +26,7 @@ struct AppIconSelectorView: View {
                         
                         if selectedIcon == icon {
                             Image(systemName: "checkmark")
-                                .foregroundStyle(Color(.defaultAccent))
+                                .foregroundStyle(Color(.accent))
                         }
                     }
                     .onTapGesture {

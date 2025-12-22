@@ -20,7 +20,7 @@ struct TextInputButton: View {
             Label(text, systemImage: symbolName)
                 .labelStyle(.iconOnly)
                 .font(.title)
-                .foregroundStyle(color ?? Color(.defaultAccent))
+                .foregroundStyle(color ?? Color(.accent))
                 .symbolRenderingMode(color == nil || color == .red ? .multicolor : .hierarchical)
                 .fixedSize()
         }

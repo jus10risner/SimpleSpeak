@@ -70,7 +70,7 @@ struct CategorySelectorView: View {
         } label: {
             HStack {
                 Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
-                    .foregroundStyle(selectedCategory == category ? Color(.defaultAccent) : Color.secondary)
+                    .foregroundStyle(selectedCategory == category ? Color(.accent) : Color.secondary)
                     .accessibilityHidden(true)
                 
                 if selectedCategory == category {

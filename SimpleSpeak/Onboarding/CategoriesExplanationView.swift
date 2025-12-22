@@ -39,7 +39,7 @@ struct CategoriesExplanationView: View {
                 VStack(spacing: 20) {
                     HStack {
                         Image(systemName: "bookmark.fill")
-                            .foregroundStyle(categoryButtonExpanded ? Color(.defaultAccent) : Color.secondary)
+                            .foregroundStyle(categoryButtonExpanded ? Color(.accent) : Color.secondary)
                         
                         if categoryButtonExpanded {
                             Text("Saved")

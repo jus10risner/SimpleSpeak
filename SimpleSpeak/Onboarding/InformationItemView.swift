@@ -16,7 +16,7 @@ struct InformationItemView: View {
         HStack(alignment: .center) {
             Image(systemName: imageName)
                 .font(.largeTitle)
-                .foregroundColor(Color(.defaultAccent))
+                .foregroundColor(Color(.accent))
                 .frame(width: 40)
                 .padding()
                 .accessibility(hidden: true)

@@ -20,7 +20,7 @@ struct AddDefaultCategoryButton: View {
                 Label("Add \(categoryName) Category", systemImage: "plus.circle.fill")
                     .labelStyle(.iconOnly)
                     .font(.title2)
-                    .foregroundStyle(Color(.defaultAccent))
+                    .foregroundStyle(Color(.accent))
             }
             .buttonStyle(.plain)
             

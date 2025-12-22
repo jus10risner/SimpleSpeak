@@ -122,12 +122,12 @@ struct AddEditCategoryView: View {
             ForEach(SelectableSymbols.allCases, id: \.self) { symbol in
                 Image(systemName: symbol.rawValue)
                     .font(.title2)
-                    .foregroundStyle(draftCategory.symbolName == symbol.rawValue ? Color(.defaultAccent) : Color.secondary)
+                    .foregroundStyle(draftCategory.symbolName == symbol.rawValue ? Color(.accent) : Color.secondary)
                     .frame(width: 45, height: 45)
                     .background {
                         if draftCategory.symbolName == symbol.rawValue {
                             Circle()
-                                .stroke(Color(.defaultAccent), lineWidth: 3)
+                                .stroke(Color(.accent), lineWidth: 3)
                         }
                     }
                     .onTapGesture { draftCategory.symbolName = symbol.rawValue }

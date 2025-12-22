@@ -111,7 +111,7 @@ struct SavedPhrasesListView: View {
             VStack(spacing: 10) {
                 Image(systemName: category?.symbolName ?? "clock.arrow.trianglehead.counterclockwise.rotate.90")
                     .font(.largeTitle)
-                    .foregroundStyle(Color(.defaultAccent))
+                    .foregroundStyle(Color(.accent))
                     .padding()
                     .background(Color(.tertiarySystemBackground), in: Circle())
                     .accessibilityHidden(true)

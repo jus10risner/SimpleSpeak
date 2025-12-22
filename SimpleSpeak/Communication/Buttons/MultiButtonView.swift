@@ -29,7 +29,7 @@ struct MultiButtonView: View {
             
             Circle()
                 .frame(width: 60, height: 60)
-                .foregroundStyle(Color(.defaultAccent))
+                .foregroundStyle(Color(.accent))
                 .overlay {
                     Button {
                         switch vm.synthesizerState {
