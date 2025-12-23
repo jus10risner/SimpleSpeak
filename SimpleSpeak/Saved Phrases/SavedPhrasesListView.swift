@@ -21,7 +21,7 @@ struct SavedPhrasesListView: View {
     @State private var showingEditCategory = false
     
     // Custom init, so I can pass in the optional "category" property as a predicate
-    init(category: PhraseCategory?) {
+    init(category: PhraseCategory? = nil) {
         self.category = category
         let predicate = NSPredicate(format: "category == %@", category ?? NSNull())
         
@@ -52,9 +52,7 @@ struct SavedPhrasesListView: View {
             
             Section {
                 ForEach(savedPhrases) { phrase in
-                    NavigationLink {
-                        AddEditPhraseView(category: category, savedPhrase: phrase)
-                    } label: {
+                    NavigationLink(value: PhraseNavigationValue(category: category, phrase: phrase)) {
                         if phrase.label != "" {
                             Text(phrase.label)
                         } else {
@@ -79,6 +77,9 @@ struct SavedPhrasesListView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(for: PhraseNavigationValue.self) { value in
+            AddEditPhraseView(category: value.category, savedPhrase: value.phrase)
+        }
         .toolbar {
             ToolbarItem {
                 if category != nil {
@@ -111,7 +112,7 @@ struct SavedPhrasesListView: View {
     private var headerSection: some View {
         Section {
             VStack(spacing: 10) {
-                Image(systemName: category?.symbolName ?? "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                Image(systemName: category?.symbolName ?? "clock.arrow.circlepath")
                     .font(.largeTitle)
                     .foregroundStyle(Color(.accent))
                     .padding()
@@ -183,4 +184,10 @@ struct SavedPhrasesListView: View {
     SavedPhrasesListView(category: nil)
         .environmentObject(OnboardingManager())
         .environmentObject(ViewModel())
+}
+
+// Allows NavigationLink to use a tuple containing both category and phrase, to pass into the destination view
+struct PhraseNavigationValue: Hashable {
+    let category: PhraseCategory?
+    let phrase: SavedPhrase
 }
