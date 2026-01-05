@@ -23,6 +23,7 @@ struct CommunicationView: View {
     @State private var showingAddPhrase = false
     @State private var phraseToEdit: SavedPhrase?
     @State private var showingDefaultCategoriesSelector = false
+    @State private var onboardingSheet: ActiveOnboardingSheet?
      
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
@@ -39,6 +40,9 @@ struct CommunicationView: View {
             .animation(.default, value: selectedCategory)
             .ignoresSafeArea(.keyboard)
             .toolbar(.hidden)
+            .onAppear {
+                checkForOnboardingViewsToShow()
+            }
             .task {
                 await assignCategory()
                 
@@ -59,12 +63,21 @@ struct CommunicationView: View {
                     }
                 }
             }
-            .sheet(isPresented: $onboarding.isShowingWelcomeView, onDismiss: {
-                onboarding.isShowingWelcomeView = false
-                onboarding.savedAppVersion = AppInfo().version
-                vm.requestPersonalVoiceAccess()
-            }, content: {
-                WelcomeView()
+            .sheet(item: $onboardingSheet, content: { sheet in
+                switch sheet {
+                case .welcome:
+                    WelcomeView()
+                        .onDisappear {
+                            onboarding.isShowingWelcomeView = false
+                            onboarding.savedAppVersion = AppInfo().version
+                            vm.requestPersonalVoiceAccess()
+                        }
+                case .whatsNew:
+                    WhatsNewView()
+                        .onDisappear {
+                            onboarding.savedAppVersion = AppInfo().version
+                        }
+                }
             })
             .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
                 DefaultCategoriesSelectorView()
@@ -101,6 +114,20 @@ struct CommunicationView: View {
             }
             .transition(.move(edge: .bottom))
             .animation(.easeInOut, value: showingTextField)
+        }
+    }
+    
+    // Determines whether (and which) onboarding view should be displayed
+    private func checkForOnboardingViewsToShow() {
+        let currentAppVersion = AppInfo().version
+        let lastRunAppVersion = onboarding.savedAppVersion
+        
+        if onboarding.isShowingWelcomeView {
+            onboardingSheet = .welcome
+            print("Showing Welcome view")
+        } else if lastRunAppVersion != currentAppVersion {
+            onboardingSheet = .whatsNew
+            print("Showing What's New view")
         }
     }
     
@@ -241,11 +268,13 @@ struct CommunicationView: View {
     }
 }
 
-#Preview {
-    let controller = DataController(inMemory: true)
-    let context = controller.container.viewContext
+private enum ActiveOnboardingSheet: String, Identifiable {
+    case welcome, whatsNew
     
+    var id: String { rawValue }
+}
+
+#Preview {
     return CommunicationView()
-        .environment(\.managedObjectContext, context)
         .environmentObject(ViewModel())
 }

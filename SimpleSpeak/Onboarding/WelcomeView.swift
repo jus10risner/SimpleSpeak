@@ -8,35 +8,43 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         NavigationStack {
-            VStack(alignment: .center) {
-                Spacer()
-                
-                VStack {
-                    Image("Primary")
-                        .resizable()
-                        .frame(width: 75, height: 75)
-                        .padding(.bottom, 10)
-                    
-                    Text("""
-                        Welcome to 
-                        SimpleSpeak
-                        """)
-                    .font(.title.bold())
-                    .multilineTextAlignment(.center)
+            VStack(spacing: 0) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 50) {
+                        VStack(spacing: 15) {
+                            Image("Primary")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80)
+                                .frame(maxWidth: .infinity)
+                                .environment(\.colorScheme, {
+                                    if #available(iOS 18, *) {
+                                        return colorScheme
+                                    } else {
+                                        // iOS 17: force light mode only, since icons don't adapt for light/dark
+                                        return .light
+                                    }
+                                }())
+                            
+                            Text("Welcome to SimpleSpeak")
+                                .font(.title.bold())
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 15) {
+                            InformationItemView(title: "Communicate", description: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
+                            
+                            InformationItemView(title: "Customize", description: "Add and categorize phrases, then speak them with a tap.", imageName: "star.fill")
+                            
+                            InformationItemView(title: "Connect", description: "Use during phone or FaceTime calls to talk to friends and family.", imageName: "phone.fill")
+                        }
+                    }
+                    .padding(.horizontal, 40)
                 }
-                
-                VStack(alignment: .leading) {
-                    InformationItemView(title: "Communicate", subtitle: "Make yourself heard, using your preferred voice.", imageName: "person.wave.2.fill")
-                    
-                    InformationItemView(title: "Customize", subtitle: "Add and categorize phrases, then speak them with a tap.", imageName: "star.fill")
-                    
-                    InformationItemView(title: "Connect", subtitle: "Use during phone or FaceTime calls to talk to friends and family.", imageName: "phone.fill")
-                }
-                .padding(.horizontal, 40)
-                
-                Spacer()
                 
                 NavigationLink {
                     CategoriesExplanationView()
@@ -50,7 +58,16 @@ struct WelcomeView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 5)
             }
+            .padding(.bottom, UIDevice.current.userInterfaceIdiom == .pad ? 20 : 0)
             .interactiveDismissDisabled()
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    // Adds padding to the top of the scrollview, so the icon isn't in the toolbar area
+                    Text(" ")
+                        .opacity(0)
+                }
+            }
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 }

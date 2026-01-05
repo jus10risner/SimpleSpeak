@@ -9,16 +9,17 @@ import SwiftUI
 
 struct InformationItemView: View {
     var title: String
-    var subtitle: String
+    var description: String
     var imageName: String
     
     var body: some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .top) {
             Image(systemName: imageName)
-                .font(.largeTitle)
+                .font(.title)
                 .foregroundColor(Color(.accent))
-                .frame(width: 40)
-                .padding()
+                .symbolRenderingMode(.monochrome)
+                .frame(width: 36, alignment: .center)
+                .padding(.trailing, 8)
                 .accessibility(hidden: true)
 
             VStack(alignment: .leading) {
@@ -26,17 +27,20 @@ struct InformationItemView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
                     .accessibility(addTraits: .isHeader)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                Text(subtitle)
+                Text(description)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                    .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
             }
+            .layoutPriority(1)
         }
-        .padding(.top)
     }
 }
 
 #Preview {
-    InformationItemView(title: "Speak", subtitle: "Type phrases to have the app speak them out loud.", imageName: "person.wave.2.fill")
+    InformationItemView(title: "Speak", description: "Type phrases to have the app speak them out loud.", imageName: "person.wave.2.fill")
 }
