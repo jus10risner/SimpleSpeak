@@ -23,27 +23,33 @@ struct SettingsView: View {
                     NavigationLink {
                         VoiceSelectionView()
                     } label: {
-                        HStack {
-                            Label("Voice", systemImage: "person.wave.2")
-                            
-                            Spacer()
-                            
+                        LabeledContent {
                             Text(selectedVoice)
-                                .foregroundStyle(Color.secondary)
+                        } label: {
+                            Label("Voice", systemImage: "person.wave.2")
                         }
                     }
                     
                     Toggle(isOn: $vm.useDuringCalls, label: {
-                        Label("Use During Calls", systemImage: "phone")
+                        Label {
+                            VStack(alignment: .leading) {
+                                Text("Share During Calls")
+                                
+                                Text("Send speech to call participants")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "phone")
+                        }
+
                     })
                     .tint(Color(.accent))
                 } header: {
                     Text("Speech")
-                } footer: {
-                    Text("Send speech to other participants on calls.")
                 }
                 
-                Section("Appearance") {
+                Section("Styling") {
                     NavigationLink {
                         AppIconSelectorView()
                     } label: {
