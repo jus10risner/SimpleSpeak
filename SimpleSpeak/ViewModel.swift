@@ -112,6 +112,14 @@ class ViewModel: NSObject, ObservableObject {
             }
         }
     }
+    
+    // Determines whether to show the "Add Default Categories" button in the Categories sheet
+    func allDefaultCategoriesAdded(categories: FetchedResults<PhraseCategory>) -> Bool {
+        let defaultCategoryTitles = ["basics", "feelings", "health", "interactions", "requests"]
+        return defaultCategoryTitles.allSatisfy { title in
+            categories.contains { $0.title.normalized == title }
+        }
+    }
 }
 
 enum PhraseCellWidthOptions: Int, CaseIterable {

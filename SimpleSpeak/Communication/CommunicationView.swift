@@ -67,7 +67,7 @@ struct CommunicationView: View {
                 WelcomeView()
             })
             .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
-                DefaultCategoriesSelectorView(shouldShowHeader: true)
+                DefaultCategoriesSelectorView()
                     .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
             .sheet(isPresented: $showingAddCategory, content: {

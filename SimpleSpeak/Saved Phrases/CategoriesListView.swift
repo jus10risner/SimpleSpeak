@@ -55,13 +55,12 @@ struct CategoriesListView: View {
                 Button {
                     isAddingCategory = true
                 } label: {
-                    Label("Add Category", systemImage: "plus.circle.fill")
-                        .symbolRenderingMode(.hierarchical)
+                    Label("Add Category", systemImage: "plus")
                 }
             }
             .listRowSpacing(vm.listRowSpacing)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Manage Categories")
+            .navigationTitle("Categories")
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .recents:
@@ -80,10 +79,13 @@ struct CategoriesListView: View {
                     }
                 }
                 
-                ToolbarItem(placement: .bottomBar) {
-                    if allCategoriesAdded == false {
-                        Button("Add Default Categories") { showingDefaultCategoriesSelector = true }
-                            .font(.subheadline)
+                ToolbarItem(placement: .topBarLeading) {
+                    if vm.allDefaultCategoriesAdded(categories: categories) == false {
+                        Button {
+                            showingDefaultCategoriesSelector = true
+                        } label: {
+                            Label("Add Default Categories", systemImage: "list.bullet")
+                        }
                     }
                 }
             }
@@ -91,7 +93,7 @@ struct CategoriesListView: View {
                 AddEditCategoryView()
             })
             .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
-                DefaultCategoriesSelectorView(shouldShowHeader: false)
+                DefaultCategoriesSelectorView()
                     .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
             .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {
@@ -99,14 +101,6 @@ struct CategoriesListView: View {
             } message: {
                 Text("This category title already exists. Please select a different title.")
             }
-        }
-    }
-    
-    private var allCategoriesAdded: Bool {
-        let defaultCategoryTitles = ["basics", "feelings", "health", "interactions", "requests"]
-        
-        return defaultCategoryTitles.allSatisfy { title in
-            categories.contains { $0.title.normalized == title }
         }
     }
     
@@ -129,10 +123,6 @@ struct CategoriesListView: View {
 }
 
 #Preview {
-    let controller = DataController(inMemory: true)
-    let context = controller.container.viewContext
-    
     return CategoriesListView()
-        .environment(\.managedObjectContext, context)
         .environmentObject(ViewModel())
 }

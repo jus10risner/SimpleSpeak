@@ -15,7 +15,6 @@ struct DefaultCategoriesSelectorView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
     let defaultCategories = DefaultCategoryArrays()
-    let shouldShowHeader: Bool
     
     var body: some View {
         NavigationStack {
@@ -30,16 +29,9 @@ struct DefaultCategoriesSelectorView: View {
                     createDefaultCategory(name: "Interactions", symbolName: "bubble.left.and.bubble.right.fill", description: "Greetings, conversations, and farewells", phrases: defaultCategories.interactions)
                     
                     createDefaultCategory(name: "Requests", symbolName: "hand.raised.fill", description: "Communicate needs and preferences", phrases: defaultCategories.requests)
-                } header: {
-                    if shouldShowHeader {
-                        Text("You can add these later in **Manage Categories**")
-                    }
                 }
-                .textCase(nil)
             }
             .listRowSpacing(vm.listRowSpacing)
-            .scrollContentBackground(.hidden)
-            .background(Color(.systemGroupedBackground))
             .animation(.easeInOut, value: categories.count)
             .navigationTitle("Default Categories")
             .navigationBarTitleDisplayMode(.inline)
@@ -54,20 +46,12 @@ struct DefaultCategoriesSelectorView: View {
                 }
             }
             .onChange(of: categories.count) {
-                if allCategoriesAdded {
+                if vm.allDefaultCategoriesAdded(categories: categories) {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         dismiss()
                     }
                 }
             }
-        }
-    }
-    
-    private var allCategoriesAdded: Bool {
-        let defaultCategoryTitles = ["basics", "feelings", "health", "interactions", "requests"]
-        
-        return defaultCategoryTitles.allSatisfy { title in
-            categories.contains { $0.title.normalized == title }
         }
     }
     
@@ -107,6 +91,6 @@ struct DefaultCategoriesSelectorView: View {
 }
 
 #Preview {
-    DefaultCategoriesSelectorView(shouldShowHeader: true)
+    DefaultCategoriesSelectorView()
         .environmentObject(ViewModel())
 }
