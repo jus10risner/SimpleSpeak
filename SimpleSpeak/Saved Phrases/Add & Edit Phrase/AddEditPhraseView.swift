@@ -46,7 +46,7 @@ struct AddEditPhraseView: View {
                 }
                 
                 Picker("Color", selection: $draftPhrase.color) {
-                    Label("None", systemImage: "circle.slash")
+                    Label("None", systemImage: "circle")
                         .tint(Color.secondary)
                         .tag(nil as PhraseColor?)
                     
