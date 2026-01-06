@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct CategoriesExplanationView: View {
-    @EnvironmentObject var onboarding: OnboardingManager
     @EnvironmentObject var vm: ViewModel
+    
+    @Binding var onboardingSheet: ActiveOnboardingSheet?
     
     @State private var categoryButtonExpanded = false
     @State private var phraseButtonExpanded = false
@@ -65,7 +66,7 @@ struct CategoriesExplanationView: View {
             Spacer()
             
             Button {
-                onboarding.isShowingWelcomeView = false
+                onboardingSheet = nil
             } label: {
                 Text("Get Started")
                     .font(.headline)
@@ -94,6 +95,6 @@ struct CategoriesExplanationView: View {
 }
 
 #Preview {
-    CategoriesExplanationView()
+    CategoriesExplanationView(onboardingSheet: .constant(nil))
         .environmentObject(ViewModel())
 }

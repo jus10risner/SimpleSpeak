@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CommunicationView: View {
     @EnvironmentObject var vm: ViewModel
-    @StateObject var onboarding = OnboardingManager()
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "category == %@", NSNull())) var recentPhrases: FetchedResults<SavedPhrase>
@@ -25,6 +24,7 @@ struct CommunicationView: View {
     @State private var showingDefaultCategoriesSelector = false
     @State private var onboardingSheet: ActiveOnboardingSheet?
      
+    @AppStorage("savedAppVersion") var savedAppVersion: String = "" // Used to determine onboarding view to show
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
     var body: some View {
@@ -46,7 +46,7 @@ struct CommunicationView: View {
             .task {
                 await assignCategory()
                 
-                if onboarding.isShowingWelcomeView == false { // Prevents interference with fetching Personal Voice
+                if onboardingSheet != .welcome { // Prevents interference with fetching Personal Voice
                     await vm.checkSpeechVoice()
                 }
             }
@@ -66,16 +66,15 @@ struct CommunicationView: View {
             .sheet(item: $onboardingSheet, content: { sheet in
                 switch sheet {
                 case .welcome:
-                    WelcomeView()
+                    WelcomeView(onboardingSheet: $onboardingSheet)
                         .onDisappear {
-                            onboarding.isShowingWelcomeView = false
-                            onboarding.savedAppVersion = AppInfo().version
+                            savedAppVersion = AppInfo().version
                             vm.requestPersonalVoiceAccess()
                         }
                 case .whatsNew:
                     WhatsNewView()
                         .onDisappear {
-                            onboarding.savedAppVersion = AppInfo().version
+                            savedAppVersion = AppInfo().version
                         }
                 }
             })
@@ -103,7 +102,6 @@ struct CommunicationView: View {
                 CategoriesListView()
             })
         }
-        .environmentObject(onboarding)
         .overlay {
             Group {
                 if showingTextField {
@@ -120,9 +118,9 @@ struct CommunicationView: View {
     // Determines whether (and which) onboarding view should be displayed
     private func checkForOnboardingViewsToShow() {
         let currentAppVersion = AppInfo().version
-        let lastRunAppVersion = onboarding.savedAppVersion
+        let lastRunAppVersion = savedAppVersion
         
-        if onboarding.isShowingWelcomeView {
+        if savedAppVersion.isEmpty {
             onboardingSheet = .welcome
             print("Showing Welcome view")
         } else if lastRunAppVersion != currentAppVersion {
@@ -268,7 +266,7 @@ struct CommunicationView: View {
     }
 }
 
-private enum ActiveOnboardingSheet: String, Identifiable {
+enum ActiveOnboardingSheet: String, Identifiable {
     case welcome, whatsNew
     
     var id: String { rawValue }

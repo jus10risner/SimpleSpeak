@@ -44,7 +44,6 @@
 		9EF689E22C4AB99700568B6D /* DraftPhrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E12C4AB99700568B6D /* DraftPhrase.swift */; };
 		9EF689E42C4ABAA800568B6D /* AddEditPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF689E32C4ABAA800568B6D /* AddEditPhraseView.swift */; };
 		9EF9A29C2CE3B85A00E7B06B /* RecentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */; };
-		9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */; };
 		9EFC29CC2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */; };
 		9EFC29CE2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */; };
 		9EFC29D02D7208F200F3F3A9 /* DefaultCategoryArrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC29CF2D7208F200F3F3A9 /* DefaultCategoryArrays.swift */; };
@@ -94,7 +93,6 @@
 		9EF689E12C4AB99700568B6D /* DraftPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhrase.swift; sourceTree = "<group>"; };
 		9EF689E32C4ABAA800568B6D /* AddEditPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhraseView.swift; sourceTree = "<group>"; };
 		9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsCardView.swift; sourceTree = "<group>"; };
-		9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
 		9EFC29CB2D6F6C6000F3F3A9 /* DefaultCategoriesSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategoriesSelectorView.swift; sourceTree = "<group>"; };
 		9EFC29CD2D6F78EC00F3F3A9 /* AddDefaultCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDefaultCategoryButton.swift; sourceTree = "<group>"; };
 		9EFC29CF2D7208F200F3F3A9 /* DefaultCategoryArrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategoryArrays.swift; sourceTree = "<group>"; };
@@ -224,7 +222,6 @@
 				9ECA2CF32CC6B13B00A46FAB /* InformationItemView.swift */,
 				9E085A032D64D7AB000F4A5A /* EmptyCommunicationView.swift */,
 				9EFC29D12D7209DC00F3F3A9 /* Default Categories */,
-				9EFC29C92D6D058300F3F3A9 /* OnboardingManager.swift */,
 				9E64A6452EF5E2C8005CFF3B /* OnboardingTips.swift */,
 			);
 			path = Onboarding;
@@ -369,7 +366,6 @@
 				9EFC29D02D7208F200F3F3A9 /* DefaultCategoryArrays.swift in Sources */,
 				9EFC29D52D72512100F3F3A9 /* AddCategoryButton.swift in Sources */,
 				9E4B46B02A0987B20076367F /* SimpleSpeakApp.swift in Sources */,
-				9EFC29CA2D6D058300F3F3A9 /* OnboardingManager.swift in Sources */,
 				9E92AB312F0C29A900B7AE26 /* WhatsNewView.swift in Sources */,
 				9ED40D442C21D857008C7E49 /* SavedPhrase+helper.swift in Sources */,
 			);

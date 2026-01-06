@@ -10,7 +10,6 @@ import SwiftUI
 struct SavedPhrasesListView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var onboarding: OnboardingManager
     @EnvironmentObject var vm: ViewModel
     
     @FetchRequest var savedPhrases: FetchedResults<SavedPhrase>
@@ -182,7 +181,6 @@ struct SavedPhrasesListView: View {
 
 #Preview {
     SavedPhrasesListView(category: nil)
-        .environmentObject(OnboardingManager())
         .environmentObject(ViewModel())
 }
 

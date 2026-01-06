@@ -10,6 +10,8 @@ import SwiftUI
 struct WelcomeView: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @Binding var onboardingSheet: ActiveOnboardingSheet?
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -47,7 +49,7 @@ struct WelcomeView: View {
                 }
                 
                 NavigationLink {
-                    CategoriesExplanationView()
+                    CategoriesExplanationView(onboardingSheet: $onboardingSheet)
                 } label: {
                     Text("Next")
                         .font(.headline)
@@ -73,5 +75,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    WelcomeView(onboardingSheet: .constant(nil))
 }

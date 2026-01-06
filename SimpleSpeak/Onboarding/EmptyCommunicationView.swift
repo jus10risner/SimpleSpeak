@@ -9,7 +9,6 @@ import CoreData
 import SwiftUI
 
 struct EmptyCommunicationView: View {
-    @EnvironmentObject var onboarding: OnboardingManager
     @EnvironmentObject var vm: ViewModel
     
     @Binding var showingAddCategory: Bool
