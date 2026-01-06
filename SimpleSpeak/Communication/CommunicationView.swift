@@ -234,8 +234,8 @@ struct CommunicationView: View {
                     }
                     .transition(.opacity.animation(.easeInOut))
             } else {
-                Text("SimpleSpeak")
-                    .font(.headline)
+                Text("Tap a phrase to speak")
+                    .foregroundStyle(Color.secondary)
                     .transition(.asymmetric(insertion: .opacity.animation(.easeInOut), removal: .identity))
             }
         }
