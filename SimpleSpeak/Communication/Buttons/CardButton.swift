@@ -51,6 +51,9 @@ struct CardButton: View {
         } primaryAction: {
             isPressed = true
             vm.speakImmediately(phrase.text)
+            
+            Task { await MultiButtonTip.didTapPhraseButton.donate() }  // Triggers the MultiButtonTip's appearance
+            
             // Reset after a brief delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 isPressed = false
