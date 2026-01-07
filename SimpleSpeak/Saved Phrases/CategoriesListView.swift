@@ -84,7 +84,7 @@ struct CategoriesListView: View {
                         Button {
                             showingDefaultCategoriesSelector = true
                         } label: {
-                            Label("Add Default Categories", systemImage: "list.bullet")
+                            Label("Add Default Categories", systemImage: "rectangle.stack.badge.plus")
                         }
                     }
                 }
