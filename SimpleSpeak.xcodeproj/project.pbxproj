@@ -25,7 +25,6 @@
 		9EA1EA102D1325B700C726D4 /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA1EA0F2D1325B700C726D4 /* CardButton.swift */; };
 		9EAE515C2C401E3300C6ADE1 /* CategorySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */; };
 		9EAE51612C40200D00C6ADE1 /* PhraseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */; };
-		9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8762C2313980012D3CC /* CommunicationView.swift */; };
 		9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8782C2319380012D3CC /* SettingsView.swift */; };
 		9EAEE87B2C2319900012D3CC /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE87A2C2319900012D3CC /* CategoriesListView.swift */; };
 		9EAEE8812C24BB050012D3CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEE8802C24BB050012D3CC /* ViewModel.swift */; };
@@ -73,7 +72,6 @@
 		9EA1EA0F2D1325B700C726D4 /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectorView.swift; sourceTree = "<group>"; };
 		9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCardView.swift; sourceTree = "<group>"; };
-		9EAEE8762C2313980012D3CC /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
 		9EAEE8782C2319380012D3CC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9EAEE87A2C2319900012D3CC /* CategoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		9EAEE8802C24BB050012D3CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 		9EAE515D2C401F5400C6ADE1 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
-				9EAEE8762C2313980012D3CC /* CommunicationView.swift */,
 				9EAE515B2C401E3300C6ADE1 /* CategorySelectorView.swift */,
 				9EAE51602C40200D00C6ADE1 /* PhraseCardView.swift */,
 				9EF9A29B2CE3B85A00E7B06B /* RecentsCardView.swift */,
@@ -341,7 +338,6 @@
 				9E085A082D66632B000F4A5A /* MailComposeViewController.swift in Sources */,
 				9E8B7B922C404CC100A53F39 /* SavedPhrasesListView.swift in Sources */,
 				9E195FD92C260AAC00B37618 /* SafariView.swift in Sources */,
-				9EAEE8772C2313980012D3CC /* CommunicationView.swift in Sources */,
 				9EAEE8792C2319380012D3CC /* SettingsView.swift in Sources */,
 				9EFC29D32D72235700F3F3A9 /* CategoriesExplanationView.swift in Sources */,
 				9EDAE1E42D7B669000F26B43 /* AppIconSelectorView.swift in Sources */,
