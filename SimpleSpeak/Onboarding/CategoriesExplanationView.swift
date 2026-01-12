@@ -77,6 +77,8 @@ struct CategoriesExplanationView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 5)
         }
+        .padding(.bottom, UIDevice.current.userInterfaceIdiom == .pad ? 20 : 0)
+        .interactiveDismissDisabled()
         .multilineTextAlignment(.center)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
