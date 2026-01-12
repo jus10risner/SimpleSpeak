@@ -233,7 +233,7 @@ struct ContentView: View {
                     }
                     .transition(.opacity.animation(.easeInOut))
             } else {
-                Text("Tap a phrase to speak")
+                Text(categories.count > 0 ? "Tap a phrase to speak" : "")
                     .foregroundStyle(Color.secondary)
                     .transition(.asymmetric(insertion: .opacity.animation(.easeInOut), removal: .identity))
             }
