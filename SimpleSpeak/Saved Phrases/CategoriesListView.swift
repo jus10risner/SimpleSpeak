@@ -93,7 +93,7 @@ struct CategoriesListView: View {
                 AddEditCategoryView()
             })
             .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
-                DefaultCategoriesSelectorView()
+                DefaultCategoriesSelectorView(showHeader: false)
                     .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
             .alert("Duplicate Category", isPresented: $showingDuplicateCategoryAlert) {

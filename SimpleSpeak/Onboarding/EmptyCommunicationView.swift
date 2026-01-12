@@ -9,9 +9,6 @@ import CoreData
 import SwiftUI
 
 struct EmptyCommunicationView: View {
-    @EnvironmentObject var vm: ViewModel
-    
-    @Binding var showingAddCategory: Bool
     @Binding var showingDefaultCategoriesSelector: Bool
     
     // Properties to track iCloud sync status
@@ -19,33 +16,13 @@ struct EmptyCommunicationView: View {
     @State private var publisher = NotificationCenter.default.publisher(for: NSPersistentCloudKitContainer.eventChangedNotification)
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack(spacing: 20) {
-                Spacer()
-                
-                HStack {
-                    Text("Tap")
-                    
-                    AddCategoryButton(action: { showingAddCategory = true })
-                    
-                    Text("to add a category")
-                }
-                .font(.title2.bold())
-                .accessibilityElement()
-                .accessibilityLabel("Tap Add Category to add your first category.")
-                
-                VStack {
-                    Text("Not sure where to start?")
-                        .foregroundStyle(Color.secondary)
-                        .multilineTextAlignment(.center)
-                    
-                    Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
-                }
-                
-                Spacer()
-            }
+        ContentUnavailableView {
+            Label("Add a Custom Category", systemImage: "bookmark")
+        } description: {
+            Text("Tap the plus button above to get started.")
+        } actions: {
+            Button("Use Default Categories") { showingDefaultCategoriesSelector = true }
         }
-        .frame(width: 300)
         .overlay {
             VStack {
                 if iCloudDataImporting {
@@ -67,17 +44,16 @@ struct EmptyCommunicationView: View {
             if let userInfo = notification.userInfo {
                 if let event = userInfo["event"] as? NSPersistentCloudKitContainer.Event {
                     if event.type == .import {
-                      iCloudDataImporting = true
+                        iCloudDataImporting = true
                     } else {
-                      iCloudDataImporting = false
+                        iCloudDataImporting = false
                     }
-                 }
-              }
-           }
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    EmptyCommunicationView(showingAddCategory: .constant(false), showingDefaultCategoriesSelector: .constant(false))
-        .environmentObject(ViewModel())
+    EmptyCommunicationView(showingDefaultCategoriesSelector: .constant(false))
 }

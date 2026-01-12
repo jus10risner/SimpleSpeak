@@ -78,7 +78,7 @@ struct ContentView: View {
                 }
             })
             .sheet(isPresented: $showingDefaultCategoriesSelector, content: {
-                DefaultCategoriesSelectorView()
+                DefaultCategoriesSelectorView(showHeader: true)
                     .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [.large] : [.medium])
             })
             .sheet(isPresented: $showingAddCategory, content: {
@@ -158,7 +158,7 @@ struct ContentView: View {
     private var phraseCards: some View {
         TabView(selection: $selectedCategory) {
             if categories.count == 0 && recentPhrases.count == 0 {
-                EmptyCommunicationView(showingAddCategory: $showingAddCategory, showingDefaultCategoriesSelector: $showingDefaultCategoriesSelector)
+                EmptyCommunicationView(showingDefaultCategoriesSelector: $showingDefaultCategoriesSelector)
             } else {
                 if recentPhrases.count > 0 {
                     RecentsCardView(phraseToEdit: $phraseToEdit)

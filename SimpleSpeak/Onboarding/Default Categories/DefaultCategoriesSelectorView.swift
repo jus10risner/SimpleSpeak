@@ -14,6 +14,7 @@ struct DefaultCategoriesSelectorView: View {
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \PhraseCategory.displayOrder, ascending: true)]) var categories: FetchedResults<PhraseCategory>
     
+    let showHeader: Bool
     let defaultCategories = DefaultCategoryArrays()
     
     var body: some View {
@@ -29,7 +30,11 @@ struct DefaultCategoriesSelectorView: View {
                     createDefaultCategory(name: "Interactions", symbolName: "bubble.left.and.bubble.right.fill", description: "Greetings, conversations, and farewells", phrases: defaultCategories.interactions)
                     
                     createDefaultCategory(name: "Requests", symbolName: "hand.raised.fill", description: "Communicate needs and preferences", phrases: defaultCategories.requests)
+                } header: {
+                    Text(showHeader ? "Can be added later from the Categories list." : "")
+                        .font(.subheadline)
                 }
+                .textCase(nil)
             }
             .listRowSpacing(vm.listRowSpacing)
             .animation(.easeInOut, value: categories.count)
@@ -91,6 +96,6 @@ struct DefaultCategoriesSelectorView: View {
 }
 
 #Preview {
-    DefaultCategoriesSelectorView()
+    DefaultCategoriesSelectorView(showHeader: true)
         .environmentObject(ViewModel())
 }
