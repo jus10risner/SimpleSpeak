@@ -17,6 +17,8 @@
 		9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B32A0987B30076367F /* Assets.xcassets */; };
 		9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E4B46B62A0987B30076367F /* Preview Assets.xcassets */; };
 		9E64A6462EF5E2C8005CFF3B /* OnboardingTips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E64A6452EF5E2C8005CFF3B /* OnboardingTips.swift */; };
+		9E6566132F1187220093F277 /* Primary.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9EE98A242F1179680094F554 /* Primary.icon */; };
+		9E6566142F1187280093F277 /* Monochrome.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9EE98A232F1179680094F554 /* Monochrome.icon */; };
 		9E68DA202CE7E82E0002277F /* VoiceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68DA1F2CE7E82E0002277F /* VoiceSelectionView.swift */; };
 		9E7FD0E82C9CA1A6004EC298 /* DraftCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E72C9CA1A6004EC298 /* DraftCategory.swift */; };
 		9E7FD0EA2C9CA24E004EC298 /* AddEditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FD0E92C9CA24E004EC298 /* AddEditCategoryView.swift */; };
@@ -87,6 +89,8 @@
 		9EDAE1E32D7B669000F26B43 /* AppIconSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconSelectorView.swift; sourceTree = "<group>"; };
 		9EDC1F442C8A18D8005D7780 /* TextInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputButton.swift; sourceTree = "<group>"; };
 		9EDC1F4D2C8F4DDA005D7780 /* MultiButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiButtonView.swift; sourceTree = "<group>"; };
+		9EE98A232F1179680094F554 /* Monochrome.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Monochrome.icon; sourceTree = "<group>"; };
+		9EE98A242F1179680094F554 /* Primary.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Primary.icon; sourceTree = "<group>"; };
 		9EF689DF2C4AAAC500568B6D /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		9EF689E12C4AB99700568B6D /* DraftPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftPhrase.swift; sourceTree = "<group>"; };
 		9EF689E32C4ABAA800568B6D /* AddEditPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPhraseView.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 		9E4B46A32A0987B20076367F = {
 			isa = PBXGroup;
 			children = (
+				9EE98A252F1179910094F554 /* Icons */,
 				9E4B46AE2A0987B20076367F /* SimpleSpeak */,
 				9E4B46AD2A0987B20076367F /* Products */,
 			);
@@ -245,6 +250,15 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		9EE98A252F1179910094F554 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				9EE98A242F1179680094F554 /* Primary.icon */,
+				9EE98A232F1179680094F554 /* Monochrome.icon */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
 		9EFC29D12D7209DC00F3F3A9 /* Default Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +327,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6566132F1187220093F277 /* Primary.icon in Resources */,
+				9E6566142F1187280093F277 /* Monochrome.icon in Resources */,
 				9E4B46B72A0987B30076367F /* Preview Assets.xcassets in Resources */,
 				9E4B46B42A0987B30076367F /* Assets.xcassets in Resources */,
 			);
@@ -497,9 +513,10 @@
 		9E4B46BB2A0987B30076367F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark \"Monochrome Dark\" \"Monochrome Light\"";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = Primary;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
@@ -511,6 +528,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -531,9 +549,10 @@
 		9E4B46BC2A0987B30076367F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "Light Dark \"Monochrome Dark\" \"Monochrome Light\"";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = Primary;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = SimpleSpeak/SimpleSpeak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
@@ -545,6 +564,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

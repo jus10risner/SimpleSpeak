@@ -8,43 +8,55 @@
 import SwiftUI
 
 struct AppIconSelectorView: View {
-    @State private var selectedIcon: AppIcons = .appIcon
+    @Environment(\.colorScheme) var colorScheme
+    @AppStorage("appIcon") var appIcon: AppIcon?
     
     var body: some View {
         List {
-            Section("Select an app icon") {
-                ForEach(AppIcons.allCases, id: \.rawValue) { icon in
-                    HStack {
-                        Image(decorative: icon.previewImage)
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .shadow(color: Color.secondary, radius: 0.5)
-                        
-                        Text(icon.rawValue)
-                        
-                        Spacer()
-                        
-                        if selectedIcon == icon {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(Color(.accent))
-                        }
-                    }
-                    .onTapGesture {
-                        selectedIcon = icon
-                        UIApplication.shared.setAlternateIconName(icon.assignedValue)
-                    }
+            Picker("Icons", selection: $appIcon) {
+                iconLabel(title: "SimpleSpeak Teal", iconName: "Primary Icon")
+                    .tag(nil as AppIcon?)
+                
+                ForEach(AppIcon.allCases, id: \.self) { icon in
+                    iconLabel(title: "\(icon.rawValue)", iconName: "\(icon.rawValue) Icon")
+                        .tag(icon) // This connects the row to the selection binding
                 }
             }
-            .textCase(nil)
         }
+        .pickerStyle(.inline)
         .navigationTitle("App Icon")
-        .onAppear {
-            if let alternateAppIcon = UIApplication.shared.alternateIconName, let appIcon = AppIcons.allCases.first(where: { $0.rawValue == alternateAppIcon }) {
-                selectedIcon = appIcon
-            } else {
-                selectedIcon = .appIcon
-            }
+        .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: appIcon) {
+            UIApplication.shared.setAlternateIconName(appIcon?.rawValue)
         }
+    }
+    
+    private func iconLabel(title: String, iconName: String) -> some View {
+        Label {
+            Text(title)
+                .padding(.leading, 5)
+        } icon: {
+            Image(iconName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.secondary, lineWidth: 0.2)
+                )
+                .environment(\.colorScheme,
+                    {
+                        if #available(iOS 18, *) {
+                            return colorScheme
+                        } else {
+                            // iOS 17: force light mode only
+                            return .light
+                        }
+                    }()
+                )
+        }
+        .padding(8)
     }
 }
 
@@ -52,31 +64,18 @@ struct AppIconSelectorView: View {
     AppIconSelectorView()
 }
 
-enum AppIcons: String, CaseIterable {
-    case appIcon = "Primary", dark = "Dark", light = "Light", monochromeDark = "Monochrome Dark", monochromeLight = "Monochrome Light"
-    
-    // Determines whether to use the default icon or an alternate version
-    var assignedValue: String? {
-        if self == .appIcon {
-            return nil
-        } else {
-            return rawValue
-        }
-    }
+enum AppIcon: String, CaseIterable {
+    case monochrome = "Monochrome", classicTeal = "Classic Teal", classicMonochrome = "Classic Monochrome"
     
     // Images to show in the selection list
     var previewImage: String {
         switch self {
-        case .appIcon:
-            return "Primary"
-        case .dark:
-            return "Dark"
-        case .light:
-            return "Light"
-        case .monochromeDark:
-            return "Monochrome Dark"
-        case .monochromeLight:
-            return "Monochrome Light"
+        case .monochrome:
+            return "Monochrome"
+        case .classicTeal:
+            return "Classic Teal"
+        case .classicMonochrome:
+            return "Classic Monochrome"
         }
     }
 }

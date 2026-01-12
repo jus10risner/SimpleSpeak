@@ -18,7 +18,7 @@ struct WelcomeView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 50) {
                         VStack(spacing: 15) {
-                            Image("Primary")
+                            Image("Primary Icon")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 80)
@@ -70,6 +70,7 @@ struct WelcomeView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.large)
+            .background(Color(.systemBackground).ignoresSafeArea())
         }
     }
 }
