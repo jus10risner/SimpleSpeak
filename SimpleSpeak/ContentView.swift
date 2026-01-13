@@ -24,6 +24,7 @@ struct ContentView: View {
     @State private var onboardingSheet: ActiveOnboardingSheet?
      
     @AppStorage("savedAppVersion") var savedAppVersion: String = "" // Used to determine onboarding view to show
+    @AppStorage("isShowingWelcomeView") var isShowingWelcomeView: Bool = true
     @AppStorage("lastSelectedCategory") var lastSelectedCategory: String = "Recents"
     
     var body: some View {
@@ -67,6 +68,7 @@ struct ContentView: View {
                 case .welcome:
                     WelcomeView(onboardingSheet: $onboardingSheet)
                         .onDisappear {
+                            isShowingWelcomeView = false
                             savedAppVersion = AppInfo().version
                             vm.requestPersonalVoiceAccess()
                         }
@@ -119,7 +121,7 @@ struct ContentView: View {
         let currentAppVersion = AppInfo().version
         let lastRunAppVersion = savedAppVersion
         
-        if savedAppVersion.isEmpty {
+        if savedAppVersion.isEmpty && isShowingWelcomeView == true {
             onboardingSheet = .welcome
             print("Showing Welcome view")
         } else if lastRunAppVersion != currentAppVersion {
