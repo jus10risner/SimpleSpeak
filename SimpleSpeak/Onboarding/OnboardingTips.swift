@@ -9,11 +9,11 @@ import TipKit
 
 struct MultiButtonTip: Tip {
     var title: Text {
-        Text("Always the right control")
+        Text("Controls That Adapt")
     }
     
     var message: Text? {
-        Text("This button shows speech controls during speech and the keyboard when speech is idle.")
+        Text("This button shows playback controls during speech and opens the keyboard when speech is not playing.")
     }
     
     var image: Image? {
