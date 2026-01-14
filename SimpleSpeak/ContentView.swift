@@ -36,10 +36,19 @@ struct ContentView: View {
                 
                 bottomBar
             }
-            .accessibilityHidden(showingTextField ? true : false)
+            .disabled(showingTextField)
+            .blur(radius: showingTextField ? 2 : 0)
+            .accessibilityHidden(showingTextField) // Hides the main view from VoiceOver when text input is active
             .animation(.default, value: selectedCategory)
             .ignoresSafeArea(.keyboard)
             .toolbar(.hidden)
+            .overlay {
+                if showingTextField {
+                    TextInputView(showingTextField: $showingTextField)
+                }
+            }
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .animation(.easeInOut(duration: 0.2), value: showingTextField)
             .onAppear {
                 checkForOnboardingViewsToShow()
             }
@@ -102,17 +111,6 @@ struct ContentView: View {
             .sheet(isPresented: $showingSavedPhrases, content: {
                 CategoriesListView()
             })
-        }
-        .overlay {
-            Group {
-                if showingTextField {
-                    TextInputView(showingTextField: $showingTextField)
-                } else {
-                    EmptyView()
-                }
-            }
-            .transition(.move(edge: .bottom))
-            .animation(.easeInOut, value: showingTextField)
         }
     }
     

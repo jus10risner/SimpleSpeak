@@ -22,28 +22,24 @@ struct TextInputView: View {
     @FocusState var isInputActive: Bool
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             Color.black
-                .opacity(0.5)
+                .opacity(0.4)
                 .ignoresSafeArea()
                 .onTapGesture {
                     dismissKeyboard()
                 }
             
-            VStack {
-                Spacer()
+            VStack(spacing: 0) {
+                textFieldButtons
                 
-                VStack(spacing: 0) {
-                    textFieldButtons
-                    
-                    textField
-                }
-                .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
-                .padding()
-                .background {
-                    UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
-                        .fill(.ultraThinMaterial).ignoresSafeArea(edges: .bottom)
-                }
+                textField
+            }
+            .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .padding()
+            .background {
+                UnevenRoundedRectangle(topLeadingRadius: 26, topTrailingRadius: 26)
+                    .fill(.ultraThinMaterial).ignoresSafeArea(edges: .bottom)
             }
         }
         .onAppear { isInputActive = true }
