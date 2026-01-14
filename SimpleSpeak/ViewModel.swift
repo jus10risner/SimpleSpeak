@@ -14,7 +14,6 @@ class ViewModel: NSObject, ObservableObject {
     @Published var phraseIsRepeatable: Bool = false
     @Published var label: NSAttributedString?
     
-    let cornerRadius: CGFloat = 15
     let listRowSpacing: CGFloat = 5
     lazy var synthesizer: AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
@@ -22,6 +21,15 @@ class ViewModel: NSObject, ObservableObject {
         synthesizer.delegate = self
         return synthesizer
     }()
+    
+    // Radius for RoundedRectangle corners, based on iOS version
+    var cornerRadius: CGFloat {
+        if #available(iOS 26, *) {
+            return 26
+        } else {
+            return 15
+        }
+    }
     
     @AppStorage("useDuringCalls") var useDuringCalls = true // Specifies whether audio is sent to other parties during calls
     @AppStorage("selectedVoiceIdentifier") var selectedVoiceIdentifier: String? //  Used to set the voice for speech synthesis
@@ -46,7 +54,7 @@ class ViewModel: NSObject, ObservableObject {
         
         try? audioSession.setCategory(.playback, mode: .default, options: [.duckOthers])
         
-        synthesizer.mixToTelephonyUplink = self.useDuringCalls ? true : false
+        synthesizer.mixToTelephonyUplink = self.useDuringCalls
         synthesizer.speak(utterance)
     }
     
@@ -84,16 +92,13 @@ class ViewModel: NSObject, ObservableObject {
         Task { await self.speak(text) }
     }
     
+    // Ensures that the selected voice is available; assigns the default voice, if the selected voice is no longer available
     func checkSpeechVoice() async {
         if !AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.identifier == self.selectedVoiceIdentifier }) {
             let languageCode = AVSpeechSynthesisVoice.currentLanguageCode()
 
             if let defaultVoice = AVSpeechSynthesisVoice(language: languageCode) {
-                let defaultVoiceIdentifier = defaultVoice.identifier
-                
-                Task { @MainActor in
-                    self.selectedVoiceIdentifier = defaultVoiceIdentifier
-                }
+                    self.selectedVoiceIdentifier = defaultVoice.identifier
             }
         }
     }
@@ -102,9 +107,7 @@ class ViewModel: NSObject, ObservableObject {
         AVSpeechSynthesizer.requestPersonalVoiceAuthorization { result in
             if result == .authorized {
                 let personalVoices = AVSpeechSynthesisVoice.speechVoices().filter { $0.voiceTraits == .isPersonalVoice }
-                
                 self.selectedVoiceIdentifier = personalVoices.first?.identifier
-
             } else {
                 Task {
                     await self.checkSpeechVoice()
@@ -134,8 +137,8 @@ enum SynthesizerState: String {
 extension ViewModel: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         print("started")
-        self.phraseIsRepeatable = false
         Task { @MainActor in
+            self.phraseIsRepeatable = false
             self.synthesizerState = .speaking
         }
     }
@@ -171,8 +174,8 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         }
         
         print("finished")
-        self.phraseIsRepeatable = true
         Task { @MainActor in
+            self.phraseIsRepeatable = true
             self.synthesizerState = .inactive
         }
     }
