@@ -16,12 +16,15 @@ struct CardButton: View {
     @State private var isPressed = false
     
     var body: some View {
-        Menu {
-            Button {
-                print(phrase.text)
-                phraseToEdit = phrase
-            } label: {
-                Label("Edit Phrase", systemImage: "pencil")
+        Button {
+            isPressed = true
+            vm.speakImmediately(phrase.text)
+            
+            Task { await MultiButtonTip.didTapPhraseButton.donate() }  // Triggers the MultiButtonTip's appearance
+            
+            // Reset after a brief delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                isPressed = false
             }
         } label: {
             ZStack {
@@ -48,18 +51,16 @@ struct CardButton: View {
             }
             .scaleEffect(isPressed ? 0.97 : 1)
             .animation(.easeInOut(duration: 0.2), value: isPressed)
-        } primaryAction: {
-            isPressed = true
-            vm.speakImmediately(phrase.text)
-            
-            Task { await MultiButtonTip.didTapPhraseButton.donate() }  // Triggers the MultiButtonTip's appearance
-            
-            // Reset after a brief delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                isPressed = false
-            }
         }
         .buttonStyle(.plain)
+        .contextMenu {
+            Button {
+                phraseToEdit = phrase
+            } label: {
+                Label("Edit Phrase", systemImage: "pencil")
+                    .padding()
+            }
+        }
     }
     
     private var containsOnlyEmoji: Bool {
