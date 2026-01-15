@@ -179,6 +179,7 @@ struct TextInputView: View {
         
         if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             Task { await  vm.speak(text) }
+            vm.lastSpokenText = "Tap a phrase to speak" // Resets prompt text on ContentView when speech begins
             
             withAnimation {
                 // If phrase doesn't already exist in Recents, add it

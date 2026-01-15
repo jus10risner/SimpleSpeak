@@ -24,6 +24,7 @@ struct CardButton: View {
             
             // Reset after a brief delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                vm.lastSpokenText = phrase.text
                 isPressed = false
             }
         } label: {

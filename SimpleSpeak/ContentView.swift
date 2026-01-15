@@ -222,24 +222,23 @@ struct ContentView: View {
     
     private var speechSynthesisTextView: some View {
         VStack {
-            if vm.synthesizerState != .inactive && showingTextField == false {
-                Text(vm.label?.string ?? " ") // This ensures that the SpokenTextLabel's height matches that of the text
+            if let label = vm.label, showingTextField == false {
+                Text(label.string)
                     .opacity(0)
                     .overlay {
                         SpokenTextLabel(text: vm.label)
-                            .transaction { transaction in
-                                transaction.animation = nil
-                            }
                     }
-                    .transition(.opacity.animation(.easeInOut))
             } else {
-                Text(categories.count > 0 ? "Tap a phrase to speak" : "")
-                    .foregroundStyle(Color.secondary)
-                    .transition(.asymmetric(insertion: .opacity.animation(.easeInOut), removal: .identity))
+                Text(vm.lastSpokenText)
+                    .foregroundStyle(vm.lastSpokenText == "Tap a phrase to speak" ? Color.secondary : Color.primary)
             }
         }
-        .frame(maxWidth: .infinity)
-        .padding(.bottom, 5)
+        .transaction { transaction in
+            transaction.animation = nil
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
     }
     
     private var settingsButton: some View {

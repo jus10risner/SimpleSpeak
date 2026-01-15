@@ -13,6 +13,7 @@ class ViewModel: NSObject, ObservableObject {
     @Published var synthesizerState: SynthesizerState = .inactive
     @Published var phraseIsRepeatable: Bool = false
     @Published var label: NSAttributedString?
+    @Published var lastSpokenText: String = "Tap a phrase to speak"
     
     let listRowSpacing: CGFloat = 5
     lazy var synthesizer: AVSpeechSynthesizer = {
