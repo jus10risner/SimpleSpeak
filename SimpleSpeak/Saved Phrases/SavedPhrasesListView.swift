@@ -39,7 +39,7 @@ struct SavedPhrasesListView: View {
                 Section {
                     recentsPicker
                 } footer: {
-                    Text("Max number of recent phrases to save; oldest phrases will be deleted as new ones are added.")
+                    Text("Choose how many recent phrases to keep. Older phrases are removed as new ones are added.")
                 }
             } else if savedPhrases.count == 0 && category?.symbolName != "" {
                 // category?.symbolName check prevents a "no symbol found" error when deleting a category
