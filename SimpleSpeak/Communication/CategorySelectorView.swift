@@ -80,7 +80,7 @@ struct CategorySelectorView: View {
             .font(.headline)
             .foregroundStyle(selectedCategory == category ? Color.primary : Color.secondary)
             .padding()
-            .frame(height: 50)
+            .frame(width: selectedCategory == category ? nil : 50, height: 50)
             .overlay {
                 RoundedRectangle(cornerRadius: vm.cornerRadius)
                     .stroke(selectedCategory == category ? Color.primary : Color.secondary, lineWidth: 2)
