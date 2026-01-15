@@ -77,7 +77,7 @@ struct TextInputView: View {
                 }
             }
             .overlay {
-                SpokenTextLabel(text: vm.label)
+                SpokenTextLabel(text: vm.label, font: UIFont.preferredFont(forTextStyle: .title3))
                     .padding()
                     .allowsHitTesting(false)
                     .transaction { transaction in

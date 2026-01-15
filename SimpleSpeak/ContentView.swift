@@ -226,7 +226,7 @@ struct ContentView: View {
                 Text(label.string)
                     .opacity(0)
                     .overlay {
-                        SpokenTextLabel(text: vm.label)
+                        SpokenTextLabel(text: vm.label, font: UIFont.preferredFont(forTextStyle: .body))
                     }
             } else {
                 Text(vm.lastSpokenText)

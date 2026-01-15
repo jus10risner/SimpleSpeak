@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SpokenTextLabel: UIViewRepresentable {
     var text: NSAttributedString?
+    var font: UIFont
     
     func makeUIView(context: Context) -> UILabel {
         let label = UILabel()
@@ -20,6 +21,12 @@ struct SpokenTextLabel: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UILabel, context: Context) {
-        uiView.attributedText = text
+        guard let text = text else {
+            uiView.attributedText = nil
+            return
+        }
+        let mutable = NSMutableAttributedString(attributedString: text)
+        mutable.addAttribute(.font, value: font, range: NSRange(location: 0, length: text.length))
+        uiView.attributedText = mutable
     }
 }
