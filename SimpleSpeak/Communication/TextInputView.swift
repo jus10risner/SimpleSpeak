@@ -35,10 +35,10 @@ struct TextInputView: View {
                 
                 textField
             }
-            .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
+            .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius - 4))
             .padding()
             .background {
-                UnevenRoundedRectangle(topLeadingRadius: 26, topTrailingRadius: 26)
+                UnevenRoundedRectangle(topLeadingRadius: vm.cornerRadius, topTrailingRadius: vm.cornerRadius)
                     .fill(.ultraThinMaterial).ignoresSafeArea(edges: .bottom)
             }
         }
