@@ -5,6 +5,7 @@
 //  Created by Justin Risner on 12/18/24.
 //
 
+import UIKit
 import SwiftUI
 
 struct CardButton: View {
@@ -32,12 +33,12 @@ struct CardButton: View {
                 Group {
                     if phrase.label != "" {
                         Text(phrase.label)
-                            .font(containsOnlyEmoji ? .largeTitle : vm.selectedFont.name)
+                            .font(containsOnlyEmoji ? .largeTitle : vm.selectedFont.name.bold())
                     } else {
                         Text(phrase.text)
                     }
                 }
-                .font(vm.selectedFont.name)
+                .font(vm.selectedFont.name.bold())
                 .minimumScaleFactor(0.9)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
@@ -84,10 +85,19 @@ enum FontOption: String, CaseIterable, Identifiable {
     
     var name: Font {
         switch self {
-        case .small: return .subheadline.bold()
-        case .medium: return .headline
-        case .large: return .title3.bold()
-        case .xl: return .title2.bold()
+        case .small: return .subheadline
+        case .medium: return .body
+        case .large: return .title3
+        case .xl: return .title2
+        }
+    }
+    
+    var textStyle: UIFont.TextStyle {
+        switch self {
+        case .small: return .subheadline
+        case .medium: return .body
+        case .large: return .title3
+        case .xl: return .title2
         }
     }
 }
