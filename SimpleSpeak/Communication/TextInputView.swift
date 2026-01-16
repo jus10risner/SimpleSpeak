@@ -48,42 +48,40 @@ struct TextInputView: View {
     // MARK: - Views
     
     private var textField: some View {
-        TextField("What would you like to say?", text: $text, axis: .vertical)
-            .opacity(textFieldOpacity)
-            .padding()
-            .font(.title3)
-            .focused($isInputActive)
-            .submitLabel(.send)
-            .onChange(of: text) { _, newValue in
-                // Serves as a replacement for onSubmit, when a vertical axis is used on TextField
-                guard newValue.contains("\n") else { return }
-                text = newValue.replacingOccurrences(of: "\n", with: "")
-                Task { await submitAndAddRecent() }
-            }
-            .onSubmit {
-                // Serves to keep TextField focused if a hardware keyboard is used
-                Task { await submitAndAddRecent() }
-            }
-            .onChange(of: vm.synthesizerState) { _, state in
-                if state == .inactive {
-                    withAnimation {
-                        textFieldOpacity = 1
-                        text = ""
+        ZStack(alignment: .leading) {
+            if let label = vm.label {
+                Text(label.string)
+                    .font(vm.selectedFont.name)
+                    .opacity(0)
+                    .overlay {
+                        SpokenTextLabel(text: label,font: UIFont.preferredFont(forTextStyle: vm.selectedFont.textStyle))
+                            .allowsHitTesting(false)
+                            .opacity(textFieldOpacity == 0 ? 1 : 0)
                     }
-                } else {
-                    withAnimation(.default.delay(0.1)) {
-                        textFieldOpacity = 0
-                    }
+                    .padding(.bottom, 1) // Prevents very slight vertical offset when SpokenTextLabel appears
+            }
+
+            TextField("What would you like to say?", text: $text, axis: .vertical)
+                .font(vm.selectedFont.name)
+                .focused($isInputActive)
+                .submitLabel(.send)
+                .opacity(textFieldOpacity)
+                .onChange(of: text) { _, newValue in
+                    guard newValue.contains("\n") else { return }
+                    text = newValue.replacingOccurrences(of: "\n", with: "")
+                    Task { await submitAndAddRecent() }
                 }
+                .onSubmit {
+                    Task { await submitAndAddRecent() }
+                }
+        }
+        .padding()
+        .onChange(of: vm.synthesizerState) {
+            withAnimation {
+                textFieldOpacity = (vm.synthesizerState == .inactive) ? 1 : 0
+                if vm.synthesizerState == .inactive { text = "" }
             }
-            .overlay {
-                SpokenTextLabel(text: vm.label, font: UIFont.preferredFont(forTextStyle: .title3))
-                    .padding()
-                    .allowsHitTesting(false)
-                    .transaction { transaction in
-                        transaction.animation = nil
-                    }
-            }
+        }
     }
     
     private var textFieldButtons: some View {
