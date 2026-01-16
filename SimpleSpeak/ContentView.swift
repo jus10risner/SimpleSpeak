@@ -237,7 +237,7 @@ struct ContentView: View {
         .transaction { transaction in
             transaction.animation = nil
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity)
         .padding()
         .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: vm.cornerRadius))
     }
