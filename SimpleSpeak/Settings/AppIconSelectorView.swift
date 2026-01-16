@@ -14,7 +14,7 @@ struct AppIconSelectorView: View {
     var body: some View {
         List {
             Picker("Icons", selection: $appIcon) {
-                iconLabel(title: "SimpleSpeak Teal", iconName: "Primary Icon")
+                iconLabel(title: "Teal (Default)", iconName: "Primary Icon")
                     .tag(nil as AppIcon?)
                 
                 ForEach(AppIcon.allCases, id: \.self) { icon in
