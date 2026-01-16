@@ -98,8 +98,10 @@ class ViewModel: NSObject, ObservableObject {
         if !AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.identifier == self.selectedVoiceIdentifier }) {
             let languageCode = AVSpeechSynthesisVoice.currentLanguageCode()
 
-            if let defaultVoice = AVSpeechSynthesisVoice(language: languageCode) {
+            await MainActor.run {
+                if let defaultVoice = AVSpeechSynthesisVoice(language: languageCode) {
                     self.selectedVoiceIdentifier = defaultVoice.identifier
+                }
             }
         }
     }
