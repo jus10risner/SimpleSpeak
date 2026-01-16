@@ -226,14 +226,14 @@ struct ContentView: View {
                 Text(label.string)
                     .opacity(0)
                     .overlay {
-                        SpokenTextLabel(text: vm.label, font: UIFont.preferredFont(forTextStyle: vm.selectedFont.textStyle))
+                        SpokenTextLabel(text: vm.label, font: UIFont.preferredFont(forTextStyle: .title2))
                     }
             } else {
                 Text(vm.lastSpokenText)
                     .foregroundStyle(vm.lastSpokenText == "Tap a phrase to speak" ? Color.secondary : Color.primary)
             }
         }
-        .font(vm.selectedFont.name)
+        .font(.title2)
         .transaction { transaction in
             transaction.animation = nil
         }

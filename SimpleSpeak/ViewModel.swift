@@ -164,7 +164,7 @@ extension ViewModel: AVSpeechSynthesizerDelegate {
         }
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: self.selectedFont.textStyle), .foregroundColor: UIColor.secondaryLabel])
+        let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString, attributes: [.font: UIFont.preferredFont(forTextStyle: .title2), .foregroundColor: UIColor.secondaryLabel])
         mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.label, range: characterRange)
         
         withAnimation {

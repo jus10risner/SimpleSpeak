@@ -51,10 +51,9 @@ struct TextInputView: View {
         ZStack(alignment: .leading) {
             if let label = vm.label {
                 Text(label.string)
-                    .font(vm.selectedFont.name)
                     .opacity(0)
                     .overlay {
-                        SpokenTextLabel(text: label,font: UIFont.preferredFont(forTextStyle: vm.selectedFont.textStyle))
+                        SpokenTextLabel(text: label,font: UIFont.preferredFont(forTextStyle: .title2))
                             .allowsHitTesting(false)
                             .opacity(textFieldOpacity == 0 ? 1 : 0)
                     }
@@ -62,7 +61,6 @@ struct TextInputView: View {
             }
 
             TextField("What would you like to say?", text: $text, axis: .vertical)
-                .font(vm.selectedFont.name)
                 .focused($isInputActive)
                 .submitLabel(.send)
                 .opacity(textFieldOpacity)
@@ -75,6 +73,7 @@ struct TextInputView: View {
                     Task { await submitAndAddRecent() }
                 }
         }
+        .font(.title2)
         .padding()
         .onChange(of: vm.synthesizerState) {
             withAnimation {
