@@ -27,34 +27,34 @@ struct MultiButtonView: View {
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
             
-            Circle()
-                .frame(width: 60, height: 60)
-                .foregroundStyle(Color(.accent))
-                .overlay {
-                    Button {
-                        switch vm.synthesizerState {
-                        case .speaking:
-                            Task { await vm.pauseSpeaking() }
+            Button {
+                switch vm.synthesizerState {
+                case .speaking:
+                    Task { await vm.pauseSpeaking() }
 
-                        case .paused:
-                            Task { await vm.continueSpeaking() }
+                case .paused:
+                    Task { await vm.continueSpeaking() }
 
-                        case .inactive:
-                            withAnimation {
-                                vm.phraseIsRepeatable = false
-                                showingTextField = true
-                            }
-                        }
-                    } label: {
-                        Label(buttonTitle, systemImage: symbolName)
-                            .labelStyle(.iconOnly)
-                            .contentTransition(.symbolEffect(.replace))
-                            .frame(width: 50, height: 50)
-                            .font(.title3)
-                            .foregroundStyle(Color.white)
-                            .padding(20)
+                case .inactive:
+                    withAnimation {
+                        vm.phraseIsRepeatable = false
+                        showingTextField = true
                     }
                 }
+            } label: {
+                Label(buttonTitle, systemImage: symbolName)
+                    .labelStyle(.iconOnly)
+                    .contentTransition(.symbolEffect(.replace))
+                    .frame(width: 50, height: 50)
+                    .font(.title3)
+                    .foregroundStyle(Color.white)
+                    .padding(20)
+            }
+            .background {
+                Circle()
+                    .frame(width: 60, height: 60)
+                    .foregroundStyle(Color(.accent))
+            }
         }
         .animation(.bouncy(extraBounce: -0.1), value: vm.synthesizerState)
     }
