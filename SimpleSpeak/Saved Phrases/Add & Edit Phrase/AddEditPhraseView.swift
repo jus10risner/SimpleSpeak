@@ -64,7 +64,7 @@ struct AddEditPhraseView: View {
                 }
                 .labelStyle(.iconOnly)
             } footer: {
-                Text("Labels help clarify longer phrases; colors help to group phrases within categories.")
+                Text("Labels make longer phrases easier to identify; colors help highlight or group phrases within categories.")
             }
             
             Section {
