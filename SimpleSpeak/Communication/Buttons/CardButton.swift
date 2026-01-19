@@ -65,8 +65,17 @@ struct CardButton: View {
         }
     }
     
+    // Used to boost the size of emoji-only labels
     private var containsOnlyEmoji: Bool {
-        return phrase.label.unicodeScalars.allSatisfy { $0.properties.isEmoji }
+        phrase.label.allSatisfy { $0.isEmoji }
+    }
+}
+
+extension Character {
+    // Determines whether a given character is an emoji type
+    var isEmoji: Bool {
+        unicodeScalars.first?.properties.isEmojiPresentation == true ||
+        unicodeScalars.first?.properties.isEmoji == true
     }
 }
 
