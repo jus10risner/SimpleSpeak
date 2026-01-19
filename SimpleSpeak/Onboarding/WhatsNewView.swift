@@ -32,7 +32,7 @@ struct WhatsNewView: View {
                 Button {
                     dismiss()
                 } label: {
-                    Text("Continue")
+                    Text("Get Started")
                         .font(.headline)
                         .padding(.vertical, 10)
                         .frame(maxWidth: 350)
