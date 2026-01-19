@@ -83,7 +83,7 @@ struct CategorySelectorView: View {
             .frame(width: selectedCategory == category ? nil : 50, height: 50)
             .overlay {
                 RoundedRectangle(cornerRadius: vm.cornerRadius)
-                    .stroke(selectedCategory == category ? Color.primary : Color.secondary, lineWidth: 2)
+                    .strokeBorder(selectedCategory == category ? Color.primary : Color.secondary, lineWidth: 1)
             }
             .mask(RoundedRectangle(cornerRadius: vm.cornerRadius))
             .drawingGroup()
