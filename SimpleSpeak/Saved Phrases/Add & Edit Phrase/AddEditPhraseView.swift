@@ -40,7 +40,7 @@ struct AddEditPhraseView: View {
                 phraseField
                 
                 LabeledContent("Label") {
-                    TextField("Optional", text: $draftPhrase.label, axis: .vertical)
+                    TextField("Optional", text: $draftPhrase.label)
                         .padding(.leading, 10)
                         .lineLimit(1)
                 }
