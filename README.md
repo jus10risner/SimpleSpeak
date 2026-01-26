@@ -1,9 +1,12 @@
 <div align="center">
-  <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-app-icon.png?raw=true' height='100'>
+  <img width="100" height="100" alt="simplespeak-app-icon" src="https://github.com/user-attachments/assets/469b3ff6-0088-4e94-9d5a-33c59ea93426" />
+
   <h1>SimpleSpeak AAC</h1>
   <p>Communicate quickly and easily, with this intuitive app that lets users save and organize phrases, then speak them with a tap.</p>
 
-  <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image1.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image2.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image3.png?raw=true' height='500'>
+  <img width="750" height="500" alt="web-image-rounded-corners" src="https://github.com/user-attachments/assets/2d20f26e-5ea6-4951-96f7-f32e7575bc2b" />
+  <br>
+  <br>
 
   <a href="https://apps.apple.com/app/id6743131751">
     <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1276560000&h=7e7b68fad19738b5649a1bfb78ff46e9"
