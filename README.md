@@ -2,7 +2,7 @@
   <img width="100" height="100" alt="simplespeak-app-icon" src="https://github.com/user-attachments/assets/469b3ff6-0088-4e94-9d5a-33c59ea93426" />
 
   <h1>SimpleSpeak AAC</h1>
-  <p>Communicate quickly and easily, with this intuitive app that lets users save and organize phrases, then speak them with a tap.</p>
+  <p>An easy-to-use AAC app for communication when speaking isn’t possible</p>
 
   <img width="750" height="500" alt="web-image-rounded-corners" src="https://github.com/user-attachments/assets/2d20f26e-5ea6-4951-96f7-f32e7575bc2b" />
   <br>
