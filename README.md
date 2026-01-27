@@ -17,7 +17,6 @@
 ## 
 When a close relative lost the ability to speak, I wanted to do something to help restore their ability to communicate. I learned about Apple's AVSpeechSynthesizer framework and built a very simple app that converted typed text into speech, which became the foundation of SimpleSpeak.
 
-<br>
 After finishing my first app, Socket, I returned to my text-to-speech app and decided to expand it into a more comprehensive tool to help anyone who struggles to communicate. Leveraging my background in user experience design and growing software development skills, I built an app that gives a voice to those who have lost theirs.
 
 
@@ -37,19 +36,10 @@ After finishing my first app, Socket, I returned to my text-to-speech app and de
   - `AVSpeechSynthesizerDelegate` used to control speech playback and highlight words as they are spoken
 - Core Data used for persistence
   - `NSPersistentCloudKitContainer` used to both persist data locally and sync to iCloud, for availability on users’ other devices
+- TipKit used for onboarding tip, to explain the multi-use button
 
 
 ## Challenges
-
-<details>
-  <summary><b>Popover Tips</b></summary>
-  </br>
-
-To make onboarding simple and unobtrusive, I decided to use popover-style tips to communicate useful information. Since SimpleSpeak is available for iOS 16.4 and later, but TipKit isn’t available prior to iOS 17, I needed to use standard popovers to display tips. This required forcing an iPad-style popover when showing a tip, since iOS displays a sheet-style modal by default. 
-
-The new `.presentationCompactAdaptation(.popover)` modifier in iOS 16.4 makes it easy to implement an iPad-style popover. However, popovers still behave like sheets, so they require careful handling to avoid issues (e.g., tapping a button to present a sheet while a popover is already visible can freeze the UI). To solve this, I used an enum to track which popover is displayed and disabled other interactive elements while the popover is active. The result is an onboarding experience that provides information as it becomes relevant.
-
-</details>
 
 <details>
   <summary><b>Simplifying Controls</b></summary>
