@@ -1,9 +1,12 @@
 <div align="center">
-  <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-app-icon.png?raw=true' height='100'>
-  <h1>SimpleSpeak AAC</h1>
-  <p>Communicate quickly and easily, with this intuitive app that lets users save and organize phrases, then speak them with a tap.</p>
+  <img width="100" height="100" alt="simplespeak-app-icon" src="https://github.com/user-attachments/assets/469b3ff6-0088-4e94-9d5a-33c59ea93426" />
 
-  <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image1.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image2.png?raw=true' height='500'> <img src='https://github.com/jus10risner/jus10risner.github.io/blob/main/docs/assets/simplespeak-site-image3.png?raw=true' height='500'>
+  <h1>SimpleSpeak AAC</h1>
+  <p>An easy-to-use AAC app for communication when speaking isn’t possible</p>
+
+  <img width="750" height="500" alt="web-image-rounded-corners" src="https://github.com/user-attachments/assets/2d20f26e-5ea6-4951-96f7-f32e7575bc2b" />
+  <br>
+  <br>
 
   <a href="https://apps.apple.com/app/id6743131751">
     <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1276560000&h=7e7b68fad19738b5649a1bfb78ff46e9"
@@ -14,7 +17,6 @@
 ## 
 When a close relative lost the ability to speak, I wanted to do something to help restore their ability to communicate. I learned about Apple's AVSpeechSynthesizer framework and built a very simple app that converted typed text into speech, which became the foundation of SimpleSpeak.
 
-<br>
 After finishing my first app, Socket, I returned to my text-to-speech app and decided to expand it into a more comprehensive tool to help anyone who struggles to communicate. Leveraging my background in user experience design and growing software development skills, I built an app that gives a voice to those who have lost theirs.
 
 
@@ -34,19 +36,10 @@ After finishing my first app, Socket, I returned to my text-to-speech app and de
   - `AVSpeechSynthesizerDelegate` used to control speech playback and highlight words as they are spoken
 - Core Data used for persistence
   - `NSPersistentCloudKitContainer` used to both persist data locally and sync to iCloud, for availability on users’ other devices
+- TipKit used for onboarding tip, to explain the multi-use button
 
 
 ## Challenges
-
-<details>
-  <summary><b>Popover Tips</b></summary>
-  </br>
-
-To make onboarding simple and unobtrusive, I decided to use popover-style tips to communicate useful information. Since SimpleSpeak is available for iOS 16.4 and later, but TipKit isn’t available prior to iOS 17, I needed to use standard popovers to display tips. This required forcing an iPad-style popover when showing a tip, since iOS displays a sheet-style modal by default. 
-
-The new `.presentationCompactAdaptation(.popover)` modifier in iOS 16.4 makes it easy to implement an iPad-style popover. However, popovers still behave like sheets, so they require careful handling to avoid issues (e.g., tapping a button to present a sheet while a popover is already visible can freeze the UI). To solve this, I used an enum to track which popover is displayed and disabled other interactive elements while the popover is active. The result is an onboarding experience that provides information as it becomes relevant.
-
-</details>
 
 <details>
   <summary><b>Simplifying Controls</b></summary>
